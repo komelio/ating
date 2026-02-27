@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码防伪查询系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+        }
+        .top-bar {
+            background: #fff;
+            padding: 15px 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .top-bar h1 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .top-bar .url {
+            font-size: 14px;
+            color: #666;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 18px;
+            color: #333;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+        }
+        .tab.active {
+            color: #d9232e;
+            background: #fff;
+            border-bottom: 3px solid #d9232e;
+            font-weight: bold;
+        }
+        .content {
+            padding: 25px 20px;
+            font-size: 18px;
+            line-height: 2.2;
+            color: #333;
+        }
+        .info-item {
+            margin-bottom: 8px;
+        }
+        /* ========== 核心修改：适配12345678完整显示 ========== */
+        .tooth-position {
+            position: relative;
+            display: inline-block;
+            width: 180px;  /* 加宽容器，容纳8位数字 */
+            height: 120px; /* 加高容器，分开上下区域 */
+            vertical-align: middle;
+            margin: 0 15px;
+        }
+        .tooth-position .line-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #333;
+            transform: translateY(-50%);
+        }
+        .tooth-position .line-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 100%;
+            background: #333;
+            transform: translateX(-50%);
+        }
+        /* 四个角数字 - 适配8位数字，横向排列，不重叠 */
+        .tooth-position .num-tl {
+            position: absolute;
+            top: 5px;     /* 顶部间距 */
+            left: 5px;    /* 左侧间距 */
+            font-size: 16px;
+            white-space: nowrap; /* 强制数字不换行 */
+        }
+        .tooth-position .num-tr {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .tooth-position .num-bl {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .tooth-position .num-br {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        /* ========== 样式修改结束 ========== */
+        .valid-mark {
+            position: absolute;
+            right: 30px;
+            top: 350px;
+            text-align: center;
+        }
+        .valid-icon {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #d9232e;
+            border-radius: 8px;
+            color: #d9232e;
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 80px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .valid-text {
+            color: #d9232e;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .footer-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: #d9232e;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h1>二维码防伪查询系统</h1>
+            <div class="url">www.ycfwcx.com</div>
+        </div>
+        <div class="tabs">
+            <div class="tab active">防伪查询</div>
+            <div class="tab">厂家简介</div>
+            <div class="tab">温馨提示</div>
+        </div>
+        <div class="content">
+            <div class="info-item">生产厂家：梅州义嘉医疗器械有限公司</div>
+            <div class="info-item">医疗机构：谢裕安口腔诊所</div>
+            <div class="info-item">医生姓名：谢医生</div>
+            <div class="info-item">患者姓名：谢能科</div>
+            <div class="info-item">
+                产品名称：爱尔创全瓷
+                <span class="tooth-position">
+                    <div class="line-h"></div>
+                    <div class="line-v"></div>
+                    <!-- 每个角直接写入12345678，也可修改为其他8位数字 -->
+                    <div class="num-tl" id="numTL">12345678</div>
+                    <div class="num-tr" id="numTR">12345678</div>
+                    <div class="num-bl" id="numBL">12345678</div>
+                    <div class="num-br" id="numBR">12345678</div>
+                </span>
+                牙位：
+            </div>
+            <div class="info-item">订单编号：20250811001</div>
+            <div class="info-item">生产日期：2025-08-11</div>
+            <div class="info-item">质保期：3年</div>
+            <div class="info-item">查询次数：1</div>
+            <br>
+            <div class="info-item">生产许可：粤食药监械生产许可</div>
+            <div class="info-item">注册证号：粤械注准</div>
+
+            <div class="valid-mark">
+                <div class="valid-icon">正</div>
+                <div class="valid-text">信息真实有效</div>
+            </div>
+        </div>
+        <button class="footer-btn">我要评价</button>
+    </div>
+
+    <script>
+        // 【可自定义修改】每个角的8位数字，直接改下面的值即可
+        const TOOTH_NUMBERS = {
+            topLeft: "43",    // 左上角
+            topRight: "",   // 右上角
+            bottomLeft: "", // 左下角
+            bottomRight: "" // 右下角
+        };
+
+        window.onload = function() {
+            document.getElementById("numTL").textContent = TOOTH_NUMBERS.topLeft;
+            document.getElementById("numTR").textContent = TOOTH_NUMBERS.topRight;
+            document.getElementById("numBL").textContent = TOOTH_NUMBERS.bottomLeft;
+            document.getElementById("numBR").textContent = TOOTH_NUMBERS.bottomRight;
+        };
+    </script>
+</body>
+</html>
