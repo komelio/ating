@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组织孪生体系 PPT</title>
+    <style>
+        /* ==========================================
+           全局基础样式 (无需修改)
+           ========================================== */
+        :root {
+            --bg-page: #F7F8FA;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1D23;
+            --text-secondary: #434953;
+            --text-dim: #8B929D;
+            --accent-blue: #2F6BF6;
+            --accent-light-blue: #EEF3FF;
+            --accent-red: #E34D59;
+            --accent-light-red: #FEF0F0;
+            --accent-orange: #D97706;
+            --accent-light-orange: #FFFBEB;
+            --accent-green: #059669;
+            --accent-light-green: #ECFDF5;
+            --border-color: #E5E7EB;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #000;
+            color: var(--text-primary);
+            overflow: hidden;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .ppt-container { width: 100vw; height: 100vh; position: relative; }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-page);
+            padding: 4vh 4.5vw;
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slide.active { display: flex; }
+
+        .header { margin-bottom: 2.5vh; flex-shrink: 0; }
+        .tag { font-size: clamp(11px, 1vw, 15px); font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 0.8vh; }
+        .title { font-size: clamp(28px, 3vw, 44px); font-weight: 800; color: var(--text-primary); line-height: 1.2; letter-spacing: -0.5px; }
+        .subtitle { font-size: clamp(14px, 1.4vw, 19px); color: var(--text-secondary); margin-top: 0.8vh; }
+        .content { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+        /* 通用高亮框 */
+        .insight-box {
+            background: linear-gradient(135deg, var(--accent-light-blue) 0%, #FFFFFF 100%);
+            border-left: 6px solid var(--accent-blue);
+            padding: 1.8vh 2vw;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 2.5vh;
+            flex-shrink: 0;
+        }
+        .insight-box.warn { background: linear-gradient(135deg, var(--accent-light-red) 0%, #FFFFFF 100%); border-left-color: var(--accent-red); }
+        .insight-box.green { background: linear-gradient(135deg, var(--accent-light-green) 0%, #FFFFFF 100%); border-left-color: var(--accent-green); }
+        .insight-text { font-size: clamp(15px, 1.45vw, 21px); font-weight: 700; color: var(--accent-blue); line-height: 1.6; }
+        .insight-box.warn .insight-text { color: var(--accent-red); }
+        .insight-box.green .insight-text { color: var(--accent-green); }
+
+        /* 通用布局 */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; flex: 1; min-height: 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; flex: 1; min-height: 0; }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--bg-card); border-radius: 12px; padding: 2.5vh 2vw;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid var(--border-color);
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .card-head { display: flex; align-items: center; gap: 14px; margin-bottom: 2vh; flex-shrink: 0; border-bottom: 1px solid #F3F4F6; padding-bottom: 1.5vh; }
+        .icon-box { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .card-title { font-size: clamp(17px, 1.4vw, 22px); font-weight: 800; color: var(--text-primary); }
+
+        /* 通用列表 */
+        .pain-list, .req-list, .check-list { list-style: none; display: flex; flex-direction: column; gap: 1.8vh; flex: 1; }
+        .pain-item, .req-item { display: flex; flex-direction: column; gap: 0.4vh; }
+        .pain-label, .req-label { font-size: clamp(14px, 1.15vw, 18px); font-weight: 700; color: var(--text-primary); display: flex; align-items: flex-start; gap: 8px; }
+        .pain-label::before, .req-label::before { content: ''; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+        .c-red::before { background-color: var(--accent-red); }
+        .c-orange::before { background-color: var(--accent-orange); }
+        .c-blue::before { background-color: var(--accent-blue); }
+        .c-green::before { background-color: var(--accent-green); }
+        .pain-desc, .req-desc { font-size: clamp(12px, 1vw, 15px); color: var(--text-secondary); line-height: 1.6; padding-left: 15px; }
+
+        /* 避坑盒子 */
+        .avoid-box { background: #F9FAFB; border-radius: 8px; padding: 1.5vh 1.5vw; margin-top: auto; flex-shrink: 0; border: 1px dashed #E5E7EB; }
+        .avoid-title { font-size: clamp(11px, 0.9vw, 13px); font-weight: 700; color: var(--accent-red); margin-bottom: 0.8vh; letter-spacing: 1px; }
+        .avoid-list { list-style: none; display: flex; flex-direction: column; gap: 0.6vh; }
+        .avoid-item { font-size: clamp(11px, 0.9vw, 14px); color: var(--text-dim); display: flex; gap: 6px; align-items: flex-start; }
+        .avoid-icon { color: var(--accent-red); font-weight: bold; flex-shrink: 0; margin-top: -1px;}
+
+        /* 战略抉择 (P2) */
+        .strategy-card { position: relative; overflow: hidden; padding-left: 2.2vw; }
+        .strategy-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; }
+        .s-follow::before { background-color: var(--accent-blue); }
+        .s-build::before { background-color: var(--accent-orange); }
+        .s-result::before { background-color: var(--accent-green); }
+        .tag-pill { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: clamp(11px, 0.95vw, 14px); font-weight: 700; margin-bottom: 2vh; }
+        .check-item { display: flex; gap: 12px; }
+        .check-icon { font-weight: bold; font-size: clamp(16px, 1.3vw, 20px); margin-top: -1px; flex-shrink: 0; }
+        .check-title { font-size: clamp(14px, 1.15vw, 18px); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+        .check-sub { font-size: clamp(12px, 0.95vw, 15px); color: var(--text-dim); line-height: 1.5; }
+
+        /* 演进路径 (P4) */
+        .phase-card { position: relative; background: var(--bg-card); border-radius: 10px; padding: 1.5vh 1.5vw; margin-bottom: 1.5vh; border: 1px solid var(--border-color); flex: 1; display: flex; flex-direction: column; }
+        .phase-card:last-child { margin-bottom: 0; }
+        .phase-tag { font-size: clamp(10px, 0.85vw, 13px); font-weight: 800; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 1vh; letter-spacing: 1px; width: fit-content; }
+        .phase-title { font-size: clamp(14px, 1.2vw, 18px); font-weight: 800; color: var(--text-primary); margin-bottom: 0.8vh; }
+        .phase-desc { font-size: clamp(11px, 0.95vw, 14px); color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5vh; }
+        .phase-highlight { font-size: clamp(11px, 0.95vw, 14px); color: var(--accent-blue); font-weight: 700; line-height: 1.5; background: var(--accent-light-blue); padding: 4px 8px; border-radius: 4px; display: inline; margin-top: auto; }
+        .phase-highlight.orange { color: var(--accent-orange); background: var(--accent-light-orange); }
+        .trap-tag { font-size: clamp(10px, 0.8vw, 12px); color: var(--text-dim); font-style: italic; margin-top: 0.5vh; display: block; }
+        .trap-tag::before { content: '⚠️ 死穴：'; font-style: normal; }
+
+        /* 底部与导航 */
+        .footer { margin-top: 2vh; padding-top: 1.5vh; border-top: 1px solid var(--border-color); flex-shrink: 0; }
+        .conclusion { font-size: clamp(15px, 1.35vw, 20px); color: var(--text-primary); text-align: center; font-weight: 600; line-height: 1.5; }
+        .highlight { color: var(--accent-blue); font-weight: 800; }
+
+        .nav { position: fixed; bottom: 3vh; right: 3vw; display: flex; gap: 12px; z-index: 100; }
+        .nav-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.95); border: 1px solid #ddd; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #555; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .nav-btn:hover { background: #fff; color: #333; transform: scale(1.05); }
+        .page-indicator { position: fixed; bottom: 3.5vh; left: 90%; transform: translateX(-10%); font-size: 14px; color: #999; font-weight: 600; z-index: 100; }
+        
+        .export-btn {
+            position: fixed; bottom: 3vh; left: 3vw; padding: 10px 20px;
+            background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 25px;
+            cursor: pointer; font-size: 14px; color: #555; font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.2s; z-index: 100;
+        }
+        .export-btn:hover { background: #fff; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-container">
+        
+        <!-- ==================== PAGE 1 ==================== -->
+        <div class="slide active" id="s1">
+            <div class="header">
+                <div class="tag">PART 01 · 现状审视与认知校准</div>
+                <div class="title">供需错配：AI 狂飙，但企业落地的步伐却断了</div>
+                <div class="subtitle">打破“买了大模型就能自动提效”的技术幻觉</div>
+            </div>
+            <div class="content">
+                <div class="insight-box">
+                    <div class="insight-text">AI 无论演进到什么高度，都不会主动走进企业。它需要的养料像散沙一样藏在员工的日常聊天、邮件和截图里。<strong>如果我们不能解决“如何低成本、无阻力地把这些散沙喂给AI”的问题</strong>，AI 就永远只是墙上的画饼。</div>
+                </div>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-head"><div class="icon-box" style="background: var(--accent-light-red); color: var(--accent-red);">📡</div><div class="card-title">数据之困</div></div>
+                        <ul class="pain-list">
+                            <li class="pain-item"><div class="pain-label c-red">数据是散落的孤岛</div><div class="pain-desc">AI 需要的数据不在系统里，而是碎片化地分散在微信聊天、草稿文档、随手画的图等日常工作角落。</div></li>
+                            <li class="pain-item"><div class="pain-label c-red">教不会的“数据整理”</div><div class="pain-desc">专门让人去整理打标签是巨大的额外工作。且大多数人根本不懂“怎么整理才能让 AI 看懂”，教育成本极高且不现实。</div></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><div class="icon-box" style="background: var(--accent-light-orange); color: var(--accent-orange);">🛡️</div><div class="card-title">人性之困</div></div>
+                        <ul class="pain-list">
+                            <li class="pain-item"><div class="pain-label c-orange">防备心理与被替代的惶恐</div><div class="pain-desc">当我们主动要求员工提供工作过程数据时，会立刻触碰最敏感的神经：员工的第一反应是“你是不是在偷师准备替代我？”。</div></li>
+                            <li class="pain-item"><div class="pain-label c-orange">主动索要触发全员抵抗</div><div class="pain-desc">主动索要数据会直接触发隐私恐慌和强烈的自我保护欲，导致全员消极抵抗，甚至伪造数据来应付差事。</div></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🔗</div><div class="card-title">组织之困</div></div>
+                        <ul class="pain-list">
+                            <li class="pain-item"><div class="pain-label c-blue">个体狂欢，组织空转</div><div class="pain-desc">AI 越强，个体越容易变强；但企业并没有因为多了几个“超级个体”而变强，整体协作反而更混乱。</div></li>
+                            <li class="pain-item"><div class="pain-label c-blue">人员一走，能力清零</div><div class="pain-desc">个体用 AI 产出的成果无法沉淀为组织标准流程。跨部门依然靠“微信群吼”推诿，组织韧性毫无提升。</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">结论：卡住落地的不是 AI 不够聪明，而是我们缺乏一种<span class="highlight">“顺应人性、零摩擦获取数据，并将个体能力固化为组织资产”</span>的对接方法。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 2 ==================== -->
+        <div class="slide" id="s2">
+            <div class="header">
+                <div class="tag">PART 02 · 战略抉择与护城河</div>
+                <div class="title">顺势与错位：不碰“增强AI”，只做不可替代的“连接器”</div>
+                <div class="subtitle">不替大模型打工，AI 越强我们越强</div>
+            </div>
+            <div class="content">
+                <div class="insight-box warn">
+                    <div class="insight-text"><strong>绝对不要去试图“增强 AI 的能力”。</strong>这是大模型厂商的事，他们一旦更新版本，我们做的所有“增强”工作瞬间归零。我们的战略是“借势”——AI 越强，我们的连接器价值就越大。</div>
+                </div>
+                <div class="grid-3">
+                    <div class="card strategy-card s-follow">
+                        <div class="tag-pill" style="background:var(--accent-light-blue); color:var(--accent-blue);">借势 · 坚决不造的轮子</div>
+                        <ul class="check-list">
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-blue)">✓</span><div><div class="check-title">模型能力底座</div><div class="check-sub">不搞微调、不搞预训练，直接调用前沿通用模型。它们变强我们自动变强。</div></div></li>
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-blue)">✓</span><div><div class="check-title">端云架构趋势</div><div class="check-sub">顺应本地化趋势：多数数据用端侧小模型本地处理保隐私，极少数复杂逻辑才借云端。</div></div></li>
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-blue)">✓</span><div><div class="check-title">协议与技能生态</div><div class="check-sub">直接拥抱 MCP/A2A 等通信协议和外部插件生态，避免成为新孤岛。</div></div></li>
+                        </ul>
+                    </div>
+                    <div class="card strategy-card s-build" style="background:#FFFBEB; border-color:#FDE68A;">
+                        <div class="tag-pill" style="background:#FEF3C7; color:#92400E;">造壁 · 必须死磕的护城河</div>
+                        <ul class="check-list">
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-orange)">★</span><div><div class="check-title">隐蔽接入方法论</div><div class="check-sub">绕开“整理数据”和“主动索要”的死局，兵不血刃地完成数据对接。</div></div></li>
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-orange)">★</span><div><div class="check-title">组织级工程工具集</div><div class="check-sub">不增强智商，但提供 AI 原本没有的“企业枷锁”（防幻觉盾牌、防扯皮契约）。</div></div></li>
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-orange)">★</span><div><div class="check-title">黑盒到白盒相变技术</div><div class="check-sub">把员工脑子里的模糊经验，一步步炼成可执行、可审计的确定性代码流程。</div></div></li>
+                        </ul>
+                    </div>
+                    <div class="card strategy-card s-result">
+                        <div class="tag-pill" style="background:var(--accent-light-green); color:var(--accent-green);">终局 · 最终交付的价值</div>
+                        <ul class="check-list">
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-green)">▶</span><div><div class="check-title">无视人员流动</div><div class="check-sub">核心员工离职，其数字分身无缝接管 80% 的常规工作。</div></div></li>
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-green)">▶</span><div><div class="check-title">零摩擦无痛落地</div><div class="check-sub">员工为“白嫖”个人效率主动使用，在毫无防备的情况下完成组织数据沉淀。</div></div></li>
+                            <li class="check-item"><span class="check-icon" style="color:var(--accent-green)">▶</span><div><div class="check-title">消灭软性推诿</div><div class="check-sub">跨部门协作从“人情世故”变成“代码级强制契约”，制度真正落地。</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">定位：用最好的“积木”，搭最坚固的“堡垒”。<span class="highlight">壁垒不在于 AI 能写多优美的文章，而在于这套系统多稳、多安全、多难被替代。</span></div></div>
+        </div>
+
+        <!-- ==================== PAGE 3 ==================== -->
+        <div class="slide" id="s3">
+            <div class="header">
+                <div class="tag">PART 03 · 需求拆解与避坑指南</div>
+                <div class="title">需求重构：抹平门槛、消灭等待、把经验锁进流程</div>
+                <div class="subtitle">真正的需求不是“搞个更聪明的AI”，而是解决人性与组织的双重悖论</div>
+            </div>
+            <div class="content">
+                <div class="insight-box">
+                    <div class="insight-text">必须让不懂代码的销售像程序员一样无痛享受 AI；必须让 AI 干活不占用人的时间；必须把销冠脑子里的经验，变成新人来了也能一键启动的自动化流水线。</div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-head"><div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">👤</div><div class="card-title">个人维度需求（消除摩擦，全员拥抱）</div></div>
+                        <ul class="req-list">
+                            <li class="req-item"><div class="req-label c-blue">抹平技术门槛（最核心诉求）</div><div class="req-desc">技术人员用 Cursor 写代码，非技术人员绝不能去学写 Prompt。必须通过飞书/微信等原生入口，“说人话”达到同样提效体验，彻底消除数字鸿沟。</div></li>
+                            <li class="req-item"><div class="req-label c-blue">消灭“傻等”AI（异步执行机制）</div><div class="req-desc">AI 不能卡住工作流。正确做法：AI 先快速给出“思路/计划”，人工扫一眼点“确认”，AI 转入后台静默干活，<strong>人立刻转身去干别的事</strong>。</div></li>
+                            <li class="req-item"><div class="req-label c-blue">免担责与无感嵌入</div><div class="req-desc">嵌在现有工具里不跳转。发出的方案必须员工点“确认”才生效，责任绝对清晰。</div></li>
+                        </ul>
+                        <div class="avoid-box">
+                            <div class="avoid-title">绝对要避免的坑</div>
+                            <ul class="avoid-list">
+                                <li class="avoid-item"><span class="avoid-icon">✕</span>把 Prompt 工程变成非技术人员的门槛</li>
+                                <li class="avoid-item"><span class="avoid-icon">✕</span>让员工对着进度条干等 30 秒（比不用还烦）</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">🏢</div><div class="card-title">组织维度需求（强制固化，对抗流失）</div></div>
+                        <ul class="req-list">
+                            <li class="req-item"><div class="req-label c-green">经验固化为自动化流水线</div><div class="req-desc">老员工的隐性操作不能只留在“文档”里。必须通过验证，将其提炼为机器可自动执行的 DAG 步骤，人走流程留。</div></li>
+                            <li class="req-item"><div class="req-label c-green">消灭软性推诿（代码级契约）</div><div class="req-desc">部门间交接不能靠“发个微信问一下”。必须通过强 Schema 校验的数据包，格式不对直接系统级拒收。</div></li>
+                            <li class="req-item"><div class="req-label c-green">权力边界硬约束（物理熔断）</div><div class="req-desc">涉及资金、法务的操作，AI 连碰都不能碰，必须由物理规则强行切断并推给人类。</div></li>
+                        </ul>
+                        <div class="avoid-box">
+                            <div class="avoid-title">绝对要避免的坑</div>
+                            <ul class="avoid-list">
+                                <li class="avoid-item"><span class="avoid-icon">✕</span>照搬低代码平台画流程图（变电子废纸）</li>
+                                <li class="avoid-item"><span class="avoid-icon">✕</span>试图让 AI 替人类做最终的商业决策</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">总结：个人端做“减法与抹平”（减负担、减等待、抹平技术鸿沟），组织端做“加法与固化”（加约束、加自动化）。这两股力通过我们的“连接器”合二为一。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 4 ==================== -->
+        <div class="slide" id="s4">
+            <div class="header">
+                <div class="tag">PART 04 · 方法论演进路径</div>
+                <div class="title">演进路径：用“异步体验”与“抹平门槛”强行拉动组织</div>
+                <div class="subtitle">不按套路出牌的“跨越式”落地法</div>
+            </div>
+            <div class="content">
+                <div class="insight-box green">
+                    <div class="insight-text">传统路径卡在“非技术人员不会用”和“等 AI 出结果太慢”。我们的打法是<strong>用“异步入场”和“按角色定制通道”破局</strong>，让员工为了“省事”主动交出经验，反向强行拉动组织自动化。</div>
+                </div>
+                <div class="grid-2">
+                    <div style="display: flex; flex-direction: column; gap: 1.5vh;">
+                        <div style="font-size: clamp(16px, 1.3vw, 20px); font-weight: 800; color: var(--text-primary); margin-bottom: 0.5vh;">个人职能演进（从“工具”到“器官”）</div>
+                        <div class="phase-card" style="opacity: 0.7;">
+                            <div class="phase-tag" style="background: #F3F4F6; color: var(--text-dim);">阶段一 · 参谋（不推荐停留）</div>
+                            <div class="phase-desc">网页版对话框，问一句答一句，<strong>同步阻塞</strong>。</div>
+                            <span class="trap-tag">只有技术人在玩，且复制粘贴太慢，增加负担。</span>
+                        </div>
+                        <div class="phase-card" style="opacity: 0.85;">
+                            <div class="phase-tag" style="background: #FEF3C7; color: #92400E;">阶段二 · 助理（过渡态）</div>
+                            <div class="phase-desc">嵌入式工具（如 Cursor），能调用 API 干活。</div>
+                            <span class="trap-tag">依然要等它干完；非技术人员依然不会用，存在数字鸿沟。</span>
+                        </div>
+                        <div class="phase-card" style="border-color: var(--accent-blue); border-width: 2px; background: var(--accent-light-blue);">
+                            <div class="phase-tag" style="background: var(--accent-blue); color: #fff;">阶段三 · 伙伴（我们的切入点 ⭐）</div>
+                            <div class="phase-title">极度顺滑的“私养助理”体验</div>
+                            <div class="phase-desc">1. <strong>通道抹平：</strong>技术走 IDE，非技术走 IM，体验殊途同归，全员皆可“使唤”AI。</div>
+                            <div class="phase-desc">2. <strong>异步入场：</strong>AI 先给思路，人点确认后后台静默干活，人去忙别的。</div>
+                            <div class="phase-highlight">价值：只有达到此体验，员工才允许它 24 小时伴随，我们的“隐蔽采集”才得以成立。</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.5vh;">
+                        <div style="font-size: clamp(16px, 1.3vw, 20px); font-weight: 800; color: var(--text-primary); margin-bottom: 0.5vh;">组织协作演进（我们的“超车”策略）</div>
+                        <div class="phase-card" style="opacity: 0.7;">
+                            <div class="phase-tag" style="background: #F3F4F6; color: var(--text-dim);">阶段一 · 连接（传统企业的死穴）</div>
+                            <div class="phase-desc">搞数据中台，拉通各系统 API。</div>
+                            <span class="trap-tag">业务部门以“数据敏感”为由死活不给权限，项目拖垮。</span>
+                        </div>
+                        <div class="phase-card" style="border-color: var(--accent-orange); border-width: 2px; background: var(--accent-light-orange);">
+                            <div class="phase-tag" style="background: var(--accent-orange); color: #fff;">阶段二 · 协同（直接切入点 ⭐）</div>
+                            <div class="phase-title">战术迂回，强行拉通</div>
+                            <div class="phase-desc"><strong>超车逻辑（步骤 0）：</strong>我们不找业务部门要 API！因为左边的“个人伙伴”已被全员拥抱，我们在本地静默把脏数据洗成干净 JSON，直接推入协同引擎！</div>
+                            <div class="phase-desc"><strong>经验变流水线：</strong>借着员工天天用 AI 的势头，启动“找茬游戏”，把他们脑子里的经验异步蒸馏，直接生成组织级自动化流转流程。</div>
+                            <div class="phase-highlight orange">彻底绕开“数据中台”的死局，用个人端的极度顺滑，反向拉动组织端的自动化。</div>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-tag" style="background: var(--accent-light-green); color: var(--accent-green);">阶段三 · 自主（远景终局）</div>
+                            <div class="phase-desc">多 Agent 按照已经固化的流水线自组织运转，人类只处理异常熔断。</div>
+                            <span class="trap-tag">前提：必须完成阶段二的海量经验蒸馏和盾牌配置。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">传统路径：连接（卡死）→ 协同 → 自主。 | 我们的路径：<span class="highlight">伙伴（抹平门槛、异步入场）→ 协同（静默采数据、经验变流水线）→ 自主</span></div></div>
+        </div>
+
+
+        <!-- 【在此处粘贴下一页内容】 -->        <!-- ==================== PAGE 5 ==================== -->
+        <div class="slide" id="s5">
+            <div class="header">
+                <div class="tag">PART 05 · 工具集全景架构</div>
+                <div class="title">章鱼式架构：边缘触角感知，中央大脑掌控</div>
+                <div class="subtitle">不再交付孤立的 SaaS，而是构建一张“联邦式 Agent 网络”</div>
+            </div>
+            <div class="content">
+                <div class="insight-box">
+                    <div class="insight-text">
+                        类似于<strong>章鱼</strong>：基层员工是边缘触手，拥有独立的本地智能和敏锐的业务感知；组织端是中央大脑，不参与具体肉搏，只负责从触手汲取养分、固化经验，并冷酷地调度全局流程。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：触手 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🐙</div>
+                            <div class="card-title">ToC 边缘触手（类OpenClaw 本地化Agent）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">全天候无感接入（打破工位限制）</div>
+                                <div class="req-desc">企微/微信对接，不在电脑前也能呼叫。简单问答走文本秒回，复杂长文/表单自动推送小程序卡片，沉浸不打断。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">全维度本地感知（免整理）</div>
+                                <div class="req-desc">直接读取本地 IM 聊天、邮件、文档、会议记录。员工不需要“喂”数据，AI 自己翻找上下文。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">本地化的知识沉积</div>
+                                <div class="req-desc">把人的“做事方式”，变成可以复用的系统能力。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">组织知识静默灌注与汲取（免Prompt）</div>
+                                <div class="req-desc">从组织端拉取岗位 SOP、知识库及 KPI，AI 天然懂业务背景。同时汲取本地沉积的岗位经验反哺中央。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">隐私数据不出本地</div>
+                                <div class="req-desc">员工心理从 ❌ 被监控 变成 ✅ 有个越来越懂我的助手。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：大脑 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-orange); color: var(--accent-orange);">🧠</div>
+                            <div class="card-title">ToB 中央大脑（联邦架构：端侧自治+云端蒸馏）</div>
+                        </div>
+                        <!-- 采用更紧凑的列表样式防止越界 -->
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.5vh; flex: 1; min-height: 0;">
+                            <li style="display: flex; flex-direction: column; gap: 0.4vh;">
+                                <div style="font-size: clamp(13px, 1.1vw, 16px); font-weight: 800; color: var(--accent-orange);">岗位孪生工厂（纵向孪生：解决经验流失）</div>
+                                <div style="font-size: clamp(11px, 0.9vw, 13px); color: var(--text-secondary); line-height: 1.5;">汇聚端侧上传的沉积数据，提炼高置信度标准剧本，反向下发实现新人具备“老员工经验”起点。</div>
+                                <div style="display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap;">
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">黑盒→白盒</span>
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">高手提纯</span>
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">动态迭代</span>
+                                </div>
+                            </li>
+                            <li style="height: 1px; background: #F3F4F6; flex-shrink: 0;"></li>
+                            <li style="display: flex; flex-direction: column; gap: 0.4vh;">
+                                <div style="font-size: clamp(13px, 1.1vw, 16px); font-weight: 800; color: var(--accent-orange);">契约交接台（横向协同：解决组织空转）</div>
+                                <div style="font-size: clamp(11px, 0.9vw, 13px); color: var(--text-secondary); line-height: 1.5;">跨岗位交接强制走“强 Schema 数据包”，明确输入/输出/责任人，杜绝模糊描述。</div>
+                                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">沟通驱动→契约驱动</span>
+                                </div>
+                            </li>
+                            <li style="height: 1px; background: #F3F4F6; flex-shrink: 0;"></li>
+                            <li style="display: flex; flex-direction: column; gap: 0.4vh;">
+                                <div style="font-size: clamp(13px, 1.1vw, 16px); font-weight: 800; color: var(--accent-orange);">全局透视盘（组织级可观测性）</div>
+                                <div style="font-size: clamp(11px, 0.9vw, 13px); color: var(--text-secondary); line-height: 1.5;">实时映射任务流转拓扑，谁在做/卡在哪/下一步是谁，堵死瞒报与拖延黑洞。</div>
+                                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">卡点高亮</span>
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">维度钻取</span>
+                                </div>
+                            </li>
+                            <li style="height: 1px; background: #F3F4F6; flex-shrink: 0;"></li>
+                            <li style="display: flex; flex-direction: column; gap: 0.4vh;">
+                                <div style="font-size: clamp(13px, 1.1vw, 16px); font-weight: 800; color: var(--accent-red);">物理熔断器（风险硬隔离）+ 异步任务池</div>
+                                <div style="font-size: clamp(11px, 0.9vw, 13px); color: var(--text-secondary); line-height: 1.5;"><strong>熔断器：</strong>对资金/法务红线设置非模型控制的强拦截，不可绕过。<strong>任务池：</strong>任务进统一队列，按能力自动领取，解耦“人必须在线”。</div>
+                                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                                    <span style="font-size: 10px; background: var(--accent-light-red); color: var(--accent-red); padding: 2px 6px; border-radius: 4px; font-weight: 600;">Human-in-the-Loop</span>
+                                    <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 600;">系统驱动执行</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">设计精髓：<span class="highlight">个人端（触手）只谈“爽感”，组织端（大脑）只谈“控制”</span>。两者不传原始数据，只传“行为剧本”与“业务契约”。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 6 ==================== -->
+        <div class="slide" id="s6">
+            <div class="header">
+                <div class="tag">PART 06 · 核心武器拆解</div>
+                <div class="title">本地化 Agent：长在员工身上的"私人外挂"</div>
+                <div class="subtitle">类 OpenClaw 架构：基础能力不造轮子，自建技能死磕业务痛点</div>
+            </div>
+            <div class="content">
+                <div class="insight-box">
+                    <div class="insight-text">
+                        <strong>解决什么问题：</strong>员工不会写 Prompt、数据散在本地各处无法整理、有隐私防备心抗拒使用、个人优秀经验无法沉淀为系统能力。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：基础能力 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: #F3F4F6; color: var(--text-dim);">⚙️</div>
+                            <div class="card-title">基础能力（通用底座，直接复用）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">频道接入</div>
+                                <div class="req-desc">企微/微信机器人 + 小程序，按复杂度智能分流，打破工位限制。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">意图识别 → 规划分解 → 调度</div>
+                                <div class="req-desc">把一句"帮我跟进一下李总"，拆解为：查历史 → 找文档 → 生成话术 → 排入待办。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">记忆</div>
+                                <div class="req-desc">短期上下文（当前对话连贯性）+ 长期记忆（个人偏好、历史高频操作沉淀）。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">公共技能集</div>
+                                <div class="req-desc">翻译、长文摘要、文档生成等通用能力，随调随用。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：自建技能 -->
+                    <div class="card" style="border: 2px solid var(--accent-blue);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🐙</div>
+                            <div class="card-title">自建技能（我们的壁垒，解决业务死穴）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">本地数据接入（免整理）</div>
+                                <div class="req-desc">连通 IM 聊天、邮件、本地文档、会议纪要，AI 自己翻找上下文。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">业务知识记忆（免 Prompt）</div>
+                                <div class="req-desc">从组织端拉取当前岗位 SOP、知识库及 KPI，AI 天然懂业务背景。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">提炼沉积（经验变能力）</div>
+                                <div class="req-desc">静默观察员工真实操作路径，把人的"做事方式"抽象成可复用的结构化技能。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">上报 & 组织协同</div>
+                                <div class="req-desc">将沉积技能脱敏后推给中央大脑；与其他岗位 Agent 收发强 Schema 数据包。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div style="display: flex; justify-content: center; gap: 3vw;">
+                    <div class="avoid-box" style="margin:0; border: 1px solid var(--accent-blue); background: var(--accent-light-blue); max-width: 40vw;">
+                        <div class="avoid-title" style="color: var(--accent-blue);">配套方法论：异步交互法</div>
+                        <div class="avoid-item" style="color: var(--text-secondary);">先给思路让人确认，再后台静默执行，人不阻塞。</div>
+                    </div>
+                    <div class="avoid-box" style="margin:0; border: 1px solid var(--accent-blue); background: var(--accent-light-blue); max-width: 40vw;">
+                        <div class="avoid-title" style="color: var(--accent-blue);">配套方法论：隐私边界法</div>
+                        <div class="avoid-item" style="color: var(--text-secondary);">原始数据物理不出端，只传脱敏行为剧本。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE 7 ==================== -->
+        <div class="slide" id="s7">
+            <div class="header">
+                <div class="tag">PART 07 · 核心武器拆解</div>
+                <div class="title">中央大脑 Agent：不肉搏，只管养分汲取与全局调度</div>
+                <div class="subtitle">端侧自治 + 云端蒸馏：经验不再流失，协作不再靠吼</div>
+            </div>
+            <div class="content">
+                <div class="insight-box warn">
+                    <div class="insight-text">
+                        <strong>解决什么问题：</strong>经验锁在人脑子里带不走、跨部门协作靠微信群推诿扯皮、全局进度是个黑洞、销冠能力无法复制给新人。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：基础+孪生 -->
+                    <div class="card" style="border: 2px solid var(--accent-orange);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-orange); color: var(--accent-orange);">🧠</div>
+                            <div class="card-title">基础能力 & 岗位孪生（纵向：防流失）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-orange">基础能力（同左略）</div>
+                                <div class="req-desc">协同接入、意图识别、规划分解、调度、记忆、公共技能集（面向组织级输入）。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">岗位孪生工厂（核心闭环）</div>
+                                <div class="req-desc"><strong>汲取：</strong>接收各岗位端侧上报的沉积数据。<br><strong>提炼：</strong>识别 Top Performer 与普通员工的差异，炼成高置信度"标准剧本"。<br><strong>赋能：</strong>将剧本转为技能接口，下发给同岗位 Agent，新人上岗即带老手经验。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：协同+透视 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">🌐</div>
+                            <div class="card-title">组织协同 & 透视（横向：防空转）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-green">契约交接台</div>
+                                <div class="req-desc">跨岗位交接强制走"强 Schema 数据包"，明确输入/输出/责任人。格式不对系统级拒收，杜绝模糊描述。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">异步任务池</div>
+                                <div class="req-desc">任务进统一队列，按能力与优先级由人或 Agent 自动领取。解耦"必须某个人在线才能推进"的阻塞。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">全局透视盘</div>
+                                <div class="req-desc">实时映射任务流转拓扑：谁在做、卡在哪、下一步是谁。异常节点自动高亮，支持按维度钻取，堵死瞒报黑洞。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div style="display: flex; justify-content: center; gap: 3vw;">
+                    <div class="avoid-box" style="margin:0; border: 1px solid var(--accent-orange); background: var(--accent-light-orange); max-width: 40vw;">
+                        <div class="avoid-title" style="color: var(--accent-orange);">配套方法论：经验蒸馏法</div>
+                        <div class="avoid-item" style="color: var(--text-secondary);">不问"你怎么做"，只看"你怎么做"，动态迭代。</div>
+                    </div>
+                    <div class="avoid-box" style="margin:0; border: 1px solid var(--accent-orange); background: var(--accent-light-orange); max-width: 40vw;">
+                        <div class="avoid-title" style="color: var(--accent-orange);">配套方法论：契约驱动法</div>
+                        <div class="avoid-item" style="color: var(--text-secondary);">跨部门协作从"沟通驱动"升级为"数据包校验驱动"。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE 8 ==================== -->
+        <div class="slide" id="s8">
+            <div class="header">
+                <div class="tag">PART 08 · 核心武器拆解</div>
+                <div class="title">安全封装：给 AI 套上不可篡改的"物理枷锁"</div>
+                <div class="subtitle">用代码级硬约束，兜底模型的不确定性</div>
+            </div>
+            <div class="content">
+                <div class="insight-box" style="background: linear-gradient(135deg, #FEF0F0 0%, #FFFFFF 100%);">
+                    <div class="insight-text" style="color: var(--accent-red);">
+                        <strong>解决什么问题：</strong>AI 幻觉导致发出错误报价、AI 越权调用敏感接口、出了事找不到责任人、大模型升级后原有安全策略被轻易绕过。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：HITL -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">✋</div>
+                            <div class="card-title">Human-in-the-loop 机制（解决责任归属）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">触发场景</div>
+                                <div class="req-desc">所有对外输出（发邮件、发微信、生成报告）、涉及他人协作的操作。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">怎么做的</div>
+                                <div class="req-desc">AI 生成结果后，流程<strong>强制挂起</strong>不直接执行。弹出确认卡片展示全量内容，必须人工点击"授权发放"。操作留痕，全量审计日志。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">本质</div>
+                                <div class="req-desc" style="font-weight: 700; color: var(--text-primary);">AI 只能"建议"，不能"决定"。责任永远在人。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：熔断 -->
+                    <div class="card" style="border: 2px solid var(--accent-red);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-red); color: var(--accent-red);">🛑</div>
+                            <div class="card-title">物理熔断机制（解决越界风险）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-red">触发场景</div>
+                                <div class="req-desc">涉及资金流转、法务合规、客户隐私数据调取、外部系统写入。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-red">怎么做的</div>
+                                <div class="req-desc">预埋<strong>硬编码红线规则</strong>（金额阈值、敏感词库），逻辑完全在模型推理之外。一旦命中，协同链路瞬间物理断开，任务强行拎出。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-red">本质</div>
+                                <div class="req-desc" style="font-weight: 700; color: var(--text-primary);">无论大模型怎么升级、Prompt 怎么注入攻击，都无法关闭这道开关。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="conclusion">
+                    配套方法论：<span class="highlight">零信任 AI 法</span> —— 默认 AI 的每一次输出都不可信。能自动跑的只有低风险封闭域，凡是触达真实业务世界的动作，必须有物理硬拦截。
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE 9 ==================== -->
+        <div class="slide" id="s9">
+            <div class="header">
+                <div class="tag">PART 09 · 落地破局点</div>
+                <div class="title">破局切入点：用本地化 Agent 拯救"信息溺水"的高管</div>
+                <div class="subtitle">直接找痛点最剧烈、对提效最饥渴的人下刀</div>
+            </div>
+            <div class="content">
+                <div class="insight-box">
+                    <div class="insight-text">
+                        运营总监每天微信/企微消息几千条，加上大量电话，根本没空细看和回复。这是极佳的"特洛伊木马"切入点——<strong>他太需要私人助理了，防备心降到最低</strong>。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：痛点与感知 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-red); color: var(--accent-red);">🌊</div>
+                            <div class="card-title">场景痛点与感知破局</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-red">信息洪水淹没</div>
+                                <div class="req-desc">每天几千条 IM 消息，重要审批和紧急求助被噪音彻底掩盖，关键决策滞后。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-red">时间碎片化撕裂</div>
+                                <div class="req-desc">大量接打电话，无法实时盯盘回复，导致下游团队等待、阻塞。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-red">重复性消耗</div>
+                                <div class="req-desc">大量重复性问题（"这个数据怎么看""这个流程怎么走"）吞噬核心精力。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">感知破局：cipher-talk 工具接入</div>
+                                <div class="req-desc">不破坏微信生态，通过 <strong>cipher-talk</strong> 静默读取本地微信消息库。端侧完成解析，原始聊天记录物理不出本地，完美规避隐私红线。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：落地路径 -->
+                    <div class="card" style="border: 2px solid var(--accent-blue);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🪜</div>
+                            <div class="card-title">落地实施路径（层层递进）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">第一步：跑通"读"和"提炼"</div>
+                                <div class="req-desc">过滤噪音，将含关键意图的消息提炼成"结构化待办任务"，按紧急程度排序，高管只需扫一眼列表并语音批注。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">第二步：扩展"答"和"沉淀"</div>
+                                <div class="req-desc">针对高频重复问题，结合本地业务知识库，Agent 代为解答并发送。过程中将新出现的业务 Q&A 自动沉淀为本地可复用技能。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">第三步：连接中央大脑</div>
+                                <div class="req-desc">将沉淀的高质量技能包脱敏上报，开始与组织端产生轻量级交互，为后续协同铺路。</div>
+                            </li>
+                        </ul>
+                        <div class="avoid-box" style="border: 1px solid var(--accent-blue); background: var(--accent-light-blue);">
+                            <div class="avoid-title" style="color: var(--accent-blue);">当前边界</div>
+                            <div class="avoid-item" style="color: var(--text-secondary);">先落地最基础的本地化 Agent，再配合扩张技能库，逐步增加中央大脑对接。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">破局的核心动作是<span class="highlight">"帮他省出两小时"</span>。只要这一步做到了，后续的技能扩展和大脑对接，他都不仅不会抵触，还会主动催你推进。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 10 ==================== -->
+        <div class="slide" id="s10">
+            <div class="header">
+                <div class="tag">PART 10 · 扩张路径</div>
+                <div class="title">扩张路径：退回"舒适区"，在产研闭环中验证方法论</div>
+                <div class="subtitle">高管破局后，绝不盲目推向全公司，先在自己最可控的场景打磨利刃</div>
+            </div>
+            <div class="content">
+                <div class="insight-box warn">
+                    <div class="insight-text">
+                        高管个人 Agent 跑通后，<strong>绝对不要立刻推向销售或前端业务</strong>。退回到自己最懂、最可控的"产研部门和项目管理"场景，用真实内部协作来检验"中央大脑"和"协同工具集"到底好不好使。
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🔧</div>
+                            <div class="card-title">阶段一：协同武装</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">场景</div>
+                                <div class="req-desc">产品提需求给开发，开发转测给测试，传统靠 Jira 留言和微信群吼。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">动作</div>
+                                <div class="req-desc">给产研全员部署本地 Agent，在中央大脑开启"契约交接台"。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">验证点</div>
+                                <div class="req-desc">产品提需求必须由 Agent 生成含前置条件、验收标准的 Schema 数据包，格式不对开发 Agent 秒退，杜绝"一句话需求"。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border: 2px solid var(--accent-orange);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-orange); color: var(--accent-orange);">🧬</div>
+                            <div class="card-title">阶段二：实战喂养</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-orange">场景</div>
+                                <div class="req-desc">高级架构师解决了一个复杂的性能瓶颈问题。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">动作</div>
+                                <div class="req-desc">中央大脑"岗位孪生工厂"启动，抓取架构师的排障路径，提炼成"标准排障剧本"。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">验证点</div>
+                                <div class="req-desc">将剧本下发给初级开发 Agent，观察遇到同类问题时，是否能按剧本自动推进，实现经验复制。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">📊</div>
+                            <div class="card-title">阶段三：指标收敛</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-green">目的</div>
+                                <div class="req-desc">在可控范围内，把方法论变成可量化的数据。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">验证项</div>
+                                <div class="req-desc">• 异步任务池是否减少了会议对齐时间？<br>• 全局透视盘是否准确定位了延期卡点？<br>• 契约驳回率是否随经验沉淀趋零？</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">产出</div>
+                                <div class="req-desc">总结踩坑经验，修正工具集交互细节，形成可复制的"内部打样报告"。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">在自己部门里"打样"，优点是<span class="highlight">骂娘也不会被开除</span>。只有在这里把系统磨合到丝滑，推向全公司时才不会演变成灾难。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 11 ==================== -->
+        <div class="slide" id="s11">
+            <div class="header">
+                <div class="tag">PART 11 · 终极演进</div>
+                <div class="title">全面推广与商业化：从内部利器到商业闭环</div>
+                <div class="subtitle">带着产研的真实提效数据，降维打击全公司，再复制给外部客户</div>
+            </div>
+            <div class="content">
+                <div class="insight-box green">
+                    <div class="insight-text">
+                        当产研闭环的数据证明系统能切实缩短流转时间、沉淀组织经验后，我们就完成了从"内部工具"到"标准产品"的惊险一跃。接下来的逻辑极其简单：<strong>复制、放大、变现</strong>。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：内部推广 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🏢</div>
+                            <div class="card-title">内部推广：从产研到全公司</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">带着数据去降维打击</div>
+                                <div class="req-desc">用产研的"真实提效数据"（流转时间缩短 X%、驳回率趋零）说服其他部门，而不是靠 PPT 讲道理。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">按部门定制技能包</div>
+                                <div class="req-desc"><strong>销售部：</strong>接入 CRM，跑通"线索交接契约"和"话术技能沉淀"。<br><strong>客服部：</strong>接入工单系统，跑通"复杂问题自动流转"和"熔断拦截"。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">组织形态相变</div>
+                                <div class="req-desc">各部门 Agent 全部接入中央大脑，真正形成"章鱼"形态。高管全局透视盘彻底点亮，企业完成向 AI 原生组织的蜕变。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：外部变现 -->
+                    <div class="card" style="border: 2px solid var(--accent-green);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">💰</div>
+                            <div class="card-title">外部商业化：寻找种子客户</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-green">产品化剥离</div>
+                                <div class="req-desc">高管场景 → "智能助理方案"；产研协同 → "敏捷协同套件"；底层能力 → "章鱼架构 PaaS 平台"。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">客户画像</div>
+                                <div class="req-desc">与我们同病相怜的中大型 B 端客户：强依赖个人经验、跨部门扯皮严重、核心数据散落在微信里。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">标准化交付 SOP</div>
+                                <div class="req-desc"><strong>第1周：</strong>高管单点破局（复制 P9）。<strong>第2-4周：</strong>核心业务线闭环验证（复制 P10）。<strong>后续：</strong>全组织接管。用标准化的"落地三步走"形成可复制的商业交付能力。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">这套白皮书不仅是技术规划，更是<span class="highlight">商业计划书</span>。我们先用自己当小白鼠蹚出一条血路，然后把这条血路包装成收费的高速公路。</div></div>
+        </div>
+        <!-- ==================== PAGE 12 ==================== -->
+        <div class="slide" id="s12">
+            <div class="header">
+                <div class="tag">PART 12 · 竞争与壁垒</div>
+                <div class="title">竞争格局：为什么他们做不到，而我们能？</div>
+                <div class="subtitle">打破“这东西钉钉/飞书/RPA 不能做吗”的技术幻觉</div>
+            </div>
+            <div class="content">
+                <div class="insight-box warn">
+                    <div class="insight-text">
+                        我们不碰大模型，不做算力，我们做的是大模型永远不愿意干、传统软件永远干不了的“脏活累活”。<strong>壁垒不在于 AI 多聪明，而在于这套工程体系多难被抄袭。</strong>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：竞品死穴 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: #F3F4F6; color: var(--text-dim);">⚰️</div>
+                            <div class="card-title">传统三派的“必死死穴”</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">RPA / 低代码派（如影刀、氚云）</div>
+                                <div class="req-desc">死在“依赖人画图”。业务一变流程就废，且抓取的是 UI 而不是语义，极其脆弱。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">传统知识库派（如 Notion AI、飞书文档）</div>
+                                <div class="req-desc">死在“没人主动写”。要求员工把经验写成文档，违背人性，最终变成电子垃圾场。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--text-dim);">AI 对话框派（如 Coze、Dify）</div>
+                                <div class="req-desc">死在“拿不到数据”。企业核心数据在微信和本地，大模型根本碰不到，只能回答通用废话。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：我们的壁垒 -->
+                    <div class="card" style="border: 2px solid var(--accent-green);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">🏰</div>
+                            <div class="card-title">我们的绝对壁垒（不可替代性）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-green">隐蔽数据获取通道（核心底牌）</div>
+                                <div class="req-desc">通过 cipher-talk 等端侧工具，在不触碰员工隐私防线、不改变工作习惯的前提下，把散落在 IM 里的隐性经验“偷”出来。这套方法论靠抄 Prompt 是抄不走的。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">黑盒到白盒的相变工程</div>
+                                <div class="req-desc">不是存一段文本，而是把人的动作抽象成机器可执行的 DAG 流水线。这需要极深的与企业业务耦合的工程能力，大模型厂商绝不可能下场做这么苦的活。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">物理级安全封装</div>
+                                <div class="req-desc">不管底层接的是 GPT-5 还是国产模型，外层的 HITL 和熔断机制保证了“模型再疯也翻不了天”。这是卖给企业老板的终极定心丸。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">我们的护城河不是代码量，而是<span class="highlight">“深入泥潭的业务理解 + 绕开人性的工程奇技”</span>。只要我们跑得够快，追兵只能在后面吃灰。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 13 ==================== -->
+        <div class="slide" id="s13">
+            <div class="header">
+                <div class="tag">PART 13 · 团队与资源</div>
+                <div class="title">资源盘点：用最小代价，跑通最大闭环</div>
+                <div class="subtitle">不搞大兵团作战，坚持“特种部队”模式精准投资</div>
+            </div>
+            <div class="content">
+                <div class="insight-box green">
+                    <div class="insight-text">
+                        这套体系不需要几百人的研发团队。因为底层模型和基础能力我们坚决不造，我们只需要在“连接层”和“业务封装层”投入极其精准的特种兵力量。
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <!-- 左列：已有底牌 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🃏</div>
+                            <div class="card-title">当前底牌（零成本启动）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">极客级数据穿透工具</div>
+                                <div class="req-desc">cipher-talk 等本地工具已经具备读取核心 IM 消息库的能力，直接跨越了最大的数据获取鸿沟。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">极其痛的真实试验田</div>
+                                <div class="req-desc">运营总监每天几千条消息的溺水场景，产研部门内部的扯皮现状，无需虚构，直接上手。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">完整的顶层架构蓝图</div>
+                                <div class="req-desc">从本地 Agent 到中央大脑，从契约交接 to 物理熔断，方法论已经闭环，避免了盲目试错。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：急需补齐 -->
+                    <div class="card" style="border: 2px solid var(--accent-orange);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-orange); color: var(--accent-orange);">🎯</div>
+                            <div class="card-title">阶段补强（精准火力覆盖）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-orange">重型“蒸馏工程师”（1-2人）</div>
+                                <div class="req-desc">极其稀缺的人才。不是写 Prompt，而是能把业务动作抽象成 Schema 和 DAG 的逻辑大师。负责啃下“岗位孪生工厂”。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">本地化 Agent 封装手（1-2人）</div>
+                                <div class="req-desc">精通各种本地工具链（如 cipher-talk）与 Agent 框架的对接，负责把基础能力快速拼装成能用的“触手”。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">商业化“翻译官”（1人，后期介入）</div>
+                                <div class="req-desc">能把内部蹚过的泥坑，包装成标准化的“行业解决方案”和交付 SOP，负责对外讲故事和卖代码。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">前期投入仅需<span class="highlight">“几个极客 + 现成大模型 API + 内部真实场景”</span>，跑出 MVP（最小可行性产品）的成本极低，试错空间巨大。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 14 ==================== -->
+        <div class="slide" id="s14">
+            <div class="header">
+                <div class="tag">PART 14 · 终局与行动</div>
+                <div class="title">终局愿景：让每个岗位都拥有“数字永生”的能力</div>
+            </div>
+            <div class="content" style="justify-content: center; text-align: center; padding: 0 10vw;">
+                <div style="margin-bottom: 6vh;">
+                    <div style="font-size: clamp(20px, 2vw, 28px); color: var(--text-primary); font-weight: 300; line-height: 1.8; margin-bottom: 4vh; text-align: left;">
+                        两年后，这家企业的运转方式将发生“相变”：
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 3vh; text-align: left;">
+                        <div style="display: flex; align-items: flex-start; gap: 2vw;">
+                            <div style="font-size: clamp(24px, 2.5vw, 36px); color: var(--accent-blue); font-weight: 900; line-height: 1;">01</div>
+                            <div style="font-size: clamp(16px, 1.5vw, 22px); color: var(--text-primary); font-weight: 600; line-height: 1.6;">
+                                销冠离职，但他的<span style="color: var(--accent-blue);">“数字分身”</span>留在了系统里，新人上岗第一天就能打出老手的配合。<br>
+                                <span style="font-size: clamp(13px, 1.1vw, 17px); color: var(--text-dim); font-weight: 400;">—— 人员流动不再造成组织失忆。</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 2vw;">
+                            <div style="font-size: clamp(24px, 2.5vw, 36px); color: var(--accent-orange); font-weight: 900; line-height: 1;">02</div>
+                            <div style="font-size: clamp(16px, 1.5vw, 22px); color: var(--text-primary); font-weight: 600; line-height: 1.6;">
+                                跨部门协作再也没有“你推我挡”，所有交接像<span style="color: var(--accent-orange);">“API 调用”</span>一样精准，格式不对直接秒退。<br>
+                                <span style="font-size: clamp(13px, 1.1vw, 17px); color: var(--text-dim); font-weight: 400;">—— 软性推诿被代码级契约彻底绞杀。</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 2vw;">
+                            <div style="font-size: clamp(24px, 2.5vw, 36px); color: var(--accent-green); font-weight: 900; line-height: 1;">03</div>
+                            <div style="font-size: clamp(16px, 1.5vw, 22px); color: var(--text-primary); font-weight: 600; line-height: 1.6;">
+                                每个员工手机里都有一个<span style="color: var(--accent-green);">“顺从且懂行”</span>的私人助理，数据不出端，但组织的智慧源源不断地泵入。<br>
+                                <span style="font-size: clamp(13px, 1.1vw, 17px); color: var(--text-dim); font-weight: 400;">—— 个体享受爽感，组织悄然进化。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 行动呼吁 -->
+                <div style="background: linear-gradient(135deg, #1A1D23 0%, #2F6BF6 100%); padding: 3vh 4vw; border-radius: 16px; margin-top: 4vh; text-align: left; box-shadow: 0 10px 30px rgba(47, 107, 246, 0.3);">
+                    <div style="font-size: clamp(12px, 1vw, 15px); color: rgba(255,255,255,0.6); letter-spacing: 2px; font-weight: 700; margin-bottom: 1.5vh;">NEXT STEP · 立即行动</div>
+                    <div style="font-size: clamp(18px, 1.6vw, 24px); color: #FFFFFF; font-weight: 800; line-height: 1.5;">
+                        停止谈论 AI，开始部署 Agent。<br>
+                        <span style="font-size: clamp(14px, 1.2vw, 19px); font-weight: 400; color: rgba(255,255,255,0.9);">本周内：完成运营总监的 cipher-talk 本地对接，跑通第一版“消息提炼待办”能力，让他先省出两小时。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer" style="border-top: none; margin-top: 0; padding-top: 0;">
+                <div class="conclusion" style="opacity: 0.5; font-size: clamp(12px, 1vw, 15px);">—— 组织孪生体系白皮书 · 完 ——</div>
+            </div>
+        </div>
+        <!-- ==================== PAGE 15 ==================== -->
+        <div class="slide" id="s15">
+            <div class="header">
+                <div class="tag">PART 15 · 实战案例切片</div>
+                <div class="title">本地 Agent 案例：从“救火队长”到“准时下班”的早晚报革命</div>
+                <div class="subtitle">解决痛点：员工被海量消息淹没，重要事项遗忘，写周报极其痛苦</div>
+            </div>
+            <div class="content">
+                <div class="grid-2">
+                    <!-- 左侧：流程拆解 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🐙</div>
+                            <div class="card-title">Agent 全自动运转逻辑（无需人工干预）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">清晨 08:30（自动触发）</div>
+                                <div class="req-desc"><strong>动作：</strong>本地 Agent 静默读取昨晚至今的微信、企微、邮件。<strong>产出：</strong>过滤掉闲聊，提炼出包含“责任人、紧急程度、截止时间”的今日待办清单。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">工作期间（静默伴随）</div>
+                                <div class="req-desc"><strong>动作：</strong>持续监听本地沟通记录。<strong>产出：</strong>如果待办事项被人在群里口头解决了，Agent 自动在后台划掉该任务，不干扰员工。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">傍晚 18:00（自动触发）</div>
+                                <div class="req-desc"><strong>动作：</strong>拉取早间待办清单，结合白天新产生的沟通记录。<strong>产出：</strong>自动生成条理清晰的“今日工作总结 + 未完成任务进展说明”的晚报草稿。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">人工介入：Human-in-the-Loop</div>
+                                <div class="req-desc">Agent 不直接群发。将早报/晚报草稿推送到员工微信，员工只需花 1 分钟扫一眼，修改错误的地方，点击“确认发送邮件/群通报”。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右侧：价值映射 -->
+                    <div class="card" style="border: 2px solid var(--accent-green);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">💡</div>
+                            <div class="card-title">系统做到了什么？（底层能力映射）</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-green">免整理（本地数据接入）</div>
+                                <div class="req-desc">彻底消灭了“每天下班前要翻一遍聊天记录想想自己干了啥”的痛苦，数据全在端侧静默消化。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">免提示词（业务知识记忆）</div>
+                                <div class="req-desc">Agent 从组织端拉取了该员工的岗位画像，知道哪些群是工作群，哪些人是客户，不需要员工教它怎么过滤。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">经验沉积（副产品）</div>
+                                <div class="req-desc">员工在纠正晚报时的每一次修改，都会被 Agent 记录为“该岗位的正确汇报偏好”，以后生成的文案越来越像本人写的。</div>
+                            </li>
+                        </ul>
+                        <div class="avoid-box" style="border: 1px solid var(--accent-green); background: var(--accent-light-green);">
+                            <div class="avoid-title" style="color: var(--accent-green);">员工体感</div>
+                            <div class="avoid-item" style="color: var(--text-secondary);">“它比我自己还清楚我今天干了什么，而且再也不用憋词写周报了。”</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">这不是一个“写稿机器人”，这是一个<span class="highlight">长在员工身上的“记忆外挂”和“职场防呆系统”</span>。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 16 ==================== -->
+        <div class="slide" id="s16">
+            <div class="header">
+                <div class="tag">PART 16 · 实战案例切片</div>
+                <div class="title">本地 Agent 案例：拯救“沟通黑洞”，产研同学的隐形笔杆子</div>
+                <div class="subtitle">解决痛点：产研人员懂技术不懂表达，群聊记录碎片化，跨部门沟通像对暗号</div>
+            </div>
+            <div class="content">
+                <div class="grid-2">
+                    <!-- 左侧：场景痛点 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-red); color: var(--accent-red);">⛔</div>
+                            <div class="card-title">传统产研沟通的“灾难现场”</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-red">碎片化输出</div>
+                                <div class="req-desc">产品在群里问“那个接口改了没？”开发回“改了，但是有影响，你让前端看下”。没有前因后果，没有上下文。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-red">信息断层</div>
+                                <div class="req-desc">技术评审时口头讨论了一大堆限制条件，会后没人整理，过两天开发全忘了，直接按错误理解写代码。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-red">跨部门受气</div>
+                                <div class="req-desc">出了问题，运营指责产研“没说清楚”，产研委屈“群里明明讲了”。纯粹的口舌之争，没有任何沉淀。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右侧：Agent 解法 -->
+                    <div class="card" style="border: 2px solid var(--accent-blue);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">✍️</div>
+                            <div class="card-title">Agent 的“化腐朽为神奇”流</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">第一步：上下文缝合（读历史）</div>
+                                <div class="req-desc">当开发在群里发了那句“改了，但是有影响”后，本地 Agent 立刻向后翻找历史记录和相关的 Jira 链接，补齐“因为什么改、影响了哪些模块”的完整上下文。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">第二步：结构化重写（转文档）</div>
+                                <div class="req-desc">Agent 将一堆散落的“暗号式”对话，按“背景 - 变更内容 - 影响范围 - 后续动作”的标准化结构，重写成一段清晰的文字。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">第三步：人工选择发送（HITL）</div>
+                                <div class="req-desc">Agent 生成一段话：“是否将此整理内容发送给运营群或存入 Confluence？”开发只需点一下“发送”，既完成了沟通，又沉淀了文档。</div>
+                            </li>
+                        </ul>
+                        <div class="avoid-box" style="border: 1px solid var(--accent-blue); background: var(--accent-light-blue);">
+                            <div class="avoid-title" style="color: var(--accent-blue);">能力映射</div>
+                            <div class="avoid-item" style="color: var(--text-secondary);">不改变产研“不爱说话”的天性，而是用本地感知能力兜底，把非结构化聊天一键转化为组织资产。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">让听得见炮火的人继续开炮，<span class="highlight">让 Agent 负责把炮火声翻译成战报</span>。彻底终结“说不清”的扯皮。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 17 ==================== -->
+        <div class="slide" id="s17">
+            <div class="header">
+                <div class="tag">PART 17 · 实战案例切片</div>
+                <div class="title">组织协作案例：每月版本发布，没有群消息吼叫的“丝滑流转”</div>
+                <div class="subtitle">全景展示：中央大脑 Agent 如何调度产品、开发、测试的本地 Agent 完成全链条闭环</div>
+            </div>
+            <div class="content">
+                <!-- 采用三行两列网格模拟流转过程 -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2vw; height: 100%; align-content: start;">
+                    
+                    <!-- 阶段 1 -->
+                    <div class="card" style="margin: 0;">
+                        <div class="card-head" style="padding-bottom: 0.8vh;">
+                            <div style="display: flex; align-items: center; gap: 0.5vw;">
+                                <span style="background: var(--accent-blue); color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">STEP 1</span>
+                                <span class="card-title" style="margin:0; font-size: clamp(12px, 0.95vw, 15px);">需求收集与筛选</span>
+                            </div>
+                        </div>
+                        <div style="padding: 0 4%; font-size: clamp(11px, 0.85vw, 13px); color: var(--text-secondary); line-height: 1.6;">
+                            <div><strong style="color:var(--accent-blue);">[产品Agent]</strong> 读取各渠道反馈，整理成标准化需求卡片。</div>
+                            <div><strong style="color:var(--accent-orange);">[中央大脑]</strong> 调用“异步任务池”，将卡片推给相关方打分。</div>
+                            <div style="margin-top:0.5vh; color:var(--accent-green); font-weight:600;">✅ 产出：高优需求清单（强 Schema 数据包）</div>
+                        </div>
+                    </div>
+
+                    <!-- 阶段 2 -->
+                    <div class="card" style="margin: 0;">
+                        <div class="card-head" style="padding-bottom: 0.8vh;">
+                            <div style="display: flex; align-items: center; gap: 0.5vw;">
+                                <span style="background: var(--accent-blue); color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">STEP 2</span>
+                                <span class="card-title" style="margin:0; font-size: clamp(12px, 0.95vw, 15px);">文档生成与评审</span>
+                            </div>
+                        </div>
+                        <div style="padding: 0 4%; font-size: clamp(11px, 0.85vw, 13px); color: var(--text-secondary); line-height: 1.6;">
+                            <div><strong style="color:var(--accent-blue);">[产品Agent]</strong> 结合历史相似需求，自动拉取 PRD 模板生成初稿。</div>
+                            <div><strong style="color:var(--accent-orange);">[中央大脑]</strong> 触发<strong style="color:var(--accent-red);">【物理熔断】</strong>，必须人工确认后，才允许流转给开发。</div>
+                            <div style="margin-top:0.5vh; color:var(--accent-green); font-weight:600;">✅ 产出：锁定版需求文档</div>
+                        </div>
+                    </div>
+
+                    <!-- 阶段 3 -->
+                    <div class="card" style="margin: 0;">
+                        <div class="card-head" style="padding-bottom: 0.8vh;">
+                            <div style="display: flex; align-items: center; gap: 0.5vw;">
+                                <span style="background: var(--accent-green); color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">STEP 3</span>
+                                <span class="card-title" style="margin:0; font-size: clamp(12px, 0.95vw, 15px);">契约交接（核心分水岭）</span>
+                            </div>
+                        </div>
+                        <div style="padding: 0 4%; font-size: clamp(11px, 0.85vw, 13px); color: var(--text-secondary); line-height: 1.6;">
+                            <div style="background: #FEF3C7; padding: 6px; border-radius: 4px; margin-bottom: 0.5vh;"><strong>过去：</strong>产品在群里丢个链接“开始做吧”，开发说“没排期”。</div>
+                            <div><strong style="color:var(--accent-orange);">[中央大脑-契约交接台]</strong> 强制校验数据包：是否有明确的验收标准？是否有依赖接口？不全则<strong>系统级打回</strong>。</div>
+                            <div style="margin-top:0.5vh; color:var(--accent-green); font-weight:600;">✅ 产出：开发 Agent 无缝接单，零扯皮</div>
+                        </div>
+                    </div>
+
+                    <!-- 阶段 4 -->
+                    <div class="card" style="margin: 0;">
+                        <div class="card-head" style="padding-bottom: 0.8vh;">
+                            <div style="display: flex; align-items: center; gap: 0.5vw;">
+                                <span style="background: var(--accent-green); color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">STEP 4</span>
+                                <span class="card-title" style="margin:0; font-size: clamp(12px, 0.95vw, 15px);">需求实现与异步沟通</span>
+                            </div>
+                        </div>
+                        <div style="padding: 0 4%; font-size: clamp(11px, 0.85vw, 13px); color: var(--text-secondary); line-height: 1.6;">
+                            <div><strong style="color:var(--accent-blue);">[开发Agent]</strong> 写代码。遇到需求不清，向产品 Agent 发起“强 Schema 提问”，产品后台静默回复。</div>
+                            <div><strong style="color:var(--accent-orange);">[中央大脑-透视盘]</strong> 所有人看着进度条走，无人催问。</div>
+                            <div style="margin-top:0.5vh; color:var(--accent-green); font-weight:600;">✅ 产出：提测包（附带自动化生成的提测说明）</div>
+                        </div>
+                    </div>
+
+                    <!-- 跨列：阶段 5 (测试与复盘) -->
+                    <div class="card" style="margin: 0; grid-column: span 2; border: 2px solid var(--accent-orange);">
+                        <div class="card-head" style="padding-bottom: 0.8vh;">
+                            <div style="display: flex; align-items: center; gap: 0.5vw;">
+                                <span style="background: var(--accent-orange); color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">STEP 5</span>
+                                <span class="card-title" style="margin:0; font-size: clamp(12px, 0.95vw, 15px);">测试验收 与 经验蒸馏（闭环）</span>
+                            </div>
+                        </div>
+                        <div style="padding: 0 4%; font-size: clamp(11px, 0.85vw, 13px); color: var(--text-secondary); line-height: 1.6; display: flex; gap: 3vw;">
+                            <div style="flex:1;">
+                                <div><strong style="color:var(--accent-blue);">[测试Agent]</strong> 对照提测包自动跑用例，发现 Bug 自动生成标准缺陷单丢回开发 Agent。</div>
+                            </div>
+                            <div style="flex:1; border-left: 1px solid #E5E7EB; padding-left: 3vw;">
+                                <div><strong style="color:var(--accent-orange);">[中央大脑-岗位孪生工厂]</strong> 提炼本次版本中：高手的排雷方法、被频繁打回的设计缺陷。炼成“V2.0 避坑指南”技能包，下个月全员生效。</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">这就是“章鱼架构”的终态：<span class="highlight">人在做具体的事，Agent 在跑标准的流程，大脑在抽离组织的智慧</span>。全程无一声微信群吼叫。</div></div>
+        </div>
+        <!-- ==================== PAGE 18 ==================== -->
+        <div class="slide" id="s18">
+            <div class="header">
+                <div class="tag">PART 18 · 技术底座</div>
+                <div class="title">竞品拆解：站在巨人的肩膀上做“本地化改造”</div>
+                <div class="subtitle">不重复造轮子，吸收顶级 Agent 框架的底层逻辑，为我所用</div>
+            </div>
+            <div class="content">
+                <div class="grid-2">
+                    <!-- 左列：标杆拆解 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: #F3F4F6; color: var(--text-dim);">🔍</div>
+                            <div class="card-title">主流 Agent 框架的核心亮点</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">OpenClaw（本地基座）</div>
+                                <div class="req-desc">五组件解耦（网关/大脑/记忆/技能/心跳）。用本地 Markdown/文件做记忆，不依赖黑盒数据库，极其稳定。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">Claude Code（工程化样板）</div>
+                                <div class="req-desc"> Hooks 机制（调用工具前后强行拦截审查），权限分级（只读默认，写入要授权），MCP 统一工具协议。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">Hermes（技能自进化）</div>
+                                <div class="req-desc">做完复杂任务后，自动生成 SKILL.md 沉淀下来，下次直接复用；七层安全隔离模型。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--accent-red);">Manus & AutoResearch（组织编排）</div>
+                                <div class="req-desc">用 DAG（有向无环图）拆解大任务；引入“验证模块”和“版本回滚”，防错不依赖人类。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：我们的吸收点 -->
+                    <div class="card" style="border: 2px solid var(--accent-blue);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🧬</div>
+                            <div class="card-title">我们要吸收的底层逻辑</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">1. 本地文件即记忆（防丢失）</div>
+                                <div class="req-desc">抛弃纯向量黑盒，采用“结构化文件 + 混合检索”。人能直接打开看、改、删，不依赖特定数据库。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">2. 物理级拦截防抽风（防幻觉）</div>
+                                <div class="req-desc">把 Claude Code 的 Hooks 理念固化：拦截逻辑写在“模型推理之外”，无论大模型怎么升级都绕不过安全锁。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">3. 技能自动沉淀（防遗忘）</div>
+                                <div class="req-desc">借鉴 Hermes，把员工的正确操作路径，在端侧自动转化为标准剧本（Skill包），随时准备上报。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--accent-blue);">4. DAG 与契约（防空转）</div>
+                                <div class="req-desc">借鉴 Manus，跨部门任务不再是“群聊吼叫”，而是强制拆解为有前置条件的 DAG 节点，格式不对系统秒退。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">我们的技术策略：<span class="highlight">“用 OpenClaw 做底座，用 Claude Code 做安全壳，用 Hermes 做进化引擎”</span>。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 19 ==================== -->
+        <div class="slide" id="s19">
+            <div class="header">
+                <div class="tag">PART 19 · 技术底座</div>
+                <div class="title">章鱼式架构：端侧高度自治，云端只做蒸馏</div>
+                <div class="subtitle">彻底划清本地 Agent 与中央大脑的边界：原始数据绝对不出端</div>
+            </div>
+            <div class="content">
+                <!-- 使用自定义布局模拟架构图 -->
+                <div style="display: flex; flex-direction: column; gap: 1.5vh; height: 100%;">
+                    
+                    <!-- 顶层：接入 -->
+                    <div style="background: #F9FAFB; border-radius: 12px; padding: 1.5vh 2vw; border: 1px solid #E5E7EB; text-align: center;">
+                        <div style="font-size: 12px; font-weight: 800; color: var(--text-dim); letter-spacing: 1px;">【感知触手】信道接入层</div>
+                        <div style="font-size: clamp(12px, 1vw, 15px); color: var(--text-secondary); margin-top: 0.5vh;">微信/企微消息库 (cipher-talk) · 邮件/日历 · 本地文档 · Web 端</div>
+                    </div>
+
+                    <!-- 中间核心层（左右分割） -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5vw; flex: 1;">
+                        <!-- 左：本地Agent核心 -->
+                        <div style="border: 2px solid var(--accent-blue); border-radius: 12px; padding: 1.5vh 1.5vw; display: flex; flex-direction: column; position: relative; background: linear-gradient(to bottom, #F8FBFF, #FFFFFF);">
+                            <div style="position: absolute; top: -10px; left: 20px; background: var(--accent-blue); color: white; font-size: 11px; padding: 2px 10px; border-radius: 4px; font-weight: 800;">本地 Agent (常驻员工端)</div>
+                            <div style="margin-top: 1vh; display: grid; grid-template-columns: 1fr 1fr; gap: 1vh;">
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-blue);">网关 & 调度</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">事件路由 · 心跳巡检 · 定时早晚报</div>
+                                </div>
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-blue);">大脑 & 规划</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">意图识别 · ReAct 循环 · 技能匹配</div>
+                                </div>
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-green);">层叠记忆</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Daily Logs · 岗位SOP · 个人偏好</div>
+                                </div>
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-green);">自建技能库</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">行为提炼 · 自动生成 Skill 包</div>
+                                </div>
+                            </div>
+                            <!-- 核心强调 -->
+                            <div style="margin-top: auto; background: var(--accent-light-red); padding: 8px; border-radius: 6px; text-align: center; border: 1px solid var(--accent-red);">
+                                <span style="font-size: 11px; font-weight: 800; color: var(--accent-red);">🔒 安全封装层 (独立于模型)：HITL 强制审批 + 物理熔断 + 审计日志</span>
+                            </div>
+                        </div>
+
+                        <!-- 右：中央大脑 -->
+                        <div style="border: 2px solid var(--accent-orange); border-radius: 12px; padding: 1.5vh 1.5vw; display: flex; flex-direction: column; position: relative; background: linear-gradient(to bottom, #FFFBF5, #FFFFFF);">
+                            <div style="position: absolute; top: -10px; left: 20px; background: var(--accent-orange); color: white; font-size: 11px; padding: 2px 10px; border-radius: 4px; font-weight: 800;">中央大脑 (云端部署)</div>
+                            <div style="margin-top: 1vh; display: flex; flex-direction: column; gap: 1vh;">
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-orange);">DAG 工作流引擎</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">将大任务拆解为有依赖的图，分配给不同岗位 Agent 并行处理</div>
+                                </div>
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-orange);">契约交接台</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">强 Schema 校验，格式不对秒退，消灭“一句话需求”</div>
+                                </div>
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-orange);">岗位孪生工厂</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">吸收端侧上报的“剧本”，提纯为标准技能，下发给全员</div>
+                                </div>
+                                <div style="background: white; border: 1px solid #E5E7EB; padding: 1vh; border-radius: 8px;">
+                                    <div style="font-size: 11px; font-weight: 800; color: var(--accent-orange);">全局透视盘</div>
+                                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">实时映射任务拓扑，异常节点高亮报警</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 底部交互说明 -->
+                    <div style="background: #1A1D23; color: white; border-radius: 12px; padding: 1.5vh 2vw; display: flex; justify-content: space-around; align-items: center;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.5);">本地 -> 云端</div>
+                            <div style="font-size: 13px; font-weight: 700; color: var(--accent-blue);">只传：脱敏剧本 & 强 Schema 契约包</div>
+                        </div>
+                        <div style="font-size: 20px; color: rgba(255,255,255,0.2);">⇄</div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.5);">云端 -> 本地</div>
+                            <div style="font-size: 13px; font-weight: 700; color: var(--accent-orange);">只下：标准 Skill 包 & 组织红线策略</div>
+                        </div>
+                        <div style="border-left: 1px solid rgba(255,255,255,0.2); height: 30px; margin: 0 1vw;"></div>
+                        <div style="font-size: 14px; font-weight: 900; color: var(--accent-red);">
+                            🚫 绝对禁止原始聊天记录/文件越界
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer" style="border-top: none; padding-top: 0;"><div class="conclusion" style="opacity:0; height:0; margin:0; padding:0;">.</div></div>
+        </div>
+
+        <!-- ==================== PAGE 20 ==================== -->
+        <div class="slide" id="s20">
+            <div class="header">
+                <div class="tag">PART 20 · 技术底座</div>
+                <div class="title">本地 Agent 模块拆解：让 AI 自己开发时的“施工图纸”</div>
+                <div class="subtitle">将架构转化为具体的工程模块，明确每个模块的输入、输出与核心约束</div>
+            </div>
+            <div class="content">
+                <div class="grid-2">
+                    <!-- 左列：感知与调度 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">📡</div>
+                            <div class="card-title">感知、路由与调度模块</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">Gateway (网关)</div>
+                                <div class="req-desc"><strong>约束：</strong>只做路由，严禁写业务逻辑。将企微/邮件/cipher-talk 统一转为标准 InEvent，做幂等去重。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">Brain (大脑)</div>
+                                <div class="req-desc"><strong>约束：</strong>模型无关抽象层。执行 ReAct 循环（思考->调工具->观察），支持多模型路由（简单任务用小模型降本）。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">Scheduler (调度)</div>
+                                <div class="req-desc"><strong>能力：</strong>Heartbeat（心跳巡检，处理挂起任务）+ Cron（精确定时触发早晚报）。所有调度结果必须过安全层。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-green">Tools (工具沙箱)</div>
+                                <div class="req-desc"><strong>约束：</strong>权限白名单制（只读/低危/高危）。高危操作强制丢入 Docker 沙箱执行，防恶意脚本。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：记忆与进化 -->
+                    <div class="card" style="border: 2px solid var(--accent-orange);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-orange); color: var(--accent-orange);">🧠</div>
+                            <div class="card-title">记忆、技能与进化模块</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-orange">Memory (层叠记忆)</div>
+                                <div class="req-desc"><strong>规范：</strong>会话上下文 + Daily Logs(日志) + ROLE.md(岗位) + MEMORY.md(知识)。上下文快满时“静默刷盘”，用向量+关键词混合检索。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">Skills (技能引擎)</div>
+                                <div class="req-desc"><strong>规范：</strong>一个技能 = 一个目录 + SKILL.md (YAML元数据+指令)。按需分级加载，避免撑爆上下文。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">Evolution (提炼沉积)</div>
+                                <div class="req-desc"><strong>逻辑：</strong>对比员工操作前后的状态差异，让大模型自动生成 SKILL.md 草稿，经员工确认后入库。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label" style="color: var(--accent-red);">Security (安全封装)</div>
+                                <div class="req-desc"><strong>硬性规定：</strong>拦截点写在 Tool 调用前后的代码里。命中组织红线（如敏感词、金额）直接物理熔断，不等模型返回。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">这套模块设计的精髓在于<span class="highlight">“约束前置”</span>：在让 AI 写代码前，先把“不准干什么”的边界用工程手段锁死。</div></div>
+        </div>
+
+        <!-- ==================== PAGE 21 ==================== -->
+        <div class="slide" id="s21">
+            <div class="header">
+                <div class="tag">PART 21 · 技术底座</div>
+                <div class="title">落地路线：端到端协作链路与技术选型</div>
+                <div class="subtitle">可以直接丢给 Claude Code 的开发指引：怎么跑通、用什么栈、分几步走</div>
+            </div>
+            <div class="content">
+                <div class="grid-2">
+                    <!-- 左列：协作链路 -->
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-green); color: var(--accent-green);">⚡</div>
+                            <div class="card-title">秒级协作链路（以“生成早报”为例）</div>
+                        </div>
+                        <ul class="req-list" style="border-left: 3px solid var(--accent-green); padding-left: 1vw;">
+                            <li class="req-item" style="margin-bottom: 1vh;">
+                                <div class="req-label c-green">① 事件吸入</div>
+                                <div class="req-desc">Gateway 收集昨夜 cipher-talk 抓取的微信消息、IMAP 邮件，转为标准事件。</div>
+                            </li>
+                            <li class="req-item" style="margin-bottom: 1vh;">
+                                <div class="req-label c-green">② 上下文组装</div>
+                                <div class="req-desc">Memory 拉取 ROLE.md(知道哪些是重点工作)、昨天的 Daily Logs，塞入 Brain。</div>
+                            </li>
+                            <li class="req-item" style="margin-bottom: 1vh;">
+                                <div class="req-label c-green">③ 规划与生成</div>
+                                <div class="req-desc">Brain 调用“早报生成 Skill”，过滤噪音，生成待办和总结草稿。</div>
+                            </li>
+                            <li class="req-item" style="margin-bottom: 1vh;">
+                                <div class="req-label c-red">④ 安全卡点 (必须)</div>
+                                <div class="req-desc">触发对外发送动作，Security 层强行挂起！弹出审批卡片，等待员工点击“授权发送”。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-orange">⑤ 沉积与上报</div>
+                                <div class="req-desc">发送成功后，本次路径固化为例行 Skill 包，连同元数据脱敏上报给中央大脑。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 右列：技术选型 -->
+                    <div class="card" style="border: 2px solid var(--accent-blue);">
+                        <div class="card-head">
+                            <div class="icon-box" style="background: var(--accent-light-blue); color: var(--accent-blue);">🛠️</div>
+                            <div class="card-title">技术栈选型与开发步骤</div>
+                        </div>
+                        <div class="avoid-box" style="border: 1px solid var(--accent-blue); background: var(--accent-light-blue); margin-bottom: 1.5vh;">
+                            <div class="avoid-title" style="color: var(--accent-blue);">基座选择：基于 OpenClaw (TS) 深度改造</div>
+                            <div class="avoid-item" style="color: var(--text-secondary);">不选 Python 生态（偏研究），选 TS 生态（偏工程、异步IO好、Gateway 成熟）。中央大脑侧再按需引入 Python 的 DAG 框架。</div>
+                        </div>
+                        <ul class="req-list">
+                            <li class="req-item">
+                                <div class="req-label c-blue">Step 1：跑通基座</div>
+                                <div class="req-desc">部署 OpenClaw，接入企微 Bot + cipher-talk，跑通一个最简的“收到消息->存入 Memory”回路。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">Step 2：植入安全壳</div>
+                                <div class="req-desc">在 Tool 调用链路中插入 Hooks 层，实现 HITL 审批流和 JSON Schema 熔断引擎。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">Step 3：自建技能闭环</div>
+                                <div class="req-desc">开发“早晚报”、“产研文档整理”技能，跑通“操作->自动提炼Skill包->人工确认”的循环。</div>
+                            </li>
+                            <li class="req-item">
+                                <div class="req-label c-blue">Step 4：对接中央大脑</div>
+                                <div class="req-desc">开发“上报客户端”，按契约 Schema 把本地事件推给云端 DAG 引擎，接收云端下发的红线路由。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"><div class="conclusion">开发策略：<span class="highlight">“基座借用，安全自研，技能业务化”</span>。这套文档可以直接作为 Prompt 丢给 Claude Code，让它帮你把骨架搭出来。</div></div>
+        </div>
+
+
+
+    </div>
+
+    <!-- 导航控制 (无需修改) -->
+    <div class="export-btn" onclick="exportHTML()">📥 导出完整源码</div>
+    <div class="nav">
+        <button class="nav-btn" onclick="prev()">◀</button>
+        <button class="nav-btn" onclick="next()">▶</button>
+    </div>
+    <div class="page-indicator" id="indicator">1 / 8</div>
+
+    <script>
+        // 智能翻页与页码控制 (无需修改)
+        let current = 0;
+        function getSlides() { return document.querySelectorAll('.slide'); }
+        
+        function showSlide(index) {
+            const slides = getSlides();
+            if(index < 0 || index >= slides.length) return;
+            current = index;
+            slides.forEach(s => s.classList.remove('active'));
+            slides[current].classList.add('active');
+            document.getElementById('indicator').innerText = `${current + 1} / ${slides.length}`;
+        }
+
+        function next() { showSlide(current + 1); }
+        function prev() { showSlide(current - 1); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+        });
+
+        // 一键导出当前完整 HTML 源码
+        function exportHTML() {
+            const html = document.documentElement.outerHTML;
+            const blob = new Blob([`<!DOCTYPE html>\n${html}`], {type: 'text/html'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = '组织孪生白皮书.html';
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
