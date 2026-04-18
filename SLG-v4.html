@@ -110,47 +110,61 @@
     <div class="slide">
         <div class="h"><div class="tt">选型思考：全球化私域治理的“同”与“异”</div></div>
         <div class="bn"><h2><b>产研结论：</b>国内与海外虽然触达手段不同，但<b>治理逻辑高度一致</b>。我们必须构建一套“协议中立”的通用底座，实现跨平台的社会化管理。</h2></div>
-        <div class="grid" style="grid-template-columns: 1fr;">
-            <div class="cd" style="padding: 20px;">
-                <div class="cb">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>对比维度</th>
-                                <th>国内（微信/企微）</th>
-                                <th>海外（Discord/WhatsApp）</th>
-                                <th>产研应对策略</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><b>底层协议</b></td>
-                                <td>封闭生态，依赖SDK与Hook技术</td>
-                                <td>开放协议，依赖Webhook与OAuth</td>
-                                <td><b>抽象触达路由层</b>，屏蔽底层协议差异</td>
-                            </tr>
-                            <tr>
-                                <td><b>用户心智</b></td>
-                                <td>习惯官办，追求高效服务/礼包</td>
-                                <td>追求自由，习惯插件自治/共治</td>
-                                <td><b>分层SOP引擎</b>，支持强推与静默通知</td>
-                            </tr>
-                            <tr>
-                                <td><b>数据采集</b></td>
-                                <td>身份强绑定，数据归一化程度高</td>
-                                <td>身份匿名化，依赖OAuth关联绑定</td>
-                                <td><b>One-ID映射引擎</b>，多维度身份归集</td>
-                            </tr>
-                            <tr>
-                                <td><b>关键工具</b></td>
-                                <td>小程序、SCRM机器人、会话存档</td>
-                                <td>Discord Bot、论坛插件、Wiki</td>
-                                <td><b>微服务化工具箱</b>，按需动态插拔</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        
+        <style>
+            .table-container { flex: 1; overflow: hidden; background: #fff; border-radius: 12px; border: 2px solid var(--pri); margin-top: 10px; }
+            .comparison-table { width: 100%; border-collapse: collapse; table-layout: fixed; height: 100%; }
+            .comparison-table th { background: var(--pri); color: #fff; font-size: 22px; padding: 18px; text-align: left; border-right: 1px solid rgba(255,255,255,0.1); }
+            .comparison-table td { padding: 20px; font-size: 18px; line-height: 1.6; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); vertical-align: middle; }
+            /* 定义列宽比例 */
+            .col-attr { width: 8%; font-weight: 800; background: #f8fafc; color: var(--pri); }
+            .col-cn { width: 29%; color: var(--txt); }
+            .col-os { width: 28%; color: var(--txt); }
+            .col-strategy { width: 32%; background: #fffdf5; }
+            /* 强调产研策略列 */
+            .strategy-box { color: #b45309; font-weight: 800; border-left: 4px solid var(--acc); padding-left: 12px; }
+            /* 斑马纹增强可读性 */
+            .comparison-table tr:nth-child(even) td { background-color: rgba(248, 250, 252, 0.5); }
+            .comparison-table tr:hover td { background-color: #f1f5f9; }
+        </style>
+
+        <div class="table-container">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th class="col-attr">对比维度</th>
+                        <th class="col-cn">国内（微信/企微）</th>
+                        <th class="col-os">海外（Discord/WA）</th>
+                        <th class="col-strategy">产研应对策略</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-attr">底层协议</td>
+                        <td class="col-cn">封闭生态，强依赖<b>SDK与Hook</b>技术，接口限制多。</td>
+                        <td class="col-os">开放协议，通过<b>Webhook与OAuth</b>实现高度自定义。</td>
+                        <td class="col-strategy"><div class="strategy-box"><b>抽象触达路由层：</b>屏蔽底层协议差异，提供统一消息下发接口。</div></td>
+                    </tr>
+                    <tr>
+                        <td class="col-attr">用户心智</td>
+                        <td class="col-cn">习惯官办服务，追求高效反馈、礼包福利与<b>点对点响应</b>。</td>
+                        <td class="col-os">追求自由与去中心化，习惯<b>插件自治</b>、共治与UGC社区。</td>
+                        <td class="col-strategy"><div class="strategy-box"><b>分层SOP引擎：</b>支持“强推式关怀”与“静默式社区通知”双模式。</div></td>
+                    </tr>
+                    <tr>
+                        <td class="col-attr">数据采集</td>
+                        <td class="col-cn">身份<b>强绑定</b>，手机号/微信号作为主键，数据归一化程度高。</td>
+                        <td class="col-os">身份<b>匿名化</b>程度高，依赖OAuth关联授权获取游戏UID。</td>
+                        <td class="col-strategy"><div class="strategy-box"><b>One-ID映射引擎：</b>实现多维度社会身份与游戏角色的关联归集。</div></td>
+                    </tr>
+                    <tr>
+                        <td class="col-attr">关键工具</td>
+                        <td class="col-cn">小程序工具包、SCRM自动打标机器人、<b>会话存档</b>监管。</td>
+                        <td class="col-os">Discord Bot系统、自建Wiki论坛、<b>Webhook</b>战报推送。</td>
+                        <td class="col-strategy"><div class="strategy-box"><b>微服务工具箱：</b>提供可插拔的功能模块（如AI配将、自动战报）。</div></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="ft">结论：产研中心必须提供“一套中台内核，多端触达逻辑”的全球化工具方案。</div>
     </div>
@@ -287,6 +301,93 @@
         <div class="ft">终极愿景：让私域成为SLG游戏的“外部大脑”，构建永不落幕的虚拟玩家社会。</div>
     </div>
 	
+	
+	<div class="slide">
+        <div class="h"><div class="tt">实施：SLG私域AI化改造路线图</div></div>
+        <div class="bn"><h2><b>战略重心：</b>优先解决“存量群管不动、消息发不准”的痛点。通过<b>AI中台化改造</b>，将现有的私域企微群转化为可量化、可干预的自动化社会单元。</h2></div>
+        
+        <style>
+            .step-table { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 10px; }
+            .step-table th { background: var(--pri); color: #fff; padding: 15px; font-size: 24px; text-align: left; }
+            .step-table td { border: 1px solid var(--line); padding: 20px; vertical-align: top; font-size: 20px; line-height: 1.6; }
+            .phase-label { font-weight: 900; color: var(--pri); font-size: 22px; display: block; margin-bottom: 10px; }
+            .action-item { color: #0369a1; font-weight: 700; }
+            .target-item { color: #b45309; font-weight: 700; }
+            .resource-item { background: #f1f5f9; padding: 5px 10px; border-radius: 4px; font-size: 18px; display: inline-block; margin-top: 10px; }
+        </style>
+
+        <table class="step-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">阶段与切入点</th>
+                    <th style="width: 45%;">具体动作实践</th>
+                    <th style="width: 30%;">预期目标与资源</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="phase-label">阶段一：存量提效期</span>
+                        <span class="action-item">切入点：万群巡检工作台</span>
+                    </td>
+                    <td>
+                        1. <b>全量接入：</b>利用聚合协议层，一键导入现有1000+企微/个微群。<br>
+                        2. <b>关键词预警：</b>基于NLP识别“退游”、“弃坑”、“卖号”等高危负面言论。<br>
+                        3. <b>黑产自动清理：</b>AI识别外挂推销、拉人广告，实现秒级踢人。
+                    </td>
+                    <td>
+                        <span class="target-item">目标：</span>人效提升<b>5倍</b>；高危事件漏报率降至<b>5%</b>以下。<br>
+                        <span class="resource-item">资源：3人（前端+协议后端+NLP）</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="phase-label">阶段二：身份唤醒期</span>
+                        <span class="action-item">切入点：数据中台双向打通</span>
+                    </td>
+                    <td>
+                        1. <b>One-ID映射：</b>通过H5礼包、签到工具强引导绑定RoleID。<br>
+                        2. <b>画像注入：</b>将现有数据中台的付费等级、战力标签同步至工作台看板。<br>
+                        3. <b>社交权重分析：</b>通过群活跃度+游戏活跃度交叉识别<b>隐形KOC</b>。
+                    </td>
+                    <td>
+                        <span class="target-item">目标：</span>核心活跃用户绑定率<b>>80%</b>；建立首批KOC白名单。<br>
+                        <span class="resource-item">资源：2人（大数据ETL+算法）</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="phase-label">阶段三：AI赋能期</span>
+                        <span class="action-item">切入点：AI-SOP自动化触达</span>
+                    </td>
+                    <td>
+                        1. <b>动态流控：</b>针对赛季末、战损过高等节点自动触发SOP。<br>
+                        2. <b>LLM话术生成：</b>接入大语言模型，根据玩家人设自动生成个性化安抚话术。<br>
+                        3. <b>工具流下发：</b>针对开荒高压期，私域自动推配将工具/资源表。
+                    </td>
+                    <td>
+                        <span class="target-item">目标：</span>流失节点挽回率提升<b>15%+</b>；实现“千人千面”内容。 <br>
+                        <span class="resource-item">资源：2人（AI策略+Prompt工程师）</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="phase-label">阶段四：生态资产期</span>
+                        <span class="action-item">切入点：归因模型与私域闭环</span>
+                    </td>
+                    <td>
+                        1. <b>财务归因：</b>通过AB Test测算私域干预对LTV的净值贡献。<br>
+                        2. <b>资产库沉淀：</b>构建跨产品线的“高社交权重玩家库”，支持新游冷启动。<br>
+                        3. <b>社会工程模拟：</b>AI预测同盟冲突走势，提前进行外交干预。
+                    </td>
+                    <td>
+                        <span class="target-item">目标：</span>私域ROI量化模型上线；形成公司级<b>SLG治理白皮书</b>。<br>
+                        <span class="resource-item">资源：1人（产研负责人/架构）</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 	
 </div>
 
