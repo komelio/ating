@@ -18,7 +18,7 @@
         .tt {font-size: 56px; font-weight: 900; color: var(--pri); margin-bottom: 10px;}
         .h {border-left: 15px solid var(--pri); padding-left: 25px; margin-bottom: 30px;}
         
-        .bn {background: linear-gradient(90deg, var(--pri), #1e3a8a); color: #fff; padding: 25px 40px; margin-bottom: 35px; border-radius: 15px;}
+        .bn {background: linear-gradient(90deg, var(--pri), #1e3a8a); color: #fff; padding: 15px 10px; margin-bottom: 15px; border-radius: 15px;}
         .bn h2 {font-size: 32px; line-height: 1.4; font-weight: 400;}
         .bn b {color: var(--sec);}
 
@@ -64,6 +64,27 @@
         .page-node {width: 45px; height: 45px; background: #fff; border: 2px solid var(--pri); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 800; font-size: 20px;}
         .page-node.active {background: var(--pri); color: var(--sec); border-color: var(--sec);}
         .pb {position: fixed; bottom: 0; left: 0; height: 10px; background: var(--sec); transition: 0.4s;}
+		
+        /* 表格样式 */
+        .table-container {flex: 1; overflow: hidden; border-radius: 16px; border: 2px solid var(--line);}
+        table {width: 100%; border-collapse: collapse; background: white; table-layout: fixed;}
+        th {background: var(--pri); color: var(--sec); font-size: 16px; padding: 20px; text-align: left; font-weight: 900;}
+        td {padding: 20px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14px; line-height: 1.5;}
+        
+        /* 细化列宽 */
+        .col-name {width: 20%;}
+		.col-platform {width: 20%;} /* 新增列 */
+        .col-strategy {width: 25%;}
+        .col-action {width: 35%;}
+
+        tr:nth-child(even) {background: var(--card);}
+        .tag {display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 14px; font-weight: 900; margin-bottom: 10px;}
+        .tag-cn {background: #fee2e2; color: #dc2626;}
+        .tag-global {background: #e0f2fe; color: #0284c7;}
+        .tag-tech {background: #f0fdf4; color: #16a34a;}
+
+        b {color: var(--pri); font-weight: 900;}
+        .highlight {color: #e11d48; font-weight: 900;}
     </style>
 </head>
 <body>
@@ -470,6 +491,137 @@
             </div>
         </div>
     </div>
+	
+	<div class="slide">
+		<div class="h"><h1 class="tt">业界标杆：SLG 私域运营大观</h1></div>
+		<div class="bn"><h2>从<b>“工具化集成”</b>到<b>“圈层认同”</b>：拆解全球头部 SLG 的私域护城河。</h2></div>
+
+		<div class="table-container">
+			<table><thead>
+                <tr>
+                    <th class="col-name">游戏名称/定位</th>
+                    <th class="col-platform">平台</th>
+                    <th class="col-strategy">核心私域策略</th>
+                    <th class="col-action">关键动作与核心价值</th>
+                </tr>
+            </thead>
+
+				<tbody>
+					<tr>
+						<td>
+							<span class="tag tag-cn">国内霸主</span>
+							<b>《三国志·战略版》</b>
+						</td>
+						<td>
+							<b>微信生态 + 视频号</b><br>
+							<small>公众号、企业微信、盟主小程序、视频号阵列</small>
+						</td>
+						<td><b>工具驱动型私域</b><br>将私域定位为“同盟办公厅”，通过小程序承载战报与考勤。</td>
+						<td>
+							<li><b>关键动作：</b>推出“史官计划”，官方出资扶持玩家在私域记录战史。</li>
+							<li><b>核心价值：</b>极大提升<b>同盟管理效率</b>，老玩家通过盟主私域回流率提升 40%。</li>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<span class="tag tag-global">出海巅峰</span>
+							<b>《Whiteout Survival》</b>
+						</td>
+						<td>
+							<b>Discord + Wiki</b><br>
+							<small>Bros24/WOS Bot 自动管理、多语种频道、官网充值点</small>
+						</td>
+						<td><b>自动化服务型私域</b><br>利用定制化 Bot 提供活动提醒、礼包自动兑换及数值计算。</td>
+						<td>
+							<li><b>关键动作：</b>在 Discord 内置“英雄计算器”，强制信息差（公告首发于 Discord）。</li>
+							<li><b>核心价值：</b>社区评分维持满分，通过 Bot 自动回复解决 70% 的<b>常见客服问题</b>。</li>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<span class="tag tag-global">D2C 标杆</span>
+							<b>《万国觉醒》</b>
+						</td>
+						<td>
+							<b>Discord + Web Shop</b><br>
+							<small>官网充值中心、Discord 身份绑定系统</small>
+						</td>
+						<td><b>D2C（直面消费者）策略</b><br>通过私域发放官网专属优惠券，引导玩家绕过渠道分成。</td>
+						<td>
+							<li><b>关键动作：</b>私域身份与官网账号绑定，根据私域活跃度解锁专属折扣。</li>
+							<li><b>核心价值：</b><b>利润率大幅提升</b>，成功将 20% 以上的流水从渠道导流回官网。</li>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<span class="tag tag-tech">科幻标杆</span>
+							<b>《无尽的拉格朗日》</b>
+						</td>
+						<td>
+							<b>B站 + 微信 + 官方社区</b><br>
+							<small>未央积分系统、舰船设计二创社区</small>
+						</td>
+						<td><b>沉浸式圈层私域</b><br>重内容、重身份感，不以营销发券为主，重官方设定补完。</td>
+						<td>
+							<li><b>关键动作：</b>连载官方设定集，私域征集舰船改装图纸并植入游戏。</li>
+							<li><b>核心价值：</b>构建了极高的<b>科幻受众壁垒</b>，私域用户的 LTV 是普通用户的 3 倍。</li>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<span class="tag tag-global">全球黑马</span>
+							<b>《Last War: Survival》</b>
+						</td>
+						<td>
+							<b>Discord + YouTube</b><br>
+							<small>战术地图插件、高频反馈频道</small>
+						</td>
+						<td><b>战术工具型私域</b><br>将重度 SLG 内容通过私域工具“轻量化”处理。</td>
+						<td>
+							<li><b>关键动作：</b>在 Discord 内置一键生成的战术地图和排兵布阵 Bot。</li>
+							<li><b>核心价值：</b>2024-25 增长极客，通过私域插件极大地降低了<b>新手流失率</b>。</li>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<span class="tag tag-cn">情怀驱动</span>
+							<b>《红警 OL》</b>
+						</td>
+						<td>
+							<b>公众号 + 老玩家 QQ 群</b><br>
+							<small>老兵补给线、盟主 1V1 管家服务</small>
+						</td>
+						<td><b>情感链接型私域</b><br>利用 IP 记忆点进行精准的情感唤醒。</td>
+						<td>
+							<li><b>关键动作：</b>通过私域下发“回归专属补给线”，让老盟主带队回流。</li>
+							<li><b>核心价值：</b>回流成本仅为买量的 1/5，<b>用户生命周期</b>显著拉长。</li>
+						</td>
+					</tr>
+					
+					<tr>
+					<td>
+						<span class="tag tag-tech">极客圈层</span>
+						<b>《亿万光年》</b><br>
+					</td>
+					<td>
+						<b>早期测试社群（QQ群/Discord）、TG群</b><br>
+						<small>沙盒宇宙探索，多部队协同，对标《无尽的拉格朗日》。</small>
+					</td>
+					<td><b>“重氪管家”+ 机制共创</b><br>锁定极早期高价值种子。</td>
+					<td>
+						<li><b>策划下场：</b>官方策划在私域群直接讨论沙盒边界等底层机制。</li>
+						<li><b>价值：</b>公测前锁定千名<b>核心高战</b>，有效度过 SLG 新手迷茫期。</li>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
 
     <div class="nav-pagination" id="nav"></div>
