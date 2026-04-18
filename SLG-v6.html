@@ -264,7 +264,7 @@
                 </div>
             </div>
             <div style="text-align: center; margin-top: 40px;">
-                <h2 style="font-size: 48px; color: var(--pri); font-weight: 900;">2026 产研中心 · 全力护航业务增长</h2>
+                <h2 style="font-size: 48px; color: var(--pri); font-weight: 900;">2026 · 全力护航业务增长</h2>
             </div>
         </div>
     </div>
@@ -277,49 +277,67 @@
 </div>
 
 
-
 <script>
     let current = 0;
     const slides = document.querySelectorAll('.slide');
-    const pagiContainer = document.getElementById('navPagi');
-    const progressBar = document.getElementById('pb');
-    
-    // 自动生成导航节点
+    const nav = document.getElementById('navContainer');
+    const bar = document.getElementById('progressBar');
+
+    // 核心功能：初始化导航按钮
     function initNav() {
-        pagiContainer.innerHTML = '';
-        slides.forEach((_, index) => {
+        nav.innerHTML = ''; // 清空现有内容
+        slides.forEach((_, i) => {
             const node = document.createElement('div');
-            node.className = `page-node ${index === current ? 'active' : ''}`;
-            node.innerText = index + 1;
-            node.onclick = () => jumpTo(index);
-            pagiContainer.appendChild(node);
+            node.className = `page-node ${i === 0 ? 'active' : ''}`;
+            node.innerText = i + 1;
+            // 点击跳转
+            node.onclick = () => jumpTo(i);
+            nav.appendChild(node);
         });
     }
 
+    // 跳转函数
     function jumpTo(index) {
+        if (index < 0 || index >= slides.length) return;
         current = index;
         updateView();
     }
 
+    // 更新视图状态
     function updateView() {
+        // 1. 切换幻灯片可见性
         slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        
+        // 2. 更新页码按钮高亮
         const nodes = document.querySelectorAll('.page-node');
         nodes.forEach((n, i) => n.classList.toggle('active', i === current));
-        progressBar.style.width = ((current + 1) / slides.length * 100) + '%';
+        
+        // 3. 更新进度条
+        const progress = ((current + 1) / slides.length) * 100;
+        bar.style.width = progress + '%';
     }
-    
+
+    // 绑定键盘左右键翻页
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight' || e.key === ' ') {
-            if (current < slides.length - 1) { current++; updateView(); }
+            if (current < slides.length - 1) {
+                current++;
+                updateView();
+            }
         }
         if (e.key === 'ArrowLeft') {
-            if (current > 0) { current--; updateView(); }
+            if (current > 0) {
+                current--;
+                updateView();
+            }
         }
     });
 
-    // 初始化
-    initNav();
-    updateView();
+    // 页面加载完成后立即初始化
+    window.onload = () => {
+        initNav();
+        updateView();
+    };
 </script>
 
 </body>
