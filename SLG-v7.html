@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>SLG游戏私域运营白皮书 - 产研中心</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+    <style>
+        :root {--pri: #0a2540; --sec: #00d4ff; --bg: #ffffff; --card: #f8fafc; --txt: #1e293b; --line: #cbd5e1;}
+        * {box-sizing: border-box; margin: 0; padding: 0;}
+        body {font-family: 'PingFang SC', sans-serif; background: #000; color: var(--txt); overflow: hidden;}
+        
+        .pres {width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;}
+        .slide {display: none; width: 100%; height: 100%; background: var(--bg); padding: 50px 80px; flex-direction: column; position: relative;}
+        .active {display: flex;}
+
+        /* 字体放大逻辑 */
+        .tt {font-size: 56px; font-weight: 900; color: var(--pri); margin-bottom: 10px;}
+        .h {border-left: 15px solid var(--pri); padding-left: 25px; margin-bottom: 30px;}
+        
+        .bn {background: linear-gradient(90deg, var(--pri), #1e3a8a); color: #fff; padding: 25px 40px; margin-bottom: 35px; border-radius: 15px;}
+        .bn h2 {font-size: 32px; line-height: 1.4; font-weight: 400;}
+        .bn b {color: var(--sec);}
+
+        .grid {display: grid; gap: 30px; flex: 1; min-height: 0;}
+        .col-4 {grid-template-columns: repeat(4, 1fr);}
+        .col-3 {grid-template-columns: repeat(3, 1fr);}
+        .col-2-3 {grid-template-columns: 1fr 1.8fr;}
+
+        .cd {background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid var(--line); display: flex; flex-direction: column;}
+        .ch {font-size: 28px; font-weight: 900; color: var(--pri); margin-bottom: 20px; border-bottom: 5px solid var(--sec); padding-bottom: 10px; width: fit-content;}
+        .ch span {margin-right: 12px; color: var(--sec); font-style: italic;}
+        
+        /* 正文字体强制不小于 24px */
+        .cb {font-size: 24px; line-height: 1.6; color: var(--txt);}
+        .cb ul {list-style: none; margin-top: 15px;}
+        .cb li {margin-bottom: 12px; padding-left: 35px; position: relative;}
+        .cb li::before {content: "•"; position: absolute; left: 10px; color: var(--sec); font-weight: 900;}
+        .cb b {font-weight: 900; color: #000;}
+
+        /* 增强型 Mermaid 容器 */
+        .mermaid-outer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 20px;
+            border: 2px solid var(--line);
+            overflow: hidden;
+            cursor: grab;
+        }
+        .mermaid-outer:active { cursor: grabbing; }
+        .controls {
+            position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 100;
+        }
+        .btn {
+            background: var(--pri); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 900; font-size: 18px;
+        }
+        .btn:hover { background: var(--sec); color: var(--pri); }
+        #pan-target { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+
+        .ft {background: #f1f5f9; border-top: 6px solid var(--pri); color: var(--pri); padding: 25px 40px; font-size: 28px; font-weight: 900; margin-top: 20px;}
+        .nav-pagination {position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 1000;}
+        .page-node {width: 45px; height: 45px; background: #fff; border: 2px solid var(--pri); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 800; font-size: 20px;}
+        .page-node.active {background: var(--pri); color: var(--sec); border-color: var(--sec);}
+        .pb {position: fixed; bottom: 0; left: 0; height: 10px; background: var(--sec); transition: 0.4s;}
+    </style>
+</head>
+<body>
+
+<div class="pres">
+    <div class="slide active" style="justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1a365d 0%, #0a2540 100%); color: white; border: none;">
+        <h1 style="font-size: 80px; margin-bottom: 30px; letter-spacing: 5px; font-weight: 900;">SLG游戏私域运营白皮书</h1>
+        <h2 style="font-size: 40px; font-weight: 300; color: var(--sec); margin-bottom: 60px;">从“人工巡检”到“Agent 自动治理”的工业化演进</h2>
+        <div style="width: 150px; height: 6px; background: var(--sec); margin-bottom: 60px;"></div>
+        <div style="font-size: 30px; line-height: 2;">
+            <p>产研中心 · 2026年度战略指南</p>
+            <p style="opacity: 0.8;">主讲人：产研中心 江名洋</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="h"><h1 class="tt">整体架构：全链路数智中枢</h1></div>
+        <div class="bn">
+            <h2>打通从 <b>“底层通信”</b> 到 <b>“高层决策”</b> 的完整路径，构建自动化运营闭环。</h2>
+        </div>
+        <div class="grid col-4">
+            <div class="cd">
+                <div class="ch"><span>01</span> 触达与执行层</div>
+                <div class="cb">
+                    <b>基础设施：</b>
+                    <ul>
+                        <li><b>多协议集群：</b>有机云/由创协议接入。</li>
+                        <li><b>RPA 拟人：</b>WorkTool 驱动拟人操作。</li>
+                        <li><b>统一交互：</b>Web-IM 聚合消息面板。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>02</span> 业务 SOP 层</div>
+                <div class="cb">
+                    <b>逻辑大脑：</b>
+                    <ul>
+                        <li><b>周期调度：</b>配合赛季节奏分发任务。</li>
+                        <li><b>动态策略：</b>按群权重触发差异化 SOP。</li>
+                        <li><b>事件响应：</b>弃坑、炸服自动化关怀。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>03</span> 数据中台层</div>
+                <div class="cb">
+                    <b>身份内核：</b>
+                    <ul>
+                        <li><b>One-ID：</b>打通企微与游戏 UID。</li>
+                        <li><b>画像同步：</b>充值、战力标签实时注入。</li>
+                        <li><b>社交图谱：</b>核心 KOC/指挥官识别。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>04</span> 数据接入治理</div>
+                <div class="cb">
+                    <b>智能感知：</b>
+                    <ul>
+                        <li><b>语义风控：</b>NLP 识别黑产与负面情绪。</li>
+                        <li><b>RAG 增强：</b>向量库提供专业配将知识。</li>
+                        <li><b>归因分析：</b>私域 LTV 净增量测算。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="h"><h1 class="tt">阶段一：智联执行 · AI 辅助 SOP</h1></div>
+        <div class="bn">
+            <h2>重心：融合 <b>“物理触达”</b> 与 <b>“初级语义判断”</b>，实现社群的半自动驾驶。</h2>
+        </div>
+        <div class="grid col-3">
+            <div class="cd">
+                <div class="ch"><span>T-01</span> 协议聚合与聚合响应</div>
+                <div class="cb">
+                    通过协议中枢（由创/有机云）实现万量级账号挂载，配合 <b>Web-IM 聚合前端</b>。
+                    <ul>
+                        <li><b>能力：</b>消除设备墙，1 人可即时响应 500+ 群。</li>
+                        <li><b>价值：</b>将私域流量“物理连通”，构建响应底座。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>T-02</span> AI-SOP 语义净群</div>
+                <div class="cb">
+                    在触达流中嵌入 <b>NLP 意图识别哨兵</b>，将“巡检”与“处置”合并。
+                    <ul>
+                        <li><b>能力：</b>实时识别变体广告、竞品拉人。</li>
+                        <li><b>动作：</b>自动触发 <b>WorkTool</b> 踢人或禁言指令。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>T-03</span> 自动化节奏播报</div>
+                <div class="cb">
+                    基于 SLG 赛季时间线，通过 <b>Agent 调度中枢</b> 自动下发 SOP 任务。
+                    <ul>
+                        <li><b>能力：</b>开服公告、攻城预告自动播报。</li>
+                        <li><b>价值：</b>确保全服节奏统一，减少运营 70% 的重复粘贴劳动。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft">实施成果：通过“触达+AI感知”初步解放人力，社群环境纯净度与消息响应速度提升 300%。</div>
+    </div>
+
+    <div class="slide">
+        <div class="h"><h1 class="tt">阶段二：业务自动化 · Agent 策略引擎</h1></div>
+        <div class="bn">
+            <h2>重心：从“定时播报”进化为 <b>“事件驱动”</b>，实现 SOP 与游戏内行为的深度耦合。</h2>
+        </div>
+        <div class="grid col-3">
+            <div class="cd">
+                <div class="ch"><span>T-04</span> 动态节点触发引擎</div>
+                <div class="cb">
+                    将 SOP 挂载至游戏核心事件。
+                    <ul>
+                        <li><b>场景：</b>当盟战开启、大规模战损、或赛季结算时，系统自动识别并触发特定话术。</li>
+                        <li><b>技术：</b>由业务层接口下发 Webhook，Agent 自动转译为社群指令。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>T-05</span> 多模态战报助手</div>
+                <div class="cb">
+                    利用 <b>OCR + LLM</b> 解析玩家分享。
+                    <ul>
+                        <li><b>功能：</b>自动识别战报截图中的武将战损、胜负关系，生成“战力分析”简报。</li>
+                        <li><b>价值：</b>通过高价值的内容反馈，极大增强社群社交粘性与活跃度。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>T-06</span> 个性化关怀 Agent</div>
+                <div class="cb">
+                    针对“弃坑预警”的自动化干预。
+                    <ul>
+                        <li><b>逻辑：</b>识别到“退游、卖号”等高危词汇或行为，Agent 自动私聊或触发专属礼包策略。</li>
+                        <li><b>目标：</b>将高价值大 R 的流失率降低 15% 以上。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft">实施成果：私域不再只是信息下发工具，而是成为能解析战报、安抚情绪的“金牌助教”。</div>
+    </div>
+
+    <div class="slide">
+        <div class="h"><h1 class="tt">阶段三：数智底座 · 数据中台闭环</h1></div>
+        <div class="bn">
+            <h2>重心：攻克 <b>“身份孤岛”</b>，实现私域资产与游戏业务数据的 <b>100% 对齐</b>。</h2>
+        </div>
+        <div class="grid col-4">
+            <div class="cd">
+                <div class="ch"><span>01</span> One-ID 引擎</div>
+                <div class="cb">
+                    <b>身份对齐：</b>
+                    <ul>
+                        <li><b>H5 鉴权桥接：</b>通过福利中心等 H5 入口，强制关联企微 ID 与游戏 UID。</li>
+                        <li><b>映射体系：</b>构建核心 ID 映射表，支持全业务层调用。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>02</span> RAG 知识底座</div>
+                <div class="cb">
+                    <b>智慧来源：</b>
+                    <ul>
+                        <li><b>向量化攻略：</b>将 10W+ 配将表、赛季百科存入 <b>Vector DB</b>。</li>
+                        <li><b>即时检索：</b>玩家在群内咨询“甘宁怎么配”，Agent 毫秒级生成专业答案。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>03</span> 社交图谱画像</div>
+                <div class="cb">
+                    <b>深度洞察：</b>
+                    <ul>
+                        <li><b>权重识别：</b>基于互动频率识别指挥官、KOC 权重。</li>
+                        <li><b>关系网络：</b>构建同盟社交链路图谱，预测炸服风险。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>04</span> 归因与财务闭环</div>
+                <div class="cb">
+                    <b>ROI 归因：</b>
+                    <ul>
+                        <li><b>价值计算：</b>对比私域干预组与对照组的 LTV、留存率差异。</li>
+                        <li><b>资产化：</b>形成可复用的 SLG 核心玩家“人才库”。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft">实施成果：完成从“运营工具”向“企业级数字资产中心”的跨越。</div>
+    </div>
+
+    <div class="slide" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+        <div class="h"><h1 class="tt">总结：构建数智化社会治理体系</h1></div>
+        <div class="bn">
+            <h2>SLG 私域运营的终局不是“发广告”，而是构建一个 <b>自增长、可观测、智能应答</b> 的虚拟社会系统。</h2>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 30px; justify-content: center;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(10,37,64,0.05);">
+                    <h3 style="font-size: 32px; color: var(--pri); margin-bottom: 20px;">三维增效</h3>
+                    <ul style="font-size: 22px; line-height: 2; color: var(--txt);">
+                        <li><b>人效：</b>从 1:50 提升至 <b>1:1000</b> (社群管理比)</li>
+                        <li><b>业务：</b>LTV 提升预测 <b>10% - 15%</b></li>
+                        <li><b>安全：</b>实现全平台风控与自动化净群</li>
+                    </ul>
+                </div>
+                <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(10,37,64,0.05);">
+                    <h3 style="font-size: 32px; color: var(--pri); margin-bottom: 20px;">技术沉淀</h3>
+                    <ul style="font-size: 22px; line-height: 2; color: var(--txt);">
+                        <li>一套 <b>多协议聚合</b> 的私域通信网关</li>
+                        <li>一个 <b>RAG + Agent</b> 驱动的 SLG 知识大脑</li>
+                        <li>一簇 <b>身份映射</b> 为核心的玩家数字资产</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <h2 style="font-size: 48px; color: var(--pri); font-weight: 900;">2026 · 全力护航业务增长</h2>
+            </div>
+        </div>
+    </div>
+
+	<div class="slide">
+        <div class="h"><h1 class="tt">阶段一：智联执行 · 自动化机器人闭环</h1></div>
+        <div class="bn">
+            <h2>重心：构建 <b>“底层机器人接入”</b> 为驱动，<b>“人机协同审批”</b> 为核心的自动化作业模式。</h2>
+        </div>
+        <div class="grid col-4">
+            <div class="cd">
+                <div class="ch"><span>01</span> 机器人接入层</div>
+                <div class="cb">
+                    <b>自动化账号驱动：</b>
+                    <ul>
+                        <li><b>全量感知：</b>接入具备 <b>读取群列表/群成员/群消息</b> 能力的协议机器人。</li>
+                        <li><b>行政权限：</b>机器人支持 <b>群聊管理、移除成员、设置备注</b> 等自动化控制动作。</li>
+                        <li><b>双向触达：</b>支持文本、图片、H5 等多模态消息的自动化分发。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>02</span> 关系对齐治理</div>
+                <div class="cb">
+                    <b>人员资产化：</b>
+                    <ul>
+                        <li><b>自动标签：</b>根据入群路径与对话特征，机器人自动为成员 <b>打标签/加备注</b>。</li>
+                        <li><b>身份映射：</b>试图通过机器人获取的原始数据，初步建立社交 ID 与游戏 UID 的关联。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>03</span> 聚合审批流</div>
+                <div class="cb">
+                    <b>Web-IM 席位制：</b>
+                    <ul>
+                        <li><b>多号聚合：</b>所有机器人账号采集的群消息统一汇聚至 <b>Web-IM 界面</b>。</li>
+                        <li><b>AI 拟答：</b>AI 分析话题并生成回复建议，运营人员在界面 <b>一键审批</b> 后，由机器人自动答复。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>04</span> 进化与反馈</div>
+                <div class="cb">
+                    <b>策略调优：</b>
+                    <ul>
+                        <li><b>语料沉淀：</b>提炼历史高频问答方案，构建私域专属 <b>SOP 知识库</b>。</li>
+                        <li><b>效果改进：</b>通过人工审批的反馈数据，不断修正 AI 生成回复的准确度与拟人化程度。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft">实施成果：通过机器人账号解放手部操作，通过 AI 辅助大脑决策，实现私域治理的“工业化流水线”。</div>
+    </div>
+	
+	<div class="slide">
+        <div class="h"><h1 class="tt">具体案例：游熊 SLG 智能客服系统</h1></div>
+        <div class="bn">
+            <h2>核心：接入 <b>Helpshift</b> 工单流，通过 <b>AI 问数</b> 与 <b>生成的自动化</b> 实现全链路减负。</h2>
+        </div>
+        <div class="grid col-4">
+            <div class="cd">
+                <div class="ch"><span>01</span> 工单聚合接入</div>
+                <div class="cb">
+                    <b>Web-IM 工作台：</b>
+                    <ul>
+                        <li><b>接口集成：</b>深度对接 Helpshift 原始工单数据流。</li>
+                        <li><b>全景展示：</b>在统一 Web 界面展示 <b>工单列表</b> 与 <b>详情上下文</b>。</li>
+                        <li><b>实时流转：</b>同步玩家反馈，确保私域与官方客服数据同频。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>02</span> 话题自动识别</div>
+                <div class="cb">
+                    <b>语义标签化：</b>
+                    <ul>
+                        <li><b>多话题拆解：</b>AI 自动分析冗长工单，将其拆解为多个独立 <b>话题列表</b>（如：充值未到账、赛季配将咨询）。</li>
+                        <li><b>优先级排序：</b>根据话题敏感度自动调整工单处理优先级。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>03</span> AI 问数提取</div>
+                <div class="cb">
+                    <b>自动化数据穿透：</b>
+                    <ul>
+                        <li><b>精准提数：</b>针对话题，AI 通过 <b>“问数”能力</b> 自动从游戏数据库提取关联数据（如充值流水、战报记录）。</li>
+                        <li><b>免配置查询：</b>运营无需手动跑 SQL，AI 自动完成数据校验与分析。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>04</span> 生成与审批</div>
+                <div class="cb">
+                    <b>智能辅助回复：</b>
+                    <ul>
+                        <li><b>内容自生成：</b>结合“问数结果”与知识库，AI 为每个话题生成 <b>定制化回复建议</b>。</li>
+                        <li><b>人工闭环：</b>人工在详情页进行最终审核/微调，确认后 <b>一键同步回 Helpshift</b>。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft">实施成果：工单平均处理时长降低 60%，数据查询准确度显著提升，实现了运营人力的“大脑替换”。</div>
+    </div>
+	
+	<div class="slide">
+        <div class="h"><h1 class="tt">数据驱动：社交画像与 RFM 深度关联</h1></div>
+        <div class="bn">
+            <h2>重心：将 <b>群聊语义偏好</b> 注入 <b>价值价值模型 (RFM)</b>，实现真正意义上的“千人千面”。</h2>
+        </div>
+        <div class="grid col-4">
+            <div class="cd">
+                <div class="ch"><span>01</span> 语义兴趣提取</div>
+                <div class="cb">
+                    <b>关注点分析：</b>
+                    <ul>
+                        <li><b>偏好识别：</b>通过机器人抓取历史发言，AI 自动打上 <b>[配将党]、[社交达人]、[策略指挥]</b> 等兴趣标签。</li>
+                        <li><b>情绪监控：</b>记录玩家对当前赛季的评价倾向。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>02</span> RFM 数据对齐</div>
+                <div class="cb">
+                    <b>业务数据拉取：</b>
+                    <ul>
+                        <li><b>R (Recency)：</b>最近一次充值/登录时间。</li>
+                        <li><b>F (Frequency)：</b>活跃频次与时长。</li>
+                        <li><b>M (Monetary)：</b>累充金额与赛季消费指数。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>03</span> 智能标签交叉</div>
+                <div class="cb">
+                    <b>分层治理逻辑：</b>
+                    <ul>
+                        <li><b>高价值流失预警：</b>[大R] + [近期消极言论] = <b>S级预警</b>。</li>
+                        <li><b>精准促活：</b>[高活跃低付费] + [配将偏好] = <b>推送攻略/礼包</b>。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd">
+                <div class="ch"><span>04</span> 自动化触达闭环</div>
+                <div class="cb">
+                    <b>执行响应：</b>
+                    <ul>
+                        <li><b>指令分发：</b>针对不同标签组，AI 自动生成差异化话术。</li>
+                        <li><b>效果评估：</b>实时跟踪标签用户在游戏内的 LTV 转化提升。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft">实施成果：将群聊从单纯的“沟通工具”转化为高价值的“动态标签库”。</div>
+    </div>
+
+
+
+    <div class="slide">
+        <div class="h"><h1 class="tt">数据驱动：社交画像与 RFM</h1></div>
+        <div class="bn"><h2>重心：将 <b>语料偏好</b> 注入 <b>价值模型</b>，实现千人千面。</h2></div>
+        <div class="grid col-2-3">
+            <div class="cd">
+                <div class="ch"><span>Focus</span> 核心逻辑</div>
+                <div class="cb">
+                    <ul>
+                        <li><b>语义提取：</b>识别[配将/舰队/指挥]偏好。</li>
+                        <li><b>RFM对齐：</b>充值频次与金额交叉。</li>
+                        <li><b>流失预警：</b>[大R]+[消极言论]=S级。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mermaid-outer" id="zoomContainer">
+                <div class="controls">
+                    <button class="btn" onclick="resetZoom()">↺ 重置</button>
+                    <button class="btn" onclick="toggleFS()">⛶ 全屏</button>
+                </div>
+                <div id="pan-target"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="nav-pagination" id="nav"></div>
+    <div class="pb" id="bar"></div>
+</div>
+
+<script>
+    mermaid.initialize({ startOnLoad: false });
+    
+    const graphDef = `
+    graph LR
+        classDef default font-size:20px,font-family:sans-serif;
+        classDef node fill:#0a2540,stroke:#00d4ff,stroke-width:2px,color:#fff;
+        classDef act fill:#00d4ff,stroke:#0a2540,stroke-width:2px,color:#0a2540;
+
+        A[群聊消息流]:::node --> B(NLP语义识别):::node
+        C[业务数据库]:::node --> D(RFM价值建模):::node
+        B & D --> E{AI标签中枢}:::act
+        E --> F[大R关怀策略]:::node
+        E --> G[自动化促活推送]:::node
+        F & G --> H[LTV净增量评估]:::node
+    `;
+
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const nav = document.getElementById('nav');
+    const bar = document.getElementById('bar');
+    let pz;
+
+    function init() {
+        slides.forEach((_, i) => {
+            const d = document.createElement('div');
+            d.className = 'page-node';
+            d.innerText = i + 1;
+            d.onclick = () => jump(i);
+            nav.appendChild(d);
+        });
+        update();
+    }
+
+    async function renderM() {
+        const target = document.getElementById('pan-target');
+        if (!target) return;
+        const { svg } = await mermaid.render('m-svg-' + Date.now(), graphDef);
+        target.innerHTML = svg;
+        if (pz) pz.destroy();
+        pz = Panzoom(target, { maxScale: 5, minScale: 0.2, contain: 'outside' });
+        target.parentElement.addEventListener('wheel', pz.zoomWithWheel);
+        setTimeout(() => pz.zoom(0.8, { animate: true }), 100);
+    }
+
+    function jump(i) { current = i; update(); }
+    function resetZoom() { if(pz) { pz.reset(); pz.zoom(0.8, {animate:true}); } }
+    function toggleFS() {
+        const c = document.getElementById('zoomContainer');
+        if (!document.fullscreenElement) c.requestFullscreen();
+        else document.exitFullscreen();
+    }
+
+    function update() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        document.querySelectorAll('.page-node').forEach((n, i) => n.classList.toggle('active', i === current));
+        bar.style.width = ((current + 1) / slides.length * 100) + '%';
+        if (current === 9) renderM();
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { if (current < slides.length-1) jump(current+1); }
+        if (e.key === 'ArrowLeft') { if (current > 0) jump(current-1); }
+    });
+
+    init();
+</script>
+</body>
+</html>
