@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>企业级知识库 OAG 架构方案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <style>
+    :root {
+      --bg-dark: #121418;
+      --bg-card: #1a1d24;
+      --blue: #007bff;
+      --blue-light: #4facfe;
+      --orange: #ff6b35;
+      --text-main: #d0d8e4;
+      --text-muted: #7a8ba3;
+      --border: #2a3040;
+    }
+    
+    .reveal {
+      font-family: 'Noto Sans SC', sans-serif;
+      color: var(--text-main);
+      background-color: var(--bg-dark);
+    }
+    
+    .reveal h1 { font-size: 72px; font-weight: 900; color: var(--blue-light); margin: 0; line-height: 1.15; }
+    .reveal h2 { font-size: 52px; font-weight: 900; color: var(--blue-light); margin-bottom: 18px; line-height: 1.2; }
+    .reveal h3 { font-size: 34px; color: var(--orange) !important; margin-bottom: 14px !important; font-weight: 700; }
+    .reveal p { font-size: 36px; line-height: 1.5; margin: 8px 0; }
+    .reveal li { font-size: 32px; line-height: 1.5; margin-bottom: 8px; }
+    
+    .tag { display: inline-block; background: rgba(0,123,255,0.15); color: var(--blue-light); padding: 8px 18px; border-radius: 6px; font-size: 30px; margin: 0 8px; }
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: left; }
+    .card h4 { color: var(--blue-light); margin: 0 0 10px; font-size: 32px; font-weight: 700; }
+    .card p { margin: 0; font-size: 26px; color: var(--text-muted); line-height: 1.4; }
+    .stars { color: var(--orange); font-weight: bold; font-size: 28px; }
+    
+    table { width: 100% !important; border-collapse: collapse; margin: 0 !important; font-size: 26px !important; }
+    th { background: var(--blue) !important; color: #fff !important; padding: 14px 12px !important; font-weight: 700; font-size: 28px !important; }
+    td { padding: 12px !important; border-bottom: 1px solid var(--border); font-size: 24px !important; }
+    tr:nth-child(even) { background: var(--bg-card); }
+    
+    .layer-box { border: 2px solid var(--blue); border-radius: 8px; padding: 18px 22px; margin: 12px 0; background: rgba(0,123,255,0.05); }
+    .layer-box.l3 { border-color: var(--orange); background: rgba(255,107,53,0.05); }
+    .layer-box.l1 { border-color: var(--text-muted); background: rgba(255,255,255,0.02); }
+    .layer-title { font-size: 32px; font-weight: bold; color: var(--blue-light); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .layer-title .badge { background: var(--blue); color: #fff; padding: 5px 14px; border-radius: 14px; font-size: 24px; font-weight: 600; }
+    .layer-title .badge.l3-badge { background: var(--orange); }
+    .layer-body ul { margin: 6px 0 0 24px; padding: 0; }
+    .layer-body li { font-size: 26px; margin-bottom: 4px; }
+    
+    .warning-list { margin: 0; padding-left: 24px; }
+    .warning-list li { font-size: 28px; margin-bottom: 10px; }
+    .highlight { color: var(--orange); font-weight: bold; }
+    
+    .roadmap-step { display: flex; align-items: center; margin: 12px 0; }
+    .step-badge { background: var(--blue); color: #fff; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 28px; margin-right: 16px; flex-shrink: 0; }
+    .step-badge.orange { background: var(--orange); }
+    .step-text { font-size: 28px; }
+    .step-text strong { color: var(--blue-light); }
+    
+    .code-block { font-family: monospace; background: #111418; padding: 16px; border-radius: 6px; font-size: 26px; color: var(--blue-light); line-height: 1.6; }
+    
+    .two-col { display: flex; gap: 28px; align-items: flex-start; }
+    .two-col > div { flex: 1; text-align: left; }
+    .two-col ul { margin: 0; padding-left: 24px; }
+    
+    .cover-subtitle { font-size: 36px; color: var(--text-muted); margin-top: 12px; }
+    .cover-date { font-size: 28px; color: var(--text-muted); margin-top: 28px; }
+    .cover-tags { margin-top: 20px; }
+    
+    .next-steps { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <h1>企业级知识库 OAG 架构方案</h1>
+        <p style="font-size: 36px; color: var(--blue-light); margin: 12px 0 8px;">Organizational AI Graph</p>
+        <p class="cover-subtitle">四层架构 · 多模态提取 · 权限图谱 · Agent 集成</p>
+        <p class="cover-date">2026.04.29 · 技术架构评审</p>
+        <div class="cover-tags">
+          <span class="tag">GraphRAG</span>
+          <span class="tag">Knowledge Base</span>
+          <span class="tag">Enterprise AI</span>
+          <span class="tag">Agent Memory</span>
+        </div>
+      </section>
+
+      <section>
+        <h2>🔥 最新技术全景图 (2026.04)</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h4>RAGFlow <span class="stars">⭐79K</span></h4>
+            <p>企业级 RAG+Agent 引擎，开箱即用，深度文档解析 + 多路召回。</p>
+          </div>
+          <div class="card">
+            <h4>Graphiti <span class="stars">⭐25.5K</span></h4>
+            <p>Zep 出品，实时知识图谱构建，自动实体消歧 + 时间边。</p>
+          </div>
+          <div class="card">
+            <h4>Cognee <span class="stars">⭐16.9K</span></h4>
+            <p>6 行代码构建分层 KG，内置 L2→L3 自动流水线。</p>
+          </div>
+          <div class="card">
+            <h4>LightRAG <span class="stars">⭐10K+</span></h4>
+            <p>轻量图检索 + 图遍历 + 向量检索三合一。</p>
+          </div>
+          <div class="card">
+            <h4>llm-wiki / gbrain</h4>
+            <p>Karpathy 模式个人 Wiki / 本地知识脑，轻量，无企业级权限。</p>
+          </div>
+          <div class="card">
+            <h4>Neo4j / FalkorDB</h4>
+            <p>图数据库双雄。Neo4j 生态最成熟，FalkorDB 性能最强。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🏗️ 四层架构设计</h2>
+        <div class="layer-box l3">
+          <div class="layer-title">Layer 4: 推理预测层 <span class="badge">Reasoning</span></div>
+          <div class="layer-body"><ul><li>Agent + 工具调用 + 多跳推理 + 权限感知回答 + 预测告警</li></ul></div>
+        </div>
+        <div class="layer-box l3">
+          <div class="layer-title">Layer 3: 带权限融合图谱层 <span class="badge l3-badge">Permissioned KG</span></div>
+          <div class="layer-body"><ul><li>Neo4j + RBAC 权限模型 + 实体消歧融合 + 溯源追踪</li></ul></div>
+        </div>
+        <div class="layer-box">
+          <div class="layer-title">Layer 2: 摘要结构化层 <span class="badge">Summarization</span></div>
+          <div class="layer-body"><ul><li>分块 → 实体/关系/事件抽取 → 文档摘要 → bge-m3 Embedding</li></ul></div>
+        </div>
+        <div class="layer-box l1">
+          <div class="layer-title">Layer 1: 原始数据层 <span class="badge" style="background:var(--text-muted)">Raw Storage</span></div>
+          <div class="layer-body"><ul><li>MinIO (文件) + PostgreSQL (元数据)，不可变存储，SHA-256 校验</li></ul></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>📊 多模态数据提取矩阵</h2>
+        <table>
+          <thead><tr><th>数据类型</th><th>采集方式</th><th>提取工具</th><th>输出格式</th><th>处理难点</th></tr></thead>
+          <tbody>
+            <tr><td>PDF/Word/PPT</td><td>文件监控/API 上传</td><td>Unstructured + Marker</td><td>Markdown + 元数据</td><td>扫描件 OCR、表格提取</td></tr>
+            <tr><td>Email</td><td>IMAP / Exchange</td><td>Unstructured Email</td><td>线程 JSON</td><td>邮件嵌套、签名/尾巴</td></tr>
+            <tr><td>聊天/企微</td><td>Webhook</td><td>直接文本 + 时间戳</td><td>会话 JSON</td><td>上下文碎片化</td></tr>
+            <tr><td>会议录音</td><td>音频文件/流</td><td>WhisperX (说话人分离)</td><td>转录文本</td><td>多语言混合、噪音</td></tr>
+            <tr><td>视频录像</td><td>录像文件</td><td>WhisperX + 关键帧</td><td>转录+视觉笔记</td><td>算力/成本高</td></tr>
+            <tr><td>数据库</td><td>CDC / 定时同步</td><td>SQL → JSON</td><td>结构化记录</td><td>Schema 变更追踪</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>🔧 技术选型建议</h2>
+        <div class="two-col">
+          <div>
+            <h3>🟢 推荐方案</h3>
+            <ul>
+              <li><span class="highlight">L1 存储:</span> MinIO + PostgreSQL</li>
+              <li><span class="highlight">L2 提取:</span> Cognee (6行代码) 或 自定义流水线</li>
+              <li><span class="highlight">L3 图谱:</span> Neo4j 社区版 (Cypher + 权限)</li>
+              <li><span class="highlight">L3 向量:</span> Milvus 或 Neo4j Vector</li>
+              <li><span class="highlight">L4 Agent:</span> LangGraph 或 自定义</li>
+              <li><span class="highlight">权限:</span> RBAC (角色级) → ABAC</li>
+              <li><span class="highlight">Embedding:</span> bge-m3 (中文首选)</li>
+              <li><span class="highlight">音视频:</span> WhisperX (自部署不出境)</li>
+              <li><span class="highlight">文档:</span> Unstructured.io (格式最全)</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🔴 避坑指南</h3>
+            <ul>
+              <li><span class="highlight">纯向量 RAG:</span> 无法做多跳推理</li>
+              <li><span class="highlight">从零写图谱:</span> 6000行 vs Cognee 6行</li>
+              <li><span class="highlight">个人 Wiki:</span> 撑不住企业权限/多模态</li>
+              <li><span class="highlight">ABAC 起步:</span> 一开始就是噩梦</li>
+              <li><span class="highlight">全量图谱 Day 1:</span> 从文档+邮件开始</li>
+              <li><span class="highlight">小模型抽取:</span> 垃圾进 → 垃圾图谱</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🤖 Agent 集成方案</h2>
+        <div class="card" style="margin-bottom: 18px;">
+          <h4>oag_search: 权限感知查询工具</h4>
+          <div class="code-block">
+            1. 获取 user_roles<br>
+            2. neo4j.query( inject_acl(cypher, roles) )<br>
+            3. milvus.search( query, filter=roles )<br>
+            4. 融合排序 (Graph + Vector)<br>
+            5. 附加 L1 原始溯源链接
+          </div>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <h4>多跳推理</h4>
+            <p>"张总上周提到的项目进展如何？" 自动关联人物-时间-事件</p>
+          </div>
+          <div class="card">
+            <h4>权限感知</h4>
+            <p>越权信息静默过滤，只返回用户有权看的内容</p>
+          </div>
+          <div class="card">
+            <h4>溯源底线</h4>
+            <p>每条结论必须追溯到 L1 原始数据，拒绝赛博背锅</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🚀 实施路线图 & 避坑</h2>
+        <div class="two-col">
+          <div>
+            <div class="roadmap-step"><div class="step-badge">1</div><div class="step-text"><strong>Phase 1 (2-3周):</strong> L1 存储 + 文档/邮件提取</div></div>
+            <div class="roadmap-step"><div class="step-badge">2</div><div class="step-text"><strong>Phase 2 (2周):</strong> L2 摘要 + 实体关系抽取</div></div>
+            <div class="roadmap-step"><div class="step-badge">3</div><div class="step-text"><strong>Phase 3 (3周):</strong> L3 图谱构建 + RBAC</div></div>
+            <div class="roadmap-step"><div class="step-badge">4</div><div class="step-text"><strong>Phase 4 (2周):</strong> L4 Agent 集成</div></div>
+            <div class="roadmap-step"><div class="step-badge orange">5</div><div class="step-text"><strong>Phase 5 (持续):</strong> 音视频 + 预测告警</div></div>
+          </div>
+          <div>
+            <ul class="warning-list">
+              <li><span class="highlight">⚠️ 溯源是底线：</span>没有溯源就是赛博背锅侠</li>
+              <li><span class="highlight">⚠️ 权限从简：</span>先 RBAC 跑通，别上来搞 ABAC</li>
+              <li><span class="highlight">⚠️ 音视频最后搞：</span>算力贵，先跑通文档管道</li>
+              <li><span class="highlight">⚠️ 实体消歧：</span>"张三"="张总" 必须合并</li>
+              <li><span class="highlight">⚠️ 模型质量：</span>至少 7B+ 模型做实体抽取</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🔮 下一步？</h2>
+        <p style="font-size: 34px; color: var(--blue-light); margin: 20px 0;">方案已就绪，随时可以开工。</p>
+        <div class="next-steps">
+          <span class="tag">L3 权限图谱详细设计</span>
+          <span class="tag">Phase 1 实施计划</span>
+          <span class="tag">Agent 工具代码模板</span>
+          <span class="tag">技术选型深度对比</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      slideNumber: true,
+      center: true,
+      width: 1920,
+      height: 1080,
+      margin: 0.03
+    });
+  </script>
+</body>
+</html>
