@@ -4,66 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>企业内部OAG知识体系建设方案</title>
-    <!-- 引入reveal.js核心资源 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/sky.min.css">
-    <!-- 代码高亮 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.min.css">
     <style>
+        :root {
+            --primary: #165DFF;
+            --secondary: #4080FF;
+            --accent: #FF7D00;
+            --text-dark: #1D2129;
+            --text-light: #4E5969;
+        }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        .reveal h1 { font-size: 2.5em; }
+        .reveal h2 { font-size: 2em; }
+        .reveal h3 { font-size: 1.5em; color: var(--secondary); }
+        .reveal p, .reveal li {
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        .reveal .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .reveal table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 90%;
+        }
+        .reveal table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            border: 1px solid #eee;
+        }
+        .reveal table td {
+            padding: 10px 15px;
+            border: 1px solid #eee;
+            color: var(--text-dark);
+        }
+        .reveal table tr:nth-child(even) {
+            background: #F2F3F5;
+        }
+        .reveal .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .reveal .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .reveal .card {
+            background: #F7F8FA;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .reveal .progress {
+            height: 4px;
+            background: var(--primary);
+        }
+        .reveal .slide-number {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .reveal .controls {
+            color: var(--primary);
+        }
         .reveal section img {
             border: none;
-            box-shadow: none;
-            max-height: 500px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            max-height: 400px;
+            margin: 20px 0;
         }
-        .table-small {
-            font-size: 0.8em !important;
-        }
-        .highlight {
-            color: #e67e22;
-            font-weight: bold;
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            left: 20px;
+            font-size: 0.8em;
+            color: var(--text-light);
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
+    <div class="footer">企业内部OAG知识体系建设方案 | 2026年4月</div>
     <div class="reveal">
         <div class="slides">
             <!-- 封面页 -->
             <section>
-                <h1>企业内部OAG知识体系建设方案</h1>
-                <h3>基于2025-2026最新知识库技术（LLMWiki + GBrain + Agentic RAG）</h3>
-                <p>2026年4月</p>
+                <h1 style="font-size: 3em; margin-bottom: 20px;">企业内部OAG知识体系建设方案</h1>
+                <h3 style="color: var(--text-dark); margin-bottom: 40px;">基于2025-2026最新知识库技术</h3>
+                <p style="color: var(--text-light);">技术栈：LLMWiki + GBrain + Agentic RAG</p>
             </section>
 
             <!-- 目录页 -->
             <section>
                 <h2>目录</h2>
-                <ol>
-                    <li>最新知识库相关技术全景</li>
-                    <li>OAG四层架构设计</li>
-                    <li>全链路技术选型</li>
-                    <li>知识提取核心流程</li>
-                    <li>Agent集成方案</li>
-                    <li>落地建议</li>
+                <ol style="max-width: 700px; margin: 0 auto; text-align: left;">
+                    <li style="margin: 15px 0;">最新知识库相关技术全景</li>
+                    <li style="margin: 15px 0;">OAG四层架构设计</li>
+                    <li style="margin: 15px 0;">全链路技术选型</li>
+                    <li style="margin: 15px 0;">知识提取核心流程</li>
+                    <li style="margin: 15px 0;">Agent集成方案</li>
+                    <li style="margin: 15px 0;">落地建议</li>
                 </ol>
             </section>
 
             <!-- 技术全景页 -->
             <section>
                 <h2>最新知识库相关技术全景</h2>
-                <div class="fragment">
-                    <h3>1. LLM Wiki（Karpathy 2026年4月提出）</h3>
-                    <p>✔️ 颠覆传统RAG<spn class="highlight">查询时检索</spn>模式，采用<spn class="highlight">摄入时编译</spn>模式</p>
-                    <p>✔️ 三层架构：原始层 + 结构化Wiki层 + Schema规则层</p>
-                    <p>✔️ 知识完全可读、可审计、可版本管理，无黑盒问题</p>
-                </div>
-                <div class="fragment">
-                    <h3>2. GBrain（Garry Tan 开源）</h3>
-                    <p>✔️ 工程化知识操作系统，支持全多模态数据源</p>
-                    <p>✔️ 双存储设计：当前结论 + 证据时间线，来源可追溯</p>
-                </div>
-                <div class="fragment">
-                    <h3>3. 配套前沿技术</h3>
-                    <p>Agentic RAG | Graph RAG | 深度混合检索</p>
+                <div class="grid-3">
+                    <div class="card fragment">
+                        <h3>LLM Wiki</h3>
+                        <p style="font-size: 0.9em;">颠覆传统RAG<span class="highlight">查询时检索</span>模式，采用<span class="highlight">摄入时编译</span>模式，三层架构设计，知识完全可读可审计、可版本管理，无黑盒问题。</p>
+                        <p style="font-size: 0.8em; color: var(--text-light);">发布者：Andrej Karpathy | 2026年4月</p>
+                    </div>
+                    <div class="card fragment">
+                        <h3>GBrain</h3>
+                        <p style="font-size: 0.9em;">工程化知识操作系统，支持全多模态数据源，双存储设计（当前结论+证据时间线），来源可追溯，全链路自动化。</p>
+                        <p style="font-size: 0.8em; color: var(--text-light);">发布者：Garry Tan | 开源项目</p>
+                    </div>
+                    <div class="card fragment">
+                        <h3>配套前沿技术</h3>
+                        <p style="font-size: 0.9em;">Agentic RAG：智能体增强检索<br>Graph RAG：知识图谱增强检索<br>深度混合检索：向量+关键词+元数据</p>
+                    </div>
                 </div>
             </section>
 
@@ -71,36 +146,54 @@
             <section>
                 <h2>OAG知识体系四层架构总览</h2>
                 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1a0e4c376b7a46d0a2e8c3d5e7f6a8b1~tplv-k3u1fbpfcp-watermark.image" alt="四层架构">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div class="fragment"><h4>🔹 原始层</h4><p>不可变原始数据源，唯一事实源</p></div>
-                    <div class="fragment"><h4>🔹 原始层摘要层</h4><p>多模态知识提取、摘要、结构化</p></div>
-                    <div class="fragment"><h4>🔹 带权限融合图谱层</h4><p>知识互联互通 + 细粒度权限控制</p></div>
-                    <div class="fragment"><h4>🔹 推理预测层</h4><p>支持Agent复杂推理 + 知识自进化</p></div>
+                <div class="grid-2">
+                    <div class="fragment">
+                        <h4>🔹 原始层</h4>
+                        <p>不可变原始数据源，唯一事实源，保障可追溯性</p>
+                    </div>
+                    <div class="fragment">
+                        <h4>🔹 原始层摘要层</h4>
+                        <p>多模态知识提取、摘要、结构化</p>
+                    </div>
+                    <div class="fragment">
+                        <h4>🔹 带权限融合图谱层</h4>
+                        <p>知识互联互通 + 细粒度权限控制</p>
+                    </div>
+                    <div class="fragment">
+                        <h4>🔹 推理预测层</h4>
+                        <p>支持Agent复杂推理 + 知识自进化</p>
+                    </div>
                 </div>
             </section>
 
             <!-- 原始层详情 -->
             <section>
                 <h2>第一层：原始层（Raw Layer）</h2>
-                <p><span class="highlight">核心职责：</span>存储所有不可变的原始数据源，作为知识的唯一事实源，保障可追溯性</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 30px;">
-                    <div class="fragment">
+                <p style="text-align: left; max-width: 800px; margin: 0 auto 30px auto;"><span class="highlight">核心职责：</span>存储所有不可变的原始数据源，作为知识的唯一事实源，保障可追溯性</p>
+                <div class="grid-3">
+                    <div class="card fragment">
                         <h4>📁 支持的数据源</h4>
-                        <p>结构化：数据库、Excel</p>
-                        <p>半结构化：邮件、聊天记录</p>
-                        <p>非结构化：文档、音视频、图片</p>
+                        <p style="font-size: 0.9em;">
+                            ✅ 结构化：数据库、Excel<br>
+                            ✅ 半结构化：邮件、聊天记录<br>
+                            ✅ 非结构化：文档、音视频、图片
+                        </p>
                     </div>
-                    <div class="fragment">
+                    <div class="card fragment">
                         <h4>⚙️ 技术选型</h4>
-                        <p>对象存储：MinIO/OSS</p>
-                        <p>关系数据库：PostgreSQL</p>
-                        <p>日志系统：ELK</p>
+                        <p style="font-size: 0.9em;">
+                            对象存储：MinIO/OSS<br>
+                            关系数据库：PostgreSQL<br>
+                            日志系统：ELK
+                        </p>
                     </div>
-                    <div class="fragment">
+                    <div class="card fragment">
                         <h4>✅ 核心特性</h4>
-                        <p>只读不可修改</p>
-                        <p>版本管理</p>
-                        <p>全操作日志审计</p>
+                        <p style="font-size: 0.9em;">
+                            只读不可修改<br>
+                            版本管理<br>
+                            全操作日志审计
+                        </p>
                     </div>
                 </div>
             </section>
@@ -108,35 +201,51 @@
             <!-- 摘要层详情 -->
             <section>
                 <h2>第二层：原始层摘要层（Abstract Layer）</h2>
-                <p><span class="highlight">核心职责：</span>完成从原始数据到结构化知识的转化，对原始数据进行预处理、提取、摘要、标记</p>
-                <div class="fragment">
-                    <h4>核心处理流程</h4>
-                    <p>多模态解析 → 知识提取 → 摘要生成 → 元数据标记</p>
-                </div>
-                <div class="fragment">
-                    <h4>技术选型</h4>
-                    <p>多模态解析：RAGFlow + Whisper + Qwen-VL（支持所有格式，包括扫描件、音视频）</p>
-                    <p>知识提取：DeepSeek-V3/Qwen-2.5-72B（实体、关系、属性抽取）</p>
-                    <p>存储：Git（Markdown摘要） + LanceDB（向量+元数据）</p>
+                <p style="text-align: left; max-width: 800px; margin: 0 auto 30px auto;"><span class="highlight">核心职责：</span>完成从原始数据到结构化知识的转化，对原始数据进行预处理、提取、摘要、标记</p>
+                <div class="grid-2">
+                    <div class="card fragment">
+                        <h4>核心处理流程</h4>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            1. 多模态解析<br>
+                            2. 知识提取<br>
+                            3. 摘要生成<br>
+                            4. 元数据标记
+                        </p>
+                    </div>
+                    <div class="card fragment">
+                        <h4>技术选型</h4>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            多模态解析：RAGFlow + Whisper + Qwen-VL<br>
+                            <span style="font-size: 0.8em; color: var(--text-light);">支持所有格式，包括扫描件、音视频</span><br>
+                            知识提取：DeepSeek V4/Qwen 2.5 72B<br>
+                            <span style="font-size: 0.8em; color: var(--text-light);">实体、关系、属性抽取</span><br>
+                            存储：Git（Markdown摘要） + LanceDB（向量+元数据）
+                        </p>
+                    </div>
                 </div>
             </section>
 
             <!-- 图谱层详情 -->
             <section>
                 <h2>第三层：带权限融合图谱层</h2>
-                <p><span class="highlight">核心职责：</span>构建企业级统一知识图谱，实现知识的互联互通，同时嵌入细粒度权限控制，保障知识安全</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
-                    <div class="fragment">
+                <p style="text-align: left; max-width: 800px; margin: 0 auto 30px auto;"><span class="highlight">核心职责：</span>构建企业级统一知识图谱，实现知识互联互通，同时嵌入细粒度权限控制，保障知识安全</p>
+                <div class="grid-2">
+                    <div class="card fragment">
                         <h4>核心能力</h4>
-                        <p>知识图谱构建、实体融合、关系补全</p>
-                        <p>细粒度权限控制（RBAC+ABAC）</p>
-                        <p>混合检索：向量+关键词+图谱</p>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            ✅ 知识图谱构建、实体融合、关系补全<br>
+                            ✅ 细粒度权限控制（RBAC+ABAC）<br>
+                            ✅ 混合检索：向量+关键词+图谱
+                        </p>
                     </div>
-                    <div class="fragment">
+                    <div class="card fragment">
                         <h4>技术选型</h4>
-                        <p>知识图谱：Nebula Graph（分布式万亿级支持）</p>
-                        <p>权限引擎：OPA（Open Policy Agent）</p>
-                        <p>检索引擎：Elasticsearch + LanceDB + Nebula</p>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            知识图谱：Nebula Graph<br>
+                            <span style="font-size: 0.8em; color: var(--text-light);">分布式万亿级知识图谱支持</span><br>
+                            权限引擎：OPA（Open Policy Agent）<br>
+                            检索引擎：Elasticsearch + LanceDB + Nebula
+                        </p>
                     </div>
                 </div>
             </section>
@@ -144,20 +253,25 @@
             <!-- 推理层详情 -->
             <section>
                 <h2>第四层：推理预测层</h2>
-                <p><span class="highlight">核心职责：</span>基于知识库提供推理能力，支撑Agent的复杂任务执行，同时实现知识的自主进化</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
-                    <div class="fragment">
+                <p style="text-align: left; max-width: 800px; margin: 0 auto 30px auto;"><span class="highlight">核心职责：</span>基于知识库提供推理能力，支撑Agent的复杂任务执行，同时实现知识的自主进化</p>
+                <div class="grid-2">
+                    <div class="card fragment">
                         <h4>核心能力</h4>
-                        <p>精准问答、多轮会话</p>
-                        <p>多跳推理、跨文档综合分析</p>
-                        <p>趋势预测、风险预警</p>
-                        <p>知识自校验、自更新、自进化</p>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            ✅ 精准问答、多轮会话<br>
+                            ✅ 多跳推理、跨文档综合分析<br>
+                            ✅ 趋势预测、风险预警<br>
+                            ✅ 知识自校验、自更新、自进化
+                        </p>
                     </div>
-                    <div class="fragment">
+                    <div class="card fragment">
                         <h4>技术选型</h4>
-                        <p>大模型服务：vLLM + 豆包/千问/DeepSeek（私有化部署）</p>
-                        <p>Agent框架：OpenClaw Agent/LangGraph</p>
-                        <p>自校验模块：LLM自动一致性检查 + 人工审核</p>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            大模型服务：vLLM + 豆包4.0/DeepSeek V4<br>
+                            <span style="font-size: 0.8em; color: var(--text-light);">完全私有化部署，支持主流模型</span><br>
+                            Agent框架：OpenClaw Agent/LangGraph<br>
+                            自校验模块：LLM自动校验+人工审核
+                        </p>
                     </div>
                 </div>
             </section>
@@ -165,7 +279,7 @@
             <!-- 技术选型表 -->
             <section>
                 <h2>全链路技术选型参考</h2>
-                <table class="table-small">
+                <table>
                     <thead>
                         <tr>
                             <th>模块</th>
@@ -211,20 +325,20 @@
             <!-- 知识提取流程 -->
             <section>
                 <h2>知识提取核心流程设计</h2>
-                <div style="text-align: left; margin: 0 auto; max-width: 800px;">
-                    <div class="fragment">
+                <div style="max-width: 700px; margin: 0 auto; text-align: left;">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>1. 数据源接入</b>：API定时拉取、webhook实时推送、人工手动上传</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>2. 预处理</b>：格式转换 → 去重 → 清洗（去除冗余、乱码、无效内容）</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>3. 知识提取</b>：实体抽取 → 关系抽取 → 属性抽取 → 标签提取</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>4. 知识融合</b>：实体对齐 → 关系补全 → 冲突检测（标记矛盾知识，触发人工审核）</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>5. 落库存储</b>：向量库 + 图谱库 + 摘要库 + 原始库同步更新</p>
                     </div>
                 </div>
@@ -233,38 +347,49 @@
             <!-- Agent集成 -->
             <section>
                 <h2>Agent集成方案</h2>
-                <div class="fragment">
-                    <h4>知识库作为Agent的核心记忆模块</h4>
-                    <p>短期记忆：会话上下文，存储在Agent的会话状态中</p>
-                    <p>长期记忆：OAG知识库，Agent执行任何任务时自动检索，自动过滤无权限内容</p>
+                <div class="grid-2">
+                    <div class="card fragment">
+                        <h4>核心定位</h4>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            知识库作为Agent的核心记忆模块：<br>
+                            👉 短期记忆：会话上下文，存储在Agent会话状态中<br>
+                            👉 长期记忆：OAG知识库，执行任务时自动检索，自动过滤无权限内容
+                        </p>
+                    </div>
+                    <div class="card fragment">
+                        <h4>交互流程</h4>
+                        <p style="font-size: 0.9em; text-align: left;">
+                            1. 任务接收<br>
+                            2. 知识检索<br>
+                            3. 推理执行<br>
+                            4. 知识回写<br>
+                            5. 结果返回
+                        </p>
+                    </div>
                 </div>
-                <div class="fragment" style="margin-top: 20px;">
-                    <h4>Agent与知识库交互流程</h4>
-                    <p>任务接收 → 知识检索 → 推理执行 → 知识回写 → 结果返回</p>
-                </div>
-                <div class="fragment" style="margin-top: 20px;">
+                <div class="fragment" style="margin-top: 30px;">
                     <h4>典型应用场景</h4>
-                    <p>智能客服 | 研发助手 | 会议助理 | 决策助手</p>
+                    <p style="font-size: 1em;">智能客服 | 研发助手 | 会议助理 | 决策助手</p>
                 </div>
             </section>
 
             <!-- 落地建议 -->
             <section>
                 <h2>落地建议</h2>
-                <div style="text-align: left; margin: 0 auto; max-width: 800px;">
-                    <div class="fragment">
+                <div style="max-width: 700px; margin: 0 auto; text-align: left;">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>1. 小步快跑，快速验证</b>：先从核心业务场景切入（如研发知识库、客服知识库），验证效果后逐步扩展</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>2. 优先选择私有化开源工具</b>：保障企业数据安全，避免供应商锁定</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>3. 权限设计循序渐进</b>：先从粗粒度部门级权限开始，逐步细化到节点级、属性级细粒度权限</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>4. 建立质量保障机制</b>：关键知识人工审核，确保知识准确性</p>
                     </div>
-                    <div class="fragment">
+                    <div class="fragment" style="margin: 15px 0;">
                         <p><b>5. 持续迭代优化</b>：收集用户反馈，持续优化提取、检索、回答准确率</p>
                     </div>
                 </div>
@@ -272,33 +397,34 @@
 
             <!-- Q&A -->
             <section>
-                <h1>Q&A</h1>
-                <p>感谢聆听</p>
+                <h1 style="font-size: 4em; margin-bottom: 40px;">Q&A</h1>
+                <p style="font-size: 1.2em; color: var(--text-light);">感谢聆听</p>
             </section>
         </div>
     </div>
 
-    <!-- 引入reveal.js核心脚本 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.min.js"></script>
     <script>
-        // 初始化reveal.js
         Reveal.initialize({
             hash: true,
             slideNumber: 'c/t',
-            plugins: [ RevealHighlight, RevealNotes ],
-            // 动画配置
-            transition: 'slide', // 可选：none/fade/slide/convex/concave/zoom
+            plugins: [ RevealHighlight, RevealNotes, RevealMarkdown ],
+            transition: 'slide',
             transitionSpeed: 'default',
-            // 导航控制
             controls: true,
             progress: true,
             center: true,
-            // 键盘快捷键
             keyboard: true,
-            // 触控支持
-            touch: true
+            touch: true,
+            overview: true,
+            width: 1280,
+            height: 720,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0
         });
     </script>
 </body>
