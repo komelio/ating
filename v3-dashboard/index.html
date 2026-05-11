@@ -306,7 +306,7 @@ function render_news() {
   let h = '';
   news.forEach(n => {
     h += `<div class="news-item">
-      <a class="news-title" href="${n.url||'#'}" target="_blank">${n.title||''}</a>
+      <a class="news-title" href="${(n.url && n.url !== '#') ? n.url : 'https://www.google.com/search?q='+encodeURIComponent(n.title||'')+'&tbm=nws'}" target="_blank">${n.title||''}</a>
       <div class="news-meta"><span class="news-cat">${n.category||'AI'}</span><span>${n.source||''}</span><span>${n.published_at||''}</span></div>
     </div>`;
   });
