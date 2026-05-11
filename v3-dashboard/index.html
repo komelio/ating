@@ -151,7 +151,7 @@ function render_market() {
   const idx = CACHE.market?.data || [];
   let html = '<div class="cards">';
   idx.forEach(i => {
-    const cls = i.change_pct >= 0 ? 'down' : 'up';
+    const cls = i.change_pct >= 0 ? 'up' : 'down';
     html += `<div class="card">
       <div class="card-title">${i.name} ${i.code?.split('.')[1]||''}</div>
       <div class="card-value ${cls}">${fmt.price(i.price)}</div>
@@ -197,7 +197,7 @@ function render_watchlist() {
   const st = CACHE.stocks?.data || [];
   let h = `<table><thead><tr><th>代码</th><th>名称</th><th class="right">现价</th><th class="right">涨跌幅</th><th class="right">涨跌额</th><th class="right">成交量</th><th class="right">成交额</th><th class="right">最高</th><th class="right">最低</th><th class="right">PE</th></tr></thead><tbody>`;
   st.forEach(s => {
-    const cls = (s.change_pct||0) >= 0 ? 'down' : 'up';
+    const cls = (s.change_pct||0) >= 0 ? 'up' : 'down';
     h += `<tr><td>${s.code}</td><td>${s.name}</td>
       <td class="right ${cls}" style="font-weight:600">${fmt.price(s.price)}</td>
       <td class="right ${cls}">${fmt.pct(s.change_pct)}</td>
@@ -218,7 +218,7 @@ function render_portfolio() {
   const cash = Number(port.cash||0);
   let mv = 0; hl.forEach(h => mv += (h.current_price||0)*(h.shares||0));
   const total = cash + mv, profit = total - 100000, pp = profit/100000*100;
-  const pcls = profit>=0?'down':'up';
+  const pcls = profit>=0?'up':'down';
 
   // Summary
   let h = `<div class="cards">
@@ -235,7 +235,7 @@ function render_portfolio() {
   h += `<table><thead><tr><th>名称</th><th class="center">股数</th><th class="right">成本</th><th class="right">现价</th><th class="right">市值</th><th class="right">盈亏</th><th class="right">盈亏%</th><th class="center">类型</th></tr></thead><tbody>`;
   hl.forEach(hh => {
     const hmv = (hh.current_price||0)*(hh.shares||0), hcost = (hh.cost_price||0)*(hh.shares||0);
-    const hp = hmv-hcost, hpp = hcost>0?hp/hcost*100:0, hcls = hp>=0?'down':'up';
+    const hp = hmv-hcost, hpp = hcost>0?hp/hcost*100:0, hcls = hp>=0?'up':'down';
     h += `<tr><td>${hh.name}</td><td class="center">${hh.shares}</td>
       <td class="right">${fmt.price(hh.cost_price)}</td><td class="right">${fmt.price(hh.current_price)}</td>
       <td class="right">¥${hmv.toFixed(0)}</td><td class="right ${hcls}">${hp>=0?'+':''}¥${hp.toFixed(0)}</td>
