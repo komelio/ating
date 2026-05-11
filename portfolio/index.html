@@ -44,12 +44,12 @@ td{padding:8px 10px;border-bottom:1px solid var(--border)}tr:hover{background:rg
 .stock-row{cursor:pointer;transition:background .15s}.stock-row:hover{background:rgba(88,166,255,.08)!important}
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.75);z-index:200;justify-content:center;align-items:center}
 .modal-overlay.show{display:flex}
-.modal-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;width:90vw;max-width:1000px;max-height:85vh;overflow-y:auto;padding:20px}
-.modal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;width:90vw;max-width:1000px;height:85vh;max-height:85vh;overflow-y:auto;padding:20px;display:flex;flex-direction:column}
+.modal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-shrink:0}
 .modal-h h2{font-size:16px}.modal-close{cursor:pointer;font-size:24px;color:var(--text2);line-height:1;padding:0 8px}.modal-close:hover{color:var(--text)}
-.modal-chart{background:var(--card);border-radius:8px;padding:12px;margin-bottom:8px}
-.modal-chart canvas{max-height:400px}
-.modal-chart:last-child canvas{max-height:160px}
+.modal-chart{background:var(--card);border-radius:8px;padding:12px;margin-bottom:8px;flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.modal-chart canvas{flex:1 1 auto;min-height:200px}
+.modal-chart:last-child canvas{min-height:120px;max-height:180px}
 </style>
 </head>
 <body>
