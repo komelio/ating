@@ -131,12 +131,16 @@ async function loadAll() {
 
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab===name));
-  document.querySelectorAll('.page').forEach(p => p.style.display = p.id==='page-'+name ? 'block' : 'none');
+  document.querySelectorAll('.page').forEach(p => {
+    const match = p.id === 'page-'+name;
+    p.style.display = match ? 'block' : 'none';
+    p.classList.toggle('active', match);
+  });
   if (CACHE.market) renderCurrent();
 }
 
 function renderCurrent() {
-  const page = document.querySelector('.page[style*="block"], .page.active');
+  const page = document.querySelector('.page.active');
   if (!page) return;
   const id = page.id.replace('page-','');
   window['render_'+id]?.();
