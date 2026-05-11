@@ -93,12 +93,38 @@ def export_all_json():
     """)
     _write_json("stocks.json", cur.fetchall())
 
-    # ── 持仓（从 sim-portfolio.json 读取） ──
+# ── 持仓（从 sim-portfolio.json 读取，转换为前端格式） ──
     try:
         with open(os.path.expanduser("~/.hermes/portfolio/sim-portfolio.json")) as f:
-            _write_json("portfolio.json", json.load(f))
+            raw = json.load(f)
+        # Convert: holdings dict→list, current_cash→cash, fill current_price from DB
+        rh = raw.get("holdings", {})
+        if isinstance(rh, dict):
+            hlist = []
+            for name, h in rh.items():
+                hlist.append({
+                    "name": name,
+                    "shares": h.get("shares", 0),
+                    "cost_price": h.get("avg_cost", 0),
+                    "current_price": 0,
+                    "category": h.get("category", ""),
+                })
+        else:
+            hlist = rh if isinstance(rh, list) else []
+        # Try to fill current prices from stocks table
+        cur = conn.execute("SELECT name, price FROM stock_price WHERE fetched_at > datetime('now', '-1 day') ORDER BY fetched_at DESC")
+        price_map = {r[0]: r[1] for r in cur.fetchall()}
+        for h in hlist:
+            if h["name"] in price_map:
+                h["current_price"] = price_map[h["name"]]
+        portfolio = {
+            "cash": raw.get("current_cash", raw.get("cash", 0)),
+            "holdings": hlist,
+            "initial_capital": raw.get("initial_capital", 100000),
+        }
+        _write_json("portfolio.json", portfolio)
     except Exception:
-        _write_json("portfolio.json", {})
+        _write_json("portfolio.json", {"cash": 0, "holdings": [], "initial_capital": 100000})
 
     # ── 资讯 ──
     cur = conn.execute("SELECT * FROM ai_news ORDER BY fetched_at DESC LIMIT 30")
