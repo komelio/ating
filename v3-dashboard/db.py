@@ -125,7 +125,13 @@ def export_all_json():
 
 def _write_json(filename, data):
     """将 Row 列表或 dict 写入 JSON 文件，带上时间戳。"""
-    items = data if isinstance(data, (list, dict)) else [dict(r) for r in data]
+    # 始终转为可序列化形式：Row → dict, list of Row → list of dict
+    if isinstance(data, list):
+        items = [dict(r) if hasattr(r, 'keys') else r for r in data]
+    elif hasattr(data, 'keys'):
+        items = dict(data)
+    else:
+        items = data
     payload = {"updated": datetime.now().isoformat(), "data": items}
     with open(os.path.join(DATA_DIR, filename), "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, default=str)
