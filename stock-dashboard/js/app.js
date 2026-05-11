@@ -8,6 +8,7 @@ const CONFIG = {
     market: 'data/market.json',
     watchlist: 'data/watchlist.json',
     positions: 'data/positions.json',
+    review: 'data/review.json',
     news: 'data/news.json',
     analysisIndex: 'data/analysis/index.json',
     analysis: (date) => `data/analysis/${date}.json`
@@ -20,11 +21,15 @@ let currentFilter = 'all';
 let refreshTimer = null;
 let countdownTimer = null;
 let secondsLeft = 60;
+let sortBy = 'code';
+let sortDir = 'asc';
+let cachedWatchlist = [];
 
 // === Initialization ===
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initFilters();
+  initSortableHeaders();
   initAnalysisDateSelector();
   loadAllData();
   startAutoRefresh();
@@ -44,7 +49,62 @@ function initTabs() {
 }
 
 // === Watchlist Filters ===
-function initFilters() {
+function initSortableHeaders() {
+  document.querySelectorAll('#watchlistTable .sortable').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      if (sortBy === col) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortBy = col;
+        sortDir = 'asc';
+      }
+      updateSortIndicators();
+      renderWatchlistSorted();
+    });
+  });
+}
+
+function updateSortIndicators() {
+  document.querySelectorAll('#watchlistTable .sortable').forEach(th => {
+    const icon = th.querySelector('.sort-icon');
+    if (th.dataset.sort === sortBy) {
+      icon.textContent = sortDir === 'asc' ? ' ▲' : ' ▼';
+    } else {
+      icon.textContent = '';
+    }
+  });
+}
+
+function scoreValue(score) {
+  const map = {'S': 10, 'A+': 9, 'A': 8, 'A-': 7, 'B+': 6, 'B': 5, 'B-': 4, 'C+': 3, 'C': 2, 'C-': 1, 'D': 0};
+  return map[score] != null ? map[score] : 0;
+}
+
+function renderWatchlistSorted() {
+  let stocks = [...cachedWatchlist];
+  if (currentFilter !== 'all') {
+    stocks = stocks.filter(s => s.type === currentFilter);
+  }
+  stocks.sort((a, b) => {
+    let va, vb;
+    if (sortBy === 'score') { va = scoreValue(a.score); vb = scoreValue(b.score); }
+    else if (sortBy === 'change_pct' || sortBy === 'price' || sortBy === 'pe' || sortBy === 'dividend_yield') {
+      va = a[sortBy] != null ? a[sortBy] : -Infinity;
+      vb = b[sortBy] != null ? b[sortBy] : -Infinity;
+    } else if (sortBy === 'name') {
+      va = a.name || ''; vb = b.name || '';
+    } else if (sortBy === 'type') {
+      const order = {'top10': 0, 'cashcow': 1, 'growth': 2};
+      va = order[a.type] || 9; vb = order[b.type] || 9;
+    } else {
+      va = a[sortBy] || ''; vb = b[sortBy] || '';
+    }
+    if (sortDir === 'asc') return va > vb ? 1 : va < vb ? -1 : 0;
+    return va < vb ? 1 : va > vb ? -1 : 0;
+  });
+  renderWatchlistTable(stocks);
+}
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -83,6 +143,7 @@ async function loadAllData() {
     loadMarket(),
     loadWatchlist(),
     loadPositions(),
+    loadReview(),
     loadNews()
   ]);
 }
@@ -241,31 +302,77 @@ function renderStateMachine(data) {
   `;
 }
 
-function renderWatchlist(data) {
-  const tbody = document.getElementById('watchlistBody');
-  let stocks = data.stocks || [];
-  if (currentFilter !== 'all') {
-    stocks = stocks.filter(s => s.type === currentFilter);
+function initFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      renderWatchlistSorted();
+    });
+  });
+}
+
+async function loadWatchlist() {
+  try {
+    const resp = await fetch(CONFIG.endpoints.watchlist);
+    if (!resp.ok) throw new Error('Failed');
+    const data = await resp.json();
+    cachedWatchlist = data.stocks || [];
+    updateSortIndicators();
+    renderWatchlistSorted();
+  } catch (e) {
+    console.warn('Watchlist load failed:', e);
+    document.getElementById('watchlistBody').innerHTML = '<tr><td colspan="9" class="placeholder">数据加载失败</td></tr>';
   }
+}
+
+function renderWatchlist(data) {
+  // Backward compat: if called with data object, cache and re-render
+  if (data && data.stocks) {
+    cachedWatchlist = data.stocks || [];
+  }
+  renderWatchlistSorted();
+}
+
+function renderWatchlistTable(stocks) {
+  const tbody = document.getElementById('watchlistBody');
   if (stocks.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" class="placeholder">暂无自选股</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="9" class="placeholder">暂无自选股</td></tr>';
     return;
   }
+  
+  const scoreColors = {
+    'S': 'score-s', 'A+': 'score-a', 'A': 'score-a', 'A-': 'score-a',
+    'B+': 'score-b', 'B': 'score-b', 'B-': 'score-b',
+    'C+': 'score-c', 'C': 'score-c',
+    'D': 'score-d'
+  };
+  
   tbody.innerHTML = stocks.map(s => {
-    const pctCls = s.change_pct >= 0 ? 'up' : 'down';
-    const sign = s.change_pct >= 0 ? '+' : '';
-    const typeTag = s.type === 'cashcow' ? '<span class="tag tag-cashcow">现金牛</span>' : '<span class="tag tag-growth">成长股</span>';
-    return `<tr>
+    const pctCls = (s.change_pct || 0) >= 0 ? 'up' : 'down';
+    const sign = (s.change_pct || 0) >= 0 ? '+' : '';
+    const scCls = scoreColors[s.score] || '';
+    const typeTags = {
+      'top10': '<span class="tag tag-top10">🏆Top10</span>',
+      'cashcow': '<span class="tag tag-cashcow">🐮现金牛</span>',
+      'growth': '<span class="tag tag-growth">🚀成长</span>'
+    };
+    const typeTag = typeTags[s.type] || `<span class="tag tag-growth">${s.type}</span>`;
+    const tagsHtml = (s.tags || []).slice(0, 2).map(t => `<span class="tag-mini">${t}</span>`).join('');
+    const divYield = s.dividend_yield != null ? (s.dividend_yield * 100).toFixed(2) + '%' : '--';
+    const peDisplay = s.pe != null ? (s.pe < 0 ? '亏损' : s.pe.toFixed(1)) : '--';
+    
+    return `<tr title="${s.logic || ''}" class="clickable-row" onclick="ChartModule.open('${s.code}')">
       <td>${s.code}</td>
       <td class="name-cell">${s.name}</td>
       <td>${fmtPrice(s.price)}</td>
-      <td class="${pctCls}">${sign}${s.change_pct.toFixed(2)}%</td>
-      <td>${s.pe != null ? s.pe.toFixed(1) : '--'}</td>
-      <td>${s.pb != null ? s.pb.toFixed(2) : '--'}</td>
-      <td>${s.roe != null ? (s.roe*100).toFixed(1)+'%' : '--'}</td>
-      <td>${s.dividend_yield != null ? (s.dividend_yield*100).toFixed(2)+'%' : '--'}</td>
+      <td class="${pctCls}">${sign}${(s.change_pct || 0).toFixed(2)}%</td>
+      <td><span class="score-badge ${scCls}">${s.score || '--'}</span></td>
+      <td>${peDisplay}</td>
+      <td>${divYield}</td>
+      <td class="tags-cell">${tagsHtml}</td>
       <td>${typeTag}</td>
-      <td>${s.status || '--'}</td>
     </tr>`;
   }).join('');
 }
@@ -315,7 +422,12 @@ function renderPositionsTable(data) {
   tbody.innerHTML = holdings.map(h => {
     const pnlCls = (h.pnl || 0) >= 0 ? 'up' : 'down';
     const sign = (h.pnl || 0) >= 0 ? '+' : '';
-    const typeTag = h.type === 'cashcow' ? '<span class="tag tag-cashcow">现金牛</span>' : '<span class="tag tag-growth">成长股</span>';
+    const typeTags = {
+      'top10': '<span class="tag tag-top10">🏆 Top10</span>',
+      'cashcow': '<span class="tag tag-cashcow">🐮 现金牛</span>',
+      'growth': '<span class="tag tag-growth">🚀 成长股</span>'
+    };
+    const typeTag = typeTags[h.type] || `<span class="tag tag-growth">${h.type}</span>`;
     return `<tr>
       <td>${h.code}</td>
       <td class="name-cell">${h.name}</td>
