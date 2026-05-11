@@ -1,55 +1,46 @@
 {
+  "update_time": "2026-05-11 15:45:38",
   "summary": {
     "total_assets": 99990.0,
     "cash": 89410.0,
     "cash_pct": 89.4,
-    "market_value": 10772.0,
-    "total_pnl": 192.0,
-    "total_pnl_pct": 1.81,
+    "market_value": 10580.0,
+    "total_pnl": 0.0,
+    "total_pnl_pct": 0.0,
     "holding_count": 2,
-    "peak_assets": 100000.0,
-    "drawdown_pct": 0.0,
+    "peak_assets": 100000,
+    "drawdown_pct": 0,
     "total_injected": 0
   },
   "holdings": [
-    {
-      "code": "600900",
-      "name": "长江电力",
-      "shares": 200,
-      "avg_cost": 27.0,
-      "cost": 5400.0,
-      "current_price": 27.01,
-      "market_value": 5402.0,
-      "pnl": 2.0,
-      "pnl_pct": 0.04,
-      "type": "cashcow",
-      "sector": "公用事业"
-    },
     {
       "code": "600406",
       "name": "国电南瑞",
       "shares": 200,
       "avg_cost": 25.9,
       "cost": 5180.0,
-      "current_price": 26.85,
-      "market_value": 5370.0,
-      "pnl": 190.0,
-      "pnl_pct": 3.67,
+      "current_price": 25.9,
+      "market_value": 5180.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
       "type": "growth",
       "sector": "电力设备"
-    }
-  ],
-  "trades": [
+    },
     {
-      "date": "2026-05-08",
-      "action": "BUY",
       "code": "600900",
       "name": "长江电力",
       "shares": 200,
-      "price": 27.0,
-      "amount": 5400.0,
-      "commission": 5
-    },
+      "avg_cost": 27.0,
+      "cost": 5400.0,
+      "current_price": 27.0,
+      "market_value": 5400.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "type": "cashcow",
+      "sector": "公用事业"
+    }
+  ],
+  "trades": [
     {
       "date": "2026-05-08",
       "action": "BUY",
@@ -57,8 +48,16 @@
       "name": "国电南瑞",
       "shares": 200,
       "price": 25.9,
-      "amount": 5180.0,
-      "commission": 5
+      "amount": 5180.0
+    },
+    {
+      "date": "2026-05-08",
+      "action": "BUY",
+      "code": "600900",
+      "name": "长江电力",
+      "shares": 200,
+      "price": 27.0,
+      "amount": 5400.0
     }
   ],
   "redlines": [
@@ -86,6 +85,5 @@
       "limit": "15%",
       "status": "ok"
     }
-  ],
-  "update_time": "2026-05-11 15:40:04"
+  ]
 }

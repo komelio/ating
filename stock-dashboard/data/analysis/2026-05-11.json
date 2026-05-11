@@ -1,35 +1,18 @@
 {
   "date": "2026-05-11",
-  "analysis_time": "15:40",
+  "analysis_time": "15:45",
   "market_state": {
-    "mode": "RiskOn",
+    "mode": "Neutral",
     "volume": "--",
-    "up_down_ratio": "12涨 / 4跌",
-    "north_flow": "待获取",
-    "reason": "指数强势+板块普涨"
+    "up_down_ratio": "--",
+    "reason": "指数震荡"
   },
-  "pelt_warnings": [
-    {
-      "code": "688256",
-      "stock": "寒武纪",
-      "warning": "PE 183.0x极高，估值风险大"
-    },
-    {
-      "code": "688041",
-      "stock": "海光信息",
-      "warning": "PE 275.0x极高，估值风险大"
-    },
-    {
-      "code": "600501",
-      "stock": "航天晨光",
-      "warning": "PE为负(-50.5)，持续亏损"
-    }
-  ],
+  "pelt_warnings": [],
   "decisions": [
     {
       "action": "持仓不动",
       "detail": "所有标的在安全区间"
     }
   ],
-  "thoughts": "【市场状态】RiskOn: 指数强势+板块普涨\n成交额: -- | 涨跌比: 12涨 / 4跌\n\n【持仓评估】2只标的, 总市值¥10772\n现金占比: 89.4%\n\n【定投策略】月度定投日12号\n3个PELT预警, 0个止损信号"
+  "thoughts": "【市场】Neutral: 指数震荡 | 成交额:-- | 涨跌比:--\n【持仓】2只, 市值¥10580\n【预警】0个PELT信号, 0个止损信号"
 }

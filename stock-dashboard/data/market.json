@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-11 15:40:04",
+  "update_time": "2026-05-11 15:45:38",
   "indices": [
     {
       "code": "sh000001",
@@ -104,10 +104,10 @@
     }
   ],
   "state": {
-    "mode": "RiskOn",
+    "mode": "Neutral",
     "volume": "--",
-    "up_down_ratio": "12涨 / 4跌",
+    "up_down_ratio": "--",
     "north_flow": "待获取",
-    "reason": "指数强势+板块普涨"
+    "reason": "指数震荡"
   }
 }
