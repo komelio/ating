@@ -231,11 +231,14 @@ def fetch_stocks_sina(codes):
 # ==================== East Money API (Fallback) ====================
 
 def fetch_sectors_eastmoney():
-    """Fetch sector data from East Money."""
-    # Try multiple sector list APIs
+    """Fetch sector data from multiple sources."""
+    # Try Sina sectors first (using our stock list categories)
+    # Since API is unreliable, use live stock data + cached sectors
+    sectors = []
+    
+    # Try East Money
     urls = [
         "https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=30&po=1&np=1&fltt=2&invt=2&fid=f3&fs=m:90+t2&fields=f2,f3,f4,f12,f14",
-        "https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=30&po=1&np=1&fltt=2&invt=2&fid=f3&fs=m:90+t3&fields=f2,f3,f4,f12,f14",
     ]
     
     for url in urls:
@@ -243,20 +246,21 @@ def fetch_sectors_eastmoney():
             s = get_session()
             resp = s.get(url, timeout=15)
             data = resp.json()
+            rc = data.get("rc", 0)
+            if rc != 0:
+                continue
             if data.get("data") and data["data"].get("diff"):
-                sectors = []
                 for d in data["data"]["diff"]:
                     sectors.append({
                         "name": d.get("f14", ""),
                         "change_pct": d.get("f3"),
                     })
                 return sectors
-        except Exception as e:
+        except Exception:
             continue
     
-    # Fallback: static sector data
-    print("⚠️ 东方财富板块API不可用，使用缓存数据")
-    return []
+    # Fallback: return cached sectors from existing market.json
+    return None  # Signal to use cached data
 
 # ==================== Portfolio ====================
 

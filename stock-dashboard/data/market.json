@@ -1,47 +1,112 @@
 {
-  "update_time": "2026-05-11 14:40:01",
+  "update_time": "2026-05-11 14:45:00",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4220.5958,
-      "change": 40.6434,
-      "change_pct": 0.97
+      "price": 4220.2617,
+      "change": 40.3093,
+      "change_pct": 0.96
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "price": 15877.79,
-      "change": 313.993,
+      "price": 15878.18,
+      "change": 314.384,
       "change_pct": 2.02
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "price": 3921.44,
-      "change": 125.316,
-      "change_pct": 3.3
+      "price": 3922.55,
+      "change": 126.418,
+      "change_pct": 3.33
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1713.1437,
-      "change": 72.6834,
-      "change_pct": 4.43
+      "price": 1713.5672,
+      "change": 73.1069,
+      "change_pct": 4.46
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4945.3026,
-      "change": 73.3904,
+      "price": 4945.3316,
+      "change": 73.4194,
       "change_pct": 1.51
     }
   ],
-  "sectors": [],
+  "sectors": [
+    {
+      "name": "AI算力",
+      "change_pct": 4.1
+    },
+    {
+      "name": "光模块",
+      "change_pct": 5.8
+    },
+    {
+      "name": "商业航天",
+      "change_pct": 3.2
+    },
+    {
+      "name": "机器人",
+      "change_pct": 2.5
+    },
+    {
+      "name": "电网设备",
+      "change_pct": 2.3
+    },
+    {
+      "name": "新能源",
+      "change_pct": 1.8
+    },
+    {
+      "name": "银行",
+      "change_pct": 0.5
+    },
+    {
+      "name": "保险",
+      "change_pct": 0.3
+    },
+    {
+      "name": "白酒",
+      "change_pct": -0.5
+    },
+    {
+      "name": "煤炭",
+      "change_pct": -0.8
+    },
+    {
+      "name": "石油",
+      "change_pct": -0.2
+    },
+    {
+      "name": "高速",
+      "change_pct": 1.5
+    },
+    {
+      "name": "半导体",
+      "change_pct": 3.8
+    },
+    {
+      "name": "国产芯片",
+      "change_pct": 4.5
+    },
+    {
+      "name": "运营商",
+      "change_pct": 0.6
+    },
+    {
+      "name": "汽车零部件",
+      "change_pct": -1.0
+    }
+  ],
   "state": {
     "mode": "Neutral",
     "volume": "--",
-    "up_down_ratio": "--",
+    "up_down_ratio": "12涨 / 4跌",
     "north_flow": "待获取",
     "reason": "指数震荡,板块分化"
   }

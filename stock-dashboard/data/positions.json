@@ -3,9 +3,9 @@
     "total_assets": 99990.0,
     "cash": 89410.0,
     "cash_pct": 89.4,
-    "market_value": 10750.0,
-    "total_pnl": 170.0,
-    "total_pnl_pct": 1.61,
+    "market_value": 10744.0,
+    "total_pnl": 164.0,
+    "total_pnl_pct": 1.55,
     "holding_count": 2,
     "peak_assets": 100000.0,
     "drawdown_pct": 0.0,
@@ -31,10 +31,10 @@
       "shares": 200,
       "avg_cost": 25.9,
       "cost": 5180.0,
-      "current_price": 26.76,
-      "market_value": 5352.0,
-      "pnl": 172.0,
-      "pnl_pct": 3.32,
+      "current_price": 26.73,
+      "market_value": 5346.0,
+      "pnl": 166.0,
+      "pnl_pct": 3.2,
       "type": "growth",
       "sector": "电力设备"
     }
@@ -87,5 +87,5 @@
       "status": "ok"
     }
   ],
-  "update_time": "2026-05-11 14:40:01"
+  "update_time": "2026-05-11 14:45:00"
 }
