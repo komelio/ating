@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-11 14:40:00",
+  "update_time": "2026-05-11 18:10:00",
   "entries": [
     {
       "id": "2026-05-11-morning",
@@ -9,12 +9,28 @@
       "market_state": "震荡",
       "state_color": "orange",
       "signals": [
-        {"level": "warn", "icon": "⚠", "text": "三花智控 单日跌2.5%"},
-        {"level": "warn", "icon": "⚠", "text": "拓普集团 单日跌1.9%"},
-        {"level": "positive", "icon": "🟢", "text": "中国移动 逆势+0.6%"}
+        {
+          "level": "warn",
+          "icon": "⚠",
+          "text": "三花智控 单日跌2.5%"
+        },
+        {
+          "level": "warn",
+          "icon": "⚠",
+          "text": "拓普集团 单日跌1.9%"
+        },
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "中国移动 逆势+0.6%"
+        }
       ],
       "decisions": "早盘低开震荡，成长股承压。现金牛板块托底稳定，移动/神华逆势翻红。建议持仓不动，关注下午量能变化。若三花跌破50元可考虑止损减持10%。",
-      "screening": {"cashcow": 0, "growth": 0, "note": "早盘未触发筛股"}
+      "screening": {
+        "cashcow": 0,
+        "growth": 0,
+        "note": "早盘未触发筛股"
+      }
     },
     {
       "id": "2026-05-09-weekly",
@@ -24,11 +40,23 @@
       "market_state": "震荡",
       "state_color": "orange",
       "signals": [
-        {"level": "danger", "icon": "🔴", "text": "工商银行 分红率~30%不达标"},
-        {"level": "warn", "icon": "🟡", "text": "片仔癀 经营现金流/净利≈0.9"}
+        {
+          "level": "danger",
+          "icon": "🔴",
+          "text": "工商银行 分红率~30%不达标"
+        },
+        {
+          "level": "warn",
+          "icon": "🟡",
+          "text": "片仔癀 经营现金流/净利≈0.9"
+        }
       ],
       "decisions": "无新增入池。现有池18只核验：15只通过，工商降级观察，江顺暂缓。建议下周一扩量重扫。",
-      "screening": {"cashcow": 0, "growth": 0, "note": "无候选，分页受限"}
+      "screening": {
+        "cashcow": 0,
+        "growth": 0,
+        "note": "无候选，分页受限"
+      }
     },
     {
       "id": "2026-05-08-daily",
@@ -38,14 +66,94 @@
       "market_state": "RiskOn",
       "state_color": "green",
       "signals": [
-        {"level": "positive", "icon": "🟢", "text": "上证平收4179.95，连3日成交破3万亿"},
-        {"level": "positive", "icon": "🟢", "text": "国电南瑞 浮盈+2.08%"},
-        {"level": "info", "icon": "🔵", "text": "商业航天板块+4.81%，板块热度高"},
-        {"level": "danger", "icon": "🔴", "text": "航天晨光 PE为负-50.5，已移出选股池"},
-        {"level": "warn", "icon": "🟡", "text": "寒武纪PE 183x+海光PE 275x，估值极高"}
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "上证平收4179.95，连3日成交破3万亿"
+        },
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "国电南瑞 浮盈+2.08%"
+        },
+        {
+          "level": "info",
+          "icon": "🔵",
+          "text": "商业航天板块+4.81%，板块热度高"
+        },
+        {
+          "level": "danger",
+          "icon": "🔴",
+          "text": "航天晨光 PE为负-50.5，已移出选股池"
+        },
+        {
+          "level": "warn",
+          "icon": "🟡",
+          "text": "寒武纪PE 183x+海光PE 275x，估值极高"
+        }
       ],
       "decisions": "【持仓】长江电力+国电南瑞仓位安全，无止损触发。\n【选股池】航天晨光因持续亏损移除；茅台因一手14w暂缓。\n【定投】5/12首次DCA：现金牛9000(长电+神华)、成长4500(许继+南瑞)。\n【关注】许继电气Q1利润暴跌但中标国网12.7亿，定投前需确认。",
-      "screening": {"cashcow": 2, "growth": 1, "note": "长电/神华(现金牛)，许继(成长，待确认)"}
+      "screening": {
+        "cashcow": 2,
+        "growth": 1,
+        "note": "长电/神华(现金牛)，许继(成长，待确认)"
+      }
+    },
+    {
+      "id": "2026-05-11-closing",
+      "datetime": "2026-05-11 18:10",
+      "type": "晚盘复盘",
+      "type_icon": "🌙",
+      "market_state": "RiskOn",
+      "state_color": "green",
+      "signals": [
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "上证+1.08%逼空至4225，距前高4200已突破"
+        },
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "科创50+4.65%领涨，AI算力主线强化"
+        },
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "海光信息+8.01%、中际旭创+6.11%，芯片+光模块双轮驱动"
+        },
+        {
+          "level": "positive",
+          "icon": "🟢",
+          "text": "中国移动逆势+0.6%，高股息防御托底"
+        },
+        {
+          "level": "warn",
+          "icon": "⚠",
+          "text": "三花智控-2.5%、拓普集团-1.9%，机器人概念承压"
+        },
+        {
+          "level": "warn",
+          "icon": "⚠",
+          "text": "银行板块分化，农行/建行回落，市场风格偏向成长"
+        },
+        {
+          "level": "info",
+          "icon": "🔵",
+          "text": "特朗普明日访华(5/13-15)，短期利好风险偏好"
+        },
+        {
+          "level": "info",
+          "icon": "🔵",
+          "text": "成交额维持3万亿级别，增量资金持续入场"
+        }
+      ],
+      "decisions": "【大盘判断】上证突破4200压力位，科创50连涨，AI主线明确。配合特朗普访华利好，短期偏多。但需防利好兑现+前高回落风险。\n\n【持仓评估】长江电力(防御底仓)与国电南瑞(电网智能化)仓位极轻(合计10.6%)，浮盈安全。无止损触发。\n\n【定投决策】明日5/12首次DCA，注入1.5w：现金牛9000(长电+神华)+成长股4500(南瑞+许继)。国电南瑞从100股加至200股，加码算力+电力交叉标的。\n\n【风险关注】①访华期间(13-15日)不操作，纯观察 ②许继电气Q1利润暴跌需在定投前确认 ③寒武纪/海光PE极高不追",
+      "screening": {
+        "cashcow": 2,
+        "growth": 2,
+        "note": "长电/神华(现金牛定投), 南瑞/许继(成长股定投,南瑞加码)"
+      }
     }
   ]
 }
