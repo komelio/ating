@@ -1,0 +1,19 @@
+{
+  "date": "2026-05-11",
+  "analysis_time": "13:56",
+  "market_state": {
+    "mode": "Neutral",
+    "volume": "--",
+    "up_down_ratio": "--",
+    "north_flow": "待获取",
+    "reason": "指数震荡,板块分化"
+  },
+  "pelt_warnings": [],
+  "decisions": [
+    {
+      "action": "持仓不动",
+      "detail": "所有标的在安全区间"
+    }
+  ],
+  "thoughts": "【市场状态】Neutral: 指数震荡,板块分化\n成交额: -- | 涨跌比: --\n\n【持仓评估】2只标的, 总市值¥10748\n现金占比: 89.4%\n\n【定投策略】月度定投日12号\n0个PELT预警, 0个止损信号"
+}

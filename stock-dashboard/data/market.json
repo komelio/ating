@@ -1,35 +1,48 @@
 {
-  "update_time": "2026-05-11 13:36:00",
+  "update_time": "2026-05-11 13:56:23",
   "indices": [
-    {"code": "000001", "name": "上证指数", "price": 4179.95, "change": 0.00, "change_pct": 0.00},
-    {"code": "399001", "name": "深证成指", "price": 15471.00, "change": -78.00, "change_pct": -0.50},
-    {"code": "399006", "name": "创业板指", "price": 3210.00, "change": -31.00, "change_pct": -0.96},
-    {"code": "000688", "name": "科创50", "price": 1530.00, "change": -32.00, "change_pct": -2.05},
-    {"code": "000300", "name": "沪深300", "price": 4980.00, "change": -12.00, "change_pct": -0.24}
+    {
+      "code": "sh000001",
+      "name": "上证指数",
+      "price": 4214.3731,
+      "change": 34.4207,
+      "change_pct": 0.82
+    },
+    {
+      "code": "sz399001",
+      "name": "深证成指",
+      "price": 15838.98,
+      "change": 275.18,
+      "change_pct": 1.77
+    },
+    {
+      "code": "sz399006",
+      "name": "创业板指",
+      "price": 3914.45,
+      "change": 118.326,
+      "change_pct": 3.12
+    },
+    {
+      "code": "sh000688",
+      "name": "科创50",
+      "price": 1716.6865,
+      "change": 76.2262,
+      "change_pct": 4.65
+    },
+    {
+      "code": "sh000300",
+      "name": "沪深300",
+      "price": 4936.4592,
+      "change": 64.547,
+      "change_pct": 1.32
+    }
   ],
-  "sectors": [
-    {"name": "商业航天", "change_pct": 4.81},
-    {"name": "港口航运", "change_pct": 3.20},
-    {"name": "人形机器人", "change_pct": 3.49},
-    {"name": "CPO", "change_pct": 2.80},
-    {"name": "房地产", "change_pct": 2.15},
-    {"name": "光纤概念", "change_pct": 1.90},
-    {"name": "流感", "change_pct": 1.75},
-    {"name": "工业母机", "change_pct": 1.60},
-    {"name": "贵金属", "change_pct": 1.50},
-    {"name": "半导体", "change_pct": -2.10},
-    {"name": "能源金属", "change_pct": -1.85},
-    {"name": "电池", "change_pct": -1.60},
-    {"name": "证券", "change_pct": -0.90},
-    {"name": "煤炭", "change_pct": -0.80},
-    {"name": "银行", "change_pct": -0.40},
-    {"name": "风电设备", "change_pct": -1.20}
-  ],
+  "sectors": [],
   "state": {
-    "mode": "RiskOn",
-    "volume": "3.08万亿",
-    "up_down_ratio": "3637涨 / 1728跌",
+    "mode": "Neutral",
+    "volume": "--",
+    "up_down_ratio": "--",
     "north_flow": "待获取",
-    "reason": "连续三日成交破3万亿+个股涨多跌少+AI主线持续。但缩量+接近4200前高压力，注意防守。"
+    "reason": "指数震荡,板块分化"
   }
 }

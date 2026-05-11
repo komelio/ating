@@ -1,14 +1,13 @@
 {
-  "update_time": "2026-05-11 13:36:00",
   "summary": {
-    "total_assets": 99990,
-    "cash": 89410,
+    "total_assets": 99990.0,
+    "cash": 89410.0,
     "cash_pct": 89.4,
-    "market_value": 10580,
-    "total_pnl": 110,
-    "total_pnl_pct": 1.04,
+    "market_value": 10748.0,
+    "total_pnl": 168.0,
+    "total_pnl_pct": 1.59,
     "holding_count": 2,
-    "peak_assets": 100000,
+    "peak_assets": 100000.0,
     "drawdown_pct": 0.0,
     "total_injected": 0
   },
@@ -17,12 +16,12 @@
       "code": "600900",
       "name": "长江电力",
       "shares": 200,
-      "avg_cost": 27.00,
-      "cost": 5400,
-      "current_price": 27.05,
-      "market_value": 5410,
-      "pnl": 10,
-      "pnl_pct": 0.19,
+      "avg_cost": 27.0,
+      "cost": 5400.0,
+      "current_price": 26.98,
+      "market_value": 5396.0,
+      "pnl": -4.0,
+      "pnl_pct": -0.07,
       "type": "cashcow",
       "sector": "公用事业"
     },
@@ -30,25 +29,63 @@
       "code": "600406",
       "name": "国电南瑞",
       "shares": 200,
-      "avg_cost": 25.90,
-      "cost": 5180,
-      "current_price": 26.44,
-      "market_value": 5288,
-      "pnl": 108,
-      "pnl_pct": 2.08,
+      "avg_cost": 25.9,
+      "cost": 5180.0,
+      "current_price": 26.76,
+      "market_value": 5352.0,
+      "pnl": 172.0,
+      "pnl_pct": 3.32,
       "type": "growth",
       "sector": "电力设备"
     }
   ],
-  "redlines": [
-    {"name": "单票≤10%", "value": "5.4%", "limit": "10%", "status": "ok"},
-    {"name": "单行业≤20%", "value": "10.7%", "limit": "20%", "status": "ok"},
-    {"name": "现金≥10%", "value": "89.4%", "limit": "10%", "status": "ok"},
-    {"name": "拓荒≤10%", "value": "0%", "limit": "10%", "status": "ok"},
-    {"name": "回撤熔断", "value": "0.0%", "limit": "15%", "status": "ok"}
-  ],
   "trades": [
-    {"date": "2026-05-08", "action": "BUY", "code": "600900", "name": "长江电力", "shares": 200, "price": 27.00, "amount": 5400},
-    {"date": "2026-05-08", "action": "BUY", "code": "600406", "name": "国电南瑞", "shares": 200, "price": 25.90, "amount": 5180}
-  ]
+    {
+      "date": "2026-05-08",
+      "action": "BUY",
+      "code": "600900",
+      "name": "长江电力",
+      "shares": 200,
+      "price": 27.0,
+      "amount": 5400.0,
+      "commission": 5
+    },
+    {
+      "date": "2026-05-08",
+      "action": "BUY",
+      "code": "600406",
+      "name": "国电南瑞",
+      "shares": 200,
+      "price": 25.9,
+      "amount": 5180.0,
+      "commission": 5
+    }
+  ],
+  "redlines": [
+    {
+      "name": "单票≤10%",
+      "value": "5.4%",
+      "limit": "10%",
+      "status": "ok"
+    },
+    {
+      "name": "单行业≤20%",
+      "value": "--",
+      "limit": "20%",
+      "status": "ok"
+    },
+    {
+      "name": "现金≥10%",
+      "value": "89.4%",
+      "limit": "10%",
+      "status": "ok"
+    },
+    {
+      "name": "回撤熔断",
+      "value": "0.00%",
+      "limit": "15%",
+      "status": "ok"
+    }
+  ],
+  "update_time": "2026-05-11 13:56:23"
 }
