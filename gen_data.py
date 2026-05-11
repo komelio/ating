@@ -36,6 +36,11 @@ save('stocks.json', [
     {'code':'1.600391','name':'航天晨光','price':18.25,'change_pct':0.55,'change_amt':0.10,'volume':1800000,'turnover':32800000,'high':18.45,'low':18.05,'open':18.15,'prev_close':18.15,'pe':55.0},
     {'code':'0.003031','name':'江顺科技','price':35.20,'change_pct':-1.20,'change_amt':-0.43,'volume':1200000,'turnover':42200000,'high':35.80,'low':34.90,'open':35.63,'prev_close':35.63,'pe':38.5},
     {'code':'0.002594','name':'比亚迪','price':285.50,'change_pct':1.80,'change_amt':5.05,'volume':8200000,'turnover':2340000000,'high':287.80,'low':280.20,'open':281.00,'prev_close':280.45,'pe':32.1},
+    {'code':'0.300750','name':'宁德时代','price':235.80,'change_pct':-0.65,'change_amt':-1.54,'volume':6500000,'turnover':1530000000,'high':238.50,'low':234.20,'open':237.50,'prev_close':237.34,'pe':25.8},
+    {'code':'1.601318','name':'中国平安','price':52.40,'change_pct':0.30,'change_amt':0.16,'volume':28000000,'turnover':1470000000,'high':52.80,'low':52.10,'open':52.20,'prev_close':52.24,'pe':9.5},
+    {'code':'1.600036','name':'招商银行','price':42.35,'change_pct':-0.20,'change_amt':-0.08,'volume':18000000,'turnover':762000000,'high':42.80,'low':42.10,'open':42.50,'prev_close':42.43,'pe':7.2},
+    {'code':'0.000333','name':'美的集团','price':78.90,'change_pct':0.85,'change_amt':0.66,'volume':9500000,'turnover':749000000,'high':79.50,'low':78.10,'open':78.30,'prev_close':78.24,'pe':16.5},
+    {'code':'1.600276','name':'恒瑞医药','price':48.65,'change_pct':-0.50,'change_amt':-0.24,'volume':7200000,'turnover':350000000,'high':49.20,'low':48.40,'open':49.00,'prev_close':48.89,'pe':55.0},
 ])
 
 save('portfolio.json', {
