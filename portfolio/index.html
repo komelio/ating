@@ -204,7 +204,7 @@ function renderJournal(){
 function renderNews(){
   var nw=DATA.news||[];
   if(!Array.isArray(nw)||nw.length===0){$('news').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p>暂无资讯 — 数据源接入中</p></div>';return}
-  var h='';nw.forEach(function(n){h+='<div class="news-item"><div class="nt" onclick="window.open(\''+n.url+'\')">'+n.title+'</div><div class="nm">'+n.source+' &middot; '+n.ts+'</div></div>'});
+var h='';nw.forEach(function(n){h+='<div class="news-item"><a class="nt" href="'+n.url+'" target="_blank">'+n.title+'</a><div class="nm">'+n.source+' &middot; '+n.ts+'</div></div>'});
   $('news').innerHTML=h;
 }
 </script>
