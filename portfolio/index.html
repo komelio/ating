@@ -266,9 +266,7 @@ $('klineModal').addEventListener('click',function(e){if(e.target===this)closeKLi
 function renderKLine(data){
   var pts=klineMode==='daily'?data.daily:data.weekly;
   if(!pts||pts.length<2)return;
-  // Limit daily to recent ~120 trading days for readability
   if(klineMode==='daily'&&pts.length>120)pts=pts.slice(-120);
-  // Safely destroy existing K-line charts
   var ek=Chart.getChart('chKLine');if(ek)ek.destroy();
   var ev=Chart.getChart('chKVol');if(ev)ev.destroy();
   Object.values(charts).forEach(function(c){c.destroy()});charts={};
@@ -278,36 +276,18 @@ function renderKLine(data){
   var lows=pts.map(function(p){return p.low});
   var vols=pts.map(function(p){return p.volume});
   var upCol='#ef5350',dnCol='#26a69a';
-  // Close price line with color segments (merge adjacent same-direction into 1 dataset)
-  var segs=mergeSegments(closes);
-  var ds=[];
-  segs.forEach(function(s){
-    var slice=closes.slice(s.start,s.end+1);
-    var lbl=labels.slice(s.start,s.end+1);
-    ds.push({data:slice.map(function(v,i){return{x:lbl[i],y:v}}),borderColor:s.up?upCol:dnCol,borderWidth:2,pointRadius:0,tension:.15,fill:false});
-  });
-  // High-low band: high line (invisible) + low line with fill to high
-  ds.push({data:highs.map(function(h,i){return{x:labels[i],y:h}}),borderColor:'transparent',pointRadius:0,fill:false});
-  ds.push({data:lows.map(function(l,i){return{x:labels[i],y:l}}),borderColor:'transparent',pointRadius:0,backgroundColor:'rgba(88,166,255,.1)',fill:{target:ds.length-2}});
-  // K-line chart
-  charts.kl=new Chart($('chKLine'),{type:'line',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){
-    if(ctx.datasetIndex>=segs.length)return'';
+  // Simple: 4 datasets — close line + high-low band + volume
+  var ds=[
+    {label:'close',data:closes,borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,.15)',borderWidth:2,pointRadius:0,tension:.2,fill:false},
+    {label:'high',data:highs,borderColor:'transparent',pointRadius:0,fill:false},
+    {label:'low',data:lows,borderColor:'transparent',pointRadius:0,backgroundColor:'rgba(100,160,255,.1)',fill:{target:1}}
+  ];
+  charts.kl=new Chart($('chKLine'),{type:'line',data:{labels:labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){
+    if(ctx.datasetIndex>0)return'';
     var p=pts[ctx.dataIndex];return ['O:¥'+p.open.toFixed(2),'H:¥'+p.high.toFixed(2),'L:¥'+p.low.toFixed(2),'C:¥'+p.close.toFixed(2)];
   }}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:15,autoSkip:true}},y:{ticks:{color:'#8b949e',font:{size:9},callback:function(v){return Number(v).toFixed(1)}}}}}});
-  // Volume bars
   var vc=pts.map(function(p){return p.close>=p.open?upCol:dnCol});
   charts.kv=new Chart($('chKVol'),{type:'bar',data:{labels:labels,datasets:[{data:vols,backgroundColor:vc,borderRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:15}},y:{ticks:{color:'#8b949e',font:{size:9},callback:function(v){return v>=1e8?(v/1e8).toFixed(1)+'亿':v>=1e4?(v/1e4).toFixed(0)+'万':v}}}}}});
-}
-// Merge adjacent price points with same direction into fewer segments
-function mergeSegments(closes){
-  var segs=[],i=0;
-  while(i<closes.length-1){
-    var j=i,up=closes[j+1]>=closes[j];
-    while(j<closes.length-1&&(closes[j+1]>=closes[j])===up)j++;
-    if(j>i)segs.push({start:i,end:j,up:up});
-    i=j;
-  }
-  return segs;
 }
 </script>
 <div class="modal-overlay" id="klineModal">
