@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5年复利模拟仓 | A股仪表盘</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0d1117; --card: #161b22; --border: #30363d;
+  --green: #26a69a; --red: #ef5350; --text: #c9d1d9;
+  --text2: #8b949e; --accent: #58a6ff; --orange: #f0883e;
+  --gold: #d4a853;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; min-height:100vh; }
+.header { background:#0d1117; border-bottom:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; position:sticky; top:0; z-index:100; }
+.header h1 { font-size:18px; font-weight:600; display:flex; align-items:center; gap:8px; }
+.header h1 span { color:var(--text2); font-size:12px; font-weight:400; }
+.header .update { font-size:11px; color:var(--text2); }
+.tabs { display:flex; gap:0; border-bottom:1px solid var(--border); background:var(--card); padding:0 24px; overflow-x:auto; }
+.tab { padding:12px 20px; cursor:pointer; font-size:13px; color:var(--text2); border-bottom:2px solid transparent; white-space:nowrap; transition:all .2s; }
+.tab:hover { color:var(--text); }
+.tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.tab-content { display:none; padding:16px 24px; }
+.tab-content.active { display:block; }
+
+/* 指数条 */
+.idx-bar { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
+.idx-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 16px; min-width:140px; flex:1; }
+.idx-card .name { font-size:11px; color:var(--text2); }
+.idx-card .val { font-size:22px; font-weight:700; margin:4px 0; }
+.idx-card .chg { font-size:13px; }
+.up { color:var(--green); } .down { color:var(--red); }
+
+/* 表格 */
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { text-align:left; padding:8px 10px; color:var(--text2); font-weight:500; border-bottom:1px solid var(--border); font-size:11px; }
+td { padding:8px 10px; border-bottom:1px solid var(--border); }
+tr:hover { background:rgba(88,166,255,0.04); }
+.score { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+.score-high { background:rgba(38,166,154,0.15); color:var(--green); }
+.score-mid { background:rgba(240,136,62,0.15); color:var(--orange); }
+.score-low { background:rgba(239,83,80,0.15); color:var(--red); }
+
+/* 卡片 */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:16px; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px; }
+.card .label { font-size:11px; color:var(--text2); margin-bottom:4px; }
+.card .value { font-size:24px; font-weight:700; }
+.card .sub { font-size:12px; color:var(--text2); margin-top:4px; }
+
+/* 池子区块 */
+.pool-section { margin-bottom:20px; }
+.pool-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.pool-header h3 { font-size:15px; }
+.pool-header .tag { font-size:11px; color:var(--text2); background:rgba(139,148,158,0.1); padding:2px 8px; border-radius:4px; }
+
+/* 图表 */
+.chart-wrap { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:12px; }
+.chart-wrap h4 { font-size:12px; color:var(--text2); margin-bottom:8px; }
+canvas { max-height:200px; }
+
+/* 资讯 */
+.news-item { padding:10px 0; border-bottom:1px solid var(--border); }
+.news-item .ntitle { font-size:13px; color:var(--accent); cursor:pointer; }
+.news-item .ntitle:hover { text-decoration:underline; }
+.news-item .nmeta { font-size:11px; color:var(--text2); margin-top:4px; }
+
+.refresh-btn { background:var(--accent); color:#fff; border:none; padding:6px 14px; border-radius:6px; cursor:pointer; font-size:12px; }
+.refresh-btn:hover { opacity:0.85; }
+
+.pool-tag { display:inline-block; padding:1px 6px; border-radius:3px; font-size:10px; margin-right:4px; }
+.pool-糖果池 { background:rgba(38,166,154,0.15); color:var(--green); }
+.pool-火箭池 { background:rgba(88,166,255,0.15); color:var(--accent); }
+.pool-种子池 { background:rgba(240,136,62,0.15); color:var(--orange); }
+
+@media (max-width:768px) {
+  .idx-bar { gap:8px; }
+  .idx-card { min-width:100px; padding:8px 10px; }
+  .idx-card .val { font-size:16px; }
+  .header, .tabs, .tab-content { padding-left:12px; padding-right:12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏦 5年复利模拟仓 <span>三色池 · A股仪表盘</span></h1>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="update" id="updateTime">更新: 2026-05-11 10:43:57</span>
+    <button class="refresh-btn" onclick="location.reload()">🔄 刷新</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview')">📊 大盘</div>
+  <div class="tab" onclick="switchTab('watchlist')">⭐ 自选</div>
+  <div class="tab" onclick="switchTab('portfolio')">💰 持仓</div>
+  <div class="tab" onclick="switchTab('data')">📈 数据</div>
+  <div class="tab" onclick="switchTab('news')">📰 资讯</div>
+</div>
+
+<!-- ═══════ 大盘 Tab ═══════ -->
+<div id="tab-overview" class="tab-content active">
+
+<div class="idx-bar" id="idxBar"></div>
+
+<div class="cards" id="overviewCards"></div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+  <div class="chart-wrap"><h4>📈 今日指数走势</h4><canvas id="chartIdx"></canvas></div>
+  <div class="chart-wrap"><h4>🏠 账户净值走势（近30日）</h4><canvas id="chartNAV"></canvas></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+  <div class="chart-wrap"><h4>💎 糖果池核心标的</h4><canvas id="chartCandy"></canvas></div>
+  <div class="chart-wrap"><h4>🚀 火箭池核心标的</h4><canvas id="chartRocket"></canvas></div>
+</div>
+
+</div>
+
+<!-- ═══════ 自选 Tab ═══════ -->
+<div id="tab-watchlist" class="tab-content">
+<div id="watchlistContent"></div>
+</div>
+
+<!-- ═══════ 持仓 Tab ═══════ -->
+<div id="tab-portfolio" class="tab-content">
+<div class="cards" id="portfolioCards"></div>
+<div id="portfolioHoldings"></div>
+</div>
+
+<!-- ═══════ 数据 Tab ═══════ -->
+<div id="tab-data" class="tab-content">
+<div class="chart-wrap"><h4>📊 账户净值历史</h4><canvas id="chartHistory" height="80"></canvas></div>
+<div style="overflow-x:auto;"><table id="dataTable"><thead><tr><th>日期</th><th>总资产</th><th>现金</th><th>市值</th><th>盈亏</th></tr></thead><tbody></tbody></table></div>
+</div>
+
+<!-- ═══════ 资讯 Tab ═══════ -->
+<div id="tab-news" class="tab-content">
+<div id="newsContent"></div>
+</div>
+
+<script>
+const IDX = [{"id": 7, "name": "上证指数", "code": "sh000001", "price": 4209.367, "change_pct": 0.7037065780940487, "volume": 403801010.0, "amount": 843004952613.0, "ts": "2026-05-11 10:43:57"}, {"id": 12, "name": "中证500", "code": "sh000905", "price": 8811.2154, "change_pct": 1.3462410774557005, "volume": 151099253.0, "amount": 379394140965.0, "ts": "2026-05-11 10:43:57"}, {"id": 9, "name": "创业板指", "code": "sz399006", "price": 3876.93, "change_pct": 2.128537288521348, "volume": 13454285389.0, "amount": 486910945351.45, "ts": "2026-05-11 10:43:57"}, {"id": 11, "name": "沪深300", "code": "sh000300", "price": 4925.0234, "change_pct": 1.0901510088790245, "volume": 154376683.0, "amount": 464489279817.0, "ts": "2026-05-11 10:43:57"}, {"id": 8, "name": "深证成指", "code": "sz399001", "price": 15810.148, "change_pct": 1.5828463966729889, "volume": 48634344224.0, "amount": 1050653163594.598, "ts": "2026-05-11 10:43:57"}, {"id": 10, "name": "科创50", "code": "sh000688", "price": 1709.4199, "change_pct": 4.203673810332389, "volume": 9353447.0, "amount": 93358185702.0, "ts": "2026-05-11 10:43:57"}];
+const STOCKS = [{"name": "长江电力", "code": "sh600900", "price": 27.07, "change_pct": 0.2592592592592603, "open": 27.05, "high": 27.2, "low": 26.95, "prev_close": 27.0, "volume": 50357950.0, "amount": 1363715480.0, "score": 9, "reason": "水电龙头，股息率>4%，ROE>15%，永续经营", "target_weight": 0.12, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "中国神华", "code": "sh601088", "price": 45.0, "change_pct": -0.3984063745019914, "open": 45.18, "high": 45.38, "low": 44.99, "prev_close": 45.18, "volume": 13465840.0, "amount": 607601760.0, "score": 8, "reason": "煤炭现金牛，高分红，FCF/净利润>80%", "target_weight": 0.08, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "贵州茅台", "code": "sh600519", "price": 1361.33, "change_pct": -0.8492414365727414, "open": 1372.89, "high": 1372.89, "low": 1361.0, "prev_close": 1372.99, "volume": 2503714.0, "amount": 3416563628.0, "score": 9, "reason": "护城河极深，毛利率>90%，无需资本再投入", "target_weight": 0.08, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "五粮液", "code": "sz000858", "price": 91.72, "change_pct": -0.445023336589598, "open": 92.03, "high": 92.29, "low": 91.37, "prev_close": 92.13, "volume": 12396871.0, "amount": 1137734212.01, "score": 7, "reason": "白酒老二，品牌力强，但茅台压制", "target_weight": 0.07, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "中国移动", "code": "sh600941", "price": 96.95, "change_pct": 0.2792718245759164, "open": 96.69, "high": 97.18, "low": 95.82, "prev_close": 96.68, "volume": 4399009.0, "amount": 424394232.0, "score": 8, "reason": "电信垄断，股息率>5%，用户9亿+，FCF极稳", "target_weight": 0.08, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "工商银行", "code": "sh601398", "price": 7.44, "change_pct": -0.2680965147453026, "open": 7.46, "high": 7.47, "low": 7.4, "prev_close": 7.46, "volume": 120033988.0, "amount": 892494056.0, "score": 8, "reason": "宇宙行，股息率>6%，系统重要性银行，永续经营", "target_weight": 0.07, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "寒武纪", "code": "sh688256", "price": 1177.46, "change_pct": -0.4287417655365984, "open": 1201.0, "high": 1205.55, "low": 1158.03, "prev_close": 1182.53, "volume": 10677021.0, "amount": 12630169404.0, "score": 6, "reason": "AI芯片唯一性，但估值高，需监控毛利率", "target_weight": 0.06, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "中际旭创", "code": "sz300308", "price": 914.32, "change_pct": 3.1963882618510215, "open": 889.06, "high": 922.39, "low": 870.0, "prev_close": 886.0, "volume": 17647378.0, "amount": 15776878923.76, "score": 7, "reason": "光模块龙头，AI算力刚需，营收增速>50%", "target_weight": 0.06, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "海光信息", "code": "sh688041", "price": 341.65, "change_pct": 5.68238059886167, "open": 340.5, "high": 343.93, "low": 332.97, "prev_close": 323.28, "volume": 30144056.0, "amount": 10224687702.0, "score": 7, "reason": "国产CPU/DCU替代逻辑，毛利率>60%", "target_weight": 0.06, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "国电南瑞", "code": "sh600406", "price": 27.22, "change_pct": 4.371165644171782, "open": 26.21, "high": 27.82, "low": 26.2, "prev_close": 26.08, "volume": 146076496.0, "amount": 3965146705.0, "score": 6, "reason": "电网智能化龙头，十五五规划受益", "target_weight": 0.04, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "北方华创", "code": "sz002371", "price": 569.98, "change_pct": 5.397658980380564, "open": 549.98, "high": 569.98, "low": 548.0, "prev_close": 540.79, "volume": 7255006.0, "amount": 4087985296.62, "score": 7, "reason": "半导体设备龙头，刻蚀/薄膜/清洗全覆盖，国产替代核心", "target_weight": 0.04, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "中微公司", "code": "sh688012", "price": 385.88, "change_pct": 4.291891891891891, "open": 377.05, "high": 386.07, "low": 371.3, "prev_close": 370.0, "volume": 10736158.0, "amount": 4073536516.0, "score": 7, "reason": "刻蚀+MOCVD设备，5nm已突破，芯片上游卡脖子环节", "target_weight": 0.04, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "三花智控", "code": "sz002050", "price": 51.44, "change_pct": -0.48365254401238156, "open": 51.74, "high": 51.89, "low": 50.93, "prev_close": 51.69, "volume": 101188076.0, "amount": 5193694287.45, "score": 5, "reason": "热管理+机器人关节，量产拐点待确认", "target_weight": 0.06, "pool": "种子池", "pool_emoji": "🌱"}, {"name": "拓普集团", "code": "sh601689", "price": 66.7, "change_pct": -0.28404843773358907, "open": 67.6, "high": 67.93, "low": 65.99, "prev_close": 66.89, "volume": 28541852.0, "amount": 1901788960.0, "score": 5, "reason": "底盘+机器人执行器，特斯拉链", "target_weight": 0.06, "pool": "种子池", "pool_emoji": "🌱"}, {"name": "万丰奥威", "code": "sz002085", "price": 14.39, "change_pct": 0.6293706293706284, "open": 14.32, "high": 14.42, "low": 14.17, "prev_close": 14.3, "volume": 16973807.0, "amount": 242234251.82, "score": 4, "reason": "低空经济飞行汽车，高赔率但未盈利验证", "target_weight": 0.04, "pool": "种子池", "pool_emoji": "🌱"}, {"name": "航天晨光", "code": "sh600501", "price": 24.94, "change_pct": 0.08025682182985383, "open": 25.02, "high": 25.42, "low": 24.74, "prev_close": 24.92, "volume": 8814758.0, "amount": 220762245.0, "score": 4, "reason": "商业航天影子股，依赖朱雀三号回收成功", "target_weight": 0.04, "pool": "种子池", "pool_emoji": "🌱"}];
+const POOLS = {"糖果池": {"ratio": 0.5, "desc": "现金牛资产 - 可口可乐型", "stocks": [{"name": "长江电力", "code": "sh600900", "price": 27.07, "change_pct": 0.2592592592592603, "open": 27.05, "high": 27.2, "low": 26.95, "prev_close": 27.0, "volume": 50357950.0, "amount": 1363715480.0, "score": 9, "reason": "水电龙头，股息率>4%，ROE>15%，永续经营", "target_weight": 0.12}, {"name": "中国神华", "code": "sh601088", "price": 45.0, "change_pct": -0.3984063745019914, "open": 45.18, "high": 45.38, "low": 44.99, "prev_close": 45.18, "volume": 13465840.0, "amount": 607601760.0, "score": 8, "reason": "煤炭现金牛，高分红，FCF/净利润>80%", "target_weight": 0.08}, {"name": "贵州茅台", "code": "sh600519", "price": 1361.33, "change_pct": -0.8492414365727414, "open": 1372.89, "high": 1372.89, "low": 1361.0, "prev_close": 1372.99, "volume": 2503714.0, "amount": 3416563628.0, "score": 9, "reason": "护城河极深，毛利率>90%，无需资本再投入", "target_weight": 0.08}, {"name": "五粮液", "code": "sz000858", "price": 91.72, "change_pct": -0.445023336589598, "open": 92.03, "high": 92.29, "low": 91.37, "prev_close": 92.13, "volume": 12396871.0, "amount": 1137734212.01, "score": 7, "reason": "白酒老二，品牌力强，但茅台压制", "target_weight": 0.07}, {"name": "中国移动", "code": "sh600941", "price": 96.95, "change_pct": 0.2792718245759164, "open": 96.69, "high": 97.18, "low": 95.82, "prev_close": 96.68, "volume": 4399009.0, "amount": 424394232.0, "score": 8, "reason": "电信垄断，股息率>5%，用户9亿+，FCF极稳", "target_weight": 0.08}, {"name": "工商银行", "code": "sh601398", "price": 7.44, "change_pct": -0.2680965147453026, "open": 7.46, "high": 7.47, "low": 7.4, "prev_close": 7.46, "volume": 120033988.0, "amount": 892494056.0, "score": 8, "reason": "宇宙行，股息率>6%，系统重要性银行，永续经营", "target_weight": 0.07}]}, "火箭池": {"ratio": 0.3, "desc": "成熟成长龙头 - 比亚迪型", "stocks": [{"name": "寒武纪", "code": "sh688256", "price": 1177.46, "change_pct": -0.4287417655365984, "open": 1201.0, "high": 1205.55, "low": 1158.03, "prev_close": 1182.53, "volume": 10677021.0, "amount": 12630169404.0, "score": 6, "reason": "AI芯片唯一性，但估值高，需监控毛利率", "target_weight": 0.06}, {"name": "中际旭创", "code": "sz300308", "price": 914.32, "change_pct": 3.1963882618510215, "open": 889.06, "high": 922.39, "low": 870.0, "prev_close": 886.0, "volume": 17647378.0, "amount": 15776878923.76, "score": 7, "reason": "光模块龙头，AI算力刚需，营收增速>50%", "target_weight": 0.06}, {"name": "海光信息", "code": "sh688041", "price": 341.65, "change_pct": 5.68238059886167, "open": 340.5, "high": 343.93, "low": 332.97, "prev_close": 323.28, "volume": 30144056.0, "amount": 10224687702.0, "score": 7, "reason": "国产CPU/DCU替代逻辑，毛利率>60%", "target_weight": 0.06}, {"name": "国电南瑞", "code": "sh600406", "price": 27.22, "change_pct": 4.371165644171782, "open": 26.21, "high": 27.82, "low": 26.2, "prev_close": 26.08, "volume": 146076496.0, "amount": 3965146705.0, "score": 6, "reason": "电网智能化龙头，十五五规划受益", "target_weight": 0.04}, {"name": "北方华创", "code": "sz002371", "price": 569.98, "change_pct": 5.397658980380564, "open": 549.98, "high": 569.98, "low": 548.0, "prev_close": 540.79, "volume": 7255006.0, "amount": 4087985296.62, "score": 7, "reason": "半导体设备龙头，刻蚀/薄膜/清洗全覆盖，国产替代核心", "target_weight": 0.04}, {"name": "中微公司", "code": "sh688012", "price": 385.88, "change_pct": 4.291891891891891, "open": 377.05, "high": 386.07, "low": 371.3, "prev_close": 370.0, "volume": 10736158.0, "amount": 4073536516.0, "score": 7, "reason": "刻蚀+MOCVD设备，5nm已突破，芯片上游卡脖子环节", "target_weight": 0.04}]}, "种子池": {"ratio": 0.2, "desc": "高赔率种子 - 拓荒型", "stocks": [{"name": "三花智控", "code": "sz002050", "price": 51.44, "change_pct": -0.48365254401238156, "open": 51.74, "high": 51.89, "low": 50.93, "prev_close": 51.69, "volume": 101188076.0, "amount": 5193694287.45, "score": 5, "reason": "热管理+机器人关节，量产拐点待确认", "target_weight": 0.06}, {"name": "拓普集团", "code": "sh601689", "price": 66.7, "change_pct": -0.28404843773358907, "open": 67.6, "high": 67.93, "low": 65.99, "prev_close": 66.89, "volume": 28541852.0, "amount": 1901788960.0, "score": 5, "reason": "底盘+机器人执行器，特斯拉链", "target_weight": 0.06}, {"name": "万丰奥威", "code": "sz002085", "price": 14.39, "change_pct": 0.6293706293706284, "open": 14.32, "high": 14.42, "low": 14.17, "prev_close": 14.3, "volume": 16973807.0, "amount": 242234251.82, "score": 4, "reason": "低空经济飞行汽车，高赔率但未盈利验证", "target_weight": 0.04}, {"name": "航天晨光", "code": "sh600501", "price": 24.94, "change_pct": 0.08025682182985383, "open": 25.02, "high": 25.42, "low": 24.74, "prev_close": 24.92, "volume": 8814758.0, "amount": 220762245.0, "score": 4, "reason": "商业航天影子股，依赖朱雀三号回收成功", "target_weight": 0.04}]}};
+const IDX_HIST = {"上证指数": [["10:43", 4209.367], ["10:43", 4209.367]], "深证成指": [["10:43", 15810.148], ["10:43", 15810.148]], "创业板指": [["10:43", 3876.93], ["10:43", 3876.93]], "科创50": [["10:43", 1709.4199], ["10:43", 1709.4199]]};
+const STOCK_HIST = {"长江电力": [["10:43", 27.07], ["10:43", 27.07]], "中国移动": [["10:43", 96.95], ["10:43", 96.95]], "贵州茅台": [["10:43", 1361.33], ["10:43", 1361.33]], "海光信息": [["10:43", 341.65], ["10:43", 341.65]]};
+const PS = [{"date": "2026-05-11", "total_assets": 100000.0, "cash": 100000.0, "market_value": 0.0, "pnl": 0.0, "pnl_pct": 0.0, "holdings_json": "{}"}];
+const NEWS = [];
+const CASH = 100000.0;
+const INVESTED = 0.0;
+const TOTAL_ASSETS = PS.length ? PS[0].total_assets : CASH;
+const MV = PS.length ? PS[0].market_value : 0;
+const PNL = PS.length ? PS[0].pnl : 0;
+const PNL_PCT = PS.length ? PS[0].pnl_pct : 0;
+
+let charts = {};
+function destroyCharts() { Object.values(charts).forEach(c=>c.destroy()); charts={}; }
+
+function fmt(n,d=2) { return Number(n).toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function fmtB(n) { if(Math.abs(n)>1e8)return (n/1e8).toFixed(2)+'亿'; if(Math.abs(n)>1e4)return (n/1e4).toFixed(2)+'万'; return fmt(n); }
+function chg(n) { return n>=0?`<span class="up">+${fmt(n)}%</span>`:`<span class="down">${fmt(n)}%</span>`; }
+function chgCls(n) { return n>2?'up':n<-2?'down':''; }
+function color(n) { return n>=0?'var(--green)':'var(--red)'; }
+function poolTag(p) { return `<span class="pool-tag pool-${p}">${p}</span>`; }
+
+// ═══ Tab切换 ═══
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tab:nth-child('+({overview:1,watchlist:2,portfolio:3,data:4,news:5}[name])+')').classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  destroyCharts();
+  if(name=='overview') renderOverview();
+  if(name=='watchlist') renderWatchlist();
+  if(name=='portfolio') renderPortfolio();
+  if(name=='data') renderData();
+  if(name=='news') renderNews();
+}
+
+// ═══ 大盘 ═══
+function renderOverview() {
+  // 指数条
+  let idxHtml = '';
+  IDX.forEach(i=>{
+    let c = i.change_pct>=0?'up':'down';
+    let sign = i.change_pct>=0?'+':'';
+    idxHtml += `<div class="idx-card"><div class="name">${i.name}</div><div class="val ${c}">${fmt(i.price)}</div><div class="chg ${c}">${sign}${fmt(i.change_pct)}%</div></div>`;
+  });
+  document.getElementById('idxBar').innerHTML = idxHtml;
+
+  // 概览卡片
+  let up=STOCKS.filter(s=>s.change_pct>0).length, dn=STOCKS.filter(s=>s.change_pct<0).length;
+  document.getElementById('overviewCards').innerHTML = `
+    <div class="card"><div class="label">总资产</div><div class="value">¥${fmt(TOTAL_ASSETS)}</div><div class="sub">投入 ¥${fmt(INVESTED)}</div></div>
+    <div class="card"><div class="label">浮动盈亏</div><div class="value" style="color:${color(PNL)}">¥${fmt(PNL)}</div><div class="sub" style="color:${color(PNL_PCT)}">${PNL_PCT>=0?'+':''}${fmt(PNL_PCT)}%</div></div>
+    <div class="card"><div class="label">今日涨跌</div><div class="value"><span class="up">${up}涨</span> <span class="down">${dn}跌</span></div><div class="sub">共${STOCKS.length}只标的</div></div>
+    <div class="card"><div class="label">下次定投</div><div class="value">¥15,000</div><div class="sub">每月12日</div></div>
+  `;
+
+  // 指数走势图
+  let ds = [];
+  Object.entries(IDX_HIST).forEach(([name,pts])=>{
+    if(pts.length<2) return;
+    let base = pts[0][1];
+    ds.push({label:name,data:pts.map(p=>({x:p[0],y:((p[1]-base)/base*100)})),borderColor:name=='上证指数'?'#ef5350':name=='深证成指'?'#58a6ff':name=='创业板指'?'#26a69a':'#f0883e',borderWidth:1.5,pointRadius:0,tension:0.3});
+  });
+  if(ds.length) {
+    charts.idx = new Chart(document.getElementById('chartIdx'),{type:'line',data:{datasets:ds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}} ,y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}});
+  }
+
+  // 净值走势
+  if(PS.length>1) {
+    let navData = PS.slice().reverse().map(p=>({x:p.date.slice(5),y:p.total_assets}));
+    charts.nav = new Chart(document.getElementById('chartNAV'),{type:'line',data:{datasets:[{label:'总资产',data:navData,borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,0.1)',fill:true,borderWidth:2,pointRadius:0,tension:0.3}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>'¥'+(v/10000).toFixed(1)+'万'}}}}});
+  }
+
+  // 糖果池核心标的
+  let candyKeys = Object.keys(STOCK_HIST).filter(k=>['长江电力','中国移动','贵州茅台'].includes(k));
+  if(candyKeys.length) {
+    let cds = candyKeys.map(name=>{
+      let pts = STOCK_HIST[name];
+      if(!pts||pts.length<2) return null;
+      let base=pts[0][1];
+      return {label:name,data:pts.map(p=>({x:p[0],y:((p[1]-base)/base*100)})),borderWidth:1.5,pointRadius:0,tension:0.3};
+    }).filter(Boolean);
+    charts.candy = new Chart(document.getElementById('chartCandy'),{type:'line',data:{datasets:cds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}});
+  }
+
+  // 火箭池核心标的
+  let rocketKeys = Object.keys(STOCK_HIST).filter(k=>['海光信息'].includes(k));
+  if(rocketKeys.length) {
+    let rds = rocketKeys.map(name=>{
+      let pts = STOCK_HIST[name];
+      if(!pts||pts.length<2) return null;
+      let base=pts[0][1];
+      return {label:name,data:pts.map(p=>({x:p[0],y:((p[1]-base)/base*100)})),borderWidth:1.5,pointRadius:0,tension:0.3};
+    }).filter(Boolean);
+    charts.rocket = new Chart(document.getElementById('chartRocket'),{type:'line',data:{datasets:rds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}});
+  }
+}
+
+// ═══ 自选 ═══
+function renderWatchlist() {
+  let html = '';
+  Object.entries(POOLS).forEach(([pname,pool])=>{
+    let emoji = {'糖果池':'💎','火箭池':'🚀','种子池':'🌱'}[pname]||'';
+    html += `<div class="pool-section"><div class="pool-header"><h3>${emoji} ${pname}</h3><span class="tag">${(pool.ratio*100).toFixed(0)}% · ${pool.desc}</span></div>`;
+    html += `<table><thead><tr><th>标的</th><th>现价</th><th>涨跌</th><th>开盘</th><th>最高</th><th>最低</th><th>昨收</th><th>评分</th><th>逻辑</th></tr></thead><tbody>`;
+    pool.stocks.forEach(s=>{
+      let sc = s.change_pct>0?'up':s.change_pct<0?'down':'';
+      let scCls = s.score>=8?'score-high':s.score>=6?'score-mid':'score-low';
+      html += `<tr><td><b>${s.name}</b><br><span style="font-size:10px;color:var(--text2)">${s.code}</span></td><td class="${sc}" style="font-weight:600">${fmt(s.price)}</td><td>${chg(s.change_pct)}</td><td>${fmt(s.open)}</td><td style="color:var(--green)">${fmt(s.high)}</td><td style="color:var(--red)">${fmt(s.low)}</td><td>${fmt(s.prev_close)}</td><td><span class="score ${scCls}">${s.score}/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">${s.reason}</td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+  });
+  document.getElementById('watchlistContent').innerHTML = html;
+}
+
+// ═══ 持仓 ═══
+function renderPortfolio() {
+  document.getElementById('portfolioCards').innerHTML = `
+    <div class="card"><div class="label">💰 现金</div><div class="value">¥${fmt(CASH)}</div><div class="sub">可用资金</div></div>
+    <div class="card"><div class="label">📈 持仓市值</div><div class="value">¥${fmt(MV)}</div><div class="sub">${MV>0?'已建仓':'空仓'}</div></div>
+    <div class="card"><div class="label">📊 总资产</div><div class="value">¥${fmt(TOTAL_ASSETS)}</div><div class="sub">投入 ¥${fmt(INVESTED)}</div></div>
+    <div class="card"><div class="label">💹 浮动盈亏</div><div class="value" style="color:${color(PNL)}">¥${fmt(PNL)}</div><div class="sub" style="color:${color(PNL_PCT)}">${PNL_PCT>=0?'+':''}${fmt(PNL_PCT)}%</div></div>
+  `;
+  document.getElementById('portfolioHoldings').innerHTML = MV>0
+    ? '<div class="chart-wrap"><h4>持仓明细</h4><table><thead><tr><th>标的</th><th>持仓</th><th>成本</th><th>现价</th><th>市值</th><th>盈亏</th></tr></thead><tbody id="holdingsBody"></tbody></table></div>'
+    : '<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px;margin-bottom:12px">🏁</p><p>空仓待命 — 明天(5/12)定投日启动建仓</p><p style="font-size:12px;margin-top:8px">首月优先建糖果池：长江电力/中国移动/工商银行</p></div>';
+}
+
+// ═══ 数据 ═══
+function renderData() {
+  let tbody = '';
+  PS.forEach(p=>{
+    tbody += `<tr><td>${p.date}</td><td>¥${fmt(p.total_assets)}</td><td>¥${fmt(p.cash)}</td><td>¥${fmt(p.market_value)}</td><td style="color:${color(p.pnl)}">¥${fmt(p.pnl)} (${p.pnl_pct>=0?'+':''}${fmt(p.pnl_pct)}%)</td></tr>`;
+  });
+  document.querySelector('#dataTable tbody').innerHTML = tbody;
+
+  if(PS.length>1) {
+    let navData = PS.slice().reverse().map(p=>({x:p.date.slice(5),y:p.total_assets}));
+    charts.hist = new Chart(document.getElementById('chartHistory'),{type:'line',data:{datasets:[{label:'总资产',data:navData,borderColor:'#26a69a',backgroundColor:'rgba(38,166,154,0.15)',fill:true,borderWidth:2,pointRadius:2,tension:0.3}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9}}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>'¥'+(v/10000).toFixed(1)+'万'}}}}});
+  }
+}
+
+// ═══ 资讯 ═══
+function renderNews() {
+  if(NEWS.length==0) {
+    document.getElementById('newsContent').innerHTML = '<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p>暂无资讯 — 数据源接入中</p></div>';
+    return;
+  }
+  let html = '';
+  NEWS.forEach(n=>{
+    html += `<div class="news-item"><div class="ntitle" onclick="window.open('${n.url}')">${n.title}</div><div class="nmeta">${n.source} · ${n.ts} · ${n.summary||''}</div></div>`;
+  });
+  document.getElementById('newsContent').innerHTML = html;
+}
+
+// ═══ 初始渲染 ═══
+renderOverview();
+</script>
+</body>
+</html>
