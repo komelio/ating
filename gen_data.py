@@ -35,6 +35,7 @@ save('stocks.json', [
     {'code':'0.000400','name':'许继电气','price':32.15,'change_pct':-0.80,'change_amt':-0.26,'volume':3500000,'turnover':112000000,'high':32.60,'low':31.90,'open':32.41,'prev_close':32.41,'pe':22.8},
     {'code':'1.600391','name':'航天晨光','price':18.25,'change_pct':0.55,'change_amt':0.10,'volume':1800000,'turnover':32800000,'high':18.45,'low':18.05,'open':18.15,'prev_close':18.15,'pe':55.0},
     {'code':'0.003031','name':'江顺科技','price':35.20,'change_pct':-1.20,'change_amt':-0.43,'volume':1200000,'turnover':42200000,'high':35.80,'low':34.90,'open':35.63,'prev_close':35.63,'pe':38.5},
+    {'code':'0.002594','name':'比亚迪','price':285.50,'change_pct':1.80,'change_amt':5.05,'volume':8200000,'turnover':2340000000,'high':287.80,'low':280.20,'open':281.00,'prev_close':280.45,'pe':32.1},
 ])
 
 save('portfolio.json', {
