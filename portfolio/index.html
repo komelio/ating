@@ -6,7 +6,7 @@
 <title>5年复利模拟仓 | A股仪表盘</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--green:#26a69a;--red:#ef5350;--text:#c9d1d9;--text2:#8b949e;--accent:#58a6ff;--orange:#f0883e}
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--red:#ef5350;--green:#26a69a;--text:#c9d1d9;--text2:#8b949e;--accent:#58a6ff;--orange:#f0883e}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;min-height:100vh}
 .header{background:#0d1117;border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
@@ -14,57 +14,40 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI','PingFang SC'
 .header .update{font-size:11px;color:var(--text2)}
 .tabs{display:flex;border-bottom:1px solid var(--border);background:var(--card);padding:0 24px;overflow-x:auto}
 .tab{padding:12px 20px;cursor:pointer;font-size:13px;color:var(--text2);border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}
-.tab:hover{color:var(--text)}
-.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.pane{display:none;padding:16px 24px}
-.pane.active{display:block}
+.tab:hover{color:var(--text)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.pane{display:none;padding:16px 24px}.pane.active{display:block}
 .idx-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .idx-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;min-width:130px;flex:1}
-.idx-card .n{font-size:11px;color:var(--text2)}
-.idx-card .v{font-size:22px;font-weight:700;margin:4px 0}
-.idx-card .c{font-size:13px}
-.up{color:var(--green)}.down{color:var(--red)}
+.idx-card .n{font-size:11px;color:var(--text2)}.idx-card .v{font-size:22px;font-weight:700;margin:4px 0}.idx-card .c{font-size:13px}
+.up{color:var(--red)}.down{color:var(--green)}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;padding:8px 10px;color:var(--text2);font-weight:500;border-bottom:1px solid var(--border);font-size:11px}
-td{padding:8px 10px;border-bottom:1px solid var(--border)}
-tr:hover{background:rgba(88,166,255,.04)}
+td{padding:8px 10px;border-bottom:1px solid var(--border)}tr:hover{background:rgba(88,166,255,.04)}
 .score{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
-.shi{background:rgba(38,166,154,.15);color:var(--green)}
-.smi{background:rgba(240,136,62,.15);color:var(--orange)}
-.slo{background:rgba(239,83,80,.15);color:var(--red)}
+.shi{background:rgba(239,83,80,.15);color:var(--red)}.smi{background:rgba(240,136,62,.15);color:var(--orange)}.slo{background:rgba(38,166,154,.15);color:var(--green)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
-.card .lb{font-size:11px;color:var(--text2);margin-bottom:4px}
-.card .vl{font-size:22px;font-weight:700}
-.card .sb{font-size:12px;color:var(--text2);margin-top:4px}
-.pool{margin-bottom:20px}
-.pool-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.pool-h h3{font-size:15px}
-.pool-h .tag{font-size:11px;color:var(--text2);background:rgba(139,148,158,.1);padding:2px 8px;border-radius:4px}
+.card .lb{font-size:11px;color:var(--text2);margin-bottom:4px}.card .vl{font-size:22px;font-weight:700}.card .sb{font-size:12px;color:var(--text2);margin-top:4px}
+.pool{margin-bottom:20px}.pool-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pool-h h3{font-size:15px}.pool-h .tag{font-size:11px;color:var(--text2);background:rgba(139,148,158,.1);padding:2px 8px;border-radius:4px}
 .chart-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
-.chart-box h4{font-size:12px;color:var(--text2);margin-bottom:8px}
-.chart-box canvas{max-height:200px}
-.news-item{padding:10px 0;border-bottom:1px solid var(--border)}
-.news-item .nt{font-size:13px;color:var(--accent);cursor:pointer}
-.news-item .nm{font-size:11px;color:var(--text2);margin-top:4px}
+.chart-box h4{font-size:12px;color:var(--text2);margin-bottom:8px}.chart-box canvas{max-height:200px}
+.news-item{padding:10px 0;border-bottom:1px solid var(--border)}.news-item .nt{font-size:13px;color:var(--accent);cursor:pointer}.news-item .nm{font-size:11px;color:var(--text2);margin-top:4px}
 .alog{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
 .alog .al-sess{font-size:11px;padding:2px 8px;border-radius:4px;display:inline-block;margin-right:8px}
-.alog .al-ts{font-size:11px;color:var(--text2)}
-.alog .al-body{margin-top:8px;font-size:13px;line-height:1.6}
-.alog .al-body b{color:var(--accent)}
-.al-早盘{background:rgba(88,166,255,.15);color:var(--accent)}
-.al-午盘{background:rgba(240,136,62,.15);color:var(--orange)}
-.al-月度{background:rgba(38,166,154,.15);color:var(--green)}
+.alog .al-ts{font-size:11px;color:var(--text2)}.alog .al-body{margin-top:8px;font-size:13px;line-height:1.6}
+.al-早盘{background:rgba(88,166,255,.15);color:var(--accent)}.al-午盘{background:rgba(240,136,62,.15);color:var(--orange)}.al-月度{background:rgba(239,83,80,.15);color:var(--red)}
 .mode-bar{display:flex;gap:8px;margin-bottom:12px}
 .mode-btn{padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text2);cursor:pointer;font-size:12px}
 .mode-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(88,166,255,.1)}
+.loading{text-align:center;padding:40px;color:var(--text2)}
 @media(max-width:768px){.header,.tabs,.pane{padding-left:12px;padding-right:12px}.idx-card{min-width:100px;padding:8px 10px}.idx-card .v{font-size:16px}}
 </style>
 </head>
 <body>
 <div class="header">
   <h1>🏦 5年复利模拟仓 <span style="font-size:12px;color:var(--text2);font-weight:400">三色池 · A股仪表盘</span></h1>
-  <span class="update" id="upd">更新: 2026-05-11 11:40:45</span>
+  <span class="update" id="upd">加载中...</span>
 </div>
 <div class="tabs">
   <div class="tab active" data-pane="overview">📊 大盘</div>
@@ -74,91 +57,101 @@ tr:hover{background:rgba(88,166,255,.04)}
   <div class="tab" data-pane="journal">📝 复盘</div>
   <div class="tab" data-pane="news">📰 资讯</div>
 </div>
-
 <div id="overview" class="pane active"></div>
-<div id="watchlist" class="pane"></div>
-<div id="portfolio" class="pane"></div>
-<div id="data" class="pane"></div>
-<div id="journal" class="pane"></div>
-<div id="news" class="pane"></div>
-
+<div id="watchlist" class="pane"><div class="loading">加载中...</div></div>
+<div id="portfolio" class="pane"><div class="loading">加载中...</div></div>
+<div id="data" class="pane"><div class="loading">加载中...</div></div>
+<div id="journal" class="pane"><div class="loading">加载中...</div></div>
+<div id="news" class="pane"><div class="loading">加载中...</div></div>
 <script>
-const D={idx:[{"id": 1261, "name": "上证指数", "code": "sh000001", "price": 4219.133, "change_pct": 0.9373456023087652, "volume": 485368046.0, "amount": 1032502051355.0, "ts": "2026-05-11 11:40:45"}, {"id": 1262, "name": "深证成指", "code": "sz399001", "price": 15895.751, "change_pct": 2.132859995539647, "volume": 58217440975.0, "amount": 1273308954005.677, "ts": "2026-05-11 11:40:45"}, {"id": 1263, "name": "创业板指", "code": "sz399006", "price": 3911.318, "change_pct": 3.034407691205356, "volume": 16452458716.0, "amount": 599148804652.74, "ts": "2026-05-11 11:40:45"}, {"id": 1264, "name": "科创50", "code": "sh000688", "price": 1726.9838, "change_pct": 5.274342817073965, "volume": 12289202.0, "amount": 121086306231.0, "ts": "2026-05-11 11:40:45"}, {"id": 1265, "name": "沪深300", "code": "sh000300", "price": 4940.4064, "change_pct": 1.4058997204424188, "volume": 189155655.0, "amount": 577509938714.0, "ts": "2026-05-11 11:40:45"}, {"id": 1266, "name": "中证500", "code": "sh000905", "price": 8860.7309, "change_pct": 1.9157663440915491, "volume": 180818912.0, "amount": 464087901216.0, "ts": "2026-05-11 11:40:45"}, {"id": 1267, "name": "上证指数", "code": "sh000001", "price": 4219.133, "change_pct": 0.9373456023087652, "volume": 485368046.0, "amount": 1032502051355.0, "ts": "2026-05-11 11:40:45"}, {"id": 1268, "name": "深证成指", "code": "sz399001", "price": 15895.751, "change_pct": 2.132859995539647, "volume": 58217440975.0, "amount": 1273308954005.677, "ts": "2026-05-11 11:40:45"}, {"id": 1269, "name": "创业板指", "code": "sz399006", "price": 3911.318, "change_pct": 3.034407691205356, "volume": 16452458716.0, "amount": 599148804652.74, "ts": "2026-05-11 11:40:45"}, {"id": 1270, "name": "科创50", "code": "sh000688", "price": 1726.9838, "change_pct": 5.274342817073965, "volume": 12289202.0, "amount": 121086306231.0, "ts": "2026-05-11 11:40:45"}, {"id": 1271, "name": "沪深300", "code": "sh000300", "price": 4940.4064, "change_pct": 1.4058997204424188, "volume": 189155655.0, "amount": 577509938714.0, "ts": "2026-05-11 11:40:45"}, {"id": 1272, "name": "中证500", "code": "sh000905", "price": 8860.7309, "change_pct": 1.9157663440915491, "volume": 180818912.0, "amount": 464087901216.0, "ts": "2026-05-11 11:40:45"}],stk:{"pools": [{"name": "糖果池", "emoji": "💎", "desc": "现金牛资产 - 可口可乐型", "ratio": 0.5, "stocks": [{"name": "长江电力", "code": "sh600900", "price": 27.03, "change_pct": 0.11111111111111532, "open": 27.05, "high": 27.2, "low": 26.95, "prev_close": 27.0, "volume": 60656039.0, "score": 9, "reason": "水电龙头，股息率>4%，ROE>15%，永续经营", "target_weight": 0.12}, {"name": "中国神华", "code": "sh601088", "price": 44.92, "change_pct": -0.5754758742806507, "open": 45.18, "high": 45.38, "low": 44.9, "prev_close": 45.18, "volume": 16843132.0, "score": 8, "reason": "煤炭现金牛，高分红，FCF/净利润>80%", "target_weight": 0.08}, {"name": "贵州茅台", "code": "sh600519", "price": 1361.76, "change_pct": -0.8179229273337765, "open": 1372.89, "high": 1372.89, "low": 1361.0, "prev_close": 1372.99, "volume": 3251675.0, "score": 9, "reason": "护城河极深，毛利率>90%，无需资本再投入", "target_weight": 0.08}, {"name": "五粮液", "code": "sz000858", "price": 91.51, "change_pct": -0.6729621187452408, "open": 92.03, "high": 92.29, "low": 91.37, "prev_close": 92.13, "volume": 16277260.0, "score": 7, "reason": "白酒老二，品牌力强，但茅台压制", "target_weight": 0.07}, {"name": "中国移动", "code": "sh600941", "price": 96.92, "change_pct": 0.24824162184525742, "open": 96.69, "high": 97.19, "low": 95.82, "prev_close": 96.68, "volume": 5790129.0, "score": 8, "reason": "电信垄断，股息率>5%，用户9亿+，FCF极稳", "target_weight": 0.08}, {"name": "工商银行", "code": "sh601398", "price": 7.43, "change_pct": -0.4021447721179658, "open": 7.46, "high": 7.47, "low": 7.4, "prev_close": 7.46, "volume": 149906288.0, "score": 8, "reason": "宇宙行，股息率>6%，系统重要性银行，永续经营", "target_weight": 0.07}]}, {"name": "火箭池", "emoji": "🚀", "desc": "成熟成长龙头 - 比亚迪型", "ratio": 0.3, "stocks": [{"name": "寒武纪", "code": "sh688256", "price": 1187.99, "change_pct": 0.46172190134711477, "open": 1201.0, "high": 1205.55, "low": 1158.03, "prev_close": 1182.53, "volume": 14280548.0, "score": 6, "reason": "AI芯片唯一性，但估值高，需监控毛利率", "target_weight": 0.06}, {"name": "中际旭创", "code": "sz300308", "price": 923.0, "change_pct": 4.17607223476298, "open": 889.06, "high": 929.0, "low": 870.0, "prev_close": 886.0, "volume": 21411885.0, "score": 7, "reason": "光模块龙头，AI算力刚需，营收增速>50%", "target_weight": 0.06}, {"name": "海光信息", "code": "sh688041", "price": 343.8, "change_pct": 6.347438752783977, "open": 340.5, "high": 346.98, "low": 332.97, "prev_close": 323.28, "volume": 37051828.0, "score": 7, "reason": "国产CPU/DCU替代逻辑，毛利率>60%", "target_weight": 0.06}, {"name": "国电南瑞", "code": "sh600406", "price": 27.17, "change_pct": 4.17944785276075, "open": 26.21, "high": 27.82, "low": 26.2, "prev_close": 26.08, "volume": 166227105.0, "score": 6, "reason": "电网智能化龙头，十五五规划受益", "target_weight": 0.04}, {"name": "北方华创", "code": "sz002371", "price": 579.54, "change_pct": 7.1654431479872045, "open": 549.98, "high": 580.99, "low": 548.0, "prev_close": 540.79, "volume": 10212578.0, "score": 7, "reason": "半导体设备龙头，刻蚀/薄膜/清洗全覆盖，国产替代核心", "target_weight": 0.04}, {"name": "中微公司", "code": "sh688012", "price": 392.2, "change_pct": 5.999999999999997, "open": 377.05, "high": 392.98, "low": 371.3, "prev_close": 370.0, "volume": 14874667.0, "score": 7, "reason": "刻蚀+MOCVD设备，5nm已突破，芯片上游卡脖子环节", "target_weight": 0.04}]}, {"name": "种子池", "emoji": "🌱", "desc": "高赔率种子 - 拓荒型", "ratio": 0.2, "stocks": [{"name": "三花智控", "code": "sz002050", "price": 51.71, "change_pct": 0.03869220352099657, "open": 51.74, "high": 51.89, "low": 50.93, "prev_close": 51.69, "volume": 121392329.0, "score": 5, "reason": "热管理+机器人关节，量产拐点待确认", "target_weight": 0.06}, {"name": "拓普集团", "code": "sh601689", "price": 66.98, "change_pct": 0.13454925997907521, "open": 67.6, "high": 67.93, "low": 65.99, "prev_close": 66.89, "volume": 34175350.0, "score": 5, "reason": "底盘+机器人执行器，特斯拉链", "target_weight": 0.06}, {"name": "万丰奥威", "code": "sz002085", "price": 14.38, "change_pct": 0.5594405594405599, "open": 14.32, "high": 14.42, "low": 14.17, "prev_close": 14.3, "volume": 21659807.0, "score": 4, "reason": "低空经济飞行汽车，高赔率但未盈利验证", "target_weight": 0.04}, {"name": "航天晨光", "code": "sh600501", "price": 24.92, "change_pct": 0.0, "open": 25.02, "high": 25.42, "low": 24.74, "prev_close": 24.92, "volume": 10201458.0, "score": 4, "reason": "商业航天影子股，依赖朱雀三号回收成功", "target_weight": 0.04}]}], "flat": [{"name": "长江电力", "code": "sh600900", "price": 27.03, "change_pct": 0.11111111111111532, "open": 27.05, "high": 27.2, "low": 26.95, "prev_close": 27.0, "volume": 60656039.0, "score": 9, "reason": "水电龙头，股息率>4%，ROE>15%，永续经营", "target_weight": 0.12, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "中国神华", "code": "sh601088", "price": 44.92, "change_pct": -0.5754758742806507, "open": 45.18, "high": 45.38, "low": 44.9, "prev_close": 45.18, "volume": 16843132.0, "score": 8, "reason": "煤炭现金牛，高分红，FCF/净利润>80%", "target_weight": 0.08, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "贵州茅台", "code": "sh600519", "price": 1361.76, "change_pct": -0.8179229273337765, "open": 1372.89, "high": 1372.89, "low": 1361.0, "prev_close": 1372.99, "volume": 3251675.0, "score": 9, "reason": "护城河极深，毛利率>90%，无需资本再投入", "target_weight": 0.08, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "五粮液", "code": "sz000858", "price": 91.51, "change_pct": -0.6729621187452408, "open": 92.03, "high": 92.29, "low": 91.37, "prev_close": 92.13, "volume": 16277260.0, "score": 7, "reason": "白酒老二，品牌力强，但茅台压制", "target_weight": 0.07, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "中国移动", "code": "sh600941", "price": 96.92, "change_pct": 0.24824162184525742, "open": 96.69, "high": 97.19, "low": 95.82, "prev_close": 96.68, "volume": 5790129.0, "score": 8, "reason": "电信垄断，股息率>5%，用户9亿+，FCF极稳", "target_weight": 0.08, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "工商银行", "code": "sh601398", "price": 7.43, "change_pct": -0.4021447721179658, "open": 7.46, "high": 7.47, "low": 7.4, "prev_close": 7.46, "volume": 149906288.0, "score": 8, "reason": "宇宙行，股息率>6%，系统重要性银行，永续经营", "target_weight": 0.07, "pool": "糖果池", "pool_emoji": "💎"}, {"name": "寒武纪", "code": "sh688256", "price": 1187.99, "change_pct": 0.46172190134711477, "open": 1201.0, "high": 1205.55, "low": 1158.03, "prev_close": 1182.53, "volume": 14280548.0, "score": 6, "reason": "AI芯片唯一性，但估值高，需监控毛利率", "target_weight": 0.06, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "中际旭创", "code": "sz300308", "price": 923.0, "change_pct": 4.17607223476298, "open": 889.06, "high": 929.0, "low": 870.0, "prev_close": 886.0, "volume": 21411885.0, "score": 7, "reason": "光模块龙头，AI算力刚需，营收增速>50%", "target_weight": 0.06, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "海光信息", "code": "sh688041", "price": 343.8, "change_pct": 6.347438752783977, "open": 340.5, "high": 346.98, "low": 332.97, "prev_close": 323.28, "volume": 37051828.0, "score": 7, "reason": "国产CPU/DCU替代逻辑，毛利率>60%", "target_weight": 0.06, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "国电南瑞", "code": "sh600406", "price": 27.17, "change_pct": 4.17944785276075, "open": 26.21, "high": 27.82, "low": 26.2, "prev_close": 26.08, "volume": 166227105.0, "score": 6, "reason": "电网智能化龙头，十五五规划受益", "target_weight": 0.04, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "北方华创", "code": "sz002371", "price": 579.54, "change_pct": 7.1654431479872045, "open": 549.98, "high": 580.99, "low": 548.0, "prev_close": 540.79, "volume": 10212578.0, "score": 7, "reason": "半导体设备龙头，刻蚀/薄膜/清洗全覆盖，国产替代核心", "target_weight": 0.04, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "中微公司", "code": "sh688012", "price": 392.2, "change_pct": 5.999999999999997, "open": 377.05, "high": 392.98, "low": 371.3, "prev_close": 370.0, "volume": 14874667.0, "score": 7, "reason": "刻蚀+MOCVD设备，5nm已突破，芯片上游卡脖子环节", "target_weight": 0.04, "pool": "火箭池", "pool_emoji": "🚀"}, {"name": "三花智控", "code": "sz002050", "price": 51.71, "change_pct": 0.03869220352099657, "open": 51.74, "high": 51.89, "low": 50.93, "prev_close": 51.69, "volume": 121392329.0, "score": 5, "reason": "热管理+机器人关节，量产拐点待确认", "target_weight": 0.06, "pool": "种子池", "pool_emoji": "🌱"}, {"name": "拓普集团", "code": "sh601689", "price": 66.98, "change_pct": 0.13454925997907521, "open": 67.6, "high": 67.93, "low": 65.99, "prev_close": 66.89, "volume": 34175350.0, "score": 5, "reason": "底盘+机器人执行器，特斯拉链", "target_weight": 0.06, "pool": "种子池", "pool_emoji": "🌱"}, {"name": "万丰奥威", "code": "sz002085", "price": 14.38, "change_pct": 0.5594405594405599, "open": 14.32, "high": 14.42, "low": 14.17, "prev_close": 14.3, "volume": 21659807.0, "score": 4, "reason": "低空经济飞行汽车，高赔率但未盈利验证", "target_weight": 0.04, "pool": "种子池", "pool_emoji": "🌱"}, {"name": "航天晨光", "code": "sh600501", "price": 24.92, "change_pct": 0.0, "open": 25.02, "high": 25.42, "low": 24.74, "prev_close": 24.92, "volume": 10201458.0, "score": 4, "reason": "商业航天影子股，依赖朱雀三号回收成功", "target_weight": 0.04, "pool": "种子池", "pool_emoji": "🌱"}]},pf:{"cash": 100000.0, "invested": 0.0, "market_value": 0, "total_assets": 100000.0, "pnl": 0, "pnl_pct": 0, "monthly": 15000.0, "holdings": {}, "nav_history": [{"date": "2026-05-11", "total_assets": 100000.0, "cash": 100000.0, "market_value": 0.0, "pnl": 0.0, "pnl_pct": 0.0}], "up_count": 11, "down_count": 4, "total_count": 16},ih:{"indices": {"上证指数": {"daily": [{"date": "2026-03-24", "price": 3881.28, "change_pct": 0.8221307444791551}, {"date": "2026-03-25", "price": 3931.838, "change_pct": 1.0166049674367423}, {"date": "2026-03-26", "price": 3889.084, "change_pct": -0.9140980218407251}, {"date": "2026-03-27", "price": 3913.724, "change_pct": 1.5999090364876896}, {"date": "2026-03-30", "price": 3923.287, "change_pct": 1.0043053057235558}, {"date": "2026-03-31", "price": 3891.861, "change_pct": -0.8207301251482233}, {"date": "2026-04-01", "price": 3948.552, "change_pct": 0.22809619130636044}, {"date": "2026-04-02", "price": 3919.285, "change_pct": -0.5459298989874928}, {"date": "2026-04-03", "price": 3880.097, "change_pct": -1.2092651171506585}, {"date": "2026-04-07", "price": 3890.165, "change_pct": 0.15483435118768873}, {"date": "2026-04-08", "price": 3994.998, "change_pct": 1.647401145626573}, {"date": "2026-04-09", "price": 3966.171, "change_pct": -0.03677258212081992}, {"date": "2026-04-10", "price": 3986.225, "change_pct": 0.019094389009660286}, {"date": "2026-04-13", "price": 3988.558, "change_pct": 0.4371223904921391}, {"date": "2026-04-14", "price": 4026.626, "change_pct": 0.49663977605662535}, {"date": "2026-04-15", "price": 4027.21, "change_pct": -0.30352984338790817}, {"date": "2026-04-16", "price": 4055.547, "change_pct": 0.6304746884598023}, {"date": "2026-04-17", "price": 4051.425, "change_pct": 0.19894241972251253}, {"date": "2026-04-20", "price": 4082.127, "change_pct": 0.7093348135812737}, {"date": "2026-04-21", "price": 4085.077, "change_pct": 0.2265051786807503}, {"date": "2026-04-22", "price": 4106.258, "change_pct": 0.7716918543255779}, {"date": "2026-04-23", "price": 4093.25, "change_pct": -0.42663353108940566}, {"date": "2026-04-24", "price": 4079.9, "change_pct": -0.027762578739250844}, {"date": "2026-04-27", "price": 4086.344, "change_pct": 0.2830315320146113}, {"date": "2026-04-28", "price": 4078.637, "change_pct": 0.061185292076360955}, {"date": "2026-04-29", "price": 4107.514, "change_pct": 1.1249138933217657}, {"date": "2026-04-30", "price": 4112.159, "change_pct": 0.11837468778128488}, {"date": "2026-05-06", "price": 4160.174, "change_pct": 0.5978308049109989}, {"date": "2026-05-07", "price": 4180.092, "change_pct": 0.2793606347879564}, {"date": "2026-05-08", "price": 4179.952, "change_pct": 0.3866129792254953}], "intraday": [{"time": "10:43", "price": 4209.367}, {"time": "10:43", "price": 4209.367}, {"time": "10:50", "price": 4208.6545}, {"time": "10:57", "price": 4210.3725}, {"time": "10:58", "price": 4211.2166}, {"time": "11:00", "price": 4212.5096}, {"time": "11:00", "price": 4212.5096}, {"time": "11:02", "price": 4211.6338}, {"time": "11:04", "price": 4211.5358}, {"time": "11:06", "price": 4212.7891}, {"time": "11:08", "price": 4214.6709}, {"time": "11:10", "price": 4216.6968}, {"time": "11:10", "price": 4216.6968}, {"time": "11:12", "price": 4217.4993}, {"time": "11:14", "price": 4218.6273}, {"time": "11:16", "price": 4219.1214}, {"time": "11:18", "price": 4216.9032}, {"time": "11:19", "price": 4217.4865}, {"time": "11:20", "price": 4218.6414}, {"time": "11:20", "price": 4218.6414}, {"time": "11:22", "price": 4217.2092}, {"time": "11:24", "price": 4218.1475}, {"time": "11:26", "price": 4218.9029}, {"time": "11:28", "price": 4217.5882}, {"time": "11:30", "price": 4219.133}, {"time": "11:30", "price": 4219.133}, {"time": "11:32", "price": 4219.133}, {"time": "11:34", "price": 4219.133}, {"time": "11:36", "price": 4219.133}, {"time": "11:38", "price": 4219.133}, {"time": "11:40", "price": 4219.133}, {"time": "11:40", "price": 4219.133}]}, "深证成指": {"daily": [{"date": "2026-03-24", "price": 13536.556, "change_pct": 0.161942540957348}, {"date": "2026-03-25", "price": 13801.001, "change_pct": 0.965304619127604}, {"date": "2026-03-26", "price": 13606.443, "change_pct": -1.0934682089748722}, {"date": "2026-03-27", "price": 13760.369, "change_pct": 2.5094474151438577}, {"date": "2026-03-30", "price": 13726.19, "change_pct": 0.7885867133315964}, {"date": "2026-03-31", "price": 13478.056, "change_pct": -1.5027023795716956}, {"date": "2026-04-01", "price": 13706.52, "change_pct": -0.1810960538800646}, {"date": "2026-04-02", "price": 13486.937, "change_pct": -1.2543183591168805}, {"date": "2026-04-03", "price": 13352.904, "change_pct": -1.4811431279818053}, {"date": "2026-04-07", "price": 13400.412, "change_pct": 0.055775646605511806}, {"date": "2026-04-08", "price": 14042.496, "change_pct": 2.3712893449773804}, {"date": "2026-04-09", "price": 13996.266, "change_pct": 0.48704706661799696}, {"date": "2026-04-10", "price": 14309.472, "change_pct": 1.4998989928795665}, {"date": "2026-04-13", "price": 14407.864, "change_pct": 1.227792012582483}, {"date": "2026-04-14", "price": 14639.952, "change_pct": 0.8630154502804278}, {"date": "2026-04-15", "price": 14498.455, "change_pct": -1.6120647049007644}, {"date": "2026-04-16", "price": 14796.335, "change_pct": 1.718520099161625}, {"date": "2026-04-17", "price": 14885.416, "change_pct": 0.5344759115726475}, {"date": "2026-04-20", "price": 14966.747, "change_pct": 0.6445339989196347}, {"date": "2026-04-21", "price": 14982.14, "change_pct": 0.41390355636959075}, {"date": "2026-04-22", "price": 15177.286, "change_pct": 1.8749073279347006}, {"date": "2026-04-23", "price": 15043.449, "change_pct": -1.252233705217669}, {"date": "2026-04-24", "price": 14940.301, "change_pct": -0.07651282884047088}, {"date": "2026-04-27", "price": 14995.748, "change_pct": 0.23879640834800908}, {"date": "2026-04-28", "price": 14830.455, "change_pct": -0.6349120418148736}, {"date": "2026-04-29", "price": 15120.923, "change_pct": 2.504877836151081}, {"date": "2026-04-30", "price": 15107.553, "change_pct": -0.32667269993593895}, {"date": "2026-05-06", "price": 15459.616, "change_pct": 0.8903105828080787}, {"date": "2026-05-07", "price": 15641.886, "change_pct": 0.6472433187039237}, {"date": "2026-05-08", "price": 15563.797, "change_pct": 0.2797354008255408}], "intraday": [{"time": "10:43", "price": 15810.148}, {"time": "10:43", "price": 15810.148}, {"time": "10:50", "price": 15820.215}, {"time": "10:57", "price": 15841.849}, {"time": "10:58", "price": 15843.018}, {"time": "11:00", "price": 15852.18}, {"time": "11:00", "price": 15852.18}, {"time": "11:02", "price": 15843.543}, {"time": "11:04", "price": 15838.952}, {"time": "11:06", "price": 15851.005}, {"time": "11:08", "price": 15862.032}, {"time": "11:10", "price": 15872.103}, {"time": "11:10", "price": 15872.103}, {"time": "11:12", "price": 15878.082}, {"time": "11:14", "price": 15879.409}, {"time": "11:16", "price": 15885.137}, {"time": "11:18", "price": 15879.448}, {"time": "11:19", "price": 15886.001}, {"time": "11:20", "price": 15896.457}, {"time": "11:20", "price": 15896.457}, {"time": "11:22", "price": 15884.251}, {"time": "11:24", "price": 15890.936}, {"time": "11:26", "price": 15893.453}, {"time": "11:28", "price": 15889.36}, {"time": "11:30", "price": 15895.751}, {"time": "11:30", "price": 15895.751}, {"time": "11:32", "price": 15895.751}, {"time": "11:34", "price": 15895.751}, {"time": "11:36", "price": 15895.751}, {"time": "11:38", "price": 15895.751}, {"time": "11:40", "price": 15895.751}, {"time": "11:40", "price": 15895.751}]}, "创业板指": {"daily": [{"date": "2026-03-24", "price": 3251.545, "change_pct": -0.47099235613106477}, {"date": "2026-03-25", "price": 3316.971, "change_pct": 0.906554602726788}, {"date": "2026-03-26", "price": 3272.488, "change_pct": -0.80456958422034}, {"date": "2026-03-27", "price": 3295.88, "change_pct": 1.8387885192360645}, {"date": "2026-03-30", "price": 3273.355, "change_pct": 0.5814841365510585}, {"date": "2026-03-31", "price": 3184.952, "change_pct": -1.919360794067888}, {"date": "2026-04-01", "price": 3247.523, "change_pct": -0.2377994534391062}, {"date": "2026-04-02", "price": 3172.649, "change_pct": -1.7634072330938821}, {"date": "2026-04-03", "price": 3149.596, "change_pct": -1.5065181340377463}, {"date": "2026-04-07", "price": 3160.816, "change_pct": -0.06345596955631289}, {"date": "2026-04-08", "price": 3347.61, "change_pct": 2.7534250527793063}, {"date": "2026-04-09", "price": 3323.299, "change_pct": 0.2113204179005947}, {"date": "2026-04-10", "price": 3448.787, "change_pct": 2.793203009293686}, {"date": "2026-04-13", "price": 3476.44, "change_pct": 1.2264436627920487}, {"date": "2026-04-14", "price": 3558.527, "change_pct": 1.466078908274902}, {"date": "2026-04-15", "price": 3514.96, "change_pct": -2.2557624568314583}, {"date": "2026-04-16", "price": 3626.271, "change_pct": 2.6905402914143197}, {"date": "2026-04-17", "price": 3678.293, "change_pct": 0.9645491144621247}, {"date": "2026-04-20", "price": 3677.576, "change_pct": 0.5530783507612638}, {"date": "2026-04-21", "price": 3688.937, "change_pct": 0.7284574903085741}, {"date": "2026-04-22", "price": 3752.759, "change_pct": 2.52263401467591}, {"date": "2026-04-23", "price": 3720.247, "change_pct": -1.2940237234144996}, {"date": "2026-04-24", "price": 3667.785, "change_pct": -0.39956562106330357}, {"date": "2026-04-27", "price": 3648.788, "change_pct": -0.7912689069004202}, {"date": "2026-04-28", "price": 3596.712, "change_pct": -0.7390112847006558}, {"date": "2026-04-29", "price": 3687.168, "change_pct": 3.0389084800762896}, {"date": "2026-04-30", "price": 3677.148, "change_pct": -0.7278673494759411}, {"date": "2026-05-06", "price": 3778.159, "change_pct": 0.4650233960907584}, {"date": "2026-05-07", "price": 3833.057, "change_pct": 0.6582737874836858}, {"date": "2026-05-08", "price": 3796.128, "change_pct": 0.10775197110159225}], "intraday": [{"time": "10:43", "price": 3876.93}, {"time": "10:43", "price": 3876.93}, {"time": "10:50", "price": 3884.689}, {"time": "10:57", "price": 3895.67}, {"time": "10:58", "price": 3895.439}, {"time": "11:00", "price": 3899.661}, {"time": "11:00", "price": 3899.661}, {"time": "11:02", "price": 3897.694}, {"time": "11:04", "price": 3893.606}, {"time": "11:06", "price": 3897.982}, {"time": "11:08", "price": 3901.171}, {"time": "11:10", "price": 3902.441}, {"time": "11:10", "price": 3902.441}, {"time": "11:12", "price": 3906.598}, {"time": "11:14", "price": 3904.98}, {"time": "11:16", "price": 3909.72}, {"time": "11:18", "price": 3907.75}, {"time": "11:19", "price": 3910.291}, {"time": "11:20", "price": 3913.059}, {"time": "11:20", "price": 3913.059}, {"time": "11:22", "price": 3908.125}, {"time": "11:24", "price": 3910.427}, {"time": "11:26", "price": 3911.198}, {"time": "11:28", "price": 3910.063}, {"time": "11:30", "price": 3911.318}, {"time": "11:30", "price": 3911.318}, {"time": "11:32", "price": 3911.318}, {"time": "11:34", "price": 3911.318}, {"time": "11:36", "price": 3911.318}, {"time": "11:38", "price": 3911.318}, {"time": "11:40", "price": 3911.318}, {"time": "11:40", "price": 3911.318}]}, "科创50": {"daily": [{"date": "2026-03-24", "price": 1290.791, "change_pct": 0.7188007918356956}, {"date": "2026-03-25", "price": 1315.412, "change_pct": 1.214267742151422}, {"date": "2026-03-26", "price": 1288.807, "change_pct": -1.9146628715376666}, {"date": "2026-03-27", "price": 1300.756, "change_pct": 2.7834166053617126}, {"date": "2026-03-30", "price": 1289.78, "change_pct": 0.8433978919352988}, {"date": "2026-03-31", "price": 1256.327, "change_pct": -2.147520949856639}, {"date": "2026-04-01", "price": 1298.198, "change_pct": 0.5857568117473818}, {"date": "2026-04-02", "price": 1262.182, "change_pct": -2.506353166541799}, {"date": "2026-04-03", "price": 1256.21, "change_pct": -1.15867360748298}, {"date": "2026-04-07", "price": 1274.015, "change_pct": 0.9751836989611795}, {"date": "2026-04-08", "price": 1352.689, "change_pct": 2.688350808790262}, {"date": "2026-04-09", "price": 1343.946, "change_pct": 0.6484748222666645}, {"date": "2026-04-10", "price": 1364.495, "change_pct": 0.06732293079157926}, {"date": "2026-04-13", "price": 1375.287, "change_pct": 1.238458463719665}, {"date": "2026-04-14", "price": 1405.072, "change_pct": 0.4771167048054775}, {"date": "2026-04-15", "price": 1406.322, "change_pct": -0.6408118740250167}, {"date": "2026-04-16", "price": 1422.228, "change_pct": 1.131251159943093}, {"date": "2026-04-17", "price": 1423.351, "change_pct": 0.599205723764611}, {"date": "2026-04-20", "price": 1450.521, "change_pct": 1.6559055233994369}, {"date": "2026-04-21", "price": 1426.677, "change_pct": -1.281964345518006}, {"date": "2026-04-22", "price": 1451.139, "change_pct": 2.1370715721549227}, {"date": "2026-04-23", "price": 1432.592, "change_pct": -2.287118961288399}, {"date": "2026-04-24", "price": 1453.685, "change_pct": 0.7378882176964215}, {"date": "2026-04-27", "price": 1508.385, "change_pct": 2.0341415964402634}, {"date": "2026-04-28", "price": 1488.661, "change_pct": -0.5784326951717688}, {"date": "2026-04-29", "price": 1493.505, "change_pct": 1.315228031424924}, {"date": "2026-04-30", "price": 1571.065, "change_pct": 3.9484897326166504}, {"date": "2026-05-06", "price": 1656.946, "change_pct": 1.3848632422308218}, {"date": "2026-05-07", "price": 1678.887, "change_pct": 0.9456702576241861}, {"date": "2026-05-08", "price": 1640.46, "change_pct": -0.7772887254726961}], "intraday": [{"time": "10:43", "price": 1709.4199}, {"time": "10:43", "price": 1709.4199}, {"time": "10:50", "price": 1711.9324}, {"time": "10:57", "price": 1720.4712}, {"time": "10:58", "price": 1721.629}, {"time": "11:00", "price": 1721.3882}, {"time": "11:00", "price": 1721.5384}, {"time": "11:02", "price": 1719.9398}, {"time": "11:04", "price": 1717.4562}, {"time": "11:06", "price": 1719.8722}, {"time": "11:08", "price": 1721.9635}, {"time": "11:10", "price": 1722.0926}, {"time": "11:10", "price": 1722.0444}, {"time": "11:12", "price": 1720.7964}, {"time": "11:14", "price": 1720.1206}, {"time": "11:16", "price": 1720.9905}, {"time": "11:18", "price": 1719.463}, {"time": "11:19", "price": 1718.8789}, {"time": "11:20", "price": 1718.1677}, {"time": "11:20", "price": 1718.9017}, {"time": "11:22", "price": 1719.8292}, {"time": "11:24", "price": 1721.8458}, {"time": "11:26", "price": 1724.9041}, {"time": "11:28", "price": 1724.6434}, {"time": "11:30", "price": 1726.9838}, {"time": "11:30", "price": 1726.9838}, {"time": "11:32", "price": 1726.9838}, {"time": "11:34", "price": 1726.9838}, {"time": "11:36", "price": 1726.9838}, {"time": "11:38", "price": 1726.9838}, {"time": "11:40", "price": 1726.9838}, {"time": "11:40", "price": 1726.9838}]}}, "stocks": {"长江电力": [{"time": "10:43", "price": 27.07}, {"time": "10:43", "price": 27.07}, {"time": "10:50", "price": 27.04}, {"time": "10:57", "price": 27.05}, {"time": "10:58", "price": 27.05}, {"time": "11:00", "price": 27.04}, {"time": "11:00", "price": 27.04}, {"time": "11:02", "price": 27.05}, {"time": "11:04", "price": 27.05}, {"time": "11:06", "price": 27.05}, {"time": "11:08", "price": 27.05}, {"time": "11:10", "price": 27.06}, {"time": "11:10", "price": 27.06}, {"time": "11:12", "price": 27.06}, {"time": "11:14", "price": 27.05}, {"time": "11:16", "price": 27.05}, {"time": "11:18", "price": 27.03}, {"time": "11:19", "price": 27.04}, {"time": "11:20", "price": 27.04}, {"time": "11:20", "price": 27.04}, {"time": "11:22", "price": 27.03}, {"time": "11:24", "price": 27.04}, {"time": "11:26", "price": 27.03}, {"time": "11:28", "price": 27.03}, {"time": "11:30", "price": 27.03}, {"time": "11:30", "price": 27.03}, {"time": "11:32", "price": 27.03}, {"time": "11:34", "price": 27.03}, {"time": "11:36", "price": 27.03}, {"time": "11:38", "price": 27.03}, {"time": "11:40", "price": 27.03}, {"time": "11:40", "price": 27.03}], "中国移动": [{"time": "10:43", "price": 96.95}, {"time": "10:43", "price": 96.95}, {"time": "10:50", "price": 97.01}, {"time": "10:57", "price": 97.0}, {"time": "10:58", "price": 97.01}, {"time": "11:00", "price": 96.98}, {"time": "11:00", "price": 96.97}, {"time": "11:02", "price": 97.1}, {"time": "11:04", "price": 97.18}, {"time": "11:06", "price": 97.16}, {"time": "11:08", "price": 97.1}, {"time": "11:10", "price": 97.11}, {"time": "11:10", "price": 97.11}, {"time": "11:12", "price": 97.1}, {"time": "11:14", "price": 97.11}, {"time": "11:16", "price": 97.09}, {"time": "11:18", "price": 96.98}, {"time": "11:19", "price": 96.98}, {"time": "11:20", "price": 96.99}, {"time": "11:20", "price": 96.99}, {"time": "11:22", "price": 96.96}, {"time": "11:24", "price": 96.96}, {"time": "11:26", "price": 96.91}, {"time": "11:28", "price": 96.91}, {"time": "11:30", "price": 96.92}, {"time": "11:30", "price": 96.92}, {"time": "11:32", "price": 96.92}, {"time": "11:34", "price": 96.92}, {"time": "11:36", "price": 96.92}, {"time": "11:38", "price": 96.92}, {"time": "11:40", "price": 96.92}, {"time": "11:40", "price": 96.92}], "贵州茅台": [{"time": "10:43", "price": 1361.33}, {"time": "10:43", "price": 1361.33}, {"time": "10:50", "price": 1361.56}, {"time": "10:57", "price": 1361.02}, {"time": "10:58", "price": 1361.18}, {"time": "11:00", "price": 1361.3}, {"time": "11:00", "price": 1361.31}, {"time": "11:02", "price": 1362.17}, {"time": "11:04", "price": 1361.93}, {"time": "11:06", "price": 1362.98}, {"time": "11:08", "price": 1363.12}, {"time": "11:10", "price": 1363.02}, {"time": "11:10", "price": 1363.02}, {"time": "11:12", "price": 1362.95}, {"time": "11:14", "price": 1364.49}, {"time": "11:16", "price": 1363.07}, {"time": "11:18", "price": 1362.92}, {"time": "11:19", "price": 1362.92}, {"time": "11:20", "price": 1362.92}, {"time": "11:20", "price": 1362.92}, {"time": "11:22", "price": 1362.91}, {"time": "11:24", "price": 1362.77}, {"time": "11:26", "price": 1362.37}, {"time": "11:28", "price": 1361.87}, {"time": "11:30", "price": 1361.76}, {"time": "11:30", "price": 1361.76}, {"time": "11:32", "price": 1361.76}, {"time": "11:34", "price": 1361.76}, {"time": "11:36", "price": 1361.76}, {"time": "11:38", "price": 1361.76}, {"time": "11:40", "price": 1361.76}, {"time": "11:40", "price": 1361.76}], "海光信息": [{"time": "10:43", "price": 341.65}, {"time": "10:43", "price": 341.65}, {"time": "10:50", "price": 342.02}, {"time": "10:57", "price": 345.49}, {"time": "10:58", "price": 346.36}, {"time": "11:00", "price": 345.58}, {"time": "11:00", "price": 345.58}, {"time": "11:02", "price": 345.1}, {"time": "11:04", "price": 343.57}, {"time": "11:06", "price": 344.11}, {"time": "11:08", "price": 345.18}, {"time": "11:10", "price": 344.36}, {"time": "11:10", "price": 344.4}, {"time": "11:12", "price": 344.36}, {"time": "11:14", "price": 344.38}, {"time": "11:16", "price": 344.35}, {"time": "11:18", "price": 343.78}, {"time": "11:19", "price": 343.51}, {"time": "11:20", "price": 343.01}, {"time": "11:20", "price": 343.01}, {"time": "11:22", "price": 343.39}, {"time": "11:24", "price": 343.27}, {"time": "11:26", "price": 343.49}, {"time": "11:28", "price": 343.52}, {"time": "11:30", "price": 343.8}, {"time": "11:30", "price": 343.8}, {"time": "11:32", "price": 343.8}, {"time": "11:34", "price": 343.8}, {"time": "11:36", "price": 343.8}, {"time": "11:38", "price": 343.8}, {"time": "11:40", "price": 343.8}, {"time": "11:40", "price": 343.8}]}},al:[],nw:[]};
-let charts={},mode='intraday';
-
-function $(id){return document.getElementById(id)}
+// ═══ 工具函数 ═══
+const $=id=>document.getElementById(id);
 function fmt(n,d=2){return Number(n).toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d})}
-function fmtB(n){if(Math.abs(n)>1e8)return(n/1e8).toFixed(2)+'亿';if(Math.abs(n)>1e4)return(n/1e4).toFixed(2)+'万';return fmt(n)}
+function color(n){return n>0?'var(--red)':n<0?'var(--green)':'var(--text)'}
+function updown(n){return n>0?'up':n<0?'down':''}
 function chgT(n){return n>=0?`<span class="up">+${fmt(n)}%</span>`:`<span class="down">${fmt(n)}%</span>`}
-function color(n){return n>=0?'var(--green)':'var(--red)'}
-function cCls(n){return n>2?'up':n<-2?'down':''}
 
-// Tab切换
+let charts={};
+
+// ═══ 数据加载 ═══
+const DATA={};
+async function loadAll(){
+  const files=['updated','indices','stocks','portfolio','index_history','analysis_log','news'];
+  await Promise.all(files.map(async f=>{
+    try{
+      const r=await fetch(`./data/${f}.json?v=${Date.now()}`);
+      DATA[f]=await r.json();
+    }catch(e){console.warn(`加载 ${f} 失败:`,e);DATA[f]=f==='stocks'?{pools:[],flat:[]}:f==='portfolio'?{}:f==='analysis_log'?[]:[];}
+  }));
+  $('upd').textContent='更新: '+(DATA.updated?.updated||'--');
+  renderOverview();
+}
+loadAll();
+
+// ═══ Tab切换 ═══
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.pane').forEach(x=>x.classList.remove('active'));
   t.classList.add('active');$(t.dataset.pane).classList.add('active');
   Object.values(charts).forEach(c=>c.destroy());charts={};
-  if(t.dataset.pane=='overview')renderOverview();
-  if(t.dataset.pane=='watchlist')renderWatchlist();
-  if(t.dataset.pane=='portfolio')renderPortfolio();
-  if(t.dataset.pane=='data')renderData();
-  if(t.dataset.pane=='journal')renderJournal();
-  if(t.dataset.pane=='news')renderNews();
+  if(t.dataset.pane==='overview')renderOverview();
+  else if(t.dataset.pane==='watchlist')renderWatchlist();
+  else if(t.dataset.pane==='portfolio')renderPortfolio();
+  else if(t.dataset.pane==='data')renderData();
+  else if(t.dataset.pane==='journal')renderJournal();
+  else if(t.dataset.pane==='news')renderNews();
 });
 
 // ═══ 大盘 ═══
 function renderOverview(){
+  const I=DATA.indices||[],S=DATA.stocks||{},P=DATA.portfolio||{},H=DATA.index_history||{};
   let h='<div class="idx-bar">';
-  D.idx.forEach(i=>{let s=i.change_pct>=0?'up':'down';h+=`<div class="idx-card"><div class="n">${i.name}</div><div class="v ${s}">${fmt(i.price)}</div><div class="c ${s}">${i.change_pct>=0?"+"+fmt(i.change_pct):fmt(i.change_pct)}%</div></div>`});
+  I.forEach(i=>{let s=i.change_pct>=0?'up':'down';h+=`<div class="idx-card"><div class="n">${i.name}</div><div class="v ${s}">${fmt(i.price)}</div><div class="c ${s}">${i.change_pct>=0?'+':''}${fmt(i.change_pct)}%</div></div>`});
   h+='</div>';
-
-  let pf=D.pf;
+  const up=S.flat?S.flat.filter(s=>s.change_pct>0).length:0;
+  const dn=S.flat?S.flat.filter(s=>s.change_pct<0).length:0;
   h+=`<div class="cards">
-    <div class="card"><div class="lb">💰 总资产</div><div class="vl">¥${fmt(pf.total_assets)}</div><div class="sb">投入 ¥${fmt(pf.invested)}</div></div>
-    <div class="card"><div class="lb">📈 浮动盈亏</div><div class="vl" style="color:${color(pf.pnl)}">¥${fmt(pf.pnl)}</div><div class="sb" style="color:${color(pf.pnl_pct)}">${pf.pnl_pct>=0?'+':''}${fmt(pf.pnl_pct)}%</div></div>
-    <div class="card"><div class="lb">📊 涨跌比</div><div class="vl"><span class="up">${pf.up_count}涨</span> <span class="down">${pf.down_count}跌</span></div><div class="sb">共${pf.total_count}只标的</div></div>
-    <div class="card"><div class="lb">📅 定投日</div><div class="vl">¥${fmt(pf.monthly)}</div><div class="sb">每月12日</div></div>
+    <div class="card"><div class="lb">💰 总资产</div><div class="vl">¥${fmt(P.total_assets||100000)}</div><div class="sb">投入 ¥${fmt(P.invested||0)}</div></div>
+    <div class="card"><div class="lb">📈 浮动盈亏</div><div class="vl" style="color:${color(P.pnl||0)}">¥${fmt(P.pnl||0)}</div><div class="sb" style="color:${color(P.pnl_pct||0)}">${(P.pnl_pct||0)>=0?'+':''}${fmt(P.pnl_pct||0)}%</div></div>
+    <div class="card"><div class="lb">📊 涨跌比</div><div class="vl"><span class="up">${up}涨</span> <span class="down">${dn}跌</span></div><div class="sb">共${S.flat?S.flat.length:0}只标的</div></div>
+    <div class="card"><div class="lb">📅 定投日</div><div class="vl">¥${fmt(P.monthly||15000)}</div><div class="sb">每月12日</div></div>
   </div>`;
-
-  // 指数走势
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">';
   h+='<div class="chart-box"><h4>📈 指数日K（30日）</h4><canvas id="chIdxD"></canvas></div>';
-  h+='<div class="chart-box"><h4>🏠 净值走势</h4><canvas id="chNav"></canvas></div>';
-  h+='</div>';
+  h+='<div class="chart-box"><h4>🏠 净值走势</h4><canvas id="chNav"></canvas></div></div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">';
   h+='<div class="chart-box"><h4>💎 糖果池核心</h4><canvas id="chCandy"></canvas></div>';
-  h+='<div class="chart-box"><h4>🚀 火箭池核心</h4><canvas id="chRocket"></canvas></div>';
-  h+='</div>';
+  h+='<div class="chart-box"><h4>🚀 火箭池核心</h4><canvas id="chRocket"></canvas></div></div>';
   $('overview').innerHTML=h;
 
-  // 日K图
-  let ds=[],colors={'上证指数':'#ef5350','深证成指':'#58a6ff','创业板指':'#26a69a','科创50':'#f0883e'};
-  Object.entries(D.ih.indices).forEach(([n,d])=>{if(d.daily.length>1){let b=d.daily[0].price;ds.push({label:n,data:d.daily.map(p=>({x:p.date.slice(5),y:((p.price-b)/b*100)})),borderColor:colors[n]||'#888',borderWidth:1.5,pointRadius:0,tension:.3})}});
-  if(ds.length)charts.idxD=new Chart($('chIdxD'),{type:'line',data:{datasets:ds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:10}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}});
+  const idxC={'上证指数':'#ef5350','深证成指':'#58a6ff','创业板指':'#26a69a','科创50':'#f0883e'};
+  const ih=H.indices||{};
+  let ds=[];
+  Object.entries(ih).forEach(([n,d])=>{if(d.daily&&d.daily.length>1){let b=d.daily[0].price;ds.push({label:n,data:d.daily.map(p=>({x:p.date.slice(5),y:((p.price-b)/b*100)})),borderColor:idxC[n]||'#888',borderWidth:1.5,pointRadius:0,tension:.3})}});
+  if(ds.length)charts.idxD=new Chart($('chIdxD'),{type:'line',data:{datasets:ds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:10}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}}});
 
-  if(pf.nav_history.length>1)charts.nav=new Chart($('chNav'),{type:'line',data:{datasets:[{data:pf.nav_history.map(p=>({x:p.date.slice(5),y:p.total_assets})),borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,.1)',fill:true,borderWidth:2,pointRadius:0,tension:.3}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:10}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>'¥'+(v/1e4).toFixed(1)+'万'}}}}});
+  const nav=P.nav_history||[];
+  if(nav.length>1)charts.nav=new Chart($('chNav'),{type:'line',data:{datasets:[{data:nav.map(p=>({x:p.date.slice(5),y:p.total_assets})),borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,.1)',fill:true,borderWidth:2,pointRadius:0,tension:.3}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:10}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>'¥'+(v/1e4).toFixed(1)+'万'}}}}}});
 
-  // 糖果池
-  let candy=['长江电力','中国移动','贵州茅台'];
-  let cds=candy.filter(k=>D.ih.stocks[k]&&D.ih.stocks[k].length>1).map(n=>{let pts=D.ih.stocks[n],b=pts[0].price;return{label:n,data:pts.map(p=>({x:p.time,y:((p.price-b)/b*100)})),borderWidth:1.5,pointRadius:0,tension:.3}});
-  if(cds.length)charts.candy=new Chart($('chCandy'),{type:'line',data:{datasets:cds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(2)+'%'}}}}});
+  const sh=H.stocks||{};
+  const candy=['长江电力','中国移动','贵州茅台'].filter(k=>sh[k]&&sh[k].length>1).map(n=>{let pts=sh[n],b=pts[0].price;return{label:n,data:pts.map(p=>({x:p.time,y:((p.price-b)/b*100)})),borderWidth:1.5,pointRadius:0,tension:.3}});
+  if(candy.length)charts.candy=new Chart($('chCandy'),{type:'line',data:{datasets:candy},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(2)+'%'}}}}}});
 
-  let rkt=['海光信息'];
-  let rds=rkt.filter(k=>D.ih.stocks[k]&&D.ih.stocks[k].length>1).map(n=>{let pts=D.ih.stocks[n],b=pts[0].price;return{label:n,data:pts.map(p=>({x:p.time,y:((p.price-b)/b*100)})),borderWidth:1.5,pointRadius:0,tension:.3}});
-  if(rds.length)charts.rocket=new Chart($('chRocket'),{type:'line',data:{datasets:rds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(2)+'%'}}}}});
+  const rkt=['海光信息'].filter(k=>sh[k]&&sh[k].length>1).map(n=>{let pts=sh[n],b=pts[0].price;return{label:n,data:pts.map(p=>({x:p.time,y:((p.price-b)/b*100)})),borderWidth:1.5,pointRadius:0,tension:.3}});
+  if(rkt.length)charts.rocket=new Chart($('chRocket'),{type:'line',data:{datasets:rkt},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:8}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(2)+'%'}}}}}});
 }
 
 // ═══ 自选 ═══
 function renderWatchlist(){
+  const S=DATA.stocks||{};
+  if(!S.pools){$('watchlist').innerHTML='<div class="loading">数据加载中...</div>';return}
   let h='';
-  D.stk.pools.forEach(p=>{
-    h+=`<div class="pool"><div class="pool-h"><h3>${p.emoji} ${p.name}</h3><span class="tag">${(p.ratio*100).toFixed(0)}% · ${p.desc}</span></div>`;
-    h+='<div style="overflow-x:auto"><table><thead><tr><th>标的</th><th>现价</th><th>涨跌</th><th>开盘</th><th>高</th><th>低</th><th>昨收</th><th>评分</th><th>逻辑</th></tr></thead><tbody>';
+  S.pools.forEach(p=>{
+    h+=`<div class="pool"><div class="pool-h"><h3>${p.emoji} ${p.name}</h3><span class="tag">${(p.ratio*100).toFixed(0)}% · ${p.desc}</span></div><div style="overflow-x:auto"><table><thead><tr><th>标的</th><th>现价</th><th>涨跌</th><th>开盘</th><th>高</th><th>低</th><th>昨收</th><th>评分</th><th>逻辑</th></tr></thead><tbody>`;
     p.stocks.forEach(s=>{
       let sc=s.change_pct>0?'up':s.change_pct<0?'down':'';
       let sc2=s.score>=8?'shi':s.score>=6?'smi':'slo';
-      h+=`<tr><td><b>${s.name}</b><br><span style="font-size:10px;color:var(--text2)">${s.code}</span></td><td class="${sc}" style="font-weight:600">${fmt(s.price)}</td><td>${chgT(s.change_pct)}</td><td>${fmt(s.open)}</td><td style="color:var(--green)">${fmt(s.high)}</td><td style="color:var(--red)">${fmt(s.low)}</td><td>${fmt(s.prev_close)}</td><td><span class="score ${sc2}">${s.score}/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">${s.reason}</td></tr>`;
+      h+=`<tr><td><b>${s.name}</b><br><span style="font-size:10px;color:var(--text2)">${s.code}</span></td><td class="${sc}" style="font-weight:600">${fmt(s.price)}</td><td>${chgT(s.change_pct)}</td><td>${fmt(s.open)}</td><td style="color:var(--red)">${fmt(s.high)}</td><td style="color:var(--green)">${fmt(s.low)}</td><td>${fmt(s.prev_close)}</td><td><span class="score ${sc2}">${s.score}/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">${s.reason}</td></tr>`;
     });
     h+='</tbody></table></div></div>';
   });
@@ -167,99 +160,68 @@ function renderWatchlist(){
 
 // ═══ 持仓 ═══
 function renderPortfolio(){
-  let pf=D.pf;
+  const P=DATA.portfolio||{},S=DATA.stocks||{};
   let h=`<div class="cards">
-    <div class="card"><div class="lb">💵 现金</div><div class="vl">¥${fmt(pf.cash)}</div><div class="sb">可用资金</div></div>
-    <div class="card"><div class="lb">📈 市值</div><div class="vl">¥${fmt(pf.market_value)}</div><div class="sb">${pf.market_value>0?'已建仓':'空仓'}</div></div>
-    <div class="card"><div class="lb">🏠 总资产</div><div class="vl">¥${fmt(pf.total_assets)}</div><div class="sb">投入 ¥${fmt(pf.invested)}</div></div>
-    <div class="card"><div class="lb">💹 浮动盈亏</div><div class="vl" style="color:${color(pf.pnl)}">¥${fmt(pf.pnl)}</div><div class="sb" style="color:${color(pf.pnl_pct)}">${pf.pnl_pct>=0?'+':''}${fmt(pf.pnl_pct)}%</div></div>
+    <div class="card"><div class="lb">💵 现金</div><div class="vl">¥${fmt(P.cash||100000)}</div><div class="sb">可用资金</div></div>
+    <div class="card"><div class="lb">📈 市值</div><div class="vl">¥${fmt(P.market_value||0)}</div><div class="sb">${P.market_value>0?'已建仓':'空仓'}</div></div>
+    <div class="card"><div class="lb">🏠 总资产</div><div class="vl">¥${fmt(P.total_assets||100000)}</div><div class="sb">投入 ¥${fmt(P.invested||0)}</div></div>
+    <div class="card"><div class="lb">💹 浮动盈亏</div><div class="vl" style="color:${color(P.pnl||0)}">¥${fmt(P.pnl||0)}</div><div class="sb" style="color:${color(P.pnl_pct||0)}">${(P.pnl_pct||0)>=0?'+':''}${fmt(P.pnl_pct||0)}%</div></div>
   </div>`;
-
-  let hld=pf.holdings||{};
+  const hld=P.holdings||{};
   if(Object.keys(hld).length>0){
-    let snaps={}; D.stk.flat.forEach(s=>snaps[s.code]=s);
+    const snaps={};S.flat&&S.flat.forEach(s=>snaps[s.code]=s);
     h+='<div class="chart-box"><h4>📋 持仓明细</h4><table><thead><tr><th>标的</th><th>股数</th><th>成本</th><th>现价</th><th>市值</th><th>盈亏</th></tr></thead><tbody>';
     for(let[n,hd]of Object.entries(hld)){
-      let sn=snaps[hd.code]||{};
-      let mv=hd.shares*(sn.price||hd.cost);
-      let pnl=(sn.price?sn.price-hd.cost:0)*hd.shares;
-      let pnlp=hd.cost?((sn.price||hd.cost)-hd.cost)/hd.cost*100:0;
-      h+=`<tr><td><b>${n}</b></td><td>${hd.shares}</td><td>¥${fmt(hd.cost)}</td><td>¥${fmt(sn.price||hd.cost)}</td><td>¥${fmt(mv)}</td><td style="color:${color(pnl)}">¥${fmt(pnl)} (${pnlp>=0?'+':''}${fmt(pnlp)}%)</td></tr>`;
+      let sn=snaps[hd.code]||{},mv=hd.shares*(sn.price||hd.cost),pnl=(sn.price?sn.price-hd.cost:0)*hd.shares,pnlp=hd.cost?((sn.price||hd.cost)-hd.cost)/hd.cost*100:0;
+      h+=`<tr><td><b>${n}</b></td><td>${hd.shares}</td><td>¥${fmt(hd.cost)}</td><td style="${sn.price>hd.cost?'color:var(--red)':sn.price<hd.cost?'color:var(--green)':''}">¥${fmt(sn.price||hd.cost)}</td><td>¥${fmt(mv)}</td><td style="color:${color(pnl)}">¥${fmt(pnl)} (${pnlp>=0?'+':''}${fmt(pnlp)}%)</td></tr>`;
     }
     h+='</tbody></table></div>';
   }else{
-    h+='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px">🏁</p><p>空仓待命 — 明天(5/12)定投日启动建仓</p><p style="font-size:12px;margin-top:8px">首月优先建糖果池：长江电力/中国移动/工商银行</p></div>';
+    h+='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px">🏁</p><p>空仓待命 — 明天定投日启动建仓</p><p style="font-size:12px;margin-top:8px">首月优先建糖果池：长江电力/中国移动/工商银行</p></div>';
   }
   $('portfolio').innerHTML=h;
 }
 
 // ═══ 数据 ═══
 function renderData(){
+  const H=DATA.index_history||{},P=DATA.portfolio||{};
   let h='<div class="mode-bar"><button class="mode-btn active" data-mode="daily">📅 日K视图</button><button class="mode-btn" data-mode="intraday">⏱ 分时视图</button></div>';
   h+='<div class="chart-box"><h4 id="chDataTitle">📈 30日指数走势</h4><canvas id="chData"></canvas></div>';
   h+='<div style="overflow-x:auto"><table id="dataTbl"><thead><tr><th>日期</th><th>总资产</th><th>现金</th><th>市值</th><th>盈亏</th></tr></thead><tbody></tbody></table></div>';
   $('data').innerHTML=h;
-
+  const nav=P.nav_history||[];
   let tbody='';
-  (D.pf.nav_history||[]).slice().reverse().forEach(p=>{tbody+=`<tr><td>${p.date}</td><td>¥${fmt(p.total_assets)}</td><td>¥${fmt(p.cash)}</td><td>¥${fmt(p.market_value)}</td><td style="color:${color(p.pnl)}">¥${fmt(p.pnl)} (${p.pnl_pct>=0?'+':''}${fmt(p.pnl_pct)}%)</td></tr>`});
+  nav.slice().reverse().forEach(p=>{tbody+=`<tr><td>${p.date}</td><td>¥${fmt(p.total_assets)}</td><td>¥${fmt(p.cash)}</td><td>¥${fmt(p.market_value)}</td><td style="color:${color(p.pnl)}">¥${fmt(p.pnl)} (${p.pnl_pct>=0?'+':''}${fmt(p.pnl_pct)}%)</td></tr>`});
   $('dataTbl').querySelector('tbody').innerHTML=tbody;
 
   function drawChart(m){
-    let colors={'上证指数':'#ef5350','深证成指':'#58a6ff','创业板指':'#26a69a','科创50':'#f0883e'};
-    let ds=[];
-    Object.entries(D.ih.indices).forEach(([n,d])=>{
-      let pts=m=='daily'?d.daily:d.intraday;
-      if(!pts||pts.length<2)return;
-      let b=pts[0].price;
-      let lbl=m=='daily'?n+'日K':n+'分时';
-      ds.push({label:lbl,data:pts.map(p=>({x:m=='daily'?p.date.slice(5):p.time,y:((p.price-b)/b*100)})),borderColor:colors[n]||'#888',borderWidth:1.5,pointRadius:0,tension:.3});
-    });
-    if(Object.values(charts).length){Object.values(charts).forEach(c=>c.destroy());charts={}}
-    if(ds.length)charts.data=new Chart($('chData'),{type:'line',data:{datasets:ds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:10}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}});
-    $('chDataTitle').textContent=m=='daily'?'📈 30日指数日K走势':'⏱ 今日指数分时走势';
+    const idxC={'上证指数':'#ef5350','深证成指':'#58a6ff','创业板指':'#26a69a','科创50':'#f0883e'};
+    const ih=H.indices||{};let ds=[];
+    Object.entries(ih).forEach(([n,d])=>{let pts=m==='daily'?d.daily:d.intraday;if(pts&&pts.length>1){let b=pts[0].price;ds.push({label:n+(m==='daily'?'日K':'分时'),data:pts.map(p=>({x:m==='daily'?p.date.slice(5):p.time,y:((p.price-b)/b*100)})),borderColor:idxC[n]||'#888',borderWidth:1.5,pointRadius:0,tension:.3})}});
+    Object.values(charts).forEach(c=>c.destroy());charts={};
+    if(ds.length)charts.data=new Chart($('chData'),{type:'line',data:{datasets:ds},options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:10}},y:{ticks:{color:'#8b949e',font:{size:9},callback:v=>v.toFixed(1)+'%'}}}}}});
+    $('chDataTitle').textContent=m==='daily'?'📈 30日指数日K走势':'⏱ 今日指数分时走势';
   }
-
-  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=function(){
-    document.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('active'));
-    this.classList.add('active');
-    drawChart(this.dataset.mode);
-  });
+  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=function(){document.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');drawChart(this.dataset.mode)});
   drawChart('daily');
 }
 
 // ═══ 复盘 ═══
 function renderJournal(){
-  let logs=D.al||[];
-  if(!Array.isArray(logs)||logs.length==0){
-    $('journal').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px">📝</p><p>暂无复盘记录</p><p style="font-size:12px;margin-top:8px">盯盘 cron 运行后自动写入</p></div>';
-    return;
-  }
+  const logs=DATA.analysis_log||[];
+  if(!Array.isArray(logs)||logs.length===0){$('journal').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px">📝</p><p>暂无复盘记录</p><p style="font-size:12px;margin-top:8px">盯盘 cron 运行后自动写入</p></div>';return}
   let h='';
-  logs.forEach(l=>{
-    h+=`<div class="alog"><span class="al-sess al-${l.session}">${l.session}</span><span class="al-ts">${l.ts}</span>`;
-    if(l.market_summary)h+=`<div class="al-body"><b>📊 盘面:</b> ${l.market_summary}</div>`;
-    if(l.signals)h+=`<div class="al-body"><b>🚨 信号:</b> ${l.signals}</div>`;
-    if(l.decisions)h+=`<div class="al-body"><b>📋 决策:</b> ${l.decisions}</div>`;
-    if(l.reasoning)h+=`<div class="al-body"><b>💡 逻辑:</b> ${l.reasoning}</div>`;
-    h+='</div>';
-  });
+  logs.forEach(l=>{h+=`<div class="alog"><span class="al-sess al-${l.session||'未知'}">${l.session||'--'}</span><span class="al-ts">${l.ts||''}</span>`;if(l.market_summary)h+=`<div class="al-body"><b>📊 盘面:</b> ${l.market_summary}</div>`;if(l.signals)h+=`<div class="al-body"><b>🚨 信号:</b> ${l.signals}</div>`;if(l.decisions)h+=`<div class="al-body"><b>📋 决策:</b> ${l.decisions}</div>`;if(l.reasoning)h+=`<div class="al-body"><b>💡 逻辑:</b> ${l.reasoning}</div>`;h+='</div>'});
   $('journal').innerHTML=h;
 }
 
 // ═══ 资讯 ═══
 function renderNews(){
-  let nw=D.nw||[];
-  if(!Array.isArray(nw)||nw.length==0){
-    $('news').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p>暂无资讯 — 数据源接入中</p></div>';
-    return;
-  }
-  let h='';
-  nw.forEach(n=>{h+=`<div class="news-item"><div class="nt" onclick="window.open('${n.url}')">${n.title}</div><div class="nm">${n.source} · ${n.ts}</div></div>`});
+  const nw=DATA.news||[];
+  if(!Array.isArray(nw)||nw.length===0){$('news').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p>暂无资讯 — 数据源接入中</p></div>';return}
+  let h='';nw.forEach(n=>{h+=`<div class="news-item"><div class="nt" onclick="window.open('${n.url}')">${n.title}</div><div class="nm">${n.source} · ${n.ts}</div></div>`});
   $('news').innerHTML=h;
 }
-
-// ═══ 启动 ═══
-renderOverview();
 </script>
 </body>
 </html>
