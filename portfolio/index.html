@@ -114,6 +114,7 @@ function renderOverview(){
   h+='<div class="cards">'+
     '<div class="card"><div class="lb">💰 总资产</div><div class="vl">¥'+fmt(P.total_assets||100000)+'</div><div class="sb">投入 ¥'+fmt(P.invested||0)+'</div></div>'+
     '<div class="card"><div class="lb">📈 浮动盈亏</div><div class="vl" style="color:'+color(P.pnl||0)+'">¥'+fmt(P.pnl||0)+'</div><div class="sb" style="color:'+color(P.pnl_pct||0)+'">'+((P.pnl_pct||0)>=0?'+':'')+fmt(P.pnl_pct||0)+'%</div></div>'+
+    '<div class="card"><div class="lb">🧾 累计手续费</div><div class="vl" style="color:var(--text2)">¥'+fmt(P.total_fees||0)+'</div><div class="sb">佣金+印花税+过户费</div></div>'+
     '<div class="card"><div class="lb">📊 涨跌比</div><div class="vl"><span class="up">'+up+'涨</span> <span class="down">'+dn+'跌</span></div><div class="sb">共'+(S.flat?S.flat.length:0)+'只标的</div></div>'+
     '<div class="card"><div class="lb">📅 定投日</div><div class="vl">¥'+fmt(P.monthly||15000)+'</div><div class="sb">每月12日</div></div>'+
   '</div>';
@@ -147,7 +148,7 @@ function renderWatchlist(){
   if(!S.pools){$('watchlist').innerHTML='<div class="loading">数据加载中...</div>';return}
   var h='',cols=[
     {key:'name',label:'标的'},{key:'price',label:'现价'},{key:'change_pct',label:'涨跌'},
-    {key:'open',label:'开盘'},{key:'high',label:'高'},{key:'low',label:'低'},
+    {key:'pe',label:'PE'},{key:'open',label:'开盘'},{key:'high',label:'高'},{key:'low',label:'低'},
     {key:'prev_close',label:'昨收'},{key:'score',label:'评分'},{key:'reason',label:'逻辑'}
   ];
   S.pools.forEach(function(p){
@@ -167,7 +168,8 @@ h+='</tr></thead><tbody>';
     stocks.forEach(function(s){
       var sc=s.change_pct>0?'up':s.change_pct<0?'down':'';
       var sc2=s.score>=8?'shi':s.score>=6?'smi':'slo';
-      h+='<tr class="stock-row" data-code="'+s.code+'"><td><b>'+s.name+'</b><br><span style="font-size:10px;color:var(--text2)">'+s.code+'</span></td><td class="'+sc+'" style="font-weight:600">'+fmt(s.price)+'</td><td>'+chgT(s.change_pct)+'</td><td>'+fmt(s.open)+'</td><td style="color:var(--red)">'+fmt(s.high)+'</td><td style="color:var(--green)">'+fmt(s.low)+'</td><td>'+fmt(s.prev_close)+'</td><td><span class="score '+sc2+'">'+s.score+'/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">'+s.reason+'</td></tr>';
+      var peC=s.pe>0?(s.pe<15?'var(--green)':s.pe<50?'var(--text)':'var(--red)'):'var(--text2)';var peV=s.pe>0?fmt(s.pe,1):'亏损';
+      h+='<tr class="stock-row" data-code="'+s.code+'"><td><b>'+s.name+'</b><br><span style="font-size:10px;color:var(--text2)">'+s.code+'</span></td><td class="'+sc+'" style="font-weight:600">'+fmt(s.price)+'</td><td>'+chgT(s.change_pct)+'</td><td style="color:'+peC+'">'+peV+'</td><td>'+fmt(s.open)+'</td><td style="color:var(--red)">'+fmt(s.high)+'</td><td style="color:var(--green)">'+fmt(s.low)+'</td><td>'+fmt(s.prev_close)+'</td><td><span class="score '+sc2+'">'+s.score+'/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">'+s.reason+'</td></tr>';
     });
     h+='</tbody></table></div></div>';
   });
@@ -192,6 +194,7 @@ function renderPortfolio(){
   var h='<div class="cards">'+
     '<div class="card"><div class="lb">💵 现金</div><div class="vl">¥'+fmt(P.cash||100000)+'</div><div class="sb">可用资金</div></div>'+
     '<div class="card"><div class="lb">📈 市值</div><div class="vl">¥'+fmt(P.market_value||0)+'</div><div class="sb">'+(P.market_value>0?'已建仓':'空仓')+'</div></div>'+
+    '<div class="card"><div class="lb">🧾 累计手续费</div><div class="vl" style="color:var(--text2)">¥'+fmt(P.total_fees||0)+'</div><div class="sb">佣金+印花税+过户费</div></div>'+
     '<div class="card"><div class="lb">🏠 总资产</div><div class="vl">¥'+fmt(P.total_assets||100000)+'</div><div class="sb">投入 ¥'+fmt(P.invested||0)+'</div></div>'+
     '<div class="card"><div class="lb">💹 浮动盈亏</div><div class="vl" style="color:'+color(P.pnl||0)+'">¥'+fmt(P.pnl||0)+'</div><div class="sb" style="color:'+color(P.pnl_pct||0)+'">'+((P.pnl_pct||0)>=0?'+':'')+fmt(P.pnl_pct||0)+'%</div></div>'+
   '</div>';
