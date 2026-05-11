@@ -193,10 +193,46 @@ function renderAssetChart() {
 }
 
 // ── 自选 ──
+let wsSort = {col: 'code', dir: 'asc'};
+const WS_COLS = [
+  {key:'code', label:'代码', cls:''},
+  {key:'name', label:'名称', cls:''},
+  {key:'price', label:'现价', cls:'right'},
+  {key:'change_pct', label:'涨跌幅', cls:'right'},
+  {key:'change_amt', label:'涨跌额', cls:'right'},
+  {key:'volume', label:'成交量', cls:'right'},
+  {key:'turnover', label:'成交额', cls:'right'},
+  {key:'high', label:'最高', cls:'right'},
+  {key:'low', label:'最低', cls:'right'},
+  {key:'pe', label:'PE', cls:'right'},
+];
+
+function wsSortBy(col) {
+  wsSort = {col, dir: wsSort.col===col && wsSort.dir==='asc' ? 'desc' : 'asc'};
+  render_watchlist();
+}
+
 function render_watchlist() {
   const st = CACHE.stocks?.data || [];
-  let h = `<table><thead><tr><th>代码</th><th>名称</th><th class="right">现价</th><th class="right">涨跌幅</th><th class="right">涨跌额</th><th class="right">成交量</th><th class="right">成交额</th><th class="right">最高</th><th class="right">最低</th><th class="right">PE</th></tr></thead><tbody>`;
-  st.forEach(s => {
+  // Sort
+  const sorted = [...st].sort((a,b) => {
+    let va = a[wsSort.col], vb = b[wsSort.col];
+    if (va == null) va = wsSort.dir==='asc' ? Infinity : -Infinity;
+    if (vb == null) vb = wsSort.dir==='asc' ? Infinity : -Infinity;
+    if (typeof va === 'string') va = va.toLowerCase();
+    if (typeof vb === 'string') vb = vb.toLowerCase();
+    if (va < vb) return wsSort.dir==='asc' ? -1 : 1;
+    if (va > vb) return wsSort.dir==='asc' ? 1 : -1;
+    return 0;
+  });
+
+  let h = '<table><thead><tr>';
+  WS_COLS.forEach(c => {
+    const arrow = wsSort.col===c.col ? (wsSort.dir==='asc' ? ' ▴' : ' ▾') : '';
+    h += `<th class="${c.cls}" onclick="wsSortBy('${c.col}')" style="cursor:pointer;user-select:none">${c.label}${arrow}</th>`;
+  });
+  h += '</tr></thead><tbody>';
+  sorted.forEach(s => {
     const cls = (s.change_pct||0) >= 0 ? 'up' : 'down';
     h += `<tr><td>${s.code}</td><td>${s.name}</td>
       <td class="right ${cls}" style="font-weight:600">${fmt.price(s.price)}</td>
