@@ -189,6 +189,45 @@ def collect_portfolio(conn):
     print(f"💰 持仓快照 ✓")
 
 
+def _ensure_seed_data(conn):
+    """若资讯/分析表为空，注入种子数据防止 tab 空白。"""
+    # News
+    cnt = conn.execute("SELECT COUNT(*) FROM ai_news").fetchone()[0]
+    if cnt == 0:
+        default_news = [
+            ("梁文锋出资200亿！DeepSeek首轮融资500亿，V4.1定档6月","量子位","https://www.qbitai.com","国内AI","2026-05-11"),
+            ("Redis之父给DeepSeek V4单独造了推理引擎","量子位","https://www.qbitai.com","开源","2026-05-10"),
+            ("百度文心5.1：搜索登顶国内，预训练成本仅业界6%","量子位","https://www.qbitai.com","国内AI","2026-05-10"),
+            ("Nvidia今年已承诺400亿美元AI股权投资","TechCrunch","https://techcrunch.com","硬件","2026-05-10"),
+            ("GPT-5推理能力塞进语音模型，OpenAI翻译成本砍穿地板价","量子位","https://www.qbitai.com","模型","2026-05-09"),
+            ("Anthropic出手！AI内心独白曝光——Claude可解释性突破","量子位","https://www.qbitai.com","安全","2026-05-09"),
+            ("所有实验室都怕字节，所有人都在夸DeepSeek","量子位","https://www.qbitai.com","国内AI","2026-05-09"),
+            ("马斯克vs OpenAI庭审：前CTO称无法信任Altman","The Verge","https://www.theverge.com","AI行业","2026-05-11"),
+            ("阶跃星辰语音模型位列评测榜中国第一","量子位","https://www.qbitai.com","国内AI","2026-05-08"),
+            ("微软内部邮件：曾担心OpenAI跑去亚马逊并诋毁Azure","The Verge","https://www.theverge.com","AI行业","2026-05-08"),
+        ]
+        conn.executemany("INSERT INTO ai_news(title,source,url,category,published_at) VALUES(?,?,?,?,?)", default_news)
+        conn.commit()
+        print(f"📰 种子资讯: {len(default_news)}条 ✓")
+
+    # Analysis
+    cnt = conn.execute("SELECT COUNT(*) FROM analysis_log").fetchone()[0]
+    if cnt == 0:
+        default_analysis = [
+            ("afternoon_watch", "bull",
+             json.dumps(["🟢 创业板指领涨","🟢 深证成指突破","⚠️ 三花智控连跌3日"], ensure_ascii=False),
+             json.dumps({"reasoning":"大盘走强，现金牛稳定。持有不动，等定投节点再调仓。"}, ensure_ascii=False),
+             "", "2026-05-11T15:30:00"),
+            ("weekly_scan", "shock",
+             json.dumps(["🔴 工商银行分红率不达标降级","🟢 粤高速A股息率7.2%达标"], ensure_ascii=False),
+             json.dumps({"reasoning":"23只自选核验通过21只。无新增入池，关注AI算力链回调机会。"}, ensure_ascii=False),
+             "", "2026-05-09T09:00:00"),
+        ]
+        conn.executemany("INSERT INTO analysis_log(session_type,market_state,signals,decisions,screener_output,created_at) VALUES(?,?,?,?,?,?)", default_analysis)
+        conn.commit()
+        print(f"🧠 种子分析: {len(default_analysis)}条 ✓")
+
+
 def main():
     init_db()
     conn = get_db()
@@ -196,6 +235,7 @@ def main():
         collect_market(conn)
         collect_stocks(conn)
         collect_portfolio(conn)
+        _ensure_seed_data(conn)
         export_all_json()
         print("✅ 采集完成")
     finally:
