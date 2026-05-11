@@ -1,6 +1,6 @@
 {
   "date": "2026-05-11",
-  "analysis_time": "17:40",
+  "analysis_time": "17:45",
   "market_state": {
     "mode": "Neutral",
     "volume": "--",
@@ -14,5 +14,5 @@
       "detail": "所有标的在安全区间"
     }
   ],
-  "thoughts": "【市场】Neutral: 指数震荡 | 成交额:-- | 涨跌比:--\n【持仓】2只, 市值¥10580\n【预警】0个PELT信号, 0个止损信号"
+  "thoughts": "【市场】Neutral: 指数震荡 | 成交额:-- | 涨跌比:--\n【持仓】4只, 市值¥21160\n【预警】0个PELT信号, 0个止损信号"
 }
