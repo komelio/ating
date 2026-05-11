@@ -263,6 +263,7 @@ function renderSummaryCards(d) {
     <div class="summary-card"><div class="summary-label">现金</div><div class="summary-value">¥${fmtM(s.cash)}</div><div class="summary-sub">${s.cash_pct!=null?s.cash_pct.toFixed(1):'--'}%</div></div>
     <div class="summary-card"><div class="summary-label">市值</div><div class="summary-value">¥${fmtM(s.market_value)}</div><div class="summary-sub">${s.holding_count||0} 只</div></div>
     <div class="summary-card"><div class="summary-label">浮盈</div><div class="summary-value ${(s.total_pnl||0)>=0?'up':'down'}">${(s.total_pnl||0)>=0?'+':''}¥${fmtM(Math.abs(s.total_pnl||0))}</div><div class="summary-sub">${(s.total_pnl||0)>=0?'+':''}${(s.total_pnl_pct||0).toFixed(2)}%</div></div>
+    <div class="summary-card"><div class="summary-label">手续费</div><div class="summary-value" style="color:var(--orange)">¥${(s.total_commission||0).toFixed(0)}</div><div class="summary-sub">累计双边</div></div>
     <div class="summary-card"><div class="summary-label">峰值</div><div class="summary-value">¥${fmtM(s.peak_assets||s.total_assets)}</div><div class="summary-sub">回撤 ${(s.drawdown_pct||0).toFixed(2)}%</div></div>`;
 }
 

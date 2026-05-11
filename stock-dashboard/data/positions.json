@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-11 20:50:00",
+  "update_time": "2026-05-11 20:54:37",
   "summary": {
     "total_assets": 99990.0,
     "cash": 89410.0,
@@ -10,7 +10,8 @@
     "holding_count": 2,
     "peak_assets": 100000,
     "drawdown_pct": 0,
-    "total_injected": 0
+    "total_injected": 0,
+    "total_commission": 10.0
   },
   "holdings": [
     {
