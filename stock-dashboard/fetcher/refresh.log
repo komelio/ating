@@ -1,0 +1,1392 @@
+[2026-05-11 13:58:28] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 13:58:28
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 13 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10754
+
+✅ 数据刷新完成 @ 2026-05-11 13:58:28
+[2026-05-11 13:58:31] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main ad4c504] 📊 数据刷新 2026-05-11 13:58
+ 3 files changed, 49 insertions(+), 49 deletions(-)
+To https://github.com/komelio/ating.git
+   19fdb9c..ad4c504  main -> main
+[2026-05-11 13:58:34] ✅ 推送完成
+
+[2026-05-11 14:00:01] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:00:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 13 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10754
+
+✅ 数据刷新完成 @ 2026-05-11 14:00:01
+[2026-05-11 14:00:05] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main 505690c] 📊 数据刷新 2026-05-11 14:00
+ 3 files changed, 52 insertions(+), 52 deletions(-)
+To https://github.com/komelio/ating.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/komelio/ating.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-05-11 14:00:08] ✅ 推送完成
+
+[2026-05-11 14:05:03] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:05:03
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 13 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10764
+
+✅ 数据刷新完成 @ 2026-05-11 14:05:03
+[2026-05-11 14:05:04] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   ad4c504..a42b98b  main       -> origin/main
+Rebasing (1/1)Successfully rebased and updated refs/heads/main.
+[main 8e69a70] 📊 数据刷新 2026-05-11 14:05
+ 3 files changed, 55 insertions(+), 55 deletions(-)
+To https://github.com/komelio/ating.git
+   a42b98b..8e69a70  main -> main
+[2026-05-11 14:05:08] ✅ 推送完成
+
+[2026-05-11 14:10:01] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:10:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 13 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10758
+
+✅ 数据刷新完成 @ 2026-05-11 14:10:01
+[2026-05-11 14:10:02] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main b04da37] 📊 数据刷新 2026-05-11 14:10
+ 3 files changed, 47 insertions(+), 47 deletions(-)
+To https://github.com/komelio/ating.git
+   8e69a70..b04da37  main -> main
+[2026-05-11 14:10:06] ✅ 推送完成
+
+[2026-05-11 14:15:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:15:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 13 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10774
+
+✅ 数据刷新完成 @ 2026-05-11 14:15:00
+[2026-05-11 14:15:01] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main fc4cba0] 📊 数据刷新 2026-05-11 14:15
+ 3 files changed, 55 insertions(+), 55 deletions(-)
+To https://github.com/komelio/ating.git
+   b04da37..fc4cba0  main -> main
+[2026-05-11 14:15:06] ✅ 推送完成
+
+[2026-05-11 14:20:04] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:20:04
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 13 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10762
+
+✅ 数据刷新完成 @ 2026-05-11 14:20:04
+[2026-05-11 14:20:05] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   fc4cba0..ceaaf92  main       -> origin/main
+Updating fc4cba0..ceaaf92
+Fast-forward
+ portfolio/data/index_history.json | 2 +-
+ portfolio/data/indices.json       | 2 +-
+ portfolio/data/portfolio.json     | 2 +-
+ portfolio/data/stocks.json        | 2 +-
+ portfolio/data/updated.json       | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+[main cc4f6ba] 📊 数据刷新 2026-05-11 14:20
+ 3 files changed, 51 insertions(+), 51 deletions(-)
+To https://github.com/komelio/ating.git
+   ceaaf92..cc4f6ba  main -> main
+[2026-05-11 14:20:09] ✅ 推送完成
+
+[2026-05-11 14:24:15] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:24:16
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10748
+
+✅ 数据刷新完成 @ 2026-05-11 14:24:16
+[2026-05-11 14:24:19] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   cc4f6ba..4d4bbba  main       -> origin/main
+Updating cc4f6ba..4d4bbba
+Fast-forward
+ gen_data.py                       | 5 +++++
+ portfolio/data/analysis_log.json  | 2 +-
+ portfolio/data/index_history.json | 2 +-
+ portfolio/data/indices.json       | 2 +-
+ portfolio/data/portfolio.json     | 2 +-
+ portfolio/data/stocks.json        | 2 +-
+ portfolio/data/updated.json       | 2 +-
+ v3-dashboard/analysis.py          | 3 +++
+ v3-dashboard/data/analysis.json   | 2 +-
+ v3-dashboard/data/history.json    | 2 +-
+ v3-dashboard/data/market.json     | 2 +-
+ v3-dashboard/data/news.json       | 2 +-
+ v3-dashboard/data/portfolio.json  | 2 +-
+ v3-dashboard/data/snapshots.json  | 2 +-
+ v3-dashboard/data/stocks.json     | 2 +-
+ v3-dashboard/scraper.py           | 4 ++++
+ 16 files changed, 25 insertions(+), 13 deletions(-)
+[main 8e314a7] 📊 数据刷新 2026-05-11 14:24
+ 4 files changed, 188 insertions(+), 58 deletions(-)
+To https://github.com/komelio/ating.git
+   4d4bbba..8e314a7  main -> main
+[2026-05-11 14:24:23] ✅ 推送完成
+
+[2026-05-11 14:25:02] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:25:02
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10756
+
+✅ 数据刷新完成 @ 2026-05-11 14:25:02
+[2026-05-11 14:25:03] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main 4a3454e] 📊 数据刷新 2026-05-11 14:25
+ 3 files changed, 61 insertions(+), 61 deletions(-)
+To https://github.com/komelio/ating.git
+   8e314a7..4a3454e  main -> main
+[2026-05-11 14:25:07] ✅ 推送完成
+
+[2026-05-11 14:30:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:30:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10760
+
+✅ 数据刷新完成 @ 2026-05-11 14:30:00
+[2026-05-11 14:30:02] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main 5a3993f] 📊 数据刷新 2026-05-11 14:30
+ 3 files changed, 59 insertions(+), 59 deletions(-)
+To https://github.com/komelio/ating.git
+   4a3454e..5a3993f  main -> main
+[2026-05-11 14:30:06] ✅ 推送完成
+
+[2026-05-11 14:35:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:35:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10756
+
+✅ 数据刷新完成 @ 2026-05-11 14:35:00
+[2026-05-11 14:35:01] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   5a3993f..e31c4b4  main       -> origin/main
+Updating 5a3993f..e31c4b4
+Fast-forward
+ portfolio/data/index_history.json |  2 +-
+ portfolio/data/indices.json       |  2 +-
+ portfolio/data/news.json          |  2 +-
+ portfolio/data/portfolio.json     |  2 +-
+ portfolio/data/stocks.json        |  2 +-
+ portfolio/data/updated.json       |  2 +-
+ portfolio/index.html              | 33 ++++++++++++++++++++++++++++----
+ v3-dashboard/index.html           | 40 +++++++++++++++++++++++++++++++++++++--
+ 8 files changed, 73 insertions(+), 12 deletions(-)
+[main f77d8cd] 📊 数据刷新 2026-05-11 14:35
+ 3 files changed, 186 insertions(+), 186 deletions(-)
+To https://github.com/komelio/ating.git
+   e31c4b4..f77d8cd  main -> main
+[2026-05-11 14:35:07] ✅ 推送完成
+
+[2026-05-11 14:40:01] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:40:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 0 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10750
+
+✅ 数据刷新完成 @ 2026-05-11 14:40:01
+[2026-05-11 14:40:03] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main ac4686d] 📊 数据刷新 2026-05-11 14:40
+ 15 files changed, 197 insertions(+), 65 deletions(-)
+ create mode 100644 stock-dashboard/data/history/002594.json
+ create mode 100644 stock-dashboard/data/history/300750.json
+ create mode 100644 stock-dashboard/data/history/600519.json
+ create mode 100644 stock-dashboard/data/history/600941.json
+ create mode 100644 stock-dashboard/data/history/601288.json
+ create mode 100644 stock-dashboard/data/history/601318.json
+ create mode 100644 stock-dashboard/data/history/601398.json
+ create mode 100644 stock-dashboard/data/history/601857.json
+ create mode 100644 stock-dashboard/data/history/601939.json
+ create mode 100644 stock-dashboard/data/history/601988.json
+ create mode 100644 stock-dashboard/data/review.json
+To https://github.com/komelio/ating.git
+   f77d8cd..ac4686d  main -> main
+[2026-05-11 14:40:09] ✅ 推送完成
+
+[2026-05-11 14:45:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:45:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块 (东方财富)...
+⚠️ 东方财富板块API不可用，使用缓存数据
+  板块: 16 条
+  状态机: Neutral
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10744
+
+✅ 数据刷新完成 @ 2026-05-11 14:45:00
+[2026-05-11 14:45:03] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   ac4686d..af59e05  main       -> origin/main
+Updating ac4686d..af59e05
+Fast-forward
+ v3-dashboard/index.html | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+[main 21c2076] 📊 数据刷新 2026-05-11 14:45
+ 27 files changed, 163 insertions(+), 81 deletions(-)
+ create mode 100644 stock-dashboard/data/history/000400.json
+ create mode 100644 stock-dashboard/data/history/000429.json
+ create mode 100644 stock-dashboard/data/history/000858.json
+ create mode 100644 stock-dashboard/data/history/002050.json
+ create mode 100644 stock-dashboard/data/history/300308.json
+ create mode 100644 stock-dashboard/data/history/600036.json
+ create mode 100644 stock-dashboard/data/history/600406.json
+ create mode 100644 stock-dashboard/data/history/600501.json
+ create mode 100644 stock-dashboard/data/history/600900.json
+ create mode 100644 stock-dashboard/data/history/601088.json
+ create mode 100644 stock-dashboard/data/history/601689.json
+ create mode 100644 stock-dashboard/data/history/688041.json
+ create mode 100644 stock-dashboard/data/history/688256.json
+To https://github.com/komelio/ating.git
+   af59e05..21c2076  main -> main
+[2026-05-11 14:45:09] ✅ 推送完成
+
+[2026-05-11 14:50:05] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:50:05
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10758
+
+✅ 数据刷新完成 @ 2026-05-11 14:50:05
+[2026-05-11 14:50:06] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   21c2076..db27095  main       -> origin/main
+Updating 21c2076..db27095
+Fast-forward
+ portfolio/data/analysis_log.json     |  2 +-
+ portfolio/data/history/sh600406.json |  1 +
+ portfolio/data/history/sh600501.json |  1 +
+ portfolio/data/history/sh600519.json |  1 +
+ portfolio/data/history/sh600760.json |  1 +
+ portfolio/data/history/sh600893.json |  1 +
+ portfolio/data/history/sh600900.json |  1 +
+ portfolio/data/history/sh600941.json |  1 +
+ portfolio/data/history/sh601088.json |  1 +
+ portfolio/data/history/sh601398.json |  1 +
+ portfolio/data/history/sh601689.json |  1 +
+ portfolio/data/history/sh688012.json |  1 +
+ portfolio/data/history/sh688041.json |  1 +
+ portfolio/data/history/sh688256.json |  1 +
+ portfolio/data/history/sz000858.json |  1 +
+ portfolio/data/history/sz002050.json |  1 +
+ portfolio/data/history/sz002085.json |  1 +
+ portfolio/data/history/sz002371.json |  1 +
+ portfolio/data/history/sz300308.json |  1 +
+ portfolio/data/index_history.json    |  2 +-
+ portfolio/data/indices.json          |  2 +-
+ portfolio/data/portfolio.json        |  2 +-
+ portfolio/data/stocks.json           |  2 +-
+ portfolio/data/updated.json          |  2 +-
+ portfolio/index.html                 | 76 ++++++++++++++++++++++++++++++++++--
+ v3-dashboard/index.html              |  2 +-
+ 26 files changed, 98 insertions(+), 10 deletions(-)
+ create mode 100644 portfolio/data/history/sh600406.json
+ create mode 100644 portfolio/data/history/sh600501.json
+ create mode 100644 portfolio/data/history/sh600519.json
+ create mode 100644 portfolio/data/history/sh600760.json
+ create mode 100644 portfolio/data/history/sh600893.json
+ create mode 100644 portfolio/data/history/sh600900.json
+ create mode 100644 portfolio/data/history/sh600941.json
+ create mode 100644 portfolio/data/history/sh601088.json
+ create mode 100644 portfolio/data/history/sh601398.json
+ create mode 100644 portfolio/data/history/sh601689.json
+ create mode 100644 portfolio/data/history/sh688012.json
+ create mode 100644 portfolio/data/history/sh688041.json
+ create mode 100644 portfolio/data/history/sh688256.json
+ create mode 100644 portfolio/data/history/sz000858.json
+ create mode 100644 portfolio/data/history/sz002050.json
+ create mode 100644 portfolio/data/history/sz002085.json
+ create mode 100644 portfolio/data/history/sz002371.json
+ create mode 100644 portfolio/data/history/sz300308.json
+[main a719497] 📊 数据刷新 2026-05-11 14:50
+ 4 files changed, 71 insertions(+), 69 deletions(-)
+To https://github.com/komelio/ating.git
+   db27095..a719497  main -> main
+[2026-05-11 14:50:12] ✅ 推送完成
+
+[2026-05-11 14:55:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[2026-05-11 14:55:00] 📊 抓取数据...
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:55:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10766
+
+✅ 数据刷新完成 @ 2026-05-11 14:55:00
+[2026-05-11 14:55:00] 🔄 同步到Git...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 14:55:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10766
+
+✅ 数据刷新完成 @ 2026-05-11 14:55:01
+[2026-05-11 14:55:01] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   a719497..2017fb1  main       -> origin/main
+Updating a719497..2017fb1
+Fast-forward
+ v3-dashboard/data/analysis.json  | 2 +-
+ v3-dashboard/data/history.json   | 2 +-
+ v3-dashboard/data/market.json    | 2 +-
+ v3-dashboard/data/news.json      | 2 +-
+ v3-dashboard/data/portfolio.json | 2 +-
+ v3-dashboard/data/snapshots.json | 2 +-
+ v3-dashboard/data/stocks.json    | 2 +-
+ v3-dashboard/index.html          | 2 +-
+ 8 files changed, 8 insertions(+), 8 deletions(-)
+[main 71cfd74] 📊 数据刷新 2026-05-11 14:55
+ 3 files changed, 63 insertions(+), 63 deletions(-)
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit a71949764e78510313eadd1a3a50ec31202ffd40.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 14:55:03] ✅ 无变更
+
+To https://github.com/komelio/ating.git
+   2017fb1..71cfd74  main -> main
+[2026-05-11 14:55:05] ✅ 推送完成
+
+[2026-05-11 15:00:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:00:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:00:01
+[2026-05-11 15:00:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:00:03
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:00:03] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main 570acfc] 📊 数据刷新 2026-05-11 15:00
+ 4 files changed, 81 insertions(+), 65 deletions(-)
+[2026-05-11 15:00:04] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:00:04
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:00:04
+[2026-05-11 15:00:05] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:00:05
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:00:05] 🔄 同步到Git...
+failed to store: -61
+To https://github.com/komelio/ating.git
+   71cfd74..570acfc  main -> main
+[2026-05-11 15:00:06] ✅ 推送完成
+
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main df835fd] 📊 数据刷新 2026-05-11 15:00
+ 3 files changed, 30 insertions(+), 30 deletions(-)
+To https://github.com/komelio/ating.git
+   570acfc..df835fd  main -> main
+[2026-05-11 15:00:09] ✅ 推送完成
+
+[2026-05-11 15:05:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[2026-05-11 15:05:01] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:05:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:05:00
+[2026-05-11 15:05:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:05:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:05:02] 🔄 同步到Git...
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:05:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:05:01
+[2026-05-11 15:05:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:05:03
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:05:03] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+   df835fd..61ab8c2  main       -> origin/main
+Updating df835fd..61ab8c2
+Fast-forward
+ portfolio/data/index_history.json | 2 +-
+ portfolio/data/indices.json       | 2 +-
+ portfolio/data/news.json          | 2 +-
+ portfolio/data/portfolio.json     | 2 +-
+ portfolio/data/stocks.json        | 2 +-
+ portfolio/data/updated.json       | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+[main e123f52] 📊 数据刷新 2026-05-11 15:05
+ 4 files changed, 27 insertions(+), 27 deletions(-)
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit df835fdaa0ecdc750458d8bc5170d928cd3793ad.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:05:04] ✅ 无变更
+
+To https://github.com/komelio/ating.git
+   61ab8c2..e123f52  main -> main
+[2026-05-11 15:05:06] ✅ 推送完成
+
+[2026-05-11 15:10:00] 📊 抓取数据...
+[2026-05-11 15:10:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:10:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:10:00
+[2026-05-11 15:10:01] 📝 收盘后分析...
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:10:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:10:00
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:10:01
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:10:01] 📝 收盘后分析...
+[2026-05-11 15:10:01] 🔄 同步到Git...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:10:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:10:02] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main edf0382] 📊 数据刷新 2026-05-11 15:10
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit e123f52cdee66ec07a78823ae9500d0a5e510582.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:10:04] ✅ 无变更
+
+To https://github.com/komelio/ating.git
+   e123f52..edf0382  main -> main
+[2026-05-11 15:10:06] ✅ 推送完成
+
+[2026-05-11 15:15:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:15:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:15:01
+[2026-05-11 15:15:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:15:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:15:02] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[2026-05-11 15:15:04] 📊 抓取数据...
+[main c977dea] 📊 数据刷新 2026-05-11 15:15
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:15:04
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:15:04
+[2026-05-11 15:15:06] 📝 收盘后分析...
+failed to store: -61
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:15:06
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:15:06] 🔄 同步到Git...
+To https://github.com/komelio/ating.git
+   edf0382..c977dea  main -> main
+[2026-05-11 15:15:07] ✅ 推送完成
+
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main beb594d] 📊 数据刷新 2026-05-11 15:15
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+To https://github.com/komelio/ating.git
+   c977dea..beb594d  main -> main
+[2026-05-11 15:15:10] ✅ 推送完成
+
+[2026-05-11 15:20:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[2026-05-11 15:20:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:20:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:20:00
+[2026-05-11 15:20:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:20:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:20:02] 🔄 同步到Git...
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:20:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:20:00
+[2026-05-11 15:20:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:20:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:20:02] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main f87fb5d] 📊 数据刷新 2026-05-11 15:20
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit beb594d06193f789d4a1fdaaef1ddc542aab98f8.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:20:04] ✅ 无变更
+
+To https://github.com/komelio/ating.git
+   beb594d..f87fb5d  main -> main
+[2026-05-11 15:20:07] ✅ 推送完成
+
+[2026-05-11 15:25:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:25:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:25:00
+[2026-05-11 15:25:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:25:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:25:02] 📊 抓取数据...
+[2026-05-11 15:25:02] 🔄 同步到Git...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:25:02
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:25:02
+[2026-05-11 15:25:03] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[main e564da6] 📊 数据刷新 2026-05-11 15:25
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:25:04
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:25:04] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Current branch main is up to date.
+[2026-05-11 15:25:05] ✅ 无变更
+
+To https://github.com/komelio/ating.git
+   f87fb5d..e564da6  main -> main
+[2026-05-11 15:25:06] ✅ 推送完成
+
+[2026-05-11 15:27:48] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:27:49
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:27:49
+[2026-05-11 15:27:50] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:27:50
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:27:50] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main bcfd743] 📊 数据刷新 2026-05-11 15:27
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+To https://github.com/komelio/ating.git
+   e564da6..bcfd743  main -> main
+[2026-05-11 15:27:55] ✅ 推送完成
+
+[2026-05-11 15:30:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[2026-05-11 15:30:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:30:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:30:00
+[2026-05-11 15:30:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:30:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:30:02] 🔄 同步到Git...
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:30:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:30:01
+[2026-05-11 15:30:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:30:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:30:03] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main c221f5b] 📊 数据刷新 2026-05-11 15:30
+ 5 files changed, 133 insertions(+), 21 deletions(-)
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit 9083aec3326089b6244b555a52e5f8a6f2c276bd.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:30:04] ✅ 无变更
+
+To https://github.com/komelio/ating.git
+   9083aec..c221f5b  main -> main
+[2026-05-11 15:30:06] ✅ 推送完成
+
+[2026-05-11 15:35:00] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[2026-05-11 15:35:01] 📊 抓取数据...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:35:00
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:35:00
+[2026-05-11 15:35:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:35:02
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:35:02] 🔄 同步到Git...
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:35:01
+============================================================
+
+📈 抓取指数 (新浪)...
+  指数: 5 条
+
+🔥 抓取板块...
+  ⚠️ 使用缓存板块数据
+  板块: 16 条
+  状态机: RiskOn
+
+⭐ 抓取自选股 (新浪)...
+  获取到 23 只
+
+💼 读取持仓...
+  持仓: 2 只 | 总市值: 10772
+
+✅ 数据刷新完成 @ 2026-05-11 15:35:01
+[2026-05-11 15:35:02] 📝 收盘后分析...
+/Users/mac/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+============================================================
+📊 小智盯盘 V2 | 2026-05-11 15:35:03
+============================================================
+
+📝 生成分析: 2026-05-11
+  ✅ 已保存
+[2026-05-11 15:35:03] 🔄 同步到Git...
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Current branch main is up to date.
+[main 8d293cc] 📊 数据刷新 2026-05-11 15:35
+ 6 files changed, 13 insertions(+), 8 deletions(-)
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit b6de57161d7666e394594f2fb89d83c3babac69f.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:35:04] ✅ 无变更
+
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   —————————————————————————————————————————        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:             
+remote:       —— GitHub Personal Access Token ——————————————————————        
+remote:        locations:        
+remote:          - commit: b6de57161d7666e394594f2fb89d83c3babac69f        
+remote:            path: stock-dashboard/fetcher/refresh.sh:8        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/komelio/ating/security/secret-scanning/unblock-secret/3DZLQbneZSrgPUgdW0hgeq1jLxy        
+remote:             
+remote: 
+remote: 
+To https://github.com/komelio/ating.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/komelio/ating.git'
+[2026-05-11 15:35:05] ✅ 推送完成
+

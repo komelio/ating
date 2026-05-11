@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🛠️ 小智盯盘 | V3.1 模拟盘</title>
+  <title>🛠️ 小智盯盘 | V3.1 模拟盘 · Mac-OpenClaw</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 </head>
@@ -145,12 +145,13 @@
       <section class="tab-content" id="tab-data">
         <div class="card">
           <div class="card-header-row">
-            <h2 class="card-title">历史分析记录</h2>
-            <select class="date-selector" id="analysisDateSelect"></select>
+            <h2 class="card-title">📊 历史盯盘分析</h2>
+            <span class="record-info" id="recordInfo"></span>
           </div>
-          <div class="analysis-content" id="analysisContent">
-            <p class="placeholder">选择日期查看历史分析记录</p>
+          <div class="analysis-list" id="analysisList">
+            <p class="placeholder">加载中...</p>
           </div>
+          <div class="pagination" id="analysisPagination"></div>
         </div>
       </section>
 

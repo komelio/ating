@@ -1,0 +1,104 @@
+[2026-05-11 14:55:00] 📊 抓取数据...
+[2026-05-11 14:55:01] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit a71949764e78510313eadd1a3a50ec31202ffd40.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 14:55:03] ✅ 无变更
+[2026-05-11 15:00:00] 📊 抓取数据...
+[2026-05-11 15:00:02] 📝 收盘后分析...
+[2026-05-11 15:00:03] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main 570acfc] 📊 数据刷新 2026-05-11 15:00
+ 4 files changed, 81 insertions(+), 65 deletions(-)
+failed to store: -61
+To https://github.com/komelio/ating.git
+   71cfd74..570acfc  main -> main
+[2026-05-11 15:00:06] ✅ 推送完成
+[2026-05-11 15:05:01] 📊 抓取数据...
+[2026-05-11 15:05:02] 📝 收盘后分析...
+[2026-05-11 15:05:03] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit df835fdaa0ecdc750458d8bc5170d928cd3793ad.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:05:04] ✅ 无变更
+[2026-05-11 15:10:00] 📊 抓取数据...
+[2026-05-11 15:10:01] 📝 收盘后分析...
+[2026-05-11 15:10:02] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit e123f52cdee66ec07a78823ae9500d0a5e510582.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:10:04] ✅ 无变更
+[2026-05-11 15:15:00] 📊 抓取数据...
+[2026-05-11 15:15:02] 📝 收盘后分析...
+[2026-05-11 15:15:02] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main c977dea] 📊 数据刷新 2026-05-11 15:15
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+failed to store: -61
+To https://github.com/komelio/ating.git
+   edf0382..c977dea  main -> main
+[2026-05-11 15:15:07] ✅ 推送完成
+[2026-05-11 15:20:00] 📊 抓取数据...
+[2026-05-11 15:20:02] 📝 收盘后分析...
+[2026-05-11 15:20:02] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit beb594d06193f789d4a1fdaaef1ddc542aab98f8.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:20:04] ✅ 无变更
+[2026-05-11 15:25:00] 📊 抓取数据...
+[2026-05-11 15:25:02] 📝 收盘后分析...
+[2026-05-11 15:25:02] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main e564da6] 📊 数据刷新 2026-05-11 15:25
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+failed to store: -61
+To https://github.com/komelio/ating.git
+   f87fb5d..e564da6  main -> main
+[2026-05-11 15:25:06] ✅ 推送完成
+[2026-05-11 15:30:00] 📊 抓取数据...
+[2026-05-11 15:30:02] 📝 收盘后分析...
+[2026-05-11 15:30:03] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit 9083aec3326089b6244b555a52e5f8a6f2c276bd.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:30:04] ✅ 无变更
+[2026-05-11 15:35:01] 📊 抓取数据...
+[2026-05-11 15:35:02] 📝 收盘后分析...
+[2026-05-11 15:35:03] 🔄 同步到Git...
+failed to store: -61
+From https://github.com/komelio/ating
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit b6de57161d7666e394594f2fb89d83c3babac69f.
+fatal: Cannot rebase onto multiple branches.
+[2026-05-11 15:35:04] ✅ 无变更
