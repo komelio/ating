@@ -215,8 +215,12 @@ def ingest_portfolio(db, ts):
     for code, h in holdings.items():
         shares = h.get("shares",0); avg = h.get("avg_cost",0)
         cost = shares * avg
-        # try live price
-        row = db.execute("SELECT price FROM stock_snapshots WHERE code=? ORDER BY ts DESC LIMIT 1",[code]).fetchone()
+        # Try live price: search both prefixed (sh600900) and clean (600900)
+        row = db.execute("""
+            SELECT price FROM stock_snapshots 
+            WHERE code IN (?, ?, ?, ?) 
+            ORDER BY ts DESC LIMIT 1
+        """, [code, f"sh{code}", f"sz{code}", code]).fetchone()
         price = row["price"] if row else avg
         mv = shares * price
         db.execute("""INSERT INTO holding_snapshots(ts,code,name,shares,avg_cost,current_price,market_value,pnl,pnl_pct,htype,sector)
