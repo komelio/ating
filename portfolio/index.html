@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>5年复利模拟仓 | A股仪表盘</title>
+<title>5年复利模拟仓 | A股仪表盘 - NB-Hermes</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--red:#ef5350;--green:#26a69a;--text:#c9d1d9;--text2:#8b949e;--accent:#58a6ff;--orange:#f0883e}
@@ -41,6 +41,14 @@ td{padding:8px 10px;border-bottom:1px solid var(--border)}tr:hover{background:rg
 .mode-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(88,166,255,.1)}
 .loading{text-align:center;padding:40px;color:var(--text2)}
 @media(max-width:768px){.header,.tabs,.pane{padding-left:12px;padding-right:12px}.idx-card{min-width:100px;padding:8px 10px}.idx-card .v{font-size:16px}}
+.stock-row{cursor:pointer;transition:background .15s}.stock-row:hover{background:rgba(88,166,255,.08)!important}
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.75);z-index:200;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;width:90vw;max-width:1000px;max-height:85vh;overflow-y:auto;padding:20px}
+.modal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal-h h2{font-size:16px}.modal-close{cursor:pointer;font-size:24px;color:var(--text2);line-height:1;padding:0 8px}.modal-close:hover{color:var(--text)}
+.modal-chart{background:var(--card);border-radius:8px;padding:12px;margin-bottom:8px}
+.modal-chart canvas{max-height:320px}
 </style>
 </head>
 <body>
@@ -154,11 +162,11 @@ function renderWatchlist(){
       var arrow=c.key===wlSort.key?(wlSort.dir>0?' ▴':' ▾'):'';
       h+='<th class="th-sort" data-sort="'+c.key+'">'+c.label+arrow+'</th>';
     });
-    h+='</tr></thead><tbody>';
+h+='</tr></thead><tbody>';
     stocks.forEach(function(s){
       var sc=s.change_pct>0?'up':s.change_pct<0?'down':'';
       var sc2=s.score>=8?'shi':s.score>=6?'smi':'slo';
-      h+='<tr><td><b>'+s.name+'</b><br><span style="font-size:10px;color:var(--text2)">'+s.code+'</span></td><td class="'+sc+'" style="font-weight:600">'+fmt(s.price)+'</td><td>'+chgT(s.change_pct)+'</td><td>'+fmt(s.open)+'</td><td style="color:var(--red)">'+fmt(s.high)+'</td><td style="color:var(--green)">'+fmt(s.low)+'</td><td>'+fmt(s.prev_close)+'</td><td><span class="score '+sc2+'">'+s.score+'/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">'+s.reason+'</td></tr>';
+      h+='<tr class="stock-row" data-code="'+s.code+'"><td><b>'+s.name+'</b><br><span style="font-size:10px;color:var(--text2)">'+s.code+'</span></td><td class="'+sc+'" style="font-weight:600">'+fmt(s.price)+'</td><td>'+chgT(s.change_pct)+'</td><td>'+fmt(s.open)+'</td><td style="color:var(--red)">'+fmt(s.high)+'</td><td style="color:var(--green)">'+fmt(s.low)+'</td><td>'+fmt(s.prev_close)+'</td><td><span class="score '+sc2+'">'+s.score+'/10</span></td><td style="font-size:11px;color:var(--text2);max-width:200px">'+s.reason+'</td></tr>';
     });
     h+='</tbody></table></div></div>';
   });
@@ -171,6 +179,11 @@ $('watchlist').addEventListener('click',function(e){
   if(wlSort.key===key)wlSort.dir*=-1;
   else{wlSort.key=key;wlSort.dir=-1;}
   renderWatchlist();
+});
+$('watchlist').addEventListener('click',function(e){
+  var tr=e.target.closest('.stock-row');
+  if(!tr)return;
+  showKLine(tr.dataset.code, tr.querySelector('b').textContent);
 });
 
 function renderPortfolio(){
@@ -232,6 +245,63 @@ function renderNews(){
 var h='';nw.forEach(function(n){h+='<div class="news-item"><a class="nt" href="'+n.url+'" target="_blank">'+n.title+'</a><div class="nm">'+n.source+' &middot; '+n.ts+'</div></div>'});
   $('news').innerHTML=h;
 }
+
+var klineCache={},klineMode='daily',klineCode=null;
+function showKLine(code,name){
+  klineCode=code;klineMode='daily';
+  $('klineTitle').textContent=name+' ('+code+')';
+  $('klineModal').classList.add('show');
+  $('klineDaily').classList.add('active');$('klineWeekly').classList.remove('active');
+  if(klineCache[code]){renderKLine(klineCache[code]);return}
+  fetch('./data/history/'+code+'.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+    klineCache[code]=d;renderKLine(d);
+  }).catch(function(e){alert('加载K线失败: '+e)});
+}
+function closeKLine(){$('klineModal').classList.remove('show');Object.values(charts).forEach(function(c){c.destroy()});charts={}}
+$('klineDaily').onclick=function(){$('klineDaily').classList.add('active');$('klineWeekly').classList.remove('active');klineMode='daily';if(klineCache[klineCode])renderKLine(klineCache[klineCode])};
+$('klineWeekly').onclick=function(){$('klineWeekly').classList.add('active');$('klineDaily').classList.remove('active');klineMode='weekly';if(klineCache[klineCode])renderKLine(klineCache[klineCode])};
+$('klineModal').addEventListener('click',function(e){if(e.target===this)closeKLine()});
+
+function renderKLine(data){
+  var pts=klineMode==='daily'?data.daily:data.weekly;
+  if(!pts||pts.length<2)return;
+  Object.values(charts).forEach(function(c){c.destroy()});charts={};
+  var labels=pts.map(function(p){return klineMode==='daily'?p.day.slice(5):p.day});
+  var closes=pts.map(function(p){return p.close});
+  var vols=pts.map(function(p){return p.volume});
+  var upCol='#ef5350',dnCol='#26a69a';
+  // Color segments
+  var segs=[],i=0;
+  while(i<closes.length-1){
+    var j=i+1,up=closes[j]>=closes[i];
+    while(j<closes.length-1&&(closes[j+1]>=closes[j])===up)j++;
+    segs.push({start:i,end:j,up:up});
+    i=j;
+  }
+  var ds=[];
+  segs.forEach(function(s){
+    var slice=closes.slice(s.start,s.end+1);
+    var lbl=labels.slice(s.start,s.end+1);
+    ds.push({data:slice.map(function(v,idx){return{x:lbl[idx],y:v}}),borderColor:s.up?upCol:dnCol,backgroundColor:s.up?upCol:dnCol,borderWidth:2,pointRadius:0,tension:.1,fill:false});
+  });
+  // High-low band
+  ds.push({data:pts.map(function(p,i){return{x:labels[i],y:p.high}}),borderColor:'transparent',pointRadius:0,fill:false});
+  ds.push({data:pts.map(function(p,i){return{x:labels[i],y:p.low}}),borderColor:'transparent',pointRadius:0,backgroundColor:'rgba(88,166,255,.08)',fill:'-1'});
+
+  charts.kl=new Chart($('chKLine'),{type:'line',data:{datasets:ds},options:{responsive:true,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){if(ctx.datasetIndex>=ds.length-2)return'';return '¥'+Number(ctx.raw.y).toFixed(2)}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:15,autoSkip:true}},y:{ticks:{color:'#8b949e',font:{size:9},callback:function(v){return '¥'+Number(v).toFixed(1)}}}}}});
+
+  // Volume
+  var volColors=pts.map(function(p,i){return i>0&&p.close>=pts[i-1].close?upCol:dnCol});
+  charts.kv=new Chart($('chKVol'),{type:'bar',data:{labels:labels,datasets:[{data:vols,backgroundColor:volColors,borderRadius:0}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:15}},y:{ticks:{color:'#8b949e',font:{size:9},callback:function(v){return v>=1e8?(v/1e8).toFixed(1)+'亿':v>=1e4?(v/1e4).toFixed(0)+'万':v}}}}}});
+}
 </script>
+<div class="modal-overlay" id="klineModal">
+  <div class="modal-box">
+    <div class="modal-h"><h2 id="klineTitle"></h2><span class="modal-close" onclick="closeKLine()">✕</span></div>
+    <div class="mode-bar"><button class="mode-btn active" id="klineDaily">📅 日K</button><button class="mode-btn" id="klineWeekly">📅 周K</button></div>
+    <div class="modal-chart"><canvas id="chKLine"></canvas></div>
+    <div class="modal-chart"><h4 style="font-size:12px;color:var(--text2);margin-bottom:8px">📊 成交量</h4><canvas id="chKVol"></canvas></div>
+  </div>
+</div>
 </body>
 </html>
