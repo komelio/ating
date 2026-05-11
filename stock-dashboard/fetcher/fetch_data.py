@@ -405,11 +405,13 @@ def run_refresh(now):
         indices = cached.get("indices", [])
     print(f"  指数: {len(indices)} 条")
     
-    print("\n🔥 抓取板块 (东方财富)...")
+    print("\n🔥 抓取板块...")
     sectors = fetch_sectors_eastmoney()
-    if not sectors:
+    if sectors is None:
+        # API failed, use cached
         cached = load_json("market.json")
         sectors = cached.get("sectors", [])
+        print("  ⚠️ 使用缓存板块数据")
     print(f"  板块: {len(sectors)} 条")
     
     state = determine_market_state(indices, sectors)
