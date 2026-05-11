@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛠️ 小智盯盘 | V3.1 模拟盘</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">🛠️ 小智盯盘</h1>
+        <span class="badge">V3.1 模拟盘</span>
+      </div>
+      <div class="header-center">
+        <div class="market-ticker" id="marketTicker">
+          <span class="ticker-loading">加载中...</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="update-time" id="updateTime">--</span>
+        <span class="refresh-info" id="refreshInfo">自动刷新 60s</span>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="market">📈 大盘</button>
+      <button class="tab" data-tab="watchlist">⭐ 自选</button>
+      <button class="tab" data-tab="positions">💼 持仓</button>
+      <button class="tab" data-tab="data">📊 数据</button>
+      <button class="tab" data-tab="news">📰 资讯</button>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+      <!-- 大盘 Tab -->
+      <section class="tab-content active" id="tab-market">
+        <div class="grid-2col">
+          <div class="card">
+            <h2 class="card-title">主要指数</h2>
+            <div class="index-list" id="indexList">加载中...</div>
+          </div>
+          <div class="card">
+            <h2 class="card-title">板块热力图</h2>
+            <div class="sector-grid" id="sectorGrid">加载中...</div>
+          </div>
+        </div>
+        <div class="card mt-16">
+          <h2 class="card-title">市场状态机</h2>
+          <div class="state-machine" id="stateMachine">加载中...</div>
+        </div>
+      </section>
+
+      <!-- 自选 Tab -->
+      <section class="tab-content" id="tab-watchlist">
+        <div class="card">
+          <div class="card-header-row">
+            <h2 class="card-title">自选股监控</h2>
+            <div class="watchlist-filters">
+              <button class="filter-btn active" data-filter="all">全部</button>
+              <button class="filter-btn" data-filter="cashcow">🐮 现金牛</button>
+              <button class="filter-btn" data-filter="growth">🚀 成长股</button>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table" id="watchlistTable">
+              <thead>
+                <tr>
+                  <th>代码</th><th>名称</th><th>最新价</th><th>涨跌幅</th>
+                  <th>PE(TTM)</th><th>PB</th><th>ROE</th><th>股息率</th>
+                  <th>类型</th><th>状态</th>
+                </tr>
+              </thead>
+              <tbody id="watchlistBody">加载中...</tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 持仓 Tab -->
+      <section class="tab-content" id="tab-positions">
+        <div class="summary-cards" id="summaryCards">加载中...</div>
+        <div class="card mt-16">
+          <h2 class="card-title">持仓明细</h2>
+          <div class="table-wrapper">
+            <table class="data-table" id="positionsTable">
+              <thead>
+                <tr>
+                  <th>代码</th><th>名称</th><th>股数</th><th>成本价</th><th>成本</th>
+                  <th>最新价</th><th>市值</th><th>浮盈</th><th>浮盈%</th>
+                  <th>类型</th>
+                </tr>
+              </thead>
+              <tbody id="positionsBody">加载中...</tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card mt-16">
+          <h2 class="card-title">红线监控</h2>
+          <div class="redline-grid" id="redlineGrid">加载中...</div>
+        </div>
+        <div class="card mt-16">
+          <h2 class="card-title">最近交易</h2>
+          <div class="table-wrapper">
+            <table class="data-table" id="tradesTable">
+              <thead>
+                <tr><th>日期</th><th>操作</th><th>代码</th><th>名称</th><th>股数</th><th>价格</th><th>金额</th></tr>
+              </thead>
+              <tbody id="tradesBody">加载中...</tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 数据 Tab -->
+      <section class="tab-content" id="tab-data">
+        <div class="card">
+          <div class="card-header-row">
+            <h2 class="card-title">历史分析记录</h2>
+            <select class="date-selector" id="analysisDateSelect"></select>
+          </div>
+          <div class="analysis-content" id="analysisContent">
+            <p class="placeholder">选择日期查看历史分析记录</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 资讯 Tab -->
+      <section class="tab-content" id="tab-news">
+        <div class="card">
+          <h2 class="card-title">市场要闻</h2>
+          <div class="news-list" id="newsList">加载中...</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>数据来源: 东方财富 · 新浪财经 · 雪球</span>
+      <span>|</span>
+      <span>免责声明: 仅供模拟学习，不构成投资建议</span>
+      <span>|</span>
+      <span id="dataTimestamp">--</span>
+    </footer>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

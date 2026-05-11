@@ -1,0 +1,18 @@
+{
+  "update_time": "2026-05-11 13:36:00",
+  "stocks": [
+    {"code": "600900", "name": "长江电力", "price": 27.05, "change_pct": 0.00, "pe": 18.31, "pb": 2.90, "roe": 0.158, "dividend_yield": 0.037, "type": "cashcow", "status": "持有"},
+    {"code": "601088", "name": "中国神华", "price": 45.45, "change_pct": -0.50, "pe": 19.10, "pb": 1.97, "roe": 0.107, "dividend_yield": 0.045, "type": "cashcow", "status": "关注(定投候选)"},
+    {"code": "600519", "name": "贵州茅台", "price": 1371.00, "change_pct": 0.30, "pe": 20.80, "pb": 9.50, "roe": 0.305, "dividend_yield": 0.040, "type": "cashcow", "status": "暂缓(资金不足)"},
+    {"code": "000858", "name": "五粮液", "price": 158.00, "change_pct": -0.20, "pe": 28.50, "pb": 5.20, "roe": 0.098, "dividend_yield": 0.025, "type": "cashcow", "status": "关注"},
+    {"code": "000429", "name": "粤高速A", "price": 11.50, "change_pct": 0.50, "pe": 16.50, "pb": 2.28, "roe": 0.138, "dividend_yield": 0.042, "type": "cashcow", "status": "关注"},
+    {"code": "600406", "name": "国电南瑞", "price": 26.44, "change_pct": -1.36, "pe": 25.18, "pb": 3.92, "roe": 0.156, "dividend_yield": 0.024, "type": "growth", "status": "持有"},
+    {"code": "000400", "name": "许继电气", "price": 24.90, "change_pct": 0.80, "pe": 24.90, "pb": 2.17, "roe": 0.087, "dividend_yield": 0.015, "type": "growth", "status": "关注(定投候选)"},
+    {"code": "002050", "name": "三花智控", "price": 28.50, "change_pct": 4.21, "pe": 54.00, "pb": 6.80, "roe": 0.126, "dividend_yield": 0.008, "type": "growth", "status": "PE偏高,观察"},
+    {"code": "601689", "name": "拓普集团", "price": 72.00, "change_pct": 4.58, "pe": 42.00, "pb": 5.50, "roe": 0.131, "dividend_yield": 0.006, "type": "growth", "status": "PE偏高,观察"},
+    {"code": "300308", "name": "中际旭创", "price": 185.00, "change_pct": -2.00, "pe": 65.00, "pb": 8.20, "roe": 0.126, "dividend_yield": 0.003, "type": "growth", "status": "PE分位待验证"},
+    {"code": "688256", "name": "寒武纪", "price": 320.00, "change_pct": -5.80, "pe": 183.00, "pb": 15.00, "roe": -0.050, "dividend_yield": 0.000, "type": "growth", "status": "PE极高,暂不建仓"},
+    {"code": "688041", "name": "海光信息", "price": 168.00, "change_pct": -5.58, "pe": 275.00, "pb": 18.00, "roe": 0.045, "dividend_yield": 0.000, "type": "growth", "status": "PE极高,暂不建仓"},
+    {"code": "600501", "name": "航天晨光", "price": 12.00, "change_pct": 0.00, "pe": -50.50, "pb": 3.20, "roe": -0.140, "dividend_yield": 0.000, "type": "growth", "status": "亏损,已移出选股池"}
+  ]
+}
