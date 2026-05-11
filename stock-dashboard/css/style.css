@@ -696,3 +696,38 @@ body {
 .page-btn:hover:not([disabled]) { background: var(--accent); color: var(--bg-primary); border-color: var(--accent); }
 .page-btn[disabled] { opacity: 0.4; cursor: default; }
 .page-info { font-size: 12px; color: var(--text-secondary); }
+/* === Review Cards === */
+.review-list { display: flex; flex-direction: column; gap: 18px; }
+.review-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.rc-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light); flex-wrap: wrap;
+}
+.rc-type { font-weight: 700; font-size: 13px; color: var(--text-primary); }
+.rc-time { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); margin-left: auto; }
+.rc-body { padding: 12px 14px; }
+.rv-block { margin-bottom: 10px; }
+.rv-block:last-child { margin-bottom: 0; }
+.rv-label { font-size: 11px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.signal-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 2px 0; font-size: 12px; color: var(--text-secondary);
+}
+.sig-danger { color: var(--red); }
+.sig-warn { color: var(--orange); }
+.sig-positive { color: var(--green); }
+.sig-info { color: var(--blue); }
+.rv-tag {
+  display: inline-block; padding: 2px 8px; margin: 2px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 11px; font-size: 11px; color: var(--text-secondary);
+}
+.rv-text { font-size: 12px; color: var(--text-secondary); line-height: 1.7; white-space: pre-wrap; }
+.review-count { font-size: 12px; color: var(--text-muted); }
