@@ -289,7 +289,7 @@ function renderTrades(d) {
   const t = document.getElementById('tradesBody');
   const tr = d.trades || [];
   if (!tr.length) { t.innerHTML = '<tr><td colspan="7" class="placeholder">暂无</td></tr>'; return; }
-  t.innerHTML = tr.map(x => `<tr><td>${x.date}</td><td>${x.action==='BUY'?'<span class="tag tag-buy">买入</span>':'<span class="tag tag-sell">卖出</span>'}</td><td>${x.code}</td><td class="name-cell">${x.name}</td><td>${x.shares}</td><td>${fmtP(x.price)}</td><td>¥${fmtM(x.amount)}</td></tr>`).join('');
+  t.innerHTML = tr.map(x => `<tr><td>${x.date}</td><td>${x.action==='BUY'?'<span class="tag tag-buy">买入</span>':'<span class="tag tag-sell">卖出</span>'}</td><td>${x.code}</td><td class="name-cell">${x.name}</td><td>${x.shares}</td><td>${fmtP(x.price)}</td><td>¥${fmtM(x.amount)}</td><td style="color:var(--orange)">¥${(x.commission||0).toFixed(0)}</td></tr>`).join('');
 }
 
 function renderReview(d) {

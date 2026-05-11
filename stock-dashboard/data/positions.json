@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-11 22:10:00",
+  "update_time": "2026-05-11 22:11:55",
   "summary": {
     "total_assets": 99990.0,
     "cash": 89410.0,
@@ -49,7 +49,8 @@
       "name": "国电南瑞",
       "shares": 200,
       "price": 25.9,
-      "amount": 5180.0
+      "amount": 5180.0,
+      "commission": 5.0
     },
     {
       "date": "2026-05-08",
@@ -58,7 +59,8 @@
       "name": "长江电力",
       "shares": 200,
       "price": 27.0,
-      "amount": 5400.0
+      "amount": 5400.0,
+      "commission": 5.0
     }
   ],
   "redlines": [
