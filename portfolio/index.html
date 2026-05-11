@@ -257,7 +257,7 @@ function showKLine(code,name){
     klineCache[code]=d;renderKLine(d);
   }).catch(function(e){alert('加载K线失败: '+e)});
 }
-function closeKLine(){$('klineModal').classList.remove('show');Object.values(charts).forEach(function(c){c.destroy()});charts={}}
+function closeKLine(){$('klineModal').classList.remove('show');var ek=Chart.getChart('chKLine');if(ek)ek.destroy();var ev=Chart.getChart('chKVol');if(ev)ev.destroy();Object.values(charts).forEach(function(c){c.destroy()});charts={};klineCode=null}
 $('klineDaily').onclick=function(){$('klineDaily').classList.add('active');$('klineWeekly').classList.remove('active');klineMode='daily';if(klineCache[klineCode])renderKLine(klineCache[klineCode])};
 $('klineWeekly').onclick=function(){$('klineWeekly').classList.add('active');$('klineDaily').classList.remove('active');klineMode='weekly';if(klineCache[klineCode])renderKLine(klineCache[klineCode])};
 $('klineModal').addEventListener('click',function(e){if(e.target===this)closeKLine()});
@@ -265,6 +265,9 @@ $('klineModal').addEventListener('click',function(e){if(e.target===this)closeKLi
 function renderKLine(data){
   var pts=klineMode==='daily'?data.daily:data.weekly;
   if(!pts||pts.length<2)return;
+  // safely destroy existing K-line charts
+  var ek=Chart.getChart('chKLine');if(ek)ek.destroy();
+  var ev=Chart.getChart('chKVol');if(ev)ev.destroy();
   Object.values(charts).forEach(function(c){c.destroy()});charts={};
   var labels=pts.map(function(p){return klineMode==='daily'?p.day.slice(5):p.day});
   var closes=pts.map(function(p){return p.close});
@@ -284,9 +287,9 @@ function renderKLine(data){
     var lbl=labels.slice(s.start,s.end+1);
     ds.push({data:slice.map(function(v,idx){return{x:lbl[idx],y:v}}),borderColor:s.up?upCol:dnCol,backgroundColor:s.up?upCol:dnCol,borderWidth:2,pointRadius:0,tension:.1,fill:false});
   });
-  // High-low band
+  // High-low band (fill between high and low datasets)
   ds.push({data:pts.map(function(p,i){return{x:labels[i],y:p.high}}),borderColor:'transparent',pointRadius:0,fill:false});
-  ds.push({data:pts.map(function(p,i){return{x:labels[i],y:p.low}}),borderColor:'transparent',pointRadius:0,backgroundColor:'rgba(88,166,255,.08)',fill:'-1'});
+  ds.push({data:pts.map(function(p,i){return{x:labels[i],y:p.low}}),borderColor:'transparent',pointRadius:0,backgroundColor:'rgba(100,160,255,.12)',fill:{target:-1}});
 
   charts.kl=new Chart($('chKLine'),{type:'line',data:{datasets:ds},options:{responsive:true,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){if(ctx.datasetIndex>=ds.length-2)return'';return '¥'+Number(ctx.raw.y).toFixed(2)}}}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:15,autoSkip:true}},y:{ticks:{color:'#8b949e',font:{size:9},callback:function(v){return '¥'+Number(v).toFixed(1)}}}}}});
 
