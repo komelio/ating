@@ -145,8 +145,52 @@ def export_all_json():
     cur = conn.execute("SELECT * FROM analysis_log ORDER BY created_at DESC LIMIT 30")
     _write_json("analysis.json", cur.fetchall())
 
+    # ── 交易记录 ──
+    _export_transactions()
+
     conn.close()
     return True
+
+
+def _export_transactions():
+    """从 transactions.log 解析交易记录并导出 JSON。"""
+    import re
+    log_path = os.path.expanduser("~/.hermes/portfolio/transactions.log")
+    if not os.path.exists(log_path):
+        _write_json("transactions.json", [])
+        return
+    txs = []
+    with open(log_path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or '快照' in line:
+                continue
+            ts_match = re.match(r'\[([\d\- :]+)\]', line)
+            if not ts_match: continue
+            ts = ts_match.group(1)
+            if '买入' in line:
+                action = 'BUY'
+            elif '卖出' in line:
+                action = 'SELL'
+            else:
+                continue
+            name_match = re.search(r'[买入卖出]\s+(\S+)', line)
+            name = name_match.group(1) if name_match else ''
+            shares_match = re.search(r'(\d+)股', line)
+            shares = int(shares_match.group(1)) if shares_match else 0
+            price_match = re.search(r'@\s*¥?([\d.]+)', line)
+            price = float(price_match.group(1)) if price_match else 0
+            if action == 'SELL':
+                amt_match = re.search(r'到账\s*¥?([\d.]+)', line)
+            else:
+                amt_match = re.search(r'金额\s*¥?([\d.]+)', line)
+            amount = float(amt_match.group(1)) if amt_match else 0
+            fee_match = re.search(r'手续费\s*¥?([\d.]+)', line)
+            fee = float(fee_match.group(1)) if fee_match else 0
+            txs.append({'time': ts, 'action': action, 'name': name,
+                        'shares': shares, 'price': price, 'amount': amount, 'fee': fee})
+    txs.sort(key=lambda x: x['time'], reverse=True)
+    _write_json("transactions.json", txs)
 
 
 def _write_json(filename, data):

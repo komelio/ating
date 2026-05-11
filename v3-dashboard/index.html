@@ -34,6 +34,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
 tr:hover{background:rgba(88,166,255,.05)}
 .right{text-align:right}.center{text-align:center}
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.chart-row.portfolio-layout{grid-template-columns:280px 1fr;align-items:start}
 .chart-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
 .chart-card h3{font-size:14px;color:var(--dim);margin-bottom:12px}
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -94,6 +95,7 @@ const SOURCES = {
   history:  'data/history.json',
   snapshots:'data/snapshots.json',
   analysis: 'data/analysis.json',
+  transactions:'data/transactions.json',
 };
 
 const CACHE = {};
@@ -262,17 +264,18 @@ function render_portfolio() {
   const total = cash + mv, profit = total - 100000, pp = profit/100000*100;
   const pcls = profit>=0?'up':'down';
 
-  // Summary
+  // Summary cards
   let h = `<div class="cards">
     <div class="card"><div class="card-title">总资产</div><div class="card-value">¥${fmt.num(total)}</div></div>
     <div class="card"><div class="card-title">累计盈亏</div><div class="card-value ${pcls}">${profit>=0?'+':''}¥${fmt.num(profit)}</div><div class="card-sub ${pcls}">${fmt.pct(pp)}</div></div>
     <div class="card"><div class="card-title">可用现金</div><div class="card-value">¥${fmt.num(cash)}</div><div class="card-sub">${(cash/total*100).toFixed(1)}%</div></div>
   </div>`;
 
-  // Allocation
+  // Allocation chart (small) + holdings table
   const cats = {'现金牛':0,'成长股':0,'拓荒型':0};
   hl.forEach(h => cats[h.category] = (cats[h.category]||0) + (h.current_price||0)*(h.shares||0));
-  h += `<div class="chart-row"><div class="chart-card"><h3>💰 资产配置</h3><canvas id="alloc-chart"></canvas></div>
+  h += `<div class="chart-row portfolio-layout">
+    <div class="chart-card"><h3>💰 配置</h3><canvas id="alloc-chart" style="max-width:240px;max-height:240px"></canvas></div>
     <div class="chart-card"><h3>📋 持仓明细</h3><div class="table-wrap">`;
   h += `<table><thead><tr><th>名称</th><th class="center">股数</th><th class="right">成本</th><th class="right">现价</th><th class="right">市值</th><th class="right">盈亏</th><th class="right">盈亏%</th><th class="center">类型</th></tr></thead><tbody>`;
   hl.forEach(hh => {
@@ -283,7 +286,29 @@ function render_portfolio() {
       <td class="right">¥${hmv.toFixed(0)}</td><td class="right ${hcls}">${hp>=0?'+':''}¥${hp.toFixed(0)}</td>
       <td class="right ${hcls}">${fmt.pct(hpp)}</td><td class="center">${hh.category||'--'}</td></tr>`;
   });
-  h += '</tbody></table></div></div></div>';
+  h += `</tbody></table></div></div></div>`;
+
+  // ── 操盘明细 ──
+  const txs = CACHE.transactions?.data || [];
+  if (txs.length) {
+    h += `<div class="chart-card" style="margin-top:16px"><h3>📜 操盘明细（按时间倒序）</h3><div class="table-wrap">`;
+    h += `<table><thead><tr><th>时间</th><th class="center">操作</th><th>名称</th><th class="center">股数</th><th class="right">价格</th><th class="right">金额</th><th class="right">手续费</th></tr></thead><tbody>`;
+    txs.forEach(tx => {
+      const actCls = tx.action==='BUY'?'up':'down';
+      const actLabel = tx.action==='BUY'?'买入':'卖出';
+      h += `<tr>
+        <td>${tx.time}</td>
+        <td class="center ${actCls}" style="font-weight:600">${actLabel}</td>
+        <td>${tx.name}</td>
+        <td class="center">${tx.shares}</td>
+        <td class="right">${fmt.price(tx.price)}</td>
+        <td class="right">¥${(tx.amount||0).toLocaleString('zh-CN',{minimumFractionDigits:0})}</td>
+        <td class="right">${tx.fee>0?'¥'+tx.fee:'--'}</td>
+      </tr>`;
+    });
+    h += `</tbody></table></div></div>`;
+  }
+
   document.getElementById('page-portfolio').innerHTML = h;
 
   // Doughnut
@@ -291,7 +316,7 @@ function render_portfolio() {
   const ac = document.getElementById('alloc-chart');
   if (ac) charts.alloc = new Chart(ac, {type:'doughnut',
     data:{labels:['现金','现金牛','成长股','拓荒型'], datasets:[{data:[cash,cats['现金牛']||0,cats['成长股']||0,cats['拓荒型']||0], backgroundColor:['#1f6feb','#d2991d','#3fb950','#f85149']}]},
-    options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#8b949e'}}}}});
+    options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{color:'#8b949e',boxWidth:12,font:{size:11}}}}}});
 }
 
 // ── 分析复盘 ──
