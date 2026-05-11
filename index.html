@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V3.1 投资仪表盘</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--dim:#8b949e;--red:#f85149;--green:#3fb950;--blue:#58a6ff;--gold:#d2991d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.header{background:#010409;border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;height:56px;justify-content:space-between}
+.header h1{font-size:18px;font-weight:600;color:#fff}
+.header .refresh{font-size:12px;color:var(--dim)}
+.header .refresh span{color:var(--blue);font-weight:600}
+.tabs{display:flex;background:#010409;border-bottom:1px solid var(--border);padding:0 20px;gap:0}
+.tab{padding:12px 20px;cursor:pointer;color:var(--dim);font-size:14px;border-bottom:2px solid transparent;transition:.2s}
+.tab.active{color:#fff;border-bottom-color:var(--blue)}
+.tab:hover{color:#fff}
+.main{padding:20px;max-width:1400px;margin:0 auto}
+.page{display:none}
+.page.active{display:block}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-title{font-size:13px;color:var(--dim)}
+.card-value{font-size:28px;font-weight:700}
+.card-sub{font-size:13px;margin-top:4px}
+.up{color:var(--red)}.down{color:var(--green)}
+/* Tables */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#010409;color:var(--dim);font-weight:500;padding:10px 12px;text-align:left;position:sticky;top:0;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+tr:hover{background:rgba(88,166,255,.05)}
+tr:last-child td{border-bottom:none}
+.right{text-align:right}
+.center{text-align:center}
+/* Charts */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.chart-card h3{font-size:14px;color:var(--dim);margin-bottom:12px}
+/* Allocation */
+.allocation{display:flex;gap:8px;height:24px;border-radius:12px;overflow:hidden;margin:8px 0}
+.alloc-bar{transition:.3s;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;min-width:60px}
+.alloc-cash{background:#1f6feb}.alloc-cow{background:#d2991d}.alloc-grow{background:#3fb950}.alloc-front{background:#f85149}
+.alloc-label{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:8px}
+.alloc-label i{width:10px;height:10px;border-radius:2px;display:inline-block}
+/* Stats */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat-item{text-align:center;padding:12px}
+.stat-item .label{font-size:11px;color:var(--dim);margin-bottom:4px}
+.stat-item .value{font-size:18px;font-weight:600}
+/* News */
+.news-item{padding:14px 16px;border-bottom:1px solid var(--border)}
+.news-item:last-child{border-bottom:none}
+.news-title{font-size:14px;color:var(--text);text-decoration:none;display:block;margin-bottom:4px}
+.news-title:hover{color:var(--blue)}
+.news-meta{font-size:11px;color:var(--dim);display:flex;gap:12px}
+.news-cat{color:var(--gold);font-weight:500}
+/* Responsive */
+@media(max-width:768px){
+  .chart-row{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+}
+.loading{text-align:center;padding:40px;color:var(--dim)}
+.error{text-align:center;padding:20px;color:var(--red)}
+.note{font-size:11px;color:var(--dim);text-align:center;margin-top:20px;padding:10px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>📊 V3.1 投资仪表盘</h1>
+  </div>
+  <div class="refresh">🔄 自动刷新 <span id="countdown">30</span>s · <span id="update-time">--</span></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('market')">📈 大盘</div>
+  <div class="tab" onclick="switchTab('watchlist')">⭐ 自选</div>
+  <div class="tab" onclick="switchTab('portfolio')">💰 持仓</div>
+  <div class="tab" onclick="switchTab('data')">📊 数据</div>
+  <div class="tab" onclick="switchTab('news')">📰 资讯</div>
+</div>
+
+<div class="main">
+
+  <!-- ====== 大盘 ====== -->
+  <div id="page-market" class="page active">
+    <div class="cards" id="market-cards"></div>
+    <div class="chart-row">
+      <div class="chart-card"><h3>📈 指数走势（近期）</h3><canvas id="idx-chart"></canvas></div>
+      <div class="chart-card"><h3>🔥 涨跌分布</h3><div id="advance-decline"></div></div>
+    </div>
+  </div>
+
+  <!-- ====== 自选 ====== -->
+  <div id="page-watchlist" class="page">
+    <div class="table-wrap" id="watchlist-table"></div>
+  </div>
+
+  <!-- ====== 持仓 ====== -->
+  <div id="page-portfolio" class="page">
+    <div class="cards" id="portfolio-summary"></div>
+    <div class="chart-row">
+      <div class="chart-card"><h3>💰 资产配置</h3><canvas id="alloc-chart"></canvas></div>
+      <div class="chart-card"><h3>📈 资产曲线</h3><canvas id="asset-chart"></canvas></div>
+    </div>
+    <div class="table-wrap" id="portfolio-table" style="margin-top:16px"></div>
+  </div>
+
+  <!-- ====== 数据 ====== -->
+  <div id="page-data" class="page">
+    <div class="stat-grid" id="market-stats"></div>
+    <div class="table-wrap" id="data-table"></div>
+  </div>
+
+  <!-- ====== 资讯 ====== -->
+  <div id="page-news" class="page">
+    <div id="news-list"></div>
+  </div>
+
+  <div class="note">V3.1 Compound Portfolio Dashboard · 数据来源: 东方财富 · 更新时间: <span id="footer-time">--</span></div>
+</div>
+
+<script>
+let countdown = 30;
+let charts = {};
+let allData = {};
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[onclick*="${name}"]`).classList.add('active');
+  document.getElementById(`page-${name}`).classList.add('active');
+}
+
+async function loadJSON(path) {
+  try { const r = await fetch(path); return r.json(); }
+  catch(e) { return null; }
+}
+
+async function refreshAll() {
+  const market = await loadJSON('data/market.json');
+  const stocks = await loadJSON('data/stocks.json');
+  const portfolio = await loadJSON('data/portfolio.json');
+  const news = await loadJSON('data/news.json');
+  const history = await loadJSON('data/history.json');
+  allData = { market, stocks, portfolio, news, history };
+  renderAll();
+  const t = market?.updated || stocks?.updated || '';
+  document.getElementById('update-time').textContent = t ? new Date(t).toLocaleTimeString('zh-CN') : '--';
+  document.getElementById('footer-time').textContent = t ? new Date(t).toLocaleString('zh-CN') : '--';
+}
+
+function fmtPrice(v) { return v != null ? v.toFixed(2) : '--'; }
+function fmtPct(v) { return v != null ? (v>0?'+':'')+v.toFixed(2)+'%' : '--'; }
+function fmtVol(v) { if(!v) return '--'; v=Number(v); return v>=1e8 ? (v/1e8).toFixed(1)+'亿' : (v/1e4).toFixed(0)+'万'; }
+
+function renderAll() {
+  renderMarket();
+  renderWatchlist();
+  renderPortfolio();
+  renderData();
+  renderNews();
+  renderHistoryChart();
+}
+
+function renderMarket() {
+  const indices = allData.market?.indices || [];
+  const cards = document.getElementById('market-cards');
+  cards.innerHTML = indices.map(i => {
+    const cls = i.change_pct >= 0 ? 'down' : 'up';
+    const sign = i.change_pct >= 0 ? '+' : '';
+    return `<div class="card">
+      <div class="card-header"><span class="card-title">${i.name}</span><span class="card-title">${i.code?.split('.')[1]||''}</span></div>
+      <div class="card-value ${cls}">${fmtPrice(i.price)}</div>
+      <div class="card-sub ${cls}">${sign}${fmtPct(i.change_pct)}</div>
+      <div style="margin-top:8px;font-size:12px;color:var(--dim);display:flex;gap:16px">
+        <span>开 ${fmtPrice(i.open)}</span><span>高 ${fmtPrice(i.high)}</span><span>低 ${fmtPrice(i.low)}</span><span>量 ${fmtVol(i.volume)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderWatchlist() {
+  const stocks = allData.stocks?.stocks || [];
+  const html = `<table>
+    <thead><tr>
+      <th>代码</th><th>名称</th><th class="right">现价</th><th class="right">涨跌幅</th><th class="right">涨跌额</th><th class="right">成交量</th><th class="right">成交额</th><th class="right">最高</th><th class="right">最低</th><th class="right">PE</th>
+    </tr></thead>
+    <tbody>${stocks.map(s => {
+      const cls = (s.change_pct||0) >= 0 ? 'down' : 'up';
+      return `<tr>
+        <td>${s.code}</td><td>${s.name}</td>
+        <td class="right ${cls}" style="font-weight:600">${fmtPrice(s.price)}</td>
+        <td class="right ${cls}">${fmtPct(s.change_pct)}</td>
+        <td class="right ${cls}">${s.change_amt ? (s.change_amt>0?'+':'')+s.change_amt : '--'}</td>
+        <td class="right">${fmtVol(s.volume)}</td>
+        <td class="right">${s.turnover ? (s.turnover/1e8).toFixed(2)+'亿' : '--'}</td>
+        <td class="right">${fmtPrice(s.high)}</td>
+        <td class="right">${fmtPrice(s.low)}</td>
+        <td class="right">${s.pe ? s.pe.toFixed(1) : '--'}</td>
+      </tr>`;
+    }).join('')}</tbody></table>`;
+  document.getElementById('watchlist-table').innerHTML = html;
+}
+
+function renderPortfolio() {
+  const port = allData.portfolio || {};
+  const holdings = port.holdings || [];
+  const cash = Number(port.cash || 0);
+  let totalMV = 0, totalCost = 0;
+  holdings.forEach(h => {
+    totalMV += (h.current_price||0) * (h.shares||0);
+    totalCost += (h.cost_price||0) * (h.shares||0);
+  });
+  const totalAsset = cash + totalMV;
+  const totalProfit = totalAsset - 100000;
+  const profitPct = (totalProfit / 100000 * 100);
+
+  // Summary cards
+  document.getElementById('portfolio-summary').innerHTML = `
+    <div class="card">
+      <div class="card-title">总资产</div>
+      <div class="card-value">¥${totalAsset.toLocaleString('zh-CN',{minimumFractionDigits:2})}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">累计盈亏</div>
+      <div class="card-value ${totalProfit>=0?'down':'up'}">${totalProfit>=0?'+':''}¥${totalProfit.toLocaleString('zh-CN',{minimumFractionDigits:2})}</div>
+      <div class="card-sub ${totalProfit>=0?'down':'up'}">${profitPct>=0?'+':''}${profitPct.toFixed(2)}%</div>
+    </div>
+    <div class="card">
+      <div class="card-title">可用现金</div>
+      <div class="card-value">¥${cash.toLocaleString('zh-CN',{minimumFractionDigits:2})}</div>
+      <div class="card-sub">${(cash/totalAsset*100).toFixed(1)}%</div>
+    </div>`;
+
+  // Classification
+  const cats = {现金牛:0, 成长股:0, 拓荒型:0};
+  holdings.forEach(h => { cats[h.category] = (cats[h.category]||0) + (h.current_price||0)*(h.shares||0); });
+
+  // Allocation chart
+  if (charts.alloc) charts.alloc.destroy();
+  const allocCtx = document.getElementById('alloc-chart');
+  if (allocCtx) {
+    charts.alloc = new Chart(allocCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['现金', '现金牛', '成长股', '拓荒型'],
+        datasets: [{data: [cash, cats['现金牛']||0, cats['成长股']||0, cats['拓荒型']||0], backgroundColor: ['#1f6feb','#d2991d','#3fb950','#f85149']}]
+      },
+      options: {responsive:true, plugins:{legend:{position:'bottom',labels:{color:'#8b949e'}}}}
+    });
+  }
+
+  // Holdings table
+  const rows = holdings.map(h => {
+    const mv = (h.current_price||0)*(h.shares||0);
+    const cost = (h.cost_price||0)*(h.shares||0);
+    const profit = mv - cost;
+    const pp = cost>0 ? (profit/cost*100) : 0;
+    const cls = profit>=0?'down':'up';
+    return `<tr>
+      <td>${h.name}</td><td class="center">${h.shares}</td>
+      <td class="right">${fmtPrice(h.cost_price)}</td><td class="right">${fmtPrice(h.current_price)}</td>
+      <td class="right">¥${mv.toFixed(0)}</td>
+      <td class="right ${cls}">${profit>=0?'+':''}¥${profit.toFixed(0)}</td>
+      <td class="right ${cls}">${fmtPct(pp)}</td>
+      <td class="center">${h.category||'--'}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('portfolio-table').innerHTML = `<table>
+    <thead><tr><th>名称</th><th class="center">股数</th><th class="right">成本</th><th class="right">现价</th><th class="right">市值</th><th class="right">盈亏</th><th class="right">盈亏%</th><th class="center">类型</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function renderData() {
+  const stocks = allData.stocks?.stocks || [];
+  const ups = stocks.filter(s => (s.change_pct||0) >= 0).length;
+  const downs = stocks.filter(s => (s.change_pct||0) < 0).length;
+  const total = stocks.length;
+  document.getElementById('market-stats').innerHTML = `
+    <div class="stat-item"><div class="label">上涨</div><div class="value down">${ups}</div></div>
+    <div class="stat-item"><div class="label">下跌</div><div class="value up">${downs}</div></div>
+    <div class="stat-item"><div class="label">自选总数</div><div class="value">${total}</div></div>
+    <div class="stat-item"><div class="label">上涨比例</div><div class="value">${total>0?(ups/total*100).toFixed(1):0}%</div></div>
+  `;
+}
+
+function renderNews() {
+  const news = allData.news?.news || [];
+  document.getElementById('news-list').innerHTML = news.length ? news.map(n => `
+    <div class="news-item">
+      <a class="news-title" href="${n.url||'#'}" target="_blank">${n.title||''}</a>
+      <div class="news-meta">
+        <span class="news-cat">${n.category||'AI'}</span>
+        <span>${n.source||''}</span>
+        <span>${n.published_at||''}</span>
+      </div>
+    </div>`).join('') : '<div class="loading">暂无资讯数据，运行 scraper.py 后更新</div>';
+}
+
+function renderHistoryChart() {
+  const history = allData.history?.history || [];
+  if (!history.length) return;
+  // Group by index
+  const groups = {};
+  history.forEach(h => {
+    if (!groups[h.name]) groups[h.name] = [];
+    groups[h.name].push({x: h.fetched_at, y: h.price});
+  });
+  const datasets = [];
+  const colors = {'上证指数':'#f85149','深证成指':'#3fb950','创业板指':'#58a6ff'};
+  Object.entries(groups).slice(0,3).forEach(([name, data]) => {
+    datasets.push({label: name, data: data.slice().reverse(), borderColor: colors[name]||'#8b949e', borderWidth:2, pointRadius:0, tension:.3});
+  });
+  if (charts.idx) charts.idx.destroy();
+  const ctx = document.getElementById('idx-chart');
+  if (ctx) {
+    charts.idx = new Chart(ctx, {
+      type: 'line',
+      data: {datasets},
+      options: {responsive:true, scales:{x:{ticks:{color:'#8b949e',maxTicksLimit:8}}, y:{ticks:{color:'#8b949e'}}}, plugins:{legend:{labels:{color:'#8b949e'}}}}
+    });
+  }
+}
+
+// Auto-refresh
+setInterval(() => {
+  countdown--;
+  document.getElementById('countdown').textContent = countdown;
+  if (countdown <= 0) { countdown = 30; refreshAll(); }
+}, 1000);
+
+// Initial load
+refreshAll();
+</script>
+</body>
+</html>
