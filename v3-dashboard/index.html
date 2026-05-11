@@ -28,7 +28,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .up{color:var(--red)}.down{color:var(--green)}
 .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#010409;color:var(--dim);font-weight:500;padding:10px 12px;text-align:left;position:sticky;top:0;white-space:nowrap}
+th{background:#010409;color:var(--dim);font-weight:500;padding:10px 12px;text-align:left;position:sticky;top:0;white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:#fff}
 td{padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
 tr:hover{background:rgba(88,166,255,.05)}
 .right{text-align:right}.center{text-align:center}
@@ -214,22 +215,19 @@ function wsSortBy(col) {
 
 function render_watchlist() {
   const st = CACHE.stocks?.data || [];
-  // Sort
   const sorted = [...st].sort((a,b) => {
     let va = a[wsSort.col], vb = b[wsSort.col];
-    if (va == null) va = wsSort.dir==='asc' ? Infinity : -Infinity;
-    if (vb == null) vb = wsSort.dir==='asc' ? Infinity : -Infinity;
+    if (va == null) va = wsSort.dir==='asc' ? 1e20 : -1e20;
+    if (vb == null) vb = wsSort.dir==='asc' ? 1e20 : -1e20;
     if (typeof va === 'string') va = va.toLowerCase();
     if (typeof vb === 'string') vb = vb.toLowerCase();
-    if (va < vb) return wsSort.dir==='asc' ? -1 : 1;
-    if (va > vb) return wsSort.dir==='asc' ? 1 : -1;
-    return 0;
+    return wsSort.dir==='asc' ? (va<vb?-1:va>vb?1:0) : (va>vb?-1:va<vb?1:0);
   });
 
   let h = '<table><thead><tr>';
   WS_COLS.forEach(c => {
     const arrow = wsSort.col===c.col ? (wsSort.dir==='asc' ? ' ▴' : ' ▾') : '';
-    h += `<th class="${c.cls}" onclick="wsSortBy('${c.col}')" style="cursor:pointer;user-select:none">${c.label}${arrow}</th>`;
+    h += `<th class="${c.cls}" data-col="${c.col}">${c.label}${arrow}</th>`;
   });
   h += '</tr></thead><tbody>';
   sorted.forEach(s => {
@@ -246,6 +244,14 @@ function render_watchlist() {
   h += '</tbody></table>';
   document.getElementById('page-watchlist').innerHTML = `<div class="table-wrap">${h}</div>`;
 }
+
+// Event delegation: click on any th[data-col] triggers sort
+document.addEventListener('click', function(e) {
+  const th = e.target.closest('th[data-col]');
+  if (th) {
+    wsSortBy(th.getAttribute('data-col'));
+  }
+});
 
 // ── 持仓 ──
 function render_portfolio() {
