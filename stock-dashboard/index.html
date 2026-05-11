@@ -14,6 +14,7 @@
       <div class="header-left">
         <h1 class="logo">🛠️ 小智盯盘</h1>
         <span class="badge">V3.1 模拟盘</span>
+        <span class="badge host-badge">🖥 Mac-OpenClaw</span>
       </div>
       <div class="header-center">
         <div class="market-ticker" id="marketTicker">
@@ -31,6 +32,7 @@
       <button class="tab active" data-tab="market">📈 大盘</button>
       <button class="tab" data-tab="watchlist">⭐ 自选</button>
       <button class="tab" data-tab="positions">💼 持仓</button>
+      <button class="tab" data-tab="review">📋 复盘</button>
       <button class="tab" data-tab="data">📊 数据</button>
       <button class="tab" data-tab="news">📰 资讯</button>
     </nav>
@@ -62,6 +64,7 @@
             <h2 class="card-title">自选股监控</h2>
             <div class="watchlist-filters">
               <button class="filter-btn active" data-filter="all">全部</button>
+              <button class="filter-btn" data-filter="top10">🏆 Top10</button>
               <button class="filter-btn" data-filter="cashcow">🐮 现金牛</button>
               <button class="filter-btn" data-filter="growth">🚀 成长股</button>
             </div>
@@ -70,9 +73,15 @@
             <table class="data-table" id="watchlistTable">
               <thead>
                 <tr>
-                  <th>代码</th><th>名称</th><th>最新价</th><th>涨跌幅</th>
-                  <th>PE(TTM)</th><th>PB</th><th>ROE</th><th>股息率</th>
-                  <th>类型</th><th>状态</th>
+                  <th class="sortable" data-sort="code">代码 <span class="sort-icon"></span></th>
+                  <th class="sortable" data-sort="name">名称 <span class="sort-icon"></span></th>
+                  <th class="sortable" data-sort="price">最新价 <span class="sort-icon"></span></th>
+                  <th class="sortable" data-sort="change_pct">涨跌幅 <span class="sort-icon"></span></th>
+                  <th class="sortable" data-sort="score">评分 <span class="sort-icon"></span></th>
+                  <th class="sortable" data-sort="pe">PE <span class="sort-icon"></span></th>
+                  <th class="sortable" data-sort="dividend_yield">股息率 <span class="sort-icon"></span></th>
+                  <th>标签</th>
+                  <th class="sortable" data-sort="type">类型 <span class="sort-icon"></span></th>
                 </tr>
               </thead>
               <tbody id="watchlistBody">加载中...</tbody>
@@ -116,6 +125,22 @@
         </div>
       </section>
 
+      <!-- 持仓 Tab -->
+      ...
+
+      <!-- 复盘 Tab -->
+      <section class="tab-content" id="tab-review">
+        <div class="card">
+          <div class="card-header-row">
+            <h2 class="card-title">📋 盯盘复盘记录</h2>
+            <span class="review-count" id="reviewCount"></span>
+          </div>
+          <div class="review-list" id="reviewList">
+            <p class="placeholder">加载中...</p>
+          </div>
+        </div>
+      </section>
+
       <!-- 数据 Tab -->
       <section class="tab-content" id="tab-data">
         <div class="card">
@@ -149,5 +174,24 @@
   </div>
 
   <script src="js/app.js"></script>
+  <script src="js/chart.js"></script>
+
+  <!-- K线图弹窗 -->
+  <div class="modal-overlay" id="chartModal">
+    <div class="modal-chart">
+      <div class="modal-header">
+        <span class="modal-title" id="chartTitle"></span>
+        <div class="modal-controls">
+          <button class="chart-btn active" data-period="daily">日K</button>
+          <button class="chart-btn" data-period="weekly">周K</button>
+          <button class="modal-close" id="chartClose">✕</button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="klineCanvas"></canvas>
+      </div>
+      <div class="chart-legend" id="chartLegend"></div>
+    </div>
+  </div>
 </body>
 </html>
