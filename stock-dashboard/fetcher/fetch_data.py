@@ -433,6 +433,8 @@ def run_refresh(now):
             "price": s["price"], "change_pct": s.get("change_pct") or 0,
             "pe": base.get("pe"), "pb": base.get("pb"),
             "roe": base.get("roe"), "dividend_yield": base.get("dividend_yield"),
+            "score": base.get("score"), "logic": base.get("logic"),
+            "tags": base.get("tags", []),
             "type": WATCHLIST_TYPES.get(code, "growth"),
             "status": base.get("status", "--"),
         })
