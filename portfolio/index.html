@@ -261,9 +261,22 @@ function showKLine(code,name){
   }).catch(function(e){alert('加载K线失败: '+e)});
 }
 function closeKLine(){$('klineModal').classList.remove('show');var ek=Chart.getChart('chKLine');if(ek)ek.destroy();var ev=Chart.getChart('chKVol');if(ev)ev.destroy();Object.values(charts).forEach(function(c){c.destroy()});charts={};klineCode=null}
-$('klineDaily').onclick=function(){$('klineDaily').classList.add('active');$('klineWeekly').classList.remove('active');klineMode='daily';_deferRender(function(){if(klineCache[klineCode])renderKLine(klineCache[klineCode])})};
-$('klineWeekly').onclick=function(){$('klineWeekly').classList.add('active');$('klineDaily').classList.remove('active');klineMode='weekly';_deferRender(function(){if(klineCache[klineCode])renderKLine(klineCache[klineCode])})};
-$('klineModal').addEventListener('click',function(e){if(e.target===this)closeKLine()});
+// Event delegation on document (elements may not exist yet when script runs)
+document.addEventListener('click',function(e){
+  if(e.target.id==='klineDaily'){
+    document.getElementById('klineDaily').classList.add('active');
+    document.getElementById('klineWeekly').classList.remove('active');
+    klineMode='daily';
+    _deferRender(function(){if(klineCache[klineCode])renderKLine(klineCache[klineCode])});
+  }else if(e.target.id==='klineWeekly'){
+    document.getElementById('klineWeekly').classList.add('active');
+    document.getElementById('klineDaily').classList.remove('active');
+    klineMode='weekly';
+    _deferRender(function(){if(klineCache[klineCode])renderKLine(klineCache[klineCode])});
+  }else if(e.target.id==='klineModal'){
+    closeKLine();
+  }
+});
 
 function renderKLine(data){
   var pts=klineMode==='daily'?data.daily:data.weekly;
