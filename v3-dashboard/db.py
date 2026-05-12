@@ -209,4 +209,5 @@ def _write_json(filename, data):
 
 if __name__ == "__main__":
     init_db()
-    print("✅ 数据库初始化:", DB_PATH)
+    export_all_json()
+    print("✅ 数据库初始化+JSON导出:", DB_PATH)

@@ -10,6 +10,8 @@ log() { echo "[$(date '+%H:%M:%S')] $1" | tee -a "$LOG"; }
 
 cd "$REPO"
 
+export GIT_SSL_NO_VERIFY=1
+
 # ── 1. Git Pull (先拉取远端最新，避免冲突) ──
 log "🔄 Git pull"
 git pull --rebase origin main 2>&1 | tee -a "$LOG" || log "⚠️ pull 失败(继续)"
