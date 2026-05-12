@@ -1,12 +1,12 @@
 {
-  "update_time": "2026-05-12 14:05:25",
+  "update_time": "2026-05-12 14:10:00",
   "summary": {
     "total_assets": 99990.0,
     "cash": 89410.0,
     "cash_pct": 89.4,
-    "market_value": 10780.0,
-    "total_pnl": 200.0,
-    "total_pnl_pct": 1.8903591682419618,
+    "market_value": 10778.0,
+    "total_pnl": 198.0,
+    "total_pnl_pct": 1.8714555765595442,
     "holding_count": 2,
     "peak_assets": 100000,
     "drawdown_pct": 0,
@@ -33,10 +33,10 @@
       "shares": 200,
       "avg_cost": 27.0,
       "cost": 5400.0,
-      "current_price": 27.02,
-      "market_value": 5404.0,
-      "pnl": 4.0,
-      "pnl_pct": 0.07407407407407085,
+      "current_price": 27.01,
+      "market_value": 5402.0,
+      "pnl": 2.0,
+      "pnl_pct": 0.037037037037035425,
       "type": "cashcow",
       "sector": "公用事业"
     }
