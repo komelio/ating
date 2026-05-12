@@ -1,17 +1,17 @@
 {
-  "update_time": "2026-05-12 15:15:02",
+  "update_time": "2026-05-12 15:20:01",
   "summary": {
-    "total_assets": 114990.0,
-    "cash": 104410.0,
-    "cash_pct": 90.8,
-    "market_value": 10788.0,
-    "total_pnl": 208.0,
-    "total_pnl_pct": 1.9659735349716545,
-    "holding_count": 2,
+    "total_assets": 114980.0,
+    "cash": 89842.0,
+    "cash_pct": 78.1,
+    "market_value": 25236.0,
+    "total_pnl": 98.0,
+    "total_pnl_pct": 0.38984803882569086,
+    "holding_count": 3,
     "peak_assets": 100000,
     "drawdown_pct": 0,
     "total_injected": 15000.0,
-    "total_commission": 10.0
+    "total_commission": 20.0
   },
   "holdings": [
     {
@@ -30,15 +30,28 @@
     {
       "code": "600900",
       "name": "长江电力",
-      "shares": 200,
-      "avg_cost": 27.0,
-      "cost": 5400.0,
+      "shares": 400,
+      "avg_cost": 27.1,
+      "cost": 10840.0,
       "current_price": 27.04,
-      "market_value": 5408.0,
-      "pnl": 8.0,
-      "pnl_pct": 0.1481481481481417,
+      "market_value": 10816.0,
+      "pnl": -24.0,
+      "pnl_pct": -0.22140221402214832,
       "type": "cashcow",
       "sector": "公用事业"
+    },
+    {
+      "code": "601088",
+      "name": "中国神华",
+      "shares": 200,
+      "avg_cost": 45.59,
+      "cost": 9118.0,
+      "current_price": 45.2,
+      "market_value": 9040.0,
+      "pnl": -78.0,
+      "pnl_pct": -0.8554507567449021,
+      "type": "cashcow",
+      "sector": "能源"
     }
   ],
   "trades": [
@@ -61,12 +74,32 @@
       "price": 27.0,
       "amount": 5400.0,
       "commission": 5.0
+    },
+    {
+      "date": "2026-05-12",
+      "action": "BUY",
+      "code": "601088",
+      "name": "中国神华",
+      "shares": 200,
+      "price": 45.59,
+      "amount": 9118.0,
+      "commission": 5.0
+    },
+    {
+      "date": "2026-05-12",
+      "action": "BUY",
+      "code": "600900",
+      "name": "长江电力",
+      "shares": 200,
+      "price": 27.2,
+      "amount": 5440.0,
+      "commission": 5.0
     }
   ],
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "4.7%",
+      "value": "9.4%",
       "limit": "10%",
       "status": "ok"
     },
@@ -78,7 +111,7 @@
     },
     {
       "name": "现金≥10%",
-      "value": "90.8%",
+      "value": "78.1%",
       "limit": "10%",
       "status": "ok"
     },
