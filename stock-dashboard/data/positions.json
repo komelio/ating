@@ -7,7 +7,7 @@
     "market_value": 10780.0,
     "total_pnl": 200.0,
     "total_pnl_pct": 1.8903591682419618,
-    "holding_count": 2,
+    "holding_count": 4,
     "peak_assets": 100000,
     "drawdown_pct": 0,
     "total_injected": 0,
@@ -26,6 +26,32 @@
       "pnl_pct": 3.7837837837837895,
       "type": "growth",
       "sector": "电力设备"
+    },
+    {
+      "code": "600406",
+      "name": "国电南瑞",
+      "shares": 200,
+      "avg_cost": 25.9,
+      "cost": 5180.0,
+      "current_price": 26.88,
+      "market_value": 5376.0,
+      "pnl": 196.0,
+      "pnl_pct": 3.7837837837837895,
+      "type": "growth",
+      "sector": "电力设备"
+    },
+    {
+      "code": "600900",
+      "name": "长江电力",
+      "shares": 200,
+      "avg_cost": 27.0,
+      "cost": 5400.0,
+      "current_price": 27.02,
+      "market_value": 5404.0,
+      "pnl": 4.0,
+      "pnl_pct": 0.07407407407407085,
+      "type": "cashcow",
+      "sector": "公用事业"
     },
     {
       "code": "600900",
