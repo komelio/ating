@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-12 15:58:35",
+  "update_time": "2026-05-12 16:02:04",
   "stocks": [
     {
       "code": "600036",
@@ -40,6 +40,24 @@
       "status": "持有"
     },
     {
+      "code": "600501",
+      "name": "航天晨光",
+      "price": 24.42,
+      "change_pct": -1.453,
+      "pe": -50.5,
+      "pb": 3.2,
+      "roe": -0.14,
+      "dividend_yield": 0.0,
+      "score": "D",
+      "logic": "PE为负、ROE -14%，持续亏损无改善",
+      "tags": [
+        "亏损",
+        "不推荐"
+      ],
+      "type": "growth",
+      "status": "已移出选股池"
+    },
+    {
       "code": "600519",
       "name": "贵州茅台",
       "price": 1354.55,
@@ -57,6 +75,25 @@
       ],
       "type": "top10",
       "status": "暂缓(资金不足)"
+    },
+    {
+      "code": "600900",
+      "name": "长江电力",
+      "price": 27.04,
+      "change_pct": 0.111,
+      "pe": 18.34,
+      "pb": 2.9,
+      "roe": 0.158,
+      "dividend_yield": 0.037,
+      "score": "A",
+      "logic": "水电垄断资产，永续经营，股息率3.7%逐年递增",
+      "tags": [
+        "水电垄断",
+        "高股息",
+        "防御性"
+      ],
+      "type": "cashcow",
+      "status": "持有"
     },
     {
       "code": "600941",
@@ -154,6 +191,25 @@
       "status": "关注"
     },
     {
+      "code": "601689",
+      "name": "拓普集团",
+      "price": 67.05,
+      "change_pct": 0.134,
+      "pe": 42.14,
+      "pb": 5.5,
+      "roe": 0.131,
+      "dividend_yield": 0.006,
+      "score": "B+",
+      "logic": "平台型汽配龙头，机器人执行器+轻量化双主线",
+      "tags": [
+        "机器人",
+        "平台型",
+        "高成长"
+      ],
+      "type": "growth",
+      "status": "PE偏高,观察"
+    },
+    {
       "code": "601857",
       "name": "中国石油",
       "price": 11.19,
@@ -210,6 +266,24 @@
       "status": "关注"
     },
     {
+      "code": "688041",
+      "name": "海光信息",
+      "price": 349.19,
+      "change_pct": 0.003,
+      "pe": 297.73,
+      "pb": 18.0,
+      "roe": 0.045,
+      "dividend_yield": 0.0,
+      "score": "C+",
+      "logic": "国产CPU/GPU替代逻辑强，PE 275x超合理区间",
+      "tags": [
+        "国产替代",
+        "高估值风险"
+      ],
+      "type": "growth",
+      "status": "PE极高,暂不建仓"
+    },
+    {
       "code": "688256",
       "name": "寒武纪",
       "price": 1277.87,
@@ -264,6 +338,44 @@
       ],
       "type": "cashcow",
       "status": "关注"
+    },
+    {
+      "code": "000858",
+      "name": "五 粮 液",
+      "price": 90.56,
+      "change_pct": -1.362,
+      "pe": 27.9,
+      "pb": 5.2,
+      "roe": 0.098,
+      "dividend_yield": 0.025,
+      "score": "B+",
+      "logic": "白酒老二，品牌力仅次于茅台，高端化进行中",
+      "tags": [
+        "消费",
+        "品牌",
+        "高ROE"
+      ],
+      "type": "cashcow",
+      "status": "关注"
+    },
+    {
+      "code": "002050",
+      "name": "三花智控",
+      "price": 50.92,
+      "change_pct": -0.566,
+      "pe": 52.43,
+      "pb": 6.8,
+      "roe": 0.126,
+      "dividend_yield": 0.008,
+      "score": "B+",
+      "logic": "热管理全球龙头，机器人+汽配双轮驱动",
+      "tags": [
+        "机器人",
+        "汽配",
+        "技术壁垒"
+      ],
+      "type": "growth",
+      "status": "PE偏高,观察"
     },
     {
       "code": "002594",

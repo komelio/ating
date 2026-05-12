@@ -100,15 +100,18 @@ def norm_code(c):
     return c
 
 def export_watchlist(db):
-    """Latest stock prices merged with static analysis data"""
-    stock_ts = db.execute("SELECT MAX(ts) as ts FROM stock_snapshots").fetchone()
-    stock_ts = stock_ts["ts"] if stock_ts else None
-    
-    stocks = []
-    if stock_ts:
-        stocks = db.execute("SELECT code, name, price, change_pct, pe_ttm FROM stock_snapshots WHERE ts=? ORDER BY code", [stock_ts]).fetchall()
-    
+    """Latest stock prices merged with static analysis data, per-code latest"""
     static = load_static()
+    
+    # Get latest snapshot per stock (not per timestamp)
+    stocks = db.execute("""
+        SELECT s.code, s.name, s.price, s.change_pct, s.pe_ttm
+        FROM stock_snapshots s
+        INNER JOIN (
+            SELECT code, MAX(ts) as max_ts FROM stock_snapshots GROUP BY code
+        ) latest ON s.code = latest.code AND s.ts = latest.max_ts
+        ORDER BY s.code
+    """).fetchall()
     items = []
     for s in stocks:
         raw = s["code"]
@@ -125,7 +128,7 @@ def export_watchlist(db):
             "status": base.get("status","--"),
         })
     
-    ts = stock_ts or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     save_json("watchlist.json", {"update_time": ts, "stocks": items})
     print(f"  watchlist.json: {len(items)} 只")
 
