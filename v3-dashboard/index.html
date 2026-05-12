@@ -265,10 +265,13 @@ function render_portfolio() {
   const pcls = profit>=0?'up':'down';
 
   // Summary cards
+  const txs = CACHE.transactions?.data || [];
+  const totalFee = txs.reduce((s,tx)=>s+(tx.fee||0),0);
   let h = `<div class="cards">
     <div class="card"><div class="card-title">总资产</div><div class="card-value">¥${fmt.num(total)}</div></div>
     <div class="card"><div class="card-title">累计盈亏</div><div class="card-value ${pcls}">${profit>=0?'+':''}¥${fmt.num(profit)}</div><div class="card-sub ${pcls}">${fmt.pct(pp)}</div></div>
     <div class="card"><div class="card-title">可用现金</div><div class="card-value">¥${fmt.num(cash)}</div><div class="card-sub">${(cash/total*100).toFixed(1)}%</div></div>
+    <div class="card"><div class="card-title">总手续费</div><div class="card-value" style="color:var(--dim)">¥${totalFee.toFixed(0)}</div><div class="card-sub" style="color:var(--dim)">${txs.length}笔交易</div></div>
   </div>`;
 
   // Allocation chart (small) + holdings table
@@ -289,7 +292,6 @@ function render_portfolio() {
   h += `</tbody></table></div></div></div>`;
 
   // ── 操盘明细 ──
-  const txs = CACHE.transactions?.data || [];
   if (txs.length) {
     h += `<div class="chart-card" style="margin-top:16px"><h3>📜 操盘明细（按时间倒序）</h3><div class="table-wrap">`;
     h += `<table><thead><tr><th>时间</th><th class="center">操作</th><th>名称</th><th class="center">股数</th><th class="right">价格</th><th class="right">金额</th><th class="right">手续费</th></tr></thead><tbody>`;

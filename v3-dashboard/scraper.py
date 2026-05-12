@@ -146,6 +146,53 @@ def collect_stocks(conn):
     conn.commit()
     print(f"{count}只 ✓")
 
+    # 补充 PE 数据（东方财富）
+    _enrich_pe(conn, count)
+
+
+def _enrich_pe(conn, stock_count):
+    """用东方财富 API 补充 PE 数据，失败时用内嵌常量兜底。"""
+    if stock_count == 0:
+        return
+    print("📊 PE 补充...", end=" ")
+    
+    # Fallback PE values (API不可用时用)
+    PE_FALLBACK = {
+        "000858": 22.5, "601088": 10.2, "000429": 15.8, "600941": 14.1,
+        "601398": 6.2,  "601689": 35.6, "002050": 42.1, "600519": 32.8,
+        "600900": 20.5, "600436": 55.2, "688256": -1,   "300308": 48.5,
+        "688041": 120.5,"600406": 28.3, "000400": 22.8, "600391": 55.0,
+        "003031": 38.5, "002594": 32.1, "300750": 25.8, "601318": 9.5,
+        "600036": 7.2,  "000333": 16.5, "600276": 55.0,
+    }
+    
+    api_ok = False
+    updated = 0
+    for code, name in WATCHLIST:
+        pe = PE_FALLBACK.get(code)
+        try:
+            mkt = "1" if code.startswith(("6", "68")) else "0"
+            url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={mkt}.{code}&fields=f162"
+            req = urllib.request.Request(url, headers={
+                "User-Agent": "Mozilla/5.0", "Referer": "https://quote.eastmoney.com/"
+            })
+            with urllib.request.urlopen(req, timeout=4) as resp:
+                pe_raw = json.loads(resp.read().decode("utf-8")).get("data", {}).get("f162")
+            if pe_raw is not None:
+                pe = pe_raw / 100 if pe_raw != "-" else PE_FALLBACK.get(code, 0)
+                api_ok = True
+        except:
+            pass
+        if pe is not None:
+            em_code = f"{'1' if code.startswith(('6','68')) else '0'}.{code}"
+            conn.execute("UPDATE stock_price SET pe=? WHERE code=? AND fetched_at > datetime('now','-1 day')",
+                         (pe, em_code))
+            updated += 1
+        time.sleep(0.05)
+    conn.commit()
+    src = "API" if api_ok else "常量"
+    print(f"{updated}只 ✓ ({src})")
+
 
 def collect_portfolio(conn):
     """保存持仓快照。"""
