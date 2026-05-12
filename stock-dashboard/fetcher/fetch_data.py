@@ -144,6 +144,46 @@ def sf(v):
     try: return float(v) if v else None
     except: return None
 
+# === Tencent PE ===
+def fetch_tencent_pe(codes):
+    """Fetch PE(TTM) from Tencent API. Returns {code: pe_ttm}"""
+    if not codes: return {}
+    tencent_codes = []
+    for c in codes:
+        tencent_codes.append(f"sh{c}" if c.startswith(("6","68")) else f"sz{c}")
+    url = f"http://qt.gtimg.cn/q={','.join(tencent_codes)}"
+    try:
+        s = requests.Session(); s.headers.update(HEADERS)
+        resp = s.get(url, timeout=10)
+        resp.encoding = 'gbk'
+        result = {}
+        for line in resp.text.strip().split('\n'):
+            if '="' not in line: continue
+            data = line.split('="')[1].rstrip('";')
+            parts = data.split('~')
+            if len(parts) > 39:
+                raw_code = line.split('="')[0].replace('v_','')
+                code = raw_code[2:] if raw_code.startswith(('sh','sz')) else raw_code
+                pe = sf(parts[39])
+                if pe and pe > 0: result[code] = pe
+        return result
+    except Exception as e:
+        print(f"  ⚠️ 腾讯PE API: {e}")
+        return {}
+
+def update_pe(db, ts):
+    """Fetch live PE and update latest stock_snapshots"""
+    pe_data = fetch_tencent_pe(WATCHLIST_CODES)
+    updated = 0
+    for code, pe in pe_data.items():
+        # Try to match with prefixed codes in DB
+        for prefix in ['', 'sh', 'sz']:
+            db.execute("UPDATE stock_snapshots SET pe_ttm=? WHERE ts=? AND code=?",
+                       [pe, ts, f"{prefix}{code}" if prefix else code])
+            if db.total_changes > 0: updated += 1
+    if updated > 0:
+        print(f"  PE更新: {updated} 只 (腾讯实时)")
+
 # === Sectors ===
 def fetch_sectors():
     """Try East Money, return empty list on failure"""
@@ -167,40 +207,80 @@ def read_sim_state():
     if not sf.exists(): return None
     with open(sf) as f: return json.load(f)
 
+# === Dedup helpers ===
+def _check_changed(db, table, ts, key_col, key_val, fields, values):
+    """Compare with previous snapshot. Returns True if changed.
+    key_col=None means table has no grouping column (e.g. portfolio_snapshots)."""
+    if key_col is not None:
+        prev = db.execute(
+            f"SELECT {','.join(fields)} FROM {table} WHERE {key_col}=? AND ts < ? ORDER BY ts DESC LIMIT 1",
+            [key_val, ts]
+        ).fetchone()
+    else:
+        prev = db.execute(
+            f"SELECT {','.join(fields)} FROM {table} WHERE ts < ? ORDER BY ts DESC LIMIT 1",
+            [ts]
+        ).fetchone()
+    if not prev:
+        return True  # No previous snapshot, insert
+    for f, v in zip(fields, values):
+        prev_v = prev[f]
+        # Float comparison with tolerance
+        if isinstance(v, float) and isinstance(prev_v, (int, float)):
+            if abs(v - prev_v) > 0.001:
+                return True
+        elif str(v) != str(prev_v):
+            return True
+    return False
+
 # === Ingest ===
 def ingest_indices(db, ts):
     codes = [c[0] for c in INDEX_CODES]
     name_map = {c[0].replace("s_",""): c[1] for c in INDEX_CODES}
     raw = fetch_sina_raw(codes)
+    inserted = 0
     for key, d in raw.items():
+        vals = [d.get("price"), d.get("change_val"), d.get("change_pct")]
+        if not _check_changed(db, "idx_snapshots", ts, "code", key, ["price", "change_val", "change_pct"], vals):
+            continue
         db.execute("INSERT INTO idx_snapshots(ts,code,name,price,change_val,change_pct) VALUES(?,?,?,?,?,?)",
-                   [ts, key, name_map.get(key,d.get("name","")), d.get("price"), d.get("change_val"), d.get("change_pct")])
-    print(f"  指数: {len(raw)} 条")
+                   [ts, key, name_map.get(key,d.get("name","")), vals[0], vals[1], vals[2]])
+        inserted += 1
+    print(f"  指数: {len(raw)} 抓取, {inserted} 新增")
 
 def ingest_stocks(db, ts):
     sina_codes = []
     for c in WATCHLIST_CODES:
         sina_codes.append(f"sh{c}" if c.startswith(("6","68")) else f"sz{c}")
     raw = fetch_sina_raw(sina_codes)
+    inserted = 0
     for key, d in raw.items():
         code = key
         chg = round((d.get("price") or 0) - (d.get("prev_close") or 0), 3) if d.get("price") and d.get("prev_close") else 0
         chgp = round(chg/(d["prev_close"])*100, 3) if chg and d.get("prev_close") else 0
+        vals = [d.get("price"), d.get("open"), d.get("high"), d.get("low"), chg, chgp]
+        if not _check_changed(db, "stock_snapshots", ts, "code", code, ["price", "open", "high", "low", "change_val", "change_pct"], vals):
+            continue
         db.execute("""INSERT INTO stock_snapshots(ts,code,name,price,open,high,low,prev_close,change_val,change_pct,volume,turnover)
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?)""",
             [ts, code, d.get("name",""), d.get("price"), d.get("open"), d.get("high"), d.get("low"),
              d.get("prev_close"), chg, chgp, d.get("volume"), d.get("turnover")])
-    print(f"  个股: {len(raw)} 只")
+        inserted += 1
+    print(f"  个股: {len(raw)} 抓取, {inserted} 新增")
 
 def ingest_sectors(db, ts):
     secs = fetch_sectors()
     if secs is None:
         print(f"  板块: 抓取失败(API不可用)")
         return
+    inserted = 0
     for s in secs:
+        if not _check_changed(db, "sector_snapshots", ts, "name", s["name"], ["change_pct"], [s["change_pct"]]):
+            continue
         db.execute("INSERT INTO sector_snapshots(ts,name,change_pct) VALUES(?,?,?)",
                    [ts, s["name"], s["change_pct"]])
-    print(f"  板块: {len(secs)} 条")
+        inserted += 1
+    print(f"  板块: {len(secs)} 抓取, {inserted} 新增")
 
 def ingest_portfolio(db, ts):
     state = read_sim_state()
@@ -223,19 +303,26 @@ def ingest_portfolio(db, ts):
         """, [code, f"sh{code}", f"sz{code}", code]).fetchone()
         price = row["price"] if row else avg
         mv = shares * price
+        pnl_pct = (price/avg-1)*100 if avg else 0
+        vals = [shares, avg, price, mv, mv-cost, pnl_pct]
+        if not _check_changed(db, "holding_snapshots", ts, "code", code, ["shares", "avg_cost", "current_price", "market_value", "pnl", "pnl_pct"], vals):
+            total_mv += mv; total_cost += cost
+            continue
         db.execute("""INSERT INTO holding_snapshots(ts,code,name,shares,avg_cost,current_price,market_value,pnl,pnl_pct,htype,sector)
             VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
             [ts, code, h.get("name",""), shares, avg, price, mv, mv-cost,
-             (price/avg-1)*100 if avg else 0, h.get("type",""), h.get("sector","")])
+             pnl_pct, h.get("type",""), h.get("sector","")])
         total_mv += mv; total_cost += cost
     
     ta = cur.get("total_assets",100000)
     cash = cur.get("cash",89410)
-    db.execute("""INSERT INTO portfolio_snapshots(ts,total_assets,cash,market_value,total_pnl,total_pnl_pct,drawdown_pct,total_injected)
-        VALUES(?,?,?,?,?,?,?,?)""",
-        [ts, ta, cash, total_mv, total_mv-total_cost,
-         (total_mv/total_cost-1)*100 if total_cost else 0,
-         cur.get("drawdown_pct",0), cur.get("total_injected",0)])
+    vals = [ta, cash, total_mv, total_mv-total_cost]
+    if _check_changed(db, "portfolio_snapshots", ts, None, None, ["total_assets", "cash", "market_value", "total_pnl"], vals):
+        db.execute("""INSERT INTO portfolio_snapshots(ts,total_assets,cash,market_value,total_pnl,total_pnl_pct,drawdown_pct,total_injected)
+            VALUES(?,?,?,?,?,?,?,?)""",
+            [ts, ta, cash, total_mv, total_mv-total_cost,
+             (total_mv/total_cost-1)*100 if total_cost else 0,
+             cur.get("drawdown_pct",0), cur.get("total_injected",0)])
     
     # Trades (idempotent)
     for t in trades:
@@ -313,6 +400,7 @@ def main():
         if mode in ("ingest", "all"):
             ingest_indices(db, ts)
             ingest_stocks(db, ts)
+            update_pe(db, ts)
             ingest_sectors(db, ts)
             ingest_portfolio(db, ts)
         

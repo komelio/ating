@@ -1,45 +1,19 @@
 {
-  "update_time": "2026-05-12 15:50:04",
+  "update_time": "2026-05-12 15:00:00",
   "summary": {
-    "total_assets": 114980.0,
-    "cash": 89842.0,
-    "cash_pct": 78.1,
-    "market_value": 25236.0,
-    "total_pnl": 98.0,
-    "total_pnl_pct": 0.38984803882569086,
-    "holding_count": 3,
+    "total_assets": 99990.0,
+    "cash": 89410.0,
+    "cash_pct": 89.4,
+    "market_value": 10786.0,
+    "total_pnl": 206.0,
+    "total_pnl_pct": 1.9470699432892147,
+    "holding_count": 1,
     "peak_assets": 100000,
     "drawdown_pct": 0,
-    "total_injected": 15000.0,
+    "total_injected": 0,
     "total_commission": 20.0
   },
   "holdings": [
-    {
-      "code": "600406",
-      "name": "国电南瑞",
-      "shares": 200,
-      "avg_cost": 25.9,
-      "cost": 5180.0,
-      "current_price": 26.9,
-      "market_value": 5380.0,
-      "pnl": 200.0,
-      "pnl_pct": 3.8610038610038533,
-      "type": "growth",
-      "sector": "电力设备"
-    },
-    {
-      "code": "600900",
-      "name": "长江电力",
-      "shares": 400,
-      "avg_cost": 27.1,
-      "cost": 10840.0,
-      "current_price": 27.04,
-      "market_value": 10816.0,
-      "pnl": -24.0,
-      "pnl_pct": -0.22140221402214832,
-      "type": "cashcow",
-      "sector": "公用事业"
-    },
     {
       "code": "601088",
       "name": "中国神华",
@@ -99,7 +73,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "9.4%",
+      "value": "9.0%",
       "limit": "10%",
       "status": "ok"
     },
@@ -111,7 +85,7 @@
     },
     {
       "name": "现金≥10%",
-      "value": "78.1%",
+      "value": "89.4%",
       "limit": "10%",
       "status": "ok"
     },
