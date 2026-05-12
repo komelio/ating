@@ -112,7 +112,7 @@ function renderOverview(){
   var up=S.flat?S.flat.filter(function(s){return s.change_pct>0}).length:0;
   var dn=S.flat?S.flat.filter(function(s){return s.change_pct<0}).length:0;
   h+='<div class="cards">'+
-    '<div class="card"><div class="lb">💰 总资产</div><div class="vl">¥'+fmt(P.total_assets||100000)+'</div><div class="sb">投入 ¥'+fmt(P.invested||0)+'</div></div>'+
+    '<div class="card"><div class="lb">💰 总资产</div><div class="vl">¥'+fmt(P.total_assets||100000)+'</div><div class="sb">投入 ¥'+fmt(P.cost_basis||100000)+'（本金+定投）</div></div>'+
     '<div class="card"><div class="lb">📈 浮动盈亏</div><div class="vl" style="color:'+color(P.pnl||0)+'">¥'+fmt(P.pnl||0)+'</div><div class="sb" style="color:'+color(P.pnl_pct||0)+'">'+((P.pnl_pct||0)>=0?'+':'')+fmt(P.pnl_pct||0)+'%</div></div>'+
     '<div class="card"><div class="lb">🧾 累计手续费</div><div class="vl" style="color:var(--text2)">¥'+fmt(P.total_fees||0)+'</div><div class="sb">佣金+印花税+过户费</div></div>'+
     '<div class="card"><div class="lb">📊 涨跌比</div><div class="vl"><span class="up">'+up+'涨</span> <span class="down">'+dn+'跌</span></div><div class="sb">共'+(S.flat?S.flat.length:0)+'只标的</div></div>'+
@@ -194,21 +194,36 @@ function renderPortfolio(){
   var h='<div class="cards">'+
     '<div class="card"><div class="lb">💵 现金</div><div class="vl">¥'+fmt(P.cash||100000)+'</div><div class="sb">可用资金</div></div>'+
     '<div class="card"><div class="lb">📈 市值</div><div class="vl">¥'+fmt(P.market_value||0)+'</div><div class="sb">'+(P.market_value>0?'已建仓':'空仓')+'</div></div>'+
-    '<div class="card"><div class="lb">🧾 累计手续费</div><div class="vl" style="color:var(--text2)">¥'+fmt(P.total_fees||0)+'</div><div class="sb">佣金+印花税+过户费</div></div>'+
-    '<div class="card"><div class="lb">🏠 总资产</div><div class="vl">¥'+fmt(P.total_assets||100000)+'</div><div class="sb">投入 ¥'+fmt(P.invested||0)+'</div></div>'+
+    '<div class="card"><div class="lb">🏠 总资产</div><div class="vl">¥'+fmt(P.total_assets||100000)+'</div><div class="sb">投入 ¥'+fmt(P.cost_basis||100000)+'（本金+定投）</div></div>'+
     '<div class="card"><div class="lb">💹 浮动盈亏</div><div class="vl" style="color:'+color(P.pnl||0)+'">¥'+fmt(P.pnl||0)+'</div><div class="sb" style="color:'+color(P.pnl_pct||0)+'">'+((P.pnl_pct||0)>=0?'+':'')+fmt(P.pnl_pct||0)+'%</div></div>'+
+    '<div class="card"><div class="lb">🧾 累计手续费</div><div class="vl" style="color:var(--text2)">¥'+fmt(P.total_fees||0)+'</div><div class="sb">佣金+印花税+过户费</div></div>'+
   '</div>';
   var hld=P.holdings||{};
   if(Object.keys(hld).length>0){
     var snaps={};S.flat&&S.flat.forEach(function(s){snaps[s.code]=s});
-    h+='<div class="chart-box"><h4>📋 持仓明细</h4><table><thead><tr><th>标的</th><th>股数</th><th>成本</th><th>现价</th><th>市值</th><th>盈亏</th></tr></thead><tbody>';
+    h+='<div class="chart-box"><h4>📋 持仓明细</h4><table><thead><tr><th>标的</th><th>池</th><th>股数</th><th>均价</th><th>成本</th><th>现价</th><th>市值</th><th>盈亏</th></tr></thead><tbody>';
     for(var n in hld){
-      var hd=hld[n],sn=snaps[hd.code]||{},mv=hd.shares*(sn.price||hd.cost),pnl=(sn.price?sn.price-hd.cost:0)*hd.shares,pnlp=hd.cost?((sn.price||hd.cost)-hd.cost)/hd.cost*100:0;
-      h+='<tr><td><b>'+n+'</b></td><td>'+hd.shares+'</td><td>¥'+fmt(hd.cost)+'</td><td style="'+(sn.price>hd.cost?'color:var(--red)':sn.price<hd.cost?'color:var(--green)':'')+'">¥'+fmt(sn.price||hd.cost)+'</td><td>¥'+fmt(mv)+'</td><td style="color:'+color(pnl)+'">¥'+fmt(pnl)+' ('+(pnlp>=0?'+':'')+fmt(pnlp)+'%)</td></tr>';
+      var hd=hld[n],sn=snaps[hd.code]||{},ac=hd.avg_cost||0,cb=hd.cost_basis||0,pr=sn.price||ac,mv=hd.shares*pr,pnl=(pr-ac)*hd.shares,pnlp=ac?(pr-ac)/ac*100:0;
+      h+='<tr><td><b>'+n+'</b></td><td><span style="font-size:11px;color:var(--text2)">'+hd.pool+'</span></td><td>'+hd.shares+'</td><td>¥'+fmt(ac)+'</td><td>¥'+fmt(cb)+'</td><td style="'+(pr>ac?'color:var(--red)':pr<ac?'color:var(--green)':'')+'">¥'+fmt(pr)+'</td><td>¥'+fmt(mv)+'</td><td style="color:'+color(pnl)+'">¥'+fmt(pnl)+' ('+(pnlp>=0?'+':'')+fmt(pnlp)+'%)</td></tr>';
     }
     h+='</tbody></table></div>';
   }else{
     h+='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px">🏁</p><p>空仓待命 — 明天定投日启动建仓</p><p style="font-size:12px;margin-top:8px">首月优先建糖果池：长江电力/中国移动/工商银行</p></div>';
+  }
+  // 操盘明细
+  var txns=P.transactions||[];
+  if(txns.length>0){
+    h+='<div class="chart-box"><h4>📒 操盘明细</h4><table><thead><tr><th>日期</th><th>类型</th><th>标的</th><th>数量/金额</th><th>价格</th><th>手续费</th><th>信号</th></tr></thead><tbody>';
+    txns.slice().reverse().forEach(function(t){
+      var typeLabel={'buy':'🔴 买入','sell':'🟢 卖出','contribution':'💵 定投','dividend':'💎 分红'}[t.type]||t.type;
+      var name=t.stock||'';
+      var qty=t.type==='contribution'?'¥'+fmt(t.amount):(t.shares||0)+'股';
+      var price=t.price?'¥'+fmt(t.price):'';
+      var fee=t.fee?'¥'+fmt(t.fee):'';
+      var note=t.note||t.signal||'';
+      h+='<tr><td>'+t.date+'</td><td>'+typeLabel+'</td><td>'+name+'</td><td>'+qty+'</td><td>'+price+'</td><td>'+fee+'</td><td style="font-size:11px;color:var(--text2);max-width:200px">'+note+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
   }
   $('portfolio').innerHTML=h;
 }
