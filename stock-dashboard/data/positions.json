@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-12 15:58:35",
+  "update_time": "2026-05-12 16:00:33",
   "summary": {
     "total_assets": 114980.0,
     "cash": 89842.0,
@@ -7,7 +7,7 @@
     "market_value": 25236.0,
     "total_pnl": 98.0,
     "total_pnl_pct": 0.38984803882569086,
-    "holding_count": 2,
+    "holding_count": 3,
     "peak_assets": 100000,
     "drawdown_pct": 0,
     "total_injected": 15000.0,
@@ -39,6 +39,19 @@
       "pnl_pct": -0.22140221402214832,
       "type": "cashcow",
       "sector": "公用事业"
+    },
+    {
+      "code": "601088",
+      "name": "中国神华",
+      "shares": 200,
+      "avg_cost": 45.59,
+      "cost": 9118.0,
+      "current_price": 45.2,
+      "market_value": 9040.0,
+      "pnl": -78.0,
+      "pnl_pct": -0.8554507567449021,
+      "type": "cashcow",
+      "sector": "能源"
     }
   ],
   "trades": [

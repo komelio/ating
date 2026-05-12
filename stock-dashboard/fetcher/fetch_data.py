@@ -292,6 +292,8 @@ def ingest_portfolio(db, ts):
     trades = state.get("trades",[])
     
     total_mv = 0; total_cost = 0
+    holding_data = []  # Collect ALL holdings first
+    any_changed = False
     for code, h in holdings.items():
         shares = h.get("shares",0); avg = h.get("avg_cost",0)
         cost = shares * avg
@@ -305,14 +307,22 @@ def ingest_portfolio(db, ts):
         mv = shares * price
         pnl_pct = (price/avg-1)*100 if avg else 0
         vals = [shares, avg, price, mv, mv-cost, pnl_pct]
-        if not _check_changed(db, "holding_snapshots", ts, "code", code, ["shares", "avg_cost", "current_price", "market_value", "pnl", "pnl_pct"], vals):
-            total_mv += mv; total_cost += cost
-            continue
-        db.execute("""INSERT INTO holding_snapshots(ts,code,name,shares,avg_cost,current_price,market_value,pnl,pnl_pct,htype,sector)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
-            [ts, code, h.get("name",""), shares, avg, price, mv, mv-cost,
-             pnl_pct, h.get("type",""), h.get("sector","")])
+        if _check_changed(db, "holding_snapshots", ts, "code", code, ["shares", "avg_cost", "current_price", "market_value", "pnl", "pnl_pct"], vals):
+            any_changed = True
+        holding_data.append({
+            "code": code, "name": h.get("name",""), "shares": shares, "avg_cost": avg,
+            "price": price, "mv": mv, "cost": cost, "pnl_pct": pnl_pct,
+            "htype": h.get("type",""), "sector": h.get("sector","")
+        })
         total_mv += mv; total_cost += cost
+    
+    # Insert ALL holdings if ANY changed (keeps ts consistent)
+    if any_changed:
+        for hd in holding_data:
+            db.execute("""INSERT INTO holding_snapshots(ts,code,name,shares,avg_cost,current_price,market_value,pnl,pnl_pct,htype,sector)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
+                [ts, hd["code"], hd["name"], hd["shares"], hd["avg_cost"], hd["price"], hd["mv"],
+                 hd["mv"]-hd["cost"], hd["pnl_pct"], hd["htype"], hd["sector"]])
     
     ta = cur.get("total_assets",100000)
     cash = cur.get("cash",89410)
