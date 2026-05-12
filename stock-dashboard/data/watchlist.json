@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-12 15:00:05",
+  "update_time": "2026-05-12 15:05:01",
   "stocks": [
     {
       "code": "600036",
@@ -23,9 +23,9 @@
     {
       "code": "600406",
       "name": "国电南瑞",
-      "price": 26.89,
-      "change_pct": 0.149,
-      "pe": 25.96,
+      "price": 26.9,
+      "change_pct": 0.186,
+      "pe": 25.97,
       "pb": 3.92,
       "roe": 0.156,
       "dividend_yield": 0.024,
@@ -60,9 +60,9 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 1354.38,
-      "change_pct": -0.511,
-      "pe": 20.5,
+      "price": 1354.55,
+      "change_pct": -0.498,
+      "pe": 20.51,
       "pb": 9.5,
       "roe": 0.305,
       "dividend_yield": 0.04,
@@ -98,8 +98,8 @@
     {
       "code": "600941",
       "name": "中国移动",
-      "price": 97.38,
-      "change_pct": -0.307,
+      "price": 97.37,
+      "change_pct": -0.317,
       "pe": 15.54,
       "pb": 1.5,
       "roe": 0.108,
@@ -117,9 +117,9 @@
     {
       "code": "601088",
       "name": "中国神华",
-      "price": 45.17,
-      "change_pct": 0.0,
-      "pe": 19.0,
+      "price": 45.2,
+      "change_pct": 0.066,
+      "pe": 19.01,
       "pb": 1.97,
       "roe": 0.107,
       "dividend_yield": 0.045,
@@ -250,9 +250,9 @@
     {
       "code": "601988",
       "name": "中国银行",
-      "price": 5.73,
-      "change_pct": 0.88,
-      "pe": 7.53,
+      "price": 5.74,
+      "change_pct": 1.056,
+      "pe": 7.54,
       "pb": 0.5,
       "roe": 0.092,
       "dividend_yield": 0.055,

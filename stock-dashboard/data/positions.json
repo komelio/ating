@@ -1,16 +1,16 @@
 {
-  "update_time": "2026-05-12 15:00:05",
+  "update_time": "2026-05-12 15:05:01",
   "summary": {
-    "total_assets": 99990.0,
-    "cash": 89410.0,
-    "cash_pct": 89.4,
-    "market_value": 10786.0,
-    "total_pnl": 206.0,
-    "total_pnl_pct": 1.9470699432892147,
+    "total_assets": 114990.0,
+    "cash": 104410.0,
+    "cash_pct": 90.8,
+    "market_value": 10788.0,
+    "total_pnl": 208.0,
+    "total_pnl_pct": 1.9659735349716545,
     "holding_count": 2,
     "peak_assets": 100000,
     "drawdown_pct": 0,
-    "total_injected": 0,
+    "total_injected": 15000.0,
     "total_commission": 10.0
   },
   "holdings": [
@@ -20,10 +20,10 @@
       "shares": 200,
       "avg_cost": 25.9,
       "cost": 5180.0,
-      "current_price": 26.89,
-      "market_value": 5378.0,
-      "pnl": 198.0,
-      "pnl_pct": 3.8223938223938214,
+      "current_price": 26.9,
+      "market_value": 5380.0,
+      "pnl": 200.0,
+      "pnl_pct": 3.8610038610038533,
       "type": "growth",
       "sector": "电力设备"
     },
@@ -66,7 +66,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "5.4%",
+      "value": "4.7%",
       "limit": "10%",
       "status": "ok"
     },
@@ -78,7 +78,7 @@
     },
     {
       "name": "现金≥10%",
-      "value": "89.4%",
+      "value": "90.8%",
       "limit": "10%",
       "status": "ok"
     },
