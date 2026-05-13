@@ -57,7 +57,14 @@ def _base_analysis(session_type):
             port = json.load(f)
     except Exception:
         port = {}
-    holdings = port.get("holdings", [])
+    raw_holdings = port.get("holdings", {})
+    # holdings may be dict (keyed by name) or list; normalize to list of dicts
+    if isinstance(raw_holdings, dict):
+        holdings = list(raw_holdings.values())
+    elif isinstance(raw_holdings, list):
+        holdings = raw_holdings
+    else:
+        holdings = []
     cash = float(port.get("cash", 0))
     total_mv = sum((h.get("current_price") or 0) * (h.get("shares") or 0) for h in holdings)
     total = cash + total_mv
