@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-13 09:15:01",
+  "update_time": "2026-05-13 09:15:04",
   "stocks": [
     {
       "code": "600036",
@@ -138,7 +138,7 @@
       "name": "XD农业银",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 7.91,
+      "pe": 7.96,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -363,7 +363,7 @@
       "name": "三花智控",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 52.43,
+      "pe": 52.2,
       "pb": 6.8,
       "roe": 0.126,
       "dividend_yield": 0.008,
@@ -401,7 +401,7 @@
       "name": "中际旭创",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 75.83,
+      "pe": 74.53,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
