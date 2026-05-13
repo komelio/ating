@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-13 09:10:01",
+  "update_time": "2026-05-13 09:15:01",
   "stocks": [
     {
       "code": "600036",
@@ -138,7 +138,7 @@
       "name": "XD农业银",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 8.06,
+      "pe": 7.91,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -176,7 +176,7 @@
       "name": "XD工商银",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 7.18,
+      "pe": 7.02,
       "pb": 0.6,
       "roe": 0.105,
       "dividend_yield": 0.055,
