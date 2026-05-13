@@ -1,75 +1,75 @@
 {
-  "update_time": "2026-05-13 13:05:00",
+  "update_time": "2026-05-13 13:10:00",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4222.7887,
-      "change": 8.2996,
-      "change_pct": 0.2
+      "price": 4225.5347,
+      "change": 11.0456,
+      "change_pct": 0.26
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "price": 15935.53,
-      "change": 110.613,
-      "change_pct": 0.7
+      "price": 15966.14,
+      "change": 141.216,
+      "change_pct": 0.89
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "price": 3974.86,
-      "change": 39.974,
-      "change_pct": 1.02
+      "price": 3986.24,
+      "change": 51.363,
+      "change_pct": 1.31
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1743.5863,
-      "change": 19.8027,
-      "change_pct": 1.15
+      "price": 1748.4422,
+      "change": 24.6586,
+      "change_pct": 1.43
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4958.4707,
-      "change": 10.4242,
-      "change_pct": 0.21
+      "price": 4963.1599,
+      "change": 15.1134,
+      "change_pct": 0.31
     },
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4222.7428,
-      "change": 8.2537,
-      "change_pct": 0.2
+      "price": 4225.5347,
+      "change": 11.0456,
+      "change_pct": 0.26
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "price": 15935.53,
-      "change": 110.613,
-      "change_pct": 0.7
+      "price": 15966.14,
+      "change": 141.216,
+      "change_pct": 0.89
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "price": 3974.86,
-      "change": 39.974,
-      "change_pct": 1.02
+      "price": 3986.24,
+      "change": 51.363,
+      "change_pct": 1.31
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1744.2693,
-      "change": 20.4857,
-      "change_pct": 1.19
+      "price": 1748.4422,
+      "change": 24.6586,
+      "change_pct": 1.43
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4958.5519,
-      "change": 10.5054,
-      "change_pct": 0.21
+      "price": 4963.1599,
+      "change": 15.1134,
+      "change_pct": 0.31
     }
   ],
   "sectors": [
