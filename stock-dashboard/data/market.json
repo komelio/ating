@@ -1,47 +1,75 @@
 {
-  "update_time": "2026-05-13 09:05:00",
+  "update_time": "2026-05-13 09:30:00",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4208.8268,
-      "change": -5.6623,
-      "change_pct": -0.13
+      "price": 4192.3145,
+      "change": -22.1746,
+      "change_pct": -0.53
+    },
+    {
+      "code": "sz399001",
+      "name": "深证成指",
+      "price": 15713.54,
+      "change": -111.379,
+      "change_pct": -0.7
+    },
+    {
+      "code": "sz399006",
+      "name": "创业板指",
+      "price": 3900.74,
+      "change": -34.145,
+      "change_pct": -0.87
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1723.7836,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 1684.3679,
+      "change": -39.4157,
+      "change_pct": -2.29
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4946.0028,
-      "change": -2.0437,
-      "change_pct": -0.04
+      "price": 4919.4248,
+      "change": -28.6217,
+      "change_pct": -0.58
     },
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4208.8268,
-      "change": -5.6623,
-      "change_pct": -0.13
+      "price": 4192.3145,
+      "change": -22.1746,
+      "change_pct": -0.53
+    },
+    {
+      "code": "sz399001",
+      "name": "深证成指",
+      "price": 15713.54,
+      "change": -111.379,
+      "change_pct": -0.7
+    },
+    {
+      "code": "sz399006",
+      "name": "创业板指",
+      "price": 3900.74,
+      "change": -34.145,
+      "change_pct": -0.87
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1723.7836,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 1684.3679,
+      "change": -39.4157,
+      "change_pct": -2.29
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4946.0028,
-      "change": -2.0437,
-      "change_pct": -0.04
+      "price": 4919.4248,
+      "change": -28.6217,
+      "change_pct": -0.58
     }
   ],
   "sectors": [
@@ -115,6 +143,6 @@
     "volume": "--",
     "up_down_ratio": "--",
     "north_flow": "待获取",
-    "reason": "指数横盘"
+    "reason": "指数震荡"
   }
 }

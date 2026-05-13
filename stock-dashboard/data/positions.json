@@ -1,13 +1,13 @@
 {
-  "update_time": "2026-05-13 09:25:03",
+  "update_time": "2026-05-13 09:30:00",
   "summary": {
     "total_assets": 114980.0,
     "cash": 89842.0,
     "cash_pct": 78.1,
-    "market_value": 5378.0,
-    "total_pnl": -19760.0,
-    "total_pnl_pct": -78.60609435913756,
-    "holding_count": 3,
+    "market_value": 25260.0,
+    "total_pnl": 122.0,
+    "total_pnl_pct": 0.48532102792584464,
+    "holding_count": 6,
     "peak_assets": 100000,
     "drawdown_pct": 0,
     "total_injected": 15000.0,
@@ -28,15 +28,41 @@
       "sector": "电力设备"
     },
     {
+      "code": "600406",
+      "name": "国电南瑞",
+      "shares": 200,
+      "avg_cost": 25.9,
+      "cost": 5180.0,
+      "current_price": 26.89,
+      "market_value": 5378.0,
+      "pnl": 198.0,
+      "pnl_pct": 3.8223938223938214,
+      "type": "growth",
+      "sector": "电力设备"
+    },
+    {
       "code": "600900",
       "name": "长江电力",
       "shares": 400,
       "avg_cost": 27.1,
       "cost": 10840.0,
-      "current_price": 0.0,
-      "market_value": 0.0,
-      "pnl": -10840.0,
-      "pnl_pct": -100.0,
+      "current_price": 27.08,
+      "market_value": 10832.0,
+      "pnl": -8.0,
+      "pnl_pct": -0.07380073800739018,
+      "type": "cashcow",
+      "sector": "公用事业"
+    },
+    {
+      "code": "600900",
+      "name": "长江电力",
+      "shares": 400,
+      "avg_cost": 27.1,
+      "cost": 10840.0,
+      "current_price": 27.08,
+      "market_value": 10832.0,
+      "pnl": -8.0,
+      "pnl_pct": -0.07380073800739018,
       "type": "cashcow",
       "sector": "公用事业"
     },
@@ -46,10 +72,23 @@
       "shares": 200,
       "avg_cost": 45.59,
       "cost": 9118.0,
-      "current_price": 0.0,
-      "market_value": 0.0,
-      "pnl": -9118.0,
-      "pnl_pct": -100.0,
+      "current_price": 45.25,
+      "market_value": 9050.0,
+      "pnl": -68.0,
+      "pnl_pct": -0.7457775828032531,
+      "type": "cashcow",
+      "sector": "能源"
+    },
+    {
+      "code": "601088",
+      "name": "中国神华",
+      "shares": 200,
+      "avg_cost": 45.59,
+      "cost": 9118.0,
+      "current_price": 45.25,
+      "market_value": 9050.0,
+      "pnl": -68.0,
+      "pnl_pct": -0.7457775828032531,
       "type": "cashcow",
       "sector": "能源"
     }
@@ -99,7 +138,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "4.7%",
+      "value": "9.4%",
       "limit": "10%",
       "status": "ok"
     },

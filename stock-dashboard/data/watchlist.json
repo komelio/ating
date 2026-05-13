@@ -1,11 +1,30 @@
 {
-  "update_time": "2026-05-13 09:25:03",
+  "update_time": "2026-05-13 09:30:00",
   "stocks": [
     {
       "code": "600036",
       "name": "招商银行",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 37.96,
+      "change_pct": 0.158,
+      "pe": 6.35,
+      "pb": 0.9,
+      "roe": 0.135,
+      "dividend_yield": 0.042,
+      "score": "A-",
+      "logic": "零售银行之王，ROE领跑行业，资产质量最优",
+      "tags": [
+        "零售银行",
+        "优质金融",
+        "高ROE"
+      ],
+      "type": "cashcow",
+      "status": "关注"
+    },
+    {
+      "code": "600036",
+      "name": "招商银行",
+      "price": 37.96,
+      "change_pct": 0.158,
       "pe": 6.35,
       "pb": 0.9,
       "roe": 0.135,
@@ -42,8 +61,26 @@
     {
       "code": "600501",
       "name": "航天晨光",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 24.21,
+      "change_pct": -0.86,
+      "pe": -50.5,
+      "pb": 3.2,
+      "roe": -0.14,
+      "dividend_yield": 0.0,
+      "score": "D",
+      "logic": "PE为负、ROE -14%，持续亏损无改善",
+      "tags": [
+        "亏损",
+        "不推荐"
+      ],
+      "type": "growth",
+      "status": "已移出选股池"
+    },
+    {
+      "code": "600501",
+      "name": "航天晨光",
+      "price": 24.21,
+      "change_pct": -0.86,
       "pe": -50.5,
       "pb": 3.2,
       "roe": -0.14,
@@ -60,8 +97,27 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 1354.5,
+      "change_pct": -0.004,
+      "pe": 20.51,
+      "pb": 9.5,
+      "roe": 0.305,
+      "dividend_yield": 0.04,
+      "score": "A",
+      "logic": "品牌护城河极深，ROE 30%+，现金流王者，PE历史低区",
+      "tags": [
+        "品牌壁垒",
+        "高ROE",
+        "消费龙头"
+      ],
+      "type": "top10",
+      "status": "暂缓(资金不足)"
+    },
+    {
+      "code": "600519",
+      "name": "贵州茅台",
+      "price": 1354.5,
+      "change_pct": -0.004,
       "pe": 20.51,
       "pb": 9.5,
       "roe": 0.305,
@@ -79,9 +135,28 @@
     {
       "code": "600900",
       "name": "长江电力",
-      "price": 0.0,
-      "change_pct": 0.0,
-      "pe": 18.35,
+      "price": 27.08,
+      "change_pct": 0.148,
+      "pe": 18.36,
+      "pb": 2.9,
+      "roe": 0.158,
+      "dividend_yield": 0.037,
+      "score": "A",
+      "logic": "水电垄断资产，永续经营，股息率3.7%逐年递增",
+      "tags": [
+        "水电垄断",
+        "高股息",
+        "防御性"
+      ],
+      "type": "cashcow",
+      "status": "持有"
+    },
+    {
+      "code": "600900",
+      "name": "长江电力",
+      "price": 27.08,
+      "change_pct": 0.148,
+      "pe": 18.36,
       "pb": 2.9,
       "roe": 0.158,
       "dividend_yield": 0.037,
@@ -117,8 +192,27 @@
     {
       "code": "601088",
       "name": "中国神华",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 45.25,
+      "change_pct": 0.111,
+      "pe": 19.03,
+      "pb": 1.97,
+      "roe": 0.107,
+      "dividend_yield": 0.045,
+      "score": "B+",
+      "logic": "煤电一体化龙头，高股息5%+，周期防御性突出",
+      "tags": [
+        "高股息",
+        "能源",
+        "周期防御"
+      ],
+      "type": "cashcow",
+      "status": "关注(定投候选)"
+    },
+    {
+      "code": "601088",
+      "name": "中国神华",
+      "price": 45.25,
+      "change_pct": 0.111,
       "pe": 19.03,
       "pb": 1.97,
       "roe": 0.107,
@@ -155,8 +249,27 @@
     {
       "code": "601318",
       "name": "中国平安",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 59.32,
+      "change_pct": -0.135,
+      "pe": 8.09,
+      "pb": 0.8,
+      "roe": 0.1,
+      "dividend_yield": 0.045,
+      "score": "B+",
+      "logic": "综合金融+科技平台，保险龙头低估值",
+      "tags": [
+        "金融科技",
+        "保险龙头",
+        "低估值"
+      ],
+      "type": "top10",
+      "status": "关注"
+    },
+    {
+      "code": "601318",
+      "name": "中国平安",
+      "price": 59.32,
+      "change_pct": -0.135,
       "pe": 8.09,
       "pb": 0.8,
       "roe": 0.1,
@@ -212,8 +325,27 @@
     {
       "code": "601857",
       "name": "中国石油",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 11.27,
+      "change_pct": 0.715,
+      "pe": 13.04,
+      "pb": 0.9,
+      "roe": 0.1,
+      "dividend_yield": 0.038,
+      "score": "B",
+      "logic": "能源安全核心，油价联动弹性大",
+      "tags": [
+        "能源",
+        "周期",
+        "国企改革"
+      ],
+      "type": "top10",
+      "status": "关注"
+    },
+    {
+      "code": "601857",
+      "name": "中国石油",
+      "price": 11.27,
+      "change_pct": 0.715,
       "pe": 13.04,
       "pb": 0.9,
       "roe": 0.1,
@@ -231,8 +363,27 @@
     {
       "code": "601939",
       "name": "建设银行",
-      "price": 0.0,
-      "change_pct": 0.0,
+      "price": 9.62,
+      "change_pct": -0.104,
+      "pe": 7.36,
+      "pb": 0.55,
+      "roe": 0.1,
+      "dividend_yield": 0.058,
+      "score": "B+",
+      "logic": "大型国有行，资产质量稳健，股息率最高档",
+      "tags": [
+        "高股息",
+        "低估值",
+        "金融权重"
+      ],
+      "type": "top10",
+      "status": "关注"
+    },
+    {
+      "code": "601939",
+      "name": "建设银行",
+      "price": 9.62,
+      "change_pct": -0.104,
       "pe": 7.36,
       "pb": 0.55,
       "roe": 0.1,
@@ -376,6 +527,25 @@
       ],
       "type": "growth",
       "status": "PE偏高,观察"
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "price": 99.23,
+      "change_pct": 0.0,
+      "pe": 32.84,
+      "pb": 4.5,
+      "roe": 0.16,
+      "dividend_yield": 0.008,
+      "score": "A-",
+      "logic": "新能源车全球龙头，垂直一体化壁垒深",
+      "tags": [
+        "新能源",
+        "全球龙头",
+        "高成长"
+      ],
+      "type": "top10",
+      "status": "关注"
     },
     {
       "code": "002594",
