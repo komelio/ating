@@ -243,6 +243,8 @@ def ingest_indices(db, ts):
         vals = [d.get("price"), d.get("change_val"), d.get("change_pct")]
         if not _check_changed(db, "idx_snapshots", ts, "code", key, ["price", "change_val", "change_pct"], vals):
             continue
+        # Delete any existing same-ts row to prevent duplicates
+        db.execute("DELETE FROM idx_snapshots WHERE ts=? AND code=?", [ts, key])
         db.execute("INSERT INTO idx_snapshots(ts,code,name,price,change_val,change_pct) VALUES(?,?,?,?,?,?)",
                    [ts, key, name_map.get(key,d.get("name","")), vals[0], vals[1], vals[2]])
         inserted += 1
@@ -261,6 +263,8 @@ def ingest_stocks(db, ts):
         vals = [d.get("price"), d.get("open"), d.get("high"), d.get("low"), chg, chgp]
         if not _check_changed(db, "stock_snapshots", ts, "code", code, ["price", "open", "high", "low", "change_val", "change_pct"], vals):
             continue
+        # Delete any existing same-ts row to prevent duplicates
+        db.execute("DELETE FROM stock_snapshots WHERE ts=? AND code=?", [ts, code])
         db.execute("""INSERT INTO stock_snapshots(ts,code,name,price,open,high,low,prev_close,change_val,change_pct,volume,turnover)
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?)""",
             [ts, code, d.get("name",""), d.get("price"), d.get("open"), d.get("high"), d.get("low"),
@@ -277,6 +281,8 @@ def ingest_sectors(db, ts):
     for s in secs:
         if not _check_changed(db, "sector_snapshots", ts, "name", s["name"], ["change_pct"], [s["change_pct"]]):
             continue
+        # Delete any existing same-ts row to prevent duplicates
+        db.execute("DELETE FROM sector_snapshots WHERE ts=? AND name=?", [ts, s["name"]])
         db.execute("INSERT INTO sector_snapshots(ts,name,change_pct) VALUES(?,?,?)",
                    [ts, s["name"], s["change_pct"]])
         inserted += 1
@@ -319,6 +325,8 @@ def ingest_portfolio(db, ts):
     # Insert ALL holdings if ANY changed (keeps ts consistent)
     if any_changed:
         for hd in holding_data:
+            # Delete any existing same-ts row to prevent duplicates
+            db.execute("DELETE FROM holding_snapshots WHERE ts=? AND code=?", [ts, hd["code"]])
             db.execute("""INSERT INTO holding_snapshots(ts,code,name,shares,avg_cost,current_price,market_value,pnl,pnl_pct,htype,sector)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
                 [ts, hd["code"], hd["name"], hd["shares"], hd["avg_cost"], hd["price"], hd["mv"],
