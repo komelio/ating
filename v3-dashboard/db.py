@@ -111,9 +111,12 @@ def export_all_json():
                 })
         else:
             hlist = rh if isinstance(rh, list) else []
-        # Try to fill current prices from stocks table
+        # Try to fill current prices from stocks table (keep first = most recent due to DESC order)
         cur = conn.execute("SELECT name, price FROM stock_price WHERE fetched_at > datetime('now', '-1 day') ORDER BY fetched_at DESC")
-        price_map = {r[0]: r[1] for r in cur.fetchall()}
+        price_map = {}
+        for r in cur.fetchall():
+            if r["name"] not in price_map:
+                price_map[r["name"]] = r["price"]
         for h in hlist:
             if h["name"] in price_map:
                 h["current_price"] = price_map[h["name"]]
