@@ -35,6 +35,27 @@ def run_dca_decision():
     return _save(log)
 
 
+def run_monthly_review():
+    """月度复盘（每月1日调用，也可手动触发）"""
+    log = _base_analysis("monthly_review")
+
+    # 调用 portfolio.py review 获取完整月度报告
+    import subprocess
+    rev_path = os.path.expanduser("~/.hermes/scripts/portfolio.py")
+    try:
+        r = subprocess.run(["python3", rev_path, "review"], capture_output=True, text=True, timeout=30)
+        review_text = r.stdout.strip() or r.stderr.strip()
+    except Exception as e:
+        review_text = f"复盘脚本执行失败: {e}"
+
+    # 复盘报告放进 screener_output 字段（前端会渲染 <pre> 块）
+    log["screener_output"] = review_text
+    log["decisions"] = json.dumps({
+        "reasoning": "月度合规检查 + 利润锁定规则校验 + 持仓健康度评估。详见复盘报告。"
+    }, ensure_ascii=False)
+    return _save(log)
+
+
 def _base_analysis(session_type):
     """抽取当前状态快照作为分析基础。"""
     conn = get_db()
@@ -60,26 +81,35 @@ def _base_analysis(session_type):
     raw_holdings = port.get("holdings", {})
     # holdings may be dict (keyed by name) or list; normalize to list of dicts
     if isinstance(raw_holdings, dict):
-        holdings = list(raw_holdings.values())
+        holdings = [{"name": k, **v} for k, v in raw_holdings.items()]
     elif isinstance(raw_holdings, list):
         holdings = raw_holdings
     else:
         holdings = []
-    cash = float(port.get("cash", 0))
-    total_mv = sum((h.get("current_price") or 0) * (h.get("shares") or 0) for h in holdings)
+    cash = float(port.get("current_cash", port.get("cash", 0)))
+
+    # 先获取实时价格
+    stocks = _latest_stocks(conn)
+    price_map = {s["code"]: s for s in stocks}
+
+    # 计算总市值
+    total_mv = 0
+    for h in holdings:
+        code = _find_code(h["name"])
+        s = price_map.get(code, {})
+        cur_p = s.get("price") or 0
+        total_mv += cur_p * (h.get("shares") or 0)
     total = cash + total_mv
     profit = total - 100000
 
     # 个股信号
     signals = []
-    stocks = _latest_stocks(conn)
-    price_map = {s["code"]: s for s in stocks}
     for h in holdings:
         code = _find_code(h["name"])
         s = price_map.get(code, {})
         cur_price = s.get("price")
         chg_pct = s.get("change_pct") or 0
-        cost = h.get("cost_price") or 0
+        cost = h.get("cost_price") or h.get("avg_cost") or 0
         if cur_price and cost:
             pnl_pct = (cur_price - cost) / cost * 100
             if pnl_pct <= -15:
@@ -191,11 +221,12 @@ if __name__ == "__main__":
     init_db()
     import argparse
     p = argparse.ArgumentParser()
-    p.add_argument("--mode", choices=["morning","afternoon","weekly","dca"], default="morning")
+    p.add_argument("--mode", choices=["morning","afternoon","weekly","dca","review"], default="morning")
     args = p.parse_args()
     {
         "morning": run_morning_watch,
         "afternoon": run_afternoon_watch,
         "weekly": run_weekly_scan,
         "dca": run_dca_decision,
+        "review": run_monthly_review,
     }[args.mode]()
