@@ -1,12 +1,12 @@
 {
-  "update_time": "2026-05-14 09:05:00",
+  "update_time": "2026-05-14 09:25:02",
   "summary": {
     "total_assets": 115206.0,
     "cash": 89842.0,
     "cash_pct": 78.0,
-    "market_value": 0.0,
-    "total_pnl": -25138.0,
-    "total_pnl_pct": -100.0,
+    "market_value": 10792.0,
+    "total_pnl": -14346.0,
+    "total_pnl_pct": -57.06897923462487,
     "holding_count": 3,
     "peak_assets": 100000,
     "drawdown_pct": 0,
@@ -33,10 +33,10 @@
       "shares": 400,
       "avg_cost": 27.1,
       "cost": 10840.0,
-      "current_price": 0.0,
-      "market_value": 0.0,
-      "pnl": -10840.0,
-      "pnl_pct": -100.0,
+      "current_price": 26.98,
+      "market_value": 10792.0,
+      "pnl": -48.0,
+      "pnl_pct": -0.44280442804428555,
       "type": "cashcow",
       "sector": "公用事业"
     },
@@ -99,7 +99,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "0.0%",
+      "value": "9.4%",
       "limit": "10%",
       "status": "ok"
     },
