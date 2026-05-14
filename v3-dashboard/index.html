@@ -108,8 +108,10 @@ const fmt = {
   num:   v => v != null ? Number(v).toLocaleString('zh-CN',{minimumFractionDigits:2}) : '--',
   date:  v => {
     if (!v) return '--';
-    // 无时区标记的视为 UTC+8，补上偏移避免浏览器歧义
-    if (v.indexOf('+')<0 && v.indexOf('Z')<0 && v.indexOf('T')>0) v += '+08:00';
+    // 老格式 '2026-05-14 01:47:22' → 补 T 和 +08:00
+    if (v.indexOf('+')<0 && v.indexOf('Z')<0) {
+      v = v.replace(' ', 'T') + '+08:00';
+    }
     return new Date(v).toLocaleString('zh-CN');
   },
 };
