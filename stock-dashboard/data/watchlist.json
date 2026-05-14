@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-14 11:30:01",
+  "update_time": "2026-05-14 11:30:03",
   "stocks": [
     {
       "code": "600036",
@@ -380,9 +380,9 @@
     {
       "code": "002594",
       "name": "比亚迪",
-      "price": 98.72,
-      "change_pct": 0.122,
-      "pe": 32.67,
+      "price": 98.86,
+      "change_pct": 0.264,
+      "pe": 32.72,
       "pb": 4.5,
       "roe": 0.16,
       "dividend_yield": 0.008,
@@ -399,9 +399,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1037.52,
-      "change_pct": -1.113,
-      "pe": 77.29,
+      "price": 1036.0,
+      "change_pct": -1.258,
+      "pe": 77.18,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
