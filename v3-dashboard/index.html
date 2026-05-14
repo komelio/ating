@@ -106,7 +106,12 @@ const fmt = {
   pct:   v => v != null ? (v>0?'+':'')+Number(v).toFixed(2)+'%' : '--',
   vol:   v => { if(!v) return '--'; v=Number(v); return v>=1e8 ? (v/1e8).toFixed(1)+'亿' : (v/1e4).toFixed(0)+'万'; },
   num:   v => v != null ? Number(v).toLocaleString('zh-CN',{minimumFractionDigits:2}) : '--',
-  date:  v => v ? new Date(v).toLocaleString('zh-CN') : '--',
+  date:  v => {
+    if (!v) return '--';
+    // 无时区标记的视为 UTC+8，补上偏移避免浏览器歧义
+    if (v.indexOf('+')<0 && v.indexOf('Z')<0 && v.indexOf('T')>0) v += '+08:00';
+    return new Date(v).toLocaleString('zh-CN');
+  },
 };
 
 // ── 初始化 ──

@@ -201,13 +201,15 @@ def _find_code(name):
 
 def _save(log):
     conn = get_db()
+    now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S+08:00")  # UTC+8 显式时区
     conn.execute("""
-        INSERT INTO analysis_log (session_type,market_state,index_data,holdings_review,signals,decisions,screener_output,raw_notes)
-        VALUES (?,?,?,?,?,?,?,?)
+        INSERT INTO analysis_log (session_type,market_state,index_data,holdings_review,signals,decisions,screener_output,raw_notes,created_at)
+        VALUES (?,?,?,?,?,?,?,?,?)
     """, (
         log["session_type"], log["market_state"], log["index_data"],
         log["holdings_review"], log["signals"], log.get("decisions", ""),
         log.get("screener_output", ""), log.get("raw_notes", ""),
+        now,
     ))
     conn.commit()
     rid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
