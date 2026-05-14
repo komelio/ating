@@ -79,7 +79,6 @@ def _base_analysis(session_type):
     except Exception:
         port = {}
     raw_holdings = port.get("holdings", {})
-    # holdings may be dict (keyed by name) or list; normalize to list of dicts
     if isinstance(raw_holdings, dict):
         holdings = [{"name": k, **v} for k, v in raw_holdings.items()]
     elif isinstance(raw_holdings, list):
@@ -92,18 +91,24 @@ def _base_analysis(session_type):
     stocks = _latest_stocks(conn)
     price_map = {s["code"]: s for s in stocks}
 
-    # 计算总市值
+    # 计算总市值 + 分类统计
     total_mv = 0
+    cat_mv = {"现金牛": 0, "成长股": 0, "拓荒型": 0}
     for h in holdings:
         code = _find_code(h["name"])
         s = price_map.get(code, {})
         cur_p = s.get("price") or 0
-        total_mv += cur_p * (h.get("shares") or 0)
+        mv = cur_p * (h.get("shares") or 0)
+        total_mv += mv
+        cat = h.get("category", "")
+        cat_mv[cat] = cat_mv.get(cat, 0) + mv
     total = cash + total_mv
     profit = total - 100000
 
     # 个股信号
     signals = []
+    winners = []
+    losers = []
     for h in holdings:
         code = _find_code(h["name"])
         s = price_map.get(code, {})
@@ -121,6 +126,14 @@ def _base_analysis(session_type):
             elif chg_pct >= 5:
                 signals.append(f"📈 {h['name']} 单日涨{chg_pct:.1f}%")
 
+        if chg_pct > 0:
+            winners.append(f"{h['name']}({chg_pct:+.1f}%)")
+        elif chg_pct < 0:
+            losers.append(f"{h['name']}({chg_pct:+.1f}%)")
+
+    # 生成决策分析
+    decisions = _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type)
+
     conn.close()
 
     return {
@@ -132,12 +145,61 @@ def _base_analysis(session_type):
             "profit": round(profit, 2),
             "profit_pct": round(profit/100000*100, 2),
             "positions": len(holdings),
+            "cash_cow_pct": round(cat_mv.get("现金牛",0)/total*100, 1) if total else 0,
+            "growth_pct": round(cat_mv.get("成长股",0)/total*100, 1) if total else 0,
         }, ensure_ascii=False),
         "signals": json.dumps(signals, ensure_ascii=False),
-        "decisions": "",
+        "decisions": json.dumps(decisions, ensure_ascii=False),
         "screener_output": "",
         "raw_notes": "",
     }
+
+
+def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type):
+    """根据市场状态、持仓、信号生成结构化的决策分析。"""
+    lines = []
+
+    # 1. 市场概况
+    idx_summary = ", ".join(f"{i['name']}: {i.get('price','?')} ({i.get('change_pct',0):+.2f}%)" for i in idx[:3])
+    state_label = {"bull": "🐂 牛市", "bear": "🐻 熊市", "shock": "📊 震荡"}.get(state, state)
+    lines.append(f"**市场状态：{state_label}**")
+    lines.append(f"指数：{idx_summary}")
+
+    # 2. 组合概况
+    profit_str = f"{profit:+.0f}" if profit else "0"
+    pct = profit / 100000 * 100 if profit else 0
+    lines.append(f"**总资产：¥{total:,.0f}  |  累计盈亏：{profit_str} ({pct:+.2f}%)**")
+    cow_pct = cat_mv.get("现金牛", 0) / total * 100 if total else 0
+    grow_pct = cat_mv.get("成长股", 0) / total * 100 if total else 0
+    cash_pct = cash / total * 100 if total else 0
+    lines.append(f"配置：现金牛{cow_pct:.0f}%(目标60%) | 成长股{grow_pct:.0f}%(目标30%) | 现金{cash_pct:.0f}%(底线10%)")
+
+    # 3. 持仓涨跌
+    if winners:
+        lines.append(f"📈 上涨：{'、'.join(winners[:4])}")
+    if losers:
+        lines.append(f"📉 下跌：{'、'.join(losers[:4])}")
+
+    # 4. 信号与建议
+    if signals:
+        lines.append(f"**🚨 触发信号：**")
+        for s in signals[:5]:
+            lines.append(f"  • {s}")
+    else:
+        lines.append("✅ 无异常信号触发")
+
+    # 5. 操作建议
+    if state == "bear":
+        if session_type == "morning_watch":
+            lines.append("**早盘建议：** 三大指数全线下跌，市场处于🐻熊市。暂停成长股加仓，关注现金牛股息率>5%的标的，现金占比偏高可适度补仓高股息现金牛。持股观望，不追涨杀跌。")
+        else:
+            lines.append("**午盘建议：** 尾盘继续维持防守姿态。如有现金牛标的触及250日线+RSI<40，可小仓位捡漏（≤总资产2%）。成长股暂不加仓，等明天走势明朗。")
+    elif state == "bull":
+        lines.append("**建议：** 市场强势，持仓待涨。关注高估值标的（PE>90%分位）可考虑减持10-20%。现金占比高于15%可适度加仓成长股龙头。")
+    else:
+        lines.append("**建议：** 震荡市保持哑铃配置不动。关注成交量变化判断方向。若三花智控继续下跌接近50元止损线，考虑减持10%。")
+
+    return {"reasoning": "\n\n".join(lines)}
 
 
 def _dca_logic(log):

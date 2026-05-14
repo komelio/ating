@@ -257,22 +257,90 @@ def _ensure_seed_data(conn):
         conn.commit()
         print(f"📰 种子资讯: {len(default_news)}条 ✓")
 
-    # Analysis
-    cnt = conn.execute("SELECT COUNT(*) FROM analysis_log").fetchone()[0]
-    if cnt == 0:
-        default_analysis = [
-            ("afternoon_watch", "bull",
-             json.dumps(["🟢 创业板指领涨","🟢 深证成指突破","⚠️ 三花智控连跌3日"], ensure_ascii=False),
-             json.dumps({"reasoning":"大盘走强，现金牛稳定。持有不动，等定投节点再调仓。"}, ensure_ascii=False),
-             "", "2026-05-11T15:30:00"),
-            ("weekly_scan", "shock",
-             json.dumps(["🔴 工商银行分红率不达标降级","🟢 粤高速A股息率7.2%达标"], ensure_ascii=False),
-             json.dumps({"reasoning":"23只自选核验通过21只。无新增入池，关注AI算力链回调机会。"}, ensure_ascii=False),
-             "", "2026-05-09T09:00:00"),
-        ]
-        conn.executemany("INSERT INTO analysis_log(session_type,market_state,signals,decisions,screener_output,created_at) VALUES(?,?,?,?,?,?)", default_analysis)
+    # Analysis — removed, now handled by analysis.py
+
+
+def fetch_news(conn=None):
+    """从新浪财经抓取实时快讯，写入 ai_news 表（去重，保留最新50条）。"""
+    import urllib.request, re
+    close_conn = False
+    if conn is None:
+        conn = get_db()
+        close_conn = True
+
+    try:
+        url = "https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2509&k=&num=20&page=1"
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Referer": "https://finance.sina.com.cn/"
+        })
+        resp = urllib.request.urlopen(req, timeout=10)
+        data = json.loads(resp.read().decode("utf-8"))
+        items = data.get("result", {}).get("data", [])
+
+        existing = set(r[0] for r in conn.execute("SELECT title FROM ai_news").fetchall())
+        added = 0
+        today = datetime.now().strftime("%Y-%m-%d")
+
+        for item in items[:20]:
+            title = (item.get("title") or "").strip()
+            if not title or title in existing:
+                continue
+            source = item.get("media_name") or item.get("source") or "新浪财经"
+            url_link = item.get("url") or ""
+            category = _classify_news(title)
+            ctime = item.get("ctime")
+            if ctime:
+                try:
+                    pub_date = datetime.fromtimestamp(int(ctime)).strftime("%Y-%m-%d")
+                except:
+                    pub_date = today
+            else:
+                pub_date = today
+
+            conn.execute(
+                "INSERT INTO ai_news(title,source,url,category,published_at) VALUES(?,?,?,?,?)",
+                (title, source, url_link, category, pub_date)
+            )
+            existing.add(title)
+            added += 1
+
         conn.commit()
-        print(f"🧠 种子分析: {len(default_analysis)}条 ✓")
+
+        # 保留最新 50 条
+        conn.execute("DELETE FROM ai_news WHERE id NOT IN (SELECT id FROM ai_news ORDER BY fetched_at DESC LIMIT 50)")
+
+        if added:
+            print(f"📰 抓取资讯: +{added}条 (总计{len(existing)}条)")
+        else:
+            print(f"📰 资讯已最新 ({len(existing)}条)")
+
+    except Exception as e:
+        print(f"📰 资讯抓取失败: {e}")
+    finally:
+        if close_conn:
+            conn.close()
+
+
+def _classify_news(title):
+    """根据标题关键词分类。"""
+    if any(kw in title for kw in ["AI","大模型","GPT","DeepSeek","Claude","OpenAI","文心","通义","盘古","模型"]):
+        return "AI模型"
+    if any(kw in title for kw in ["芯片","GPU","Nvidia","AMD","算力","华为","昇腾","服务器"]):
+        return "硬件算力"
+    if any(kw in title for kw in ["A股","上证","深证","创业板","涨停","跌停","牛市","熊市","行情","大盘"]):
+        return "市场行情"
+    if any(kw in title for kw in ["政策","央行","证监会","监管","降息","降准","LPR"]):
+        return "政策监管"
+    if any(kw in title for kw in ["新能源","光伏","锂电","汽车","比亚迪","特斯拉"]):
+        return "新能源"
+    if any(kw in title for kw in ["机器人","低空","航天","卫星","商业航天"]):
+        return "前沿科技"
+    if any(kw in title for kw in ["腾讯","阿里","字节","美团","拼多多","京东"]):
+        return "互联网"
+    if any(kw in title for kw in ["美股","纳斯达克","道琼斯","标普","美联储"]):
+        return "海外市场"
+    return "财经综合"
 
 
 def main():
@@ -283,6 +351,7 @@ def main():
         collect_stocks(conn)
         collect_portfolio(conn)
         _ensure_seed_data(conn)
+        fetch_news(conn)
         export_all_json()
         print("✅ 采集完成")
     finally:
