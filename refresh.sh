@@ -22,7 +22,7 @@ python3 gen_data.py >> "$LOG" 2>&1
 
 # ── 3. Commit & Push ──
 log "📤 Git commit"
-git add v3-dashboard/data/ portfolio/data/ gen_data.py
+git add v3-dashboard/data/ gen_data.py
 if git diff --cached --quiet; then
     log "✅ 无数据变更，跳过推送"
 else
@@ -34,10 +34,10 @@ fi
 # ── 4. 线上数据验证 ──
 log "🔍 线上数据验证"
 CHECK_URLS=(
-    "https://komelio.github.io/ating/portfolio/data/portfolio.json"
-    "https://komelio.github.io/ating/portfolio/data/stocks.json"
-    "https://komelio.github.io/ating/portfolio/data/indices.json"
-    "https://komelio.github.io/ating/portfolio/data/updated.json"
+    "https://komelio.github.io/ating/v3-dashboard/data/stocks.json"
+    "https://komelio.github.io/ating/v3-dashboard/data/market.json"
+    "https://komelio.github.io/ating/v3-dashboard/data/portfolio.json"
+    "https://komelio.github.io/ating/v3-dashboard/data/analysis.json"
 )
 ALL_OK=true
 for url in "${CHECK_URLS[@]}"; do
