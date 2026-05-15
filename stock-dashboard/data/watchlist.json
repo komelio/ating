@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-15 15:00:02",
+  "update_time": "2026-05-15 15:00:04",
   "stocks": [
     {
       "code": "600036",
@@ -76,9 +76,9 @@
     {
       "code": "600900",
       "name": "长江电力",
-      "price": 27.05,
-      "change_pct": 0.408,
-      "pe": 18.34,
+      "price": 27.03,
+      "change_pct": 0.334,
+      "pe": 18.33,
       "pb": 2.9,
       "roe": 0.158,
       "dividend_yield": 0.037,
@@ -114,9 +114,9 @@
     {
       "code": "601088",
       "name": "中国神华",
-      "price": 45.66,
-      "change_pct": 1.085,
-      "pe": 19.2,
+      "price": 45.7,
+      "change_pct": 1.173,
+      "pe": 19.22,
       "pb": 1.97,
       "roe": 0.107,
       "dividend_yield": 0.045,
@@ -389,9 +389,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1049.0,
-      "change_pct": -2.69,
-      "pe": 78.14,
+      "price": 1049.87,
+      "change_pct": -2.609,
+      "pe": 78.21,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
@@ -408,9 +408,9 @@
     {
       "code": "300750",
       "name": "宁德时代",
-      "price": 423.69,
-      "change_pct": -0.775,
-      "pe": 24.82,
+      "price": 423.6,
+      "change_pct": -0.796,
+      "pe": 24.81,
       "pb": 4.0,
       "roe": 0.18,
       "dividend_yield": 0.012,
