@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-15 09:10:01",
+  "update_time": "2026-05-15 09:15:02",
   "stocks": [
     {
       "code": "600036",
@@ -288,7 +288,7 @@
       "name": "寒武纪",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 291.51,
+      "pe": 233.2,
       "pb": 15.0,
       "roe": -0.05,
       "dividend_yield": 0.0,
@@ -307,7 +307,7 @@
       "name": "许继电气",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 25.24,
+      "pe": 25.19,
       "pb": 2.17,
       "roe": 0.087,
       "dividend_yield": 0.015,
@@ -326,7 +326,7 @@
       "name": "粤高速Ａ",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 17.1,
+      "pe": 17.11,
       "pb": 2.28,
       "roe": 0.138,
       "dividend_yield": 0.042,
