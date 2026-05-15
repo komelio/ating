@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-15 14:40:01",
+  "update_time": "2026-05-15 14:40:04",
   "stocks": [
     {
       "code": "600036",
@@ -23,9 +23,9 @@
     {
       "code": "600406",
       "name": "国电南瑞",
-      "price": 26.42,
-      "change_pct": -3.117,
-      "pe": 25.5,
+      "price": 26.41,
+      "change_pct": -3.154,
+      "pe": 25.49,
       "pb": 3.92,
       "roe": 0.156,
       "dividend_yield": 0.024,
@@ -57,8 +57,8 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 1329.68,
-      "change_pct": -0.931,
+      "price": 1329.36,
+      "change_pct": -0.954,
       "pe": 20.13,
       "pb": 9.5,
       "roe": 0.305,
@@ -152,8 +152,8 @@
     {
       "code": "601318",
       "name": "中国平安",
-      "price": 55.33,
-      "change_pct": -2.759,
+      "price": 55.34,
+      "change_pct": -2.742,
       "pe": 7.55,
       "pb": 0.8,
       "roe": 0.1,
@@ -171,8 +171,8 @@
     {
       "code": "601398",
       "name": "工商银行",
-      "price": 7.24,
-      "change_pct": -0.822,
+      "price": 7.25,
+      "change_pct": -0.685,
       "pe": 6.96,
       "pb": 0.6,
       "roe": 0.105,
@@ -228,9 +228,9 @@
     {
       "code": "601939",
       "name": "建设银行",
-      "price": 9.84,
-      "change_pct": 1.027,
-      "pe": 7.53,
+      "price": 9.83,
+      "change_pct": 0.924,
+      "pe": 7.52,
       "pb": 0.55,
       "roe": 0.1,
       "dividend_yield": 0.058,
@@ -265,9 +265,9 @@
     {
       "code": "688041",
       "name": "海光信息",
-      "price": 302.36,
-      "change_pct": -7.023,
-      "pe": 257.8,
+      "price": 302.4,
+      "change_pct": -7.011,
+      "pe": 257.83,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -280,9 +280,9 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1204.48,
-      "change_pct": -4.45,
-      "pe": 278.53,
+      "price": 1204.38,
+      "change_pct": -4.458,
+      "pe": 278.65,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -389,8 +389,8 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1049.06,
-      "change_pct": -2.685,
+      "price": 1049.14,
+      "change_pct": -2.677,
       "pe": 78.15,
       "pb": 8.2,
       "roe": 0.126,
