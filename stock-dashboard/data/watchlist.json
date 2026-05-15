@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-15 14:15:01",
+  "update_time": "2026-05-15 14:15:04",
   "stocks": [
     {
       "code": "600036",
@@ -23,9 +23,9 @@
     {
       "code": "600406",
       "name": "国电南瑞",
-      "price": 26.48,
-      "change_pct": -2.897,
-      "pe": 25.56,
+      "price": 26.49,
+      "change_pct": -2.86,
+      "pe": 25.57,
       "pb": 3.92,
       "roe": 0.156,
       "dividend_yield": 0.024,
@@ -95,8 +95,8 @@
     {
       "code": "600941",
       "name": "中国移动",
-      "price": 98.04,
-      "change_pct": -0.497,
+      "price": 98.03,
+      "change_pct": -0.507,
       "pe": 15.64,
       "pb": 1.5,
       "roe": 0.108,
@@ -280,9 +280,9 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1209.55,
-      "change_pct": -4.048,
-      "pe": 279.7,
+      "price": 1209.36,
+      "change_pct": -4.063,
+      "pe": 279.66,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -370,8 +370,8 @@
     {
       "code": "002594",
       "name": "比亚迪",
-      "price": 96.47,
-      "change_pct": -2.289,
+      "price": 96.48,
+      "change_pct": -2.279,
       "pe": 31.93,
       "pb": 4.5,
       "roe": 0.16,
@@ -389,9 +389,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1048.0,
-      "change_pct": -2.783,
-      "pe": 78.07,
+      "price": 1047.66,
+      "change_pct": -2.814,
+      "pe": 78.04,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
@@ -408,8 +408,8 @@
     {
       "code": "300750",
       "name": "宁德时代",
-      "price": 423.85,
-      "change_pct": -0.738,
+      "price": 423.82,
+      "change_pct": -0.745,
       "pe": 24.83,
       "pb": 4.0,
       "roe": 0.18,
