@@ -35,7 +35,10 @@ td{padding:8px 10px;border-bottom:1px solid var(--border)}tr:hover{background:rg
 .alog{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
 .alog .al-sess{font-size:11px;padding:2px 8px;border-radius:4px;display:inline-block;margin-right:8px}
 .alog .al-ts{font-size:11px;color:var(--text2)}.alog .al-body{margin-top:8px;font-size:13px;line-height:1.6}
-.al-早盘{background:rgba(88,166,255,.15);color:var(--accent)}.al-午盘{background:rgba(240,136,62,.15);color:var(--orange)}.al-月度{background:rgba(239,83,80,.15);color:var(--red)}
+.alog .al-早盘{background:rgba(88,166,255,.15);color:var(--accent)}.alog .al-午盘{background:rgba(240,136,62,.15);color:var(--orange)}.alog .al-月度{background:rgba(239,83,80,.15);color:var(--red)}
+.commentary-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.commentary-title{font-size:16px;font-weight:600;color:var(--accent)}.commentary-meta{font-size:11px;color:var(--text2)}
+.commentary-summary{background:var(--card);border:1px solid var(--accent);border-radius:8px;padding:16px;margin-bottom:14px}.commentary-big{font-size:18px;font-weight:700;margin-top:4px;line-height:1.4}
+.commentary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.commentary-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}.commentary-label{font-size:11px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}.commentary-value{font-size:14px;line-height:1.5}.commentary-list{list-style:none;padding:0;margin:0}.commentary-list li{padding:4px 0;font-size:13px;line-height:1.5}.commentary-list li:before{content:'· ';color:var(--accent)}.commentary-list.risk li:before{content:'⚠ ';color:var(--orange)}.commentary-list.opp li:before{content:'✦ ';color:var(--green)}.commentary-review{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-top:4px}.commentary-text{font-size:13px;line-height:1.8;color:var(--text);margin-top:6px}
 .mode-bar{display:flex;gap:8px;margin-bottom:12px}
 .mode-btn{padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text2);cursor:pointer;font-size:12px}
 .mode-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(88,166,255,.1)}
@@ -64,6 +67,7 @@ td{padding:8px 10px;border-bottom:1px solid var(--border)}tr:hover{background:rg
   <div class="tab" data-pane="data">📈 数据</div>
   <div class="tab" data-pane="journal">📝 复盘</div>
   <div class="tab" data-pane="news">📰 资讯</div>
+  <div class="tab" data-pane="commentary">🤖 AI决策</div>
 </div>
 <div id="overview" class="pane active"><div class="loading">加载中...</div></div>
 <div id="watchlist" class="pane"><div class="loading">加载中...</div></div>
@@ -71,6 +75,7 @@ td{padding:8px 10px;border-bottom:1px solid var(--border)}tr:hover{background:rg
 <div id="data" class="pane"><div class="loading">加载中...</div></div>
 <div id="journal" class="pane"><div class="loading">加载中...</div></div>
 <div id="news" class="pane"><div class="loading">加载中...</div></div>
+<div id="commentary" class="pane"><div class="loading">加载中...</div></div>
 <script>
 // A股仪表盘 JS — 纯前端，从 ./data/*.json 加载
 const $=id=>document.getElementById(id);
@@ -82,7 +87,7 @@ let charts={};
 const DATA={};
 
 async function loadAll(){
-  var files=['updated','indices','stocks','portfolio','index_history','analysis_log','news'];
+  var files=['updated','indices','stocks','portfolio','index_history','analysis_log','news','commentary'];
   await Promise.all(files.map(async function(f){
     try{
       var r=await fetch('./data/'+f+'.json?v='+Date.now());
@@ -100,7 +105,7 @@ document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){
   document.querySelectorAll('.pane').forEach(function(x){x.classList.remove('active')});
   t.classList.add('active');$(t.dataset.pane).classList.add('active');
   Object.values(charts).forEach(function(c){c.destroy()});charts={};
-  var fn={overview:renderOverview,watchlist:renderWatchlist,portfolio:renderPortfolio,data:renderData,journal:renderJournal,news:renderNews}[t.dataset.pane];
+  var fn={overview:renderOverview,watchlist:renderWatchlist,portfolio:renderPortfolio,data:renderData,journal:renderJournal,news:renderNews,commentary:renderCommentary}[t.dataset.pane];
   if(fn)fn();
 }});
 
@@ -318,6 +323,50 @@ function renderKLine(data){
   var vc=pts.map(function(p){return p.close>=p.open?upCol:dnCol});
   charts.kv=new Chart($('chKVol'),{type:'bar',data:{labels:labels,datasets:[{data:pts.map(function(p){return p.volume}),backgroundColor:vc,borderRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxTicksLimit:15}},y:{ticks:{color:'#8b949e',font:{size:9},callback:function(v){return v>=1e8?(v/1e8).toFixed(1)+'亿':v>=1e4?(v/1e4).toFixed(0)+'万':v}}}}}});
   charts.kv.resize();
+}
+
+function renderCommentary(){
+  var C=DATA.commentary||{};
+  if(!C.summary){$('commentary').innerHTML='<div class=\"card\" style=\"text-align:center;padding:40px;color:var(--text2)\"><p style=\"font-size:48px\">🤖</p><p>AI 决策评论生成中...</p><p style=\"font-size:12px;margin-top:8px\">需在 refresh_dashboard.sh 中启用 gen_commentary.py</p></div>';return}
+  var sent=({'乐观':'🟢','谨慎':'🟡','悲观':'🔴'})[C.market_sentiment]||'🟡';
+  var h='<div class=\"commentary-header\">'+
+    '<div class=\"commentary-title\">🤖 AI 决策评论</div>'+
+    '<div class=\"commentary-meta\">'+C.generated_at+' · '+C.model+'</div>'+
+  '</div>'+
+  '<div class=\"commentary-summary\">'+
+    '<div class=\"commentary-label\">核心判断</div>'+
+    '<div class=\"commentary-big\">'+sent+' '+C.summary+'</div>'+
+  '</div>'+
+  '<div class=\"commentary-grid\">'+
+    '<div class=\"commentary-block\">'+
+      '<div class=\"commentary-label\">📊 市场情绪</div>'+
+      '<div class=\"commentary-value\">'+sent+' '+C.market_sentiment+'</div>'+
+    '</div>'+
+    '<div class=\"commentary-block\">'+
+      '<div class=\"commentary-label\">📋 仓位建议</div>'+
+      '<div class=\"commentary-value\">'+(C.position_advice||'--')+'</div>'+
+    '</div>'+
+  '</div>';
+  if(C.key_signals&&C.key_signals.length){
+    h+='<div class=\"commentary-block\"><div class=\"commentary-label\">🚨 关键信号</div><ul class=\"commentary-list\">';
+    C.key_signals.forEach(function(s){h+='<li>'+s+'</li>'});
+    h+='</ul></div>';
+  }
+  if(C.risk_alerts&&C.risk_alerts.length){
+    h+='<div class=\"commentary-block\"><div class=\"commentary-label\">⚠️ 风险提醒</div><ul class=\"commentary-list risk\">';
+    C.risk_alerts.forEach(function(s){h+='<li>'+s+'</li>'});
+    h+='</ul></div>';
+  }
+  if(C.opportunities&&C.opportunities.length){
+    h+='<div class=\"commentary-block\"><div class=\"commentary-label\">💡 机会关注</div><ul class=\"commentary-list opp\">';
+    C.opportunities.forEach(function(s){h+='<li>'+s+'</li>'});
+    h+='</ul></div>';
+  }
+  h+='<div class=\"commentary-block\"><div class=\"commentary-label\">▶️ 下一步</div><div class=\"commentary-value\">'+(C.next_action||'--')+'</div></div>';
+  if(C.detailed_review){
+    h+='<div class=\"commentary-review\"><div class=\"commentary-label\">📝 详细复盘</div><div class=\"commentary-text\">'+C.detailed_review.replace(/\n/g,'<br>')+'</div></div>';
+  }
+  $('commentary').innerHTML=h;
 }
 </script>
 <div class="modal-overlay" id="klineModal">
