@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI短剧创业落地白皮书 - 互动演示系统</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eefcf4',
+                            100: '#dcf7e7',
+                            200: '#bdf0d0',
+                            300: '#8de4b0',
+                            400: '#55cf88',
+                            500: '#10b981', // Emerald green representing wealth/growth
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        },
+                        tech: {
+                            50: '#f5f3ff',
+                            500: '#6366f1', // Indigo representing AI tech
+                            900: '#312e81',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .slide-transition {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        .tech-border {
+            box-shadow: inset 0 0 15px rgba(99, 102, 241, 0.07);
+        }
+        /* Custom Scrollbar for inner components */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between overflow-hidden selection:bg-brand-500 selection:text-slate-900">
+
+    <!-- Top Progress Bar -->
+    <div class="w-full bg-slate-900 h-2 relative z-50">
+        <div id="topProgressBar" class="h-full bg-gradient-to-r from-tech-500 to-brand-500 w-0 transition-all duration-300"></div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-5 flex items-center justify-between z-40">
+        <div class="flex items-center space-x-4">
+            <div class="bg-gradient-to-tr from-tech-500 to-brand-500 p-3 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/10">
+                <i class="fa-solid fa-microchip text-white text-xl"></i>
+            </div>
+            <div>
+                <span class="text-xs md:text-sm text-brand-400 font-bold tracking-wider uppercase">AI Architect Alliance</span>
+                <h1 class="text-base md:text-lg font-extrabold tracking-tight text-white flex items-center">
+                    AI短剧创业落地白皮书 <span class="ml-2.5 px-2 py-0.5 text-xs bg-slate-800 border border-slate-700 rounded text-slate-400 font-semibold">V2.0 PRO</span>
+                </h1>
+            </div>
+        </div>
+        <div class="hidden lg:flex items-center space-x-3 text-sm text-slate-300">
+            <span class="px-3 py-1 bg-slate-800 rounded font-medium">AI架构工厂</span>
+            <span class="text-slate-500 font-bold">+</span>
+            <span class="px-3 py-1 bg-slate-800 rounded font-medium">百万级流量裂变</span>
+            <span class="text-slate-500 font-bold">=</span>
+            <span class="px-3 py-1 bg-brand-950/50 text-brand-400 border border-brand-800/30 rounded font-bold">爆款落地公式</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button onclick="toggleSidebar()" class="text-slate-300 hover:text-white px-4 py-2 rounded-lg border border-slate-800 hover:border-slate-700 bg-slate-950/40 text-sm transition-all flex items-center font-semibold">
+                <i class="fa-solid fa-list-ul mr-2"></i> 大纲目录
+            </button>
+        </div>
+    </header>
+
+    <!-- Document Core Layout -->
+    <div class="flex-grow flex relative overflow-hidden h-full">
+        <!-- Sidebar Navigation List (Collapsible) -->
+        <aside id="slideSidebar" class="w-80 bg-slate-900/95 backdrop-blur border-r border-slate-800 p-5 flex flex-col justify-between absolute md:relative left-0 top-0 h-full z-30 transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-2xl md:shadow-none">
+            <div class="flex flex-col h-full justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
+                        <span class="text-sm font-bold text-slate-300 uppercase tracking-widest"><i class="fa-regular fa-folder-open mr-2"></i> 白皮书内容模块</span>
+                        <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+                    <div class="space-y-1.5 overflow-y-auto max-h-[55vh]" id="sidebarMenu">
+                        <!-- Dynamic sidebar elements injected here -->
+                    </div>
+                </div>
+                
+                <div class="pt-5 border-t border-slate-800">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/60">
+                        <div class="flex items-center space-x-2.5 mb-2">
+                            <div class="w-3 h-3 rounded-full bg-brand-500 animate-pulse"></div>
+                            <span class="text-xs md:text-sm font-bold text-slate-200">合伙人路演推荐</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">此白皮书内含互动收益计算器，在第 9 页演示时可根据实际成本配置进行现场测算。</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Slide Viewport -->
+        <main class="flex-grow flex flex-col justify-center items-center p-4 md:p-8 bg-slate-950 relative overflow-hidden">
+            <!-- Decorative Tech grid overlay in background -->
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40"></div>
+            
+            <!-- Slide Container Stage -->
+            <div id="slideViewport" class="w-full max-w-5xl bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-6 md:p-10 shadow-2xl relative min-h-[550px] md:min-h-[640px] flex flex-col justify-between overflow-y-auto tech-border">
+                
+                <!-- Slide Active Frame -->
+                <div id="slideContent" class="flex-grow flex flex-col justify-center">
+                    <!-- Slides are rendered dynamically by JavaScript -->
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Presenter Control Panel -->
+    <footer class="bg-slate-900 border-t border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 z-40">
+        <div class="flex items-center space-x-5">
+            <div class="text-sm text-slate-300 font-medium">
+                幻灯片进度: <span id="slideIndexText" class="font-extrabold text-brand-400">1 / 12</span>
+            </div>
+            <div class="flex space-x-1.5" id="miniDotsProgress">
+                <!-- Dots indicators inserted dynamically -->
+            </div>
+        </div>
+
+        <!-- Dynamic Tip Message Box (Replacing alert) -->
+        <div id="systemToast" class="opacity-0 translate-y-2 pointer-events-none transition-all duration-300 flex items-center space-x-2 bg-slate-800 border border-brand-500/30 text-brand-400 px-4 py-2.5 rounded-lg text-sm font-semibold">
+            <i class="fa-solid fa-circle-info text-base"></i>
+            <span id="systemToastMsg">系统已准备就绪</span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button onclick="prevSlide()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white px-5 py-2.5 rounded-lg border border-slate-700/60 transition-all text-sm flex items-center font-bold">
+                <i class="fa-solid fa-chevron-left mr-2"></i> 上一页
+            </button>
+            <button onclick="nextSlide()" class="bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-slate-950 font-black px-7 py-2.5 rounded-lg shadow-lg shadow-brand-500/20 transition-all text-sm flex items-center">
+                下一页 <i class="fa-solid fa-chevron-right ml-2"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // Full Dataset for the Slide Deck (12 highly professional presentation slides) - Fonts Enlarged
+        const slideData = [
+            {
+                id: 1,
+                title: "1. 封面：AI短剧创业落地白皮书",
+                category: "项目启动",
+                icon: "fa-solid fa-play",
+                html: `
+                    <div class="text-center py-6">
+                        <div class="inline-flex items-center space-x-2.5 bg-brand-950/70 border border-brand-500/30 text-brand-400 px-5 py-2 rounded-full text-sm font-extrabold uppercase tracking-widest mb-8 animate-pulse">
+                            <span class="w-3 h-3 rounded-full bg-brand-400 inline-block"></span>
+                            <span>2026 工业化黄金赛道</span>
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight mb-6">
+                            AI短剧创业落地白皮书
+                        </h2>
+                        <p class="text-xl md:text-2xl text-slate-200 font-bold max-w-3xl mx-auto leading-relaxed mb-10">
+                            —— AI架构师驱动的高效内容生产与百万流量变现引擎
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto text-left mb-10">
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-xs md:text-sm text-slate-400 block mb-1.5 font-bold uppercase tracking-wider">主创架构</span>
+                                <span class="text-base md:text-lg font-extrabold text-brand-400">AI 架构师（技术核心）</span>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-xs md:text-sm text-slate-400 block mb-1.5 font-bold uppercase tracking-wider">流量支撑</span>
+                                <span class="text-base md:text-lg font-extrabold text-tech-400">流量操盘手（矩阵裂变）</span>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-xs md:text-sm text-slate-400 block mb-1.5 font-bold uppercase tracking-wider">核心目标</span>
+                                <span class="text-base md:text-lg font-extrabold text-white">日活百万级流量矩阵变现</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm md:text-base text-slate-400 italic font-medium">提示：可使用键盘左右方向键 (← / →) 或手机划动进行翻页演示</p>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                title: "2. 行业破局：短剧的“工业化拐点”",
+                category: "行业洞察",
+                icon: "fa-solid fa-chart-pie",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Industry Trend</span>
+                            <span>/</span>
+                            <span>降本增效的核心诉求</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-8">短剧制作模式的革命性颠覆</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="space-y-6">
+                                <div class="bg-slate-950/60 border-l-4 border-red-500 p-5 rounded-r-xl">
+                                    <h4 class="text-base md:text-lg font-bold text-slate-200 flex items-center mb-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i> 传统制作痛点（成本重山）
+                                    </h4>
+                                    <p class="text-sm md:text-base text-slate-400 leading-relaxed font-medium">
+                                        成本高昂（一部剧15-50万）、制作周期漫长（2-4周）、极其依赖人工作坊，爆款不确定性极强。
+                                    </p>
+                                </div>
+                                <div class="bg-slate-950/60 border-l-4 border-brand-500 p-5 rounded-r-xl">
+                                    <h4 class="text-base md:text-lg font-bold text-slate-200 flex items-center mb-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-brand-500 mr-2"></i> AI 制作增效（工业突围）
+                                    </h4>
+                                    <p class="text-sm md:text-base text-slate-400 leading-relaxed font-medium">
+                                        全流程成本骤降至<strong>传统模式的 1/10</strong>（约3万内），交付压缩至<strong>7-10天</strong>。允许极低成本高速多版本试错！
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Simple comparative cost card -->
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 md:p-8 rounded-2xl flex flex-col justify-between h-full">
+                                <h4 class="text-sm font-bold text-slate-300 uppercase mb-5 tracking-widest text-center">每集综合成本对比（元）</h4>
+                                <div class="space-y-5">
+                                    <div>
+                                        <div class="flex justify-between text-sm md:text-base mb-2">
+                                            <span class="text-slate-400">传统真人实拍短剧</span>
+                                            <span class="font-extrabold text-red-400">¥2,500 - ¥5,000</span>
+                                        </div>
+                                        <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden">
+                                            <div class="bg-red-500 h-full w-full rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm md:text-base mb-2">
+                                            <span class="text-slate-400">AI 工业化管线生成</span>
+                                            <span class="font-extrabold text-brand-400">¥200 - ¥400</span>
+                                        </div>
+                                        <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden">
+                                            <div class="bg-brand-500 h-full w-1/12 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-8 pt-5 border-t border-slate-800/80 text-center">
+                                    <span class="text-sm md:text-base text-brand-400 bg-brand-950/40 border border-brand-900/40 px-5 py-2 rounded-full font-black tracking-wide">
+                                        成本节省高达 90%+
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                title: "3. 联手壁垒：AI工厂 × 百万流量操盘手",
+                category: "合作壁垒",
+                icon: "fa-solid fa-handshake",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Strong Alliance</span>
+                            <span>/</span>
+                            <span>强强联合 缺一不可</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">合伙双驱协同：重塑行业生产关系</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Partner -->
+                            <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 hover:border-brand-500/20 p-6 rounded-2xl transition-all">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-brand-950 border border-brand-500/30 text-brand-400 rounded-xl flex items-center justify-center text-xl shadow-lg">
+                                        <i class="fa-solid fa-code"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-extrabold text-white text-base md:text-lg">AI 架构师 (我)</h4>
+                                        <p class="text-xs text-slate-500 uppercase tracking-widest">CONTENT REVOLUTION FACTORY</p>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3.5 text-sm text-slate-300">
+                                    <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mr-3 mt-1 text-base"></i> <span><strong>管线搭建：</strong> 建立自动化剧本、视频生成到一致性审核的批量工具链。</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mr-3 mt-1 text-base"></i> <span><strong>技术调试：</strong> 主导 LoRA 训练、形象控制、角色种子锁定，突破画面抖动和穿帮。</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mr-3 mt-1 text-base"></i> <span><strong>核心价值：</strong> 解决从0到1的无限、极低成本素材批量供应。</span></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Right Partner -->
+                            <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 hover:border-tech-500/20 p-6 rounded-2xl transition-all">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-tech-900 border border-tech-500/30 text-tech-400 rounded-xl flex items-center justify-center text-xl shadow-lg">
+                                        <i class="fa-solid fa-users-viewfinder"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-extrabold text-white text-base md:text-lg">流量操盘手 (你)</h4>
+                                        <p class="text-xs text-slate-500 uppercase tracking-widest">TRAFFIC & MONETIZATION ENGINE</p>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3.5 text-sm text-slate-300">
+                                    <li class="flex items-start"><i class="fa-solid fa-check text-tech-500 mr-3 mt-1 text-base"></i> <span><strong>爆款二次剪辑：</strong> 黄金3秒、精细卡点节奏，让粗素材注入市场爽点灵魂。</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-check text-tech-500 mr-3 mt-1 text-base"></i> <span><strong>矩阵规模裂变：</strong> 掌握 30-100 个账号，熟稔热点和流量算法，每日产出百万级曝光。</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-check text-tech-500 mr-3 mt-1 text-base"></i> <span><strong>核心价值：</strong> 解决从1到100的市场放大，将源源不断的素材转化为真金白银。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 bg-slate-950 p-5 rounded-xl border border-slate-800 text-center">
+                            <p class="text-sm md:text-base text-slate-300 font-medium">
+                                <strong class="text-brand-400 font-extrabold">双赢内核：</strong> 你的流量池深度决定我们的上限，我的技术产能决定我们的获利杠杆和试错空间！
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: "4. 环节一：AI剧本智能体及赛道选择",
+                category: "落地闭环",
+                icon: "fa-solid fa-feather",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Stage 1: Script Engine</span>
+                            <span>/</span>
+                            <span>逆向爆款基因</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">第一步：AI 剧本智能体构建</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h4 class="text-base md:text-lg font-bold text-slate-200 mb-4">选题策略与自动化创作：</h4>
+                                <ul class="space-y-4 text-sm text-slate-300">
+                                    <li class="flex items-start">
+                                        <span class="w-6 h-6 rounded-full bg-slate-800 text-brand-400 font-bold flex items-center justify-center text-xs mr-3 flex-shrink-0">1</span>
+                                        <span><strong>逆向爆款模型：</strong> 基于大语言模型（DeepSeek/Claude）API，录入热播短剧的爆点公式，确保台词高情绪、高反转。</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="w-6 h-6 rounded-full bg-slate-800 text-brand-400 font-bold flex items-center justify-center text-xs mr-3 flex-shrink-0">2</span>
+                                        <span><strong>赛道聚焦：</strong> 优先切入<strong>都市复仇、逆袭打脸、战神归来、豪门甜宠</strong>等成熟且极易转化的短剧题材。</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="w-6 h-6 rounded-full bg-slate-800 text-brand-400 font-bold flex items-center justify-center text-xs mr-3 flex-shrink-0">3</span>
+                                        <span><strong>剧本库标注管理：</strong> 人工过滤违规题材，通过飞书/多维数据库秒级筛选高潜力分镜。</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 rounded-2xl">
+                                <h4 class="text-sm font-bold text-slate-300 tracking-wider uppercase mb-4 flex items-center">
+                                    <i class="fa-solid fa-terminal text-brand-500 mr-2"></i> AI剧本生成工作流演示
+                                </h4>
+                                <div class="bg-slate-900 rounded p-4 text-xs md:text-sm font-mono text-slate-300 leading-relaxed space-y-1.5">
+                                    <p class="text-emerald-500">&gt; Loading DeepSeek-V3 Engine...</p>
+                                    <p class="text-slate-500">&gt; Querying Daily Hot Trend Database...</p>
+                                    <p class="text-white">&gt; [Prompt Initialized]: 'Generate 80-episodes revenge drama'</p>
+                                    <p class="text-brand-400">&gt; Outputting: Episode 1 (The Hook & Reverse)</p>
+                                    <p class="text-slate-400">&gt; Result: "三年隐忍，今天岳母竟要把新娘换成..." [Success]</p>
+                                </div>
+                                <div class="mt-5 flex justify-between text-xs md:text-sm text-slate-400 border-t border-slate-800 pt-4 font-semibold">
+                                    <span>模型费用：约 ¥0.05/每集</span>
+                                    <span>用时：&lt; 3秒</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                title: "5. 环节二：角色一致性及画面抽卡",
+                category: "技术攻关",
+                icon: "fa-solid fa-robot",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Stage 2: Core Consistency</span>
+                            <span>/</span>
+                            <span>画面稳定性控制</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">第二步：锁定角色脸部 & 一致性渲染</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 rounded-2xl">
+                                <div class="flex justify-between items-center mb-5">
+                                    <h4 class="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-widest"><i class="fa-solid fa-sliders text-brand-500 mr-1.5"></i> 一致性渲染管线</h4>
+                                    <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-400 font-mono">Pipeline v1.4</span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between text-sm pb-2.5 border-b border-slate-900">
+                                        <span class="text-slate-400">1. 人物设定 (Prompt + ControlNet)</span>
+                                        <span class="text-brand-400 font-bold font-mono">100% 锁定</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm pb-2.5 border-b border-slate-900">
+                                        <span class="text-slate-400">2. 画面微调 (Flux LoRA)</span>
+                                        <span class="text-brand-400 font-bold font-mono">人脸五官一致性 95%</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm pb-2.5 border-b border-slate-900">
+                                        <span class="text-slate-400">3. 视频生成 (可灵 Kling 1.5 / Runway)</span>
+                                        <span class="text-brand-400 font-bold font-mono">动作平滑度 90%</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm">
+                                        <span class="text-slate-400">4. 自动化精修与重绘 (Face-Renovate)</span>
+                                        <span class="text-brand-400 font-bold font-mono">多镜头无缝对齐</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-base md:text-lg font-bold text-slate-200 mb-4">如何解决AI生成“闪烁与人脸跳变”：</h4>
+                                <ul class="space-y-4 text-sm text-slate-300">
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 mt-1 text-base"></i>
+                                        <span><strong>人脸种子图技术：</strong> 不盲目用纯文生视频。先由 MJ/Flux 生成高保真角色肖像作为“种子图”，利用 IP-Adapter 强制贴图。</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 mt-1 text-base"></i>
+                                        <span><strong>视频抽卡机制：</strong> 配合本地高配算力或云端工作流，采用批量排队渲染。单镜头生成多份，由AI架构师完成“去粗存精”式的高效抽卡。</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 mt-1 text-base"></i>
+                                        <span><strong>智能配音对齐：</strong> 提取情绪化配音并生成音视频对齐，让角色对口型更真实。</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                title: "6. 环节三：二次剪辑与“爆款二创”",
+                category: "运营注入",
+                icon: "fa-solid fa-scissors",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Stage 3: Editing Magic</span>
+                            <span>/</span>
+                            <span>合伙人深度主导</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">第三步：给AI毛坯片注入“网感灵魂”</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-5 font-semibold">
+                                    AI算出来的画面只是“毛坯”，合伙人优秀的剪辑能力才是决定用户是否停留、是否充值的<strong>核按钮</strong>。
+                                </p>
+                                <div class="space-y-4">
+                                    <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                                        <span class="text-sm font-bold text-brand-400 block mb-1">黄金3秒开头法则：</span>
+                                        <p class="text-xs md:text-sm text-slate-400">抛弃冗长前戏，用强冲突、最亮眼的重头戏前置开场，勾住滑动的眼球。</p>
+                                    </div>
+                                    <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                                        <span class="text-sm font-bold text-brand-400 block mb-1">多版本 A/B 混剪测试：</span>
+                                        <p class="text-xs md:text-sm text-slate-400">用同一套AI视频素材，混剪出 3-5 套不同解说旁白、不同配乐风格的版本同步测试，快速捕获流量突破口。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 md:p-8 rounded-2xl flex flex-col justify-between h-full">
+                                <h4 class="text-sm font-bold text-slate-300 tracking-wider uppercase mb-5 text-center">爆款短剧剪辑核心参数配置</h4>
+                                <div class="space-y-4 text-sm">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-400">单镜头平均时长</span>
+                                        <span class="font-bold text-white">1.5 - 2.5 秒</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-400">情绪爽点卡点频次</span>
+                                        <span class="font-bold text-white">每 15 秒一小爽，30 秒一反转</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-400">结尾强留存钩子</span>
+                                        <span class="font-bold text-white">充值引导/悬念卡点中断</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 bg-brand-950/40 border border-brand-900/30 p-3 rounded text-center">
+                                    <span class="text-xs md:text-sm text-brand-400 font-extrabold"><i class="fa-solid fa-volume-high mr-1"></i> 重音效、强BGM是爽感催化剂</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                title: "7. 环节四：百万矩阵流量推广策略",
+                category: "流量爆发",
+                icon: "fa-solid fa-tower-broadcast",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Stage 4: Matrix Traffic</span>
+                            <span>/</span>
+                            <span>百万级规模化引爆</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">第四步：云手机+账号矩阵的高举高打</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl text-center">
+                                <div class="w-12 h-12 bg-brand-950 text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                                    <i class="fa-solid fa-mobile-screen"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-white mb-2">30-100个账号矩阵</h4>
+                                <p class="text-xs md:text-sm text-slate-400 leading-normal">
+                                    部署矩阵进行多节点分发，通过多重账号裂变分散规则限流风险。
+                                </p>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl text-center">
+                                <div class="w-12 h-12 bg-brand-950 text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                                    <i class="fa-solid fa-hourglass-start"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-white mb-2">48小时极速借势</h4>
+                                <p class="text-xs md:text-sm text-slate-400 leading-normal">
+                                    热点爆发后48小时内利用AI流水线瞬时出剧，完美契合当下网民情绪。
+                                </p>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl text-center">
+                                <div class="w-12 h-12 bg-brand-950 text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                                    <i class="fa-solid fa-comments"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-white mb-2">AI 评论裂变系统</h4>
+                                <p class="text-xs md:text-sm text-slate-400 leading-normal">
+                                    自动检测高赞热评，批量引导评论区充值、下载，拉高完播留存。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+                            <div class="flex items-center space-x-2 text-sm text-slate-300 font-bold mb-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-tech-500"></span>
+                                <span class="text-base">小额付费杠杆机制</span>
+                            </div>
+                            <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                                纯靠自然流容易碰运气。结合合伙人投手经验，通过<strong>极低成本投流（每日500-2000元）</strong>，测出高ROI剧目后，瞬间进行矩阵式预算放大，实现科学稳赚。
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                title: "8. 环节五：多维变现闭环规划",
+                category: "多元收益",
+                icon: "fa-solid fa-coins",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Stage 5: High-Yield Monetization</span>
+                            <span>/</span>
+                            <span>把像素变成真金白银</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">第五步：四大主流收益引擎，打造闭环</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl flex items-start space-x-4">
+                                <span class="bg-brand-950 text-brand-400 p-3 rounded-lg text-lg"><i class="fa-solid fa-credit-card"></i></span>
+                                <div>
+                                    <h4 class="text-sm md:text-base font-extrabold text-white">IAP (内购充值付费)</h4>
+                                    <p class="text-xs md:text-sm text-slate-400 mt-2 leading-relaxed">
+                                        抖音/快手短剧小程序直连挂载。前15集免费体验，锁定高潮爽点引导付费解锁，单部定价 19.9-49.9 元。
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl flex items-start space-x-4">
+                                <span class="bg-brand-950 text-brand-400 p-3 rounded-lg text-lg"><i class="fa-solid fa-rectangle-ad"></i></span>
+                                <div>
+                                    <h4 class="text-sm md:text-base font-extrabold text-white">IAA (广告解锁分成)</h4>
+                                    <p class="text-xs md:text-sm text-slate-400 mt-2 leading-relaxed">
+                                        针对付费意愿低的群体，采用“看30秒广告解锁下一集”的激励广告模式，平台分成及联盟广告获取海量长尾收益。
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl flex items-start space-x-4">
+                                <span class="bg-brand-950 text-brand-400 p-3 rounded-lg text-lg"><i class="fa-solid fa-cart-shopping"></i></span>
+                                <div>
+                                    <h4 class="text-sm md:text-base font-extrabold text-white">IP 人设直播与账号代运营</h4>
+                                    <p class="text-xs md:text-sm text-slate-400 mt-2 leading-relaxed">
+                                        爆款账号沉淀数十万核心粉丝后，依托AI技术实现虚拟人/半AI切片高频直播带货，撬动更大的后端供应链红利。
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl flex items-start space-x-4">
+                                <span class="bg-brand-950 text-brand-400 p-3 rounded-lg text-lg"><i class="fa-solid fa-puzzle-piece"></i></span>
+                                <div>
+                                    <h4 class="text-sm md:text-base font-extrabold text-white">全网版权多平台打包授权</h4>
+                                    <p class="text-xs md:text-sm text-slate-400 mt-2 leading-relaxed">
+                                        将AI生成的独家短剧内容通过第三方分发平台（出海至 ReelShort、ShortTV等）进行版权分销。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                title: "9. 落地测算：现场交互式 ROI 测算模型",
+                category: "财务预测",
+                icon: "fa-solid fa-calculator",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Interactive Calculator</span>
+                            <span>/</span>
+                            <span>实时利润模拟器</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">AI短剧商业模型现场推演</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Sliders -->
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 rounded-2xl space-y-5">
+                                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-sliders text-brand-500 mr-2"></i> 可变业务参数配置</h4>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm md:text-base mb-2">
+                                        <span class="text-slate-400 font-medium">计划产剧量/月 (部)</span>
+                                        <span id="val_dramas" class="text-brand-400 font-extrabold text-lg">4</span>
+                                    </div>
+                                    <input type="range" id="input_dramas" min="1" max="15" value="4" oninput="calculateROI()" class="w-full accent-brand-500 h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm md:text-base mb-2">
+                                        <span class="text-slate-400 font-medium">日均矩阵投放流量 (万次曝光)</span>
+                                        <span id="val_traffic" class="text-brand-400 font-extrabold text-lg">50</span>
+                                    </div>
+                                    <input type="range" id="input_traffic" min="10" max="300" step="10" value="50" oninput="calculateROI()" class="w-full accent-brand-500 h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm md:text-base mb-2">
+                                        <span class="text-slate-400 font-medium">平均充值转化付费率 (%)</span>
+                                        <span id="val_conv" class="text-brand-400 font-extrabold text-lg">0.15</span>
+                                    </div>
+                                    <input type="range" id="input_conv" min="0.05" max="1.00" step="0.05" value="0.15" oninput="calculateROI()" class="w-full accent-brand-500 h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm md:text-base mb-2">
+                                        <span class="text-slate-400 font-medium">单客平均充值金额 (元)</span>
+                                        <span id="val_arpu" class="text-brand-400 font-extrabold text-lg">29.9</span>
+                                    </div>
+                                    <input type="range" id="input_arpu" min="9.9" max="59.9" step="5" value="29.9" oninput="calculateROI()" class="w-full accent-brand-500 h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                                </div>
+                            </div>
+                            
+                            <!-- Financial Results Sheet -->
+                            <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+                                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-widest text-center mb-4">估算月度损益看板 (PRO)</h4>
+                                <div class="space-y-4 text-sm md:text-base">
+                                    <div class="flex justify-between border-b border-slate-800 pb-3">
+                                        <span class="text-slate-400">AI硬成本(工具+算力+剧本)</span>
+                                        <span id="res_tech_cost" class="font-extrabold text-slate-200">¥ 12,000</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-slate-800 pb-3">
+                                        <span class="text-slate-400">推广投流测试成本</span>
+                                        <span id="res_ad_cost" class="font-extrabold text-slate-200">¥ 15,000</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-slate-800 pb-3">
+                                        <span class="text-slate-400">估算月营业总收入</span>
+                                        <span id="res_revenue" class="font-extrabold text-brand-400 text-lg">¥ 67,275</span>
+                                    </div>
+                                    <div class="flex justify-between pt-2">
+                                        <span class="text-slate-200 font-black text-base md:text-lg">估算月度纯利润</span>
+                                        <span id="res_profit" class="font-black text-xl md:text-2xl text-brand-500 text-glow">¥ 40,275</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-slate-800/80 text-center">
+                                    <span class="text-xs md:text-sm text-slate-400 italic font-medium">* 测算仅作商业逻辑沙盘演练，不构成保底收益承诺</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                title: "10. 资源规划：MVP启动资产清单",
+                category: "资产投入",
+                icon: "fa-solid fa-list-check",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Resources & Staffing</span>
+                            <span>/</span>
+                            <span>低损耗极简启动</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">冷启动阶段(MVP)团队与工具投入总览</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Left: Team -->
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 rounded-2xl">
+                                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4 flex items-center">
+                                    <i class="fa-solid fa-users text-brand-500 mr-2.5 text-base"></i> 核心人员配比 (4-5人配置)
+                                </h4>
+                                <ul class="space-y-4 text-sm text-slate-300">
+                                    <li class="flex justify-between pb-2 border-b border-slate-900">
+                                        <span>AI架构师 (我/管线设计与抽卡)</span>
+                                        <span class="text-white font-black">1人 (兼顾API联调)</span>
+                                    </li>
+                                    <li class="flex justify-between pb-2 border-b border-slate-900">
+                                        <span>爆款剧本内容策划</span>
+                                        <span class="text-white font-black">1人 (合伙人团队抽调)</span>
+                                    </li>
+                                    <li class="flex justify-between pb-2 border-b border-slate-900">
+                                        <span>矩阵投手/运营</span>
+                                        <span class="text-white font-black">1-2人 (主导账号流量)</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>网感二创剪辑师</span>
+                                        <span class="text-white font-black">1-2人 (合伙人主力)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Right: Technical costs -->
+                            <div class="bg-slate-950/60 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4 flex items-center">
+                                        <i class="fa-solid fa-microchip text-brand-500 mr-2.5 text-base"></i> 技术与软硬件成本估算
+                                    </h4>
+                                    <ul class="space-y-3.5 text-sm text-slate-300">
+                                        <li class="flex justify-between"><span>模型API与订阅 (DeepSeek/Claude)</span> <span class="font-bold font-mono text-slate-200">约 ¥3,000/月</span></li>
+                                        <li class="flex justify-between"><span>视频渲染算力 (可灵/Runway/本地GPU)</span> <span class="font-bold font-mono text-slate-200">约 ¥15,000/月</span></li>
+                                        <li class="flex justify-between"><span>云手机与分发矩阵系统</span> <span class="font-bold font-mono text-slate-200">约 ¥2,000/月</span></li>
+                                        <li class="flex justify-between"><span>小额冷启动投流验证预算</span> <span class="font-bold font-mono text-slate-200">约 ¥15,000/月</span></li>
+                                    </ul>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-extrabold text-slate-200">首月启动资金建议：</span>
+                                    <span class="font-black text-brand-400 bg-brand-950/40 border border-brand-900/30 px-4 py-2 rounded text-base md:text-lg">¥ 35,000 - 50,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 11,
+                title: "11. 避坑指南：四大核心风险安全屏障",
+                category: "风险管理",
+                icon: "fa-solid fa-shield-halved",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Risk Control Shield</span>
+                            <span>/</span>
+                            <span>防风控、堵漏洞</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">合规先行：确保商业版图的坚固安全</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-sm md:text-base font-black text-red-400 block mb-2"><i class="fa-solid fa-ban mr-1.5 text-base"></i> 平台限流/去AI标签风险</span>
+                                <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+                                    <strong>安全对策：</strong> 严禁“纯AI直出”。推广素材必须混剪真人解说或真人实拍空镜头，深度破坏AI像素指纹，完全逃脱平台的机械限流。
+                                </p>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-sm md:text-base font-black text-brand-400 block mb-2"><i class="fa-solid fa-copyright mr-1.5 text-base"></i> 剧本与画面版权漏洞风险</span>
+                                <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+                                    <strong>安全对策：</strong> API批量清洗并完全重塑洗稿逻辑；严禁使用盗版IP和肖像，只建立自研的专属角色LoRA底色模型。
+                                </p>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-sm md:text-base font-black text-brand-400 block mb-2"><i class="fa-solid fa-arrows-spin mr-1.5 text-base"></i> 内容高度同质化用户疲劳</span>
+                                <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+                                    <strong>安全对策：</strong> “AI+真人演员”解说混剪模式，不卖平淡剧情。建立私有爽点剧本大模型。
+                                </p>
+                            </div>
+                            <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-xl">
+                                <span class="text-sm md:text-base font-black text-brand-400 block mb-2"><i class="fa-solid fa-handshake-angle mr-1.5 text-base"></i> 合伙人贡献及结算分歧</span>
+                                <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+                                    <strong>安全对策：</strong> 项目分红约定清晰，初期扣除算力投流成本后，技术与流量严格按约定比例每周/每部剧动态结算。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 12,
+                title: "12. 路线图：MVP极速验证与未来复制",
+                category: "发展路线",
+                icon: "fa-solid fa-map-location-dot",
+                html: `
+                    <div>
+                        <div class="flex items-center space-x-2 text-sm text-brand-400 font-bold uppercase mb-3">
+                            <span>Strategic Roadmap</span>
+                            <span>/</span>
+                            <span>小步快跑，快速滚雪球</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">90天短剧工业化复制大战略</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
+                            <!-- Step 1 -->
+                            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-brand-500/20 p-6 rounded-2xl relative">
+                                <span class="absolute top-4 right-4 text-4xl font-black text-slate-800/40 font-mono">01</span>
+                                <h4 class="text-base md:text-lg font-bold text-brand-400 mb-2">Phase 1: 冷启动验证</h4>
+                                <span class="text-xs text-slate-500 block mb-3 font-bold uppercase tracking-wider">M1 (首月行动)</span>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                                    搭建 AI 一致性渲染流水线 V1.0，产出首批 3 部样片，合伙人现有渠道测试变现，打通小程序付费。<strong>验证单剧回本周期 &lt; 15天。</strong>
+                                </p>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-brand-500/20 p-6 rounded-2xl relative">
+                                <span class="absolute top-4 right-4 text-4xl font-black text-slate-800/40 font-mono">02</span>
+                                <h4 class="text-base md:text-lg font-bold text-brand-400 mb-2">Phase 2: 规模化爆发</h4>
+                                <span class="text-xs text-slate-500 block mb-3 font-bold uppercase tracking-wider">M2 - M3 (横向扩充)</span>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                                    升级管线，剧本到成片压缩至 5 天内。账号矩阵扩至 50+，日流突破 100 万次曝光。开启 IAA广告分成 与 出海分销双轨驱动。
+                                </p>
+                            </div>
+                            
+                            <!-- Step 3 -->
+                            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-brand-500/20 p-6 rounded-2xl relative">
+                                <span class="absolute top-4 right-4 text-4xl font-black text-slate-800/40 font-mono">03</span>
+                                <h4 class="text-base md:text-lg font-bold text-brand-400 mb-2">Phase 3: 资本杠杆扩张</h4>
+                                <span class="text-xs text-slate-500 block mb-3 font-bold uppercase tracking-wider">Q3+ (品牌复制)</span>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                                    建立 AI 实时投流 ROI 大数据库。引入第三方投流杠杆资金，大规模裂变新产线。孵化品牌虚拟IP资产，实现产业化。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 text-center">
+                            <h4 class="text-lg md:text-2xl font-black text-white mb-2">"你有流量的钥匙，我有无限的子弹。让我们即刻引爆这台印钞机！"</h4>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        let currentSlideIndex = 0;
+
+        window.onload = function() {
+            initSidebar();
+            initMiniProgressDots();
+            renderSlide(0);
+            
+            // Add keyboard event listener
+            document.addEventListener('keydown', handleKeyNavigation);
+
+            // Add Swipe gestures detection
+            setupTouchGestures();
+        }
+
+        // Initialize sidebar menu elements
+        function initSidebar() {
+            const menu = document.getElementById('sidebarMenu');
+            menu.innerHTML = '';
+            slideData.forEach((slide, index) => {
+                const btn = document.createElement('button');
+                btn.id = `sidebar-btn-${index}`;
+                btn.onclick = () => { jumpToSlide(index); };
+                btn.className = `w-full text-left px-4 py-3.5 rounded-lg text-sm font-semibold transition-all flex items-center space-x-3 mb-1.5 bg-slate-950/20 border border-transparent text-slate-400 hover:text-white hover:bg-slate-800/40`;
+                btn.innerHTML = `
+                    <span class="w-6 h-6 rounded-md bg-slate-900 border border-slate-800 text-xs font-black flex items-center justify-center text-slate-500 tracking-tight group-hover:border-brand-500">${slide.id}</span>
+                    <span class="truncate">${slide.title.replace(/^\d+\.\s*/, '')}</span>
+                `;
+                menu.appendChild(btn);
+            });
+        }
+
+        // Initialize footer mini dot indicators
+        function initMiniProgressDots() {
+            const dotsContainer = document.getElementById('miniDotsProgress');
+            dotsContainer.innerHTML = '';
+            slideData.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.id = `mini-dot-${index}`;
+                dot.onclick = () => jumpToSlide(index);
+                dot.className = `w-2.5 h-2.5 rounded-full cursor-pointer bg-slate-800 hover:bg-slate-600 transition-all duration-300`;
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        // Main slide rendering engine
+        function renderSlide(index) {
+            currentSlideIndex = index;
+            const currentSlide = slideData[index];
+            const contentContainer = document.getElementById('slideContent');
+            
+            // Apply Fade-Out Animation
+            contentContainer.style.opacity = '0';
+            contentContainer.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                // Load HTML Content
+                contentContainer.innerHTML = currentSlide.html;
+                
+                // Update UI Navigation Items
+                updateUINavigation();
+
+                // Run Calculations specifically if the user loads Slide 9 (ROI simulation)
+                if(currentSlide.id === 9) {
+                    calculateROI();
+                }
+
+                // Apply Fade-In Animation
+                contentContainer.style.opacity = '1';
+                contentContainer.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Update active classes for progress indicators, sidebar selections
+        function updateUINavigation() {
+            // Update Text counter
+            document.getElementById('slideIndexText').innerText = `${currentSlideIndex + 1} / ${slideData.length}`;
+            
+            // Update top progress bar width
+            const percentage = ((currentSlideIndex + 1) / slideData.length) * 100;
+            document.getElementById('topProgressBar').style.width = `${percentage}%`;
+
+            // Sidebar highlight updates
+            slideData.forEach((_, index) => {
+                const sidebarBtn = document.getElementById(`sidebar-btn-${index}`);
+                const dot = document.getElementById(`mini-dot-${index}`);
+                
+                if (sidebarBtn) {
+                    if (index === currentSlideIndex) {
+                        sidebarBtn.classList.remove('text-slate-400', 'bg-slate-950/20', 'border-transparent');
+                        sidebarBtn.classList.add('text-brand-400', 'bg-slate-900', 'border-slate-800', 'font-black');
+                    } else {
+                        sidebarBtn.classList.add('text-slate-400', 'bg-slate-950/20', 'border-transparent');
+                        sidebarBtn.classList.remove('text-brand-400', 'bg-slate-900', 'border-slate-800', 'font-black');
+                    }
+                }
+                if (dot) {
+                    if (index === currentSlideIndex) {
+                        dot.classList.add('bg-brand-500', 'w-5');
+                        dot.classList.remove('bg-slate-800');
+                    } else {
+                        dot.classList.remove('bg-brand-500', 'w-5');
+                        dot.classList.add('bg-slate-800');
+                    }
+                }
+            });
+        }
+
+        // Move to the next slide
+        function nextSlide() {
+            if (currentSlideIndex < slideData.length - 1) {
+                renderSlide(currentSlideIndex + 1);
+            } else {
+                showToast("您已阅读到本白皮书最后一页");
+            }
+        }
+
+        // Move to the previous slide
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                renderSlide(currentSlideIndex - 1);
+            } else {
+                showToast("已退回到白皮书第一页");
+            }
+        }
+
+        // Jump to any specific slide directly
+        function jumpToSlide(index) {
+            if (index >= 0 && index < slideData.length) {
+                renderSlide(index);
+                // Collapse sidebar automatically on mobile screens to view slide directly
+                if (window.innerWidth < 768) {
+                    toggleSidebar();
+                }
+            }
+        }
+
+        // Keyboard accessibility
+        function handleKeyNavigation(event) {
+            if (event.key === 'ArrowRight' || event.key === 'Space') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        }
+
+        // Mobile touchscreen swipe navigation
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function setupTouchGestures() {
+            const slideArea = document.getElementById('slideViewport');
+            slideArea.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            slideArea.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+        }
+
+        function handleSwipe() {
+            const threshold = 50; // swipe minimum distance in pixels
+            if (touchStartX - touchEndX > threshold) {
+                nextSlide(); // Swipe Left -> Next
+            } else if (touchEndX - touchStartX > threshold) {
+                prevSlide(); // Swipe Right -> Prev
+            }
+        }
+
+        // Collapsible sidebar menu
+        function toggleSidebar() {
+            const sidebar = document.getElementById('slideSidebar');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+
+        // Show customizable screen notifications without using blocking alerts
+        function showToast(message) {
+            const toast = document.getElementById('systemToast');
+            const msg = document.getElementById('systemToastMsg');
+            msg.innerText = message;
+            toast.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+            }, 2500);
+        }
+
+        // Dynamic financial modeling simulator logic
+        function calculateROI() {
+            // Extract inputs from DOM sliders
+            const inputDramas = parseInt(document.getElementById('input_dramas').value);
+            const inputTraffic = parseInt(document.getElementById('input_traffic').value) * 10000; // in ten-thousands
+            const inputConv = parseFloat(document.getElementById('input_conv').value) / 100; // raw decimal percentage
+            const inputArpu = parseFloat(document.getElementById('input_arpu').value);
+
+            // Tech expenses model
+            const baseAPI = 3000;
+            const singleDramaVideoCost = 3000; 
+            const calcTechCost = baseAPI + (inputDramas * singleDramaVideoCost);
+
+            // Traffic scale and promotional costs
+            const baseAdCost = 5000;
+            const scalingAdCost = (inputTraffic / 10000) * 200; 
+            const calcAdCost = baseAdCost + scalingAdCost;
+
+            // Monthly revenues projection: traffic impressions * conversion rate * average price
+            const calculatedRevenue = Math.round(inputTraffic * 30 * inputConv * inputArpu);
+            const calculatedProfit = Math.round(calculatedRevenue - calcTechCost - calcAdCost);
+
+            // Display sliders live values
+            document.getElementById('val_dramas').innerText = inputDramas;
+            document.getElementById('val_traffic').innerText = inputTraffic / 10000;
+            document.getElementById('val_conv').innerText = (inputConv * 100).toFixed(2);
+            document.getElementById('val_arpu').innerText = inputArpu.toFixed(1);
+
+            // Print formatted accounting data to interface
+            document.getElementById('res_tech_cost').innerText = `¥ ${calcTechCost.toLocaleString()}`;
+            document.getElementById('res_ad_cost').innerText = `¥ ${calcAdCost.toLocaleString()}`;
+            document.getElementById('res_revenue').innerText = `¥ ${calculatedRevenue.toLocaleString()}`;
+            
+            const profitLabel = document.getElementById('res_profit');
+            profitLabel.innerText = `¥ ${calculatedProfit.toLocaleString()}`;
+            
+            // Stylize profit depending on if value is negative or positive
+            if (calculatedProfit < 0) {
+                profitLabel.className = "font-black text-xl md:text-2xl text-red-400";
+            } else {
+                profitLabel.className = "font-black text-xl md:text-2xl text-brand-500 text-glow";
+            }
+        }
+    </script>
+</body>
+</html>
