@@ -1,6 +1,56 @@
 {
-  "update_time": "2026-05-15 16:12:49",
+  "update_time": "2026-05-20 15:50:00",
   "entries": [
+    {
+      "date": "2026-05-20",
+      "id": "2026-05-20-closing",
+      "datetime": "2026-05-20 15:50",
+      "type": "收盘复盘",
+      "type_icon": "📊",
+      "market_state": "Neutral",
+      "state_color": "yellow",
+      "signals": [
+        {
+          "level": "info",
+          "icon": "📈",
+          "text": "科创50大涨+3.20%，AI算力+4.10%、光模块+5.80%领涨，结构牛延续"
+        },
+        {
+          "level": "info",
+          "icon": "📊",
+          "text": "上证-0.18%收4162，深证+0.00%收15570，大盘横盘，个股分化"
+        },
+        {
+          "level": "info",
+          "icon": "💼",
+          "text": "持仓总市值25,266，盈亏+128元(+0.51%)，三只持仓均小幅波动"
+        },
+        {
+          "level": "info",
+          "icon": "🔮",
+          "text": "AI算力主线持续强化，电网设备+2.30%跟涨印证间接AI逻辑"
+        }
+      ],
+      "market_data": {
+        "sh": 4162.18,
+        "sz": 15569.98,
+        "cy": 3921.79,
+        "kc50": 1832.02,
+        "hs300": 4850.7,
+        "sh_pct": -0.18,
+        "sz_pct": 0.0,
+        "cy_pct": 0.34,
+        "kc50_pct": 3.2,
+        "hs300_pct": -0.04
+      },
+      "portfolio": {
+        "total_asset": 115134,
+        "cash": 89842,
+        "market_value": 25266,
+        "total_pnl": 128,
+        "total_pnl_pct": 0.51
+      }
+    },
     {
       "date": "2026-05-15",
       "id": "2026-05-15-closing",
