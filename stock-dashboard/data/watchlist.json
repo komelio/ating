@@ -1,12 +1,12 @@
 {
-  "update_time": "2026-05-21 12:30:26",
+  "update_time": "2026-05-21 12:35:04",
   "stocks": [
     {
       "code": "600036",
       "name": "招商银行",
       "price": 37.17,
       "change_pct": 0.0,
-      "pe": 6.5,
+      "pe": 6.22,
       "pb": 0.9,
       "roe": 0.135,
       "dividend_yield": 0.042,
