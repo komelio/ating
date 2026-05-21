@@ -1,0 +1,24 @@
+{
+  "date": "2026-05-21",
+  "analysis_time": "15:00",
+  "market_state": {
+    "mode": "RiskOff",
+    "volume": "--",
+    "up_down_ratio": "--",
+    "reason": "指数下跌+板块普跌"
+  },
+  "pelt_warnings": [
+    {
+      "code": "sh688256",
+      "stock": "寒武纪",
+      "warning": "单日跌-5.2%，触发关注"
+    }
+  ],
+  "decisions": [
+    {
+      "action": "持仓不动",
+      "detail": "所有标的在安全区间"
+    }
+  ],
+  "thoughts": "【市场】RiskOff: 指数下跌+板块普跌 | 成交额:-- | 涨跌比:--\n【持仓】3只, 市值¥24870\n【预警】1个PELT信号, 0个止损信号"
+}
