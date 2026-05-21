@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-21 10:40:00",
+  "update_time": "2026-05-21 10:40:01",
   "stocks": [
     {
       "code": "600036",
@@ -280,9 +280,9 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1344.25,
-      "change_pct": -1.333,
-      "pe": 310.85,
+      "price": 1344.34,
+      "change_pct": -1.326,
+      "pe": 310.87,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
