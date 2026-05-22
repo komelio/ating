@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-22 14:40:01",
+  "update_time": "2026-05-22 14:40:03",
   "stocks": [
     {
       "code": "600036",
@@ -42,8 +42,8 @@
     {
       "code": "600501",
       "name": "航天晨光",
-      "price": 20.69,
-      "change_pct": -2.314,
+      "price": 20.68,
+      "change_pct": -2.361,
       "pe": null,
       "pb": null,
       "roe": null,
@@ -76,8 +76,8 @@
     {
       "code": "600900",
       "name": "长江电力",
-      "price": 26.56,
-      "change_pct": -0.375,
+      "price": 26.57,
+      "change_pct": -0.338,
       "pe": 18.01,
       "pb": 2.9,
       "roe": 0.158,
@@ -152,8 +152,8 @@
     {
       "code": "601318",
       "name": "中国平安",
-      "price": 53.75,
-      "change_pct": -0.019,
+      "price": 53.77,
+      "change_pct": 0.019,
       "pe": 7.33,
       "pb": 0.8,
       "roe": 0.1,
@@ -190,8 +190,8 @@
     {
       "code": "601689",
       "name": "XD拓普集",
-      "price": 72.1,
-      "change_pct": -0.028,
+      "price": 72.09,
+      "change_pct": -0.042,
       "pe": 45.3,
       "pb": 5.5,
       "roe": 0.131,
@@ -280,8 +280,8 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1284.45,
-      "change_pct": -0.5,
+      "price": 1283.79,
+      "change_pct": -0.551,
       "pe": 297.03,
       "pb": null,
       "roe": null,
@@ -295,9 +295,9 @@
     {
       "code": "000400",
       "name": "许继电气",
-      "price": 26.01,
-      "change_pct": 0.309,
-      "pe": 24.75,
+      "price": 26.02,
+      "change_pct": 0.347,
+      "pe": 24.76,
       "pb": 2.17,
       "roe": 0.087,
       "dividend_yield": 0.015,
@@ -314,9 +314,9 @@
     {
       "code": "000429",
       "name": "粤高速Ａ",
-      "price": 13.27,
-      "change_pct": 0.227,
-      "pe": 17.39,
+      "price": 13.29,
+      "change_pct": 0.378,
+      "pe": 17.41,
       "pb": 2.28,
       "roe": 0.138,
       "dividend_yield": 0.042,
@@ -389,9 +389,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1037.75,
-      "change_pct": 4.471,
-      "pe": 77.31,
+      "price": 1037.62,
+      "change_pct": 4.458,
+      "pe": 77.3,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
@@ -408,8 +408,8 @@
     {
       "code": "300750",
       "name": "宁德时代",
-      "price": 411.76,
-      "change_pct": 0.032,
+      "price": 411.77,
+      "change_pct": 0.034,
       "pe": 24.12,
       "pb": 4.0,
       "roe": 0.18,
