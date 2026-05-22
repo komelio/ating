@@ -1,17 +1,17 @@
 {
-  "update_time": "2026-05-22 14:55:01",
+  "update_time": "2026-05-22 15:00:00",
   "summary": {
-    "total_assets": 114975.0,
-    "cash": 78711.5,
-    "cash_pct": 68.5,
-    "market_value": 35915.5,
-    "total_pnl": -348.0,
-    "total_pnl_pct": -0.9596426158534066,
+    "total_assets": 114947.74,
+    "cash": 45307.74,
+    "cash_pct": 39.4,
+    "market_value": 69300.0,
+    "total_pnl": -340.0,
+    "total_pnl_pct": -0.48822515795520216,
     "holding_count": 4,
     "peak_assets": 100000,
-    "drawdown_pct": 0.06,
+    "drawdown_pct": 0.0021,
     "total_injected": 15000.0,
-    "total_commission": 25.0
+    "total_commission": 35.0
   },
   "holdings": [
     {
@@ -20,10 +20,10 @@
       "shares": 200,
       "avg_cost": 25.9,
       "cost": 5180.0,
-      "current_price": 25.82,
-      "market_value": 5164.0,
-      "pnl": -16.0,
-      "pnl_pct": -0.3088803088802994,
+      "current_price": 25.83,
+      "market_value": 5166.0,
+      "pnl": -14.0,
+      "pnl_pct": -0.2702702702702675,
       "type": "growth",
       "sector": "电力设备"
     },
@@ -33,10 +33,10 @@
       "shares": 400,
       "avg_cost": 27.1,
       "cost": 10840.0,
-      "current_price": 26.57,
-      "market_value": 10628.0,
-      "pnl": -212.0,
-      "pnl_pct": -1.9557195571955788,
+      "current_price": 26.58,
+      "market_value": 10632.0,
+      "pnl": -208.0,
+      "pnl_pct": -1.9188191881918892,
       "type": "cashcow",
       "sector": "公用事业"
     },
@@ -46,21 +46,21 @@
       "shares": 200,
       "avg_cost": 45.59,
       "cost": 9118.0,
-      "current_price": 44.99,
-      "market_value": 8998.0,
-      "pnl": -120.0,
-      "pnl_pct": -1.3160780872998545,
+      "current_price": 45.0,
+      "market_value": 9000.0,
+      "pnl": -118.0,
+      "pnl_pct": -1.2941434525115203,
       "type": "cashcow",
       "sector": "能源"
     },
     {
       "code": "603986",
       "name": "兆易创新",
-      "shares": 25,
+      "shares": 100,
       "avg_cost": 445.02,
-      "cost": 11125.5,
+      "cost": 44502.0,
       "current_price": 445.02,
-      "market_value": 11125.5,
+      "market_value": 44502.0,
       "pnl": 0.0,
       "pnl_pct": 0.0,
       "type": "growth",
@@ -113,6 +113,26 @@
       "action": "BUY",
       "code": "603986",
       "name": "兆易创新",
+      "shares": 100,
+      "price": 445.02,
+      "amount": 44502.0,
+      "commission": 5.0
+    },
+    {
+      "date": "2026-05-14",
+      "action": "SELL",
+      "code": "603986",
+      "name": "兆易创新",
+      "shares": 25,
+      "price": 445.02,
+      "amount": 11125.5,
+      "commission": 5.0
+    },
+    {
+      "date": "2026-05-14",
+      "action": "BUY",
+      "code": "603986",
+      "name": "兆易创新",
       "shares": 25,
       "price": 445.02,
       "amount": 11125.5,
@@ -122,7 +142,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "9.7%",
+      "value": "38.7%",
       "limit": "10%",
       "status": "ok"
     },
@@ -134,13 +154,13 @@
     },
     {
       "name": "现金≥10%",
-      "value": "68.5%",
+      "value": "39.4%",
       "limit": "10%",
       "status": "ok"
     },
     {
       "name": "回撤熔断",
-      "value": "0.06%",
+      "value": "0.00%",
       "limit": "15%",
       "status": "ok"
     }
