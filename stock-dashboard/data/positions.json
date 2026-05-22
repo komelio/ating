@@ -11,7 +11,7 @@
     "peak_assets": 100000,
     "drawdown_pct": 0.0021,
     "total_injected": 15000.0,
-    "total_commission": 40.0
+    "total_commission": 30.0
   },
   "holdings": [
     {
@@ -69,33 +69,23 @@
   ],
   "trades": [
     {
-      "date": "2026-05-08",
+      "date": "2026-05-14",
       "action": "BUY",
-      "code": "600406",
-      "name": "国电南瑞",
-      "shares": 200,
-      "price": 25.9,
-      "amount": 5180.0,
+      "code": "603986",
+      "name": "兆易创新",
+      "shares": 100,
+      "price": 445.02,
+      "amount": 44502.0,
       "commission": 5.0
     },
     {
-      "date": "2026-05-08",
+      "date": "2026-05-14",
       "action": "BUY",
-      "code": "600900",
-      "name": "长江电力",
-      "shares": 200,
-      "price": 27.0,
-      "amount": 5400.0,
-      "commission": 5.0
-    },
-    {
-      "date": "2026-05-12",
-      "action": "BUY",
-      "code": "601088",
-      "name": "中国神华",
-      "shares": 200,
-      "price": 45.59,
-      "amount": 9118.0,
+      "code": "603986",
+      "name": "兆易创新",
+      "shares": 100,
+      "price": 445.02,
+      "amount": 44502.0,
       "commission": 5.0
     },
     {
@@ -109,43 +99,33 @@
       "commission": 5.0
     },
     {
-      "date": "2026-05-14",
+      "date": "2026-05-12",
       "action": "BUY",
-      "code": "603986",
-      "name": "兆易创新",
-      "shares": 100,
-      "price": 445.02,
-      "amount": 44502.0,
+      "code": "601088",
+      "name": "中国神华",
+      "shares": 200,
+      "price": 45.59,
+      "amount": 9118.0,
       "commission": 5.0
     },
     {
-      "date": "2026-05-14",
+      "date": "2026-05-08",
       "action": "BUY",
-      "code": "603986",
-      "name": "兆易创新",
-      "shares": 100,
-      "price": 445.02,
-      "amount": 44502.0,
+      "code": "600900",
+      "name": "长江电力",
+      "shares": 200,
+      "price": 27.0,
+      "amount": 5400.0,
       "commission": 5.0
     },
     {
-      "date": "2026-05-14",
-      "action": "SELL",
-      "code": "603986",
-      "name": "兆易创新",
-      "shares": 25,
-      "price": 445.02,
-      "amount": 11125.5,
-      "commission": 5.0
-    },
-    {
-      "date": "2026-05-14",
+      "date": "2026-05-08",
       "action": "BUY",
-      "code": "603986",
-      "name": "兆易创新",
-      "shares": 25,
-      "price": 445.02,
-      "amount": 11125.5,
+      "code": "600406",
+      "name": "国电南瑞",
+      "shares": 200,
+      "price": 25.9,
+      "amount": 5180.0,
       "commission": 5.0
     }
   ],
