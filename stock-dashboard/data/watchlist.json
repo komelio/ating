@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-22 09:20:01",
+  "update_time": "2026-05-22 09:20:06",
   "stocks": [
     {
       "code": "600036",
@@ -192,7 +192,7 @@
       "name": "XD拓普集",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 45.85,
+      "pe": 45.86,
       "pb": 5.5,
       "roe": 0.131,
       "dividend_yield": 0.006,
@@ -353,7 +353,7 @@
       "name": "三花智控",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 54.9,
+      "pe": 54.88,
       "pb": 6.8,
       "roe": 0.126,
       "dividend_yield": 0.008,
@@ -391,7 +391,7 @@
       "name": "中际旭创",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 74.51,
+      "pe": 74.57,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
@@ -410,7 +410,7 @@
       "name": "宁德时代",
       "price": 0.0,
       "change_pct": 0.0,
-      "pe": 24.11,
+      "pe": 24.14,
       "pb": 4.0,
       "roe": 0.18,
       "dividend_yield": 0.012,
