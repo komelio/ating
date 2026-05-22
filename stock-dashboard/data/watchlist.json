@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-22 13:35:01",
+  "update_time": "2026-05-22 13:35:03",
   "stocks": [
     {
       "code": "600036",
@@ -280,8 +280,8 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1282.03,
-      "change_pct": -0.687,
+      "price": 1282.04,
+      "change_pct": -0.686,
       "pe": 296.47,
       "pb": null,
       "roe": null,
@@ -295,9 +295,9 @@
     {
       "code": "000400",
       "name": "许继电气",
-      "price": 26.02,
-      "change_pct": 0.347,
-      "pe": 24.76,
+      "price": 26.01,
+      "change_pct": 0.309,
+      "pe": 24.75,
       "pb": 2.17,
       "roe": 0.087,
       "dividend_yield": 0.015,
@@ -332,8 +332,8 @@
     {
       "code": "000858",
       "name": "五 粮 液",
-      "price": 84.2,
-      "change_pct": -1.347,
+      "price": 84.21,
+      "change_pct": -1.336,
       "pe": 25.94,
       "pb": 5.2,
       "roe": 0.098,
@@ -351,9 +351,9 @@
     {
       "code": "002050",
       "name": "三花智控",
-      "price": 52.92,
-      "change_pct": 0.17,
-      "pe": 54.49,
+      "price": 52.93,
+      "change_pct": 0.189,
+      "pe": 54.5,
       "pb": 6.8,
       "roe": 0.126,
       "dividend_yield": 0.008,
@@ -370,8 +370,8 @@
     {
       "code": "002594",
       "name": "比亚迪",
-      "price": 93.78,
-      "change_pct": 0.289,
+      "price": 93.79,
+      "change_pct": 0.299,
       "pe": 31.04,
       "pb": 4.5,
       "roe": 0.16,
@@ -389,9 +389,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1033.21,
-      "change_pct": 4.014,
-      "pe": 76.97,
+      "price": 1032.62,
+      "change_pct": 3.954,
+      "pe": 76.92,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
@@ -408,8 +408,8 @@
     {
       "code": "300750",
       "name": "宁德时代",
-      "price": 412.02,
-      "change_pct": 0.095,
+      "price": 412.08,
+      "change_pct": 0.109,
       "pe": 24.14,
       "pb": 4.0,
       "roe": 0.18,
