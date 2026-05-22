@@ -126,6 +126,7 @@ def export_all_json():
             "cash": raw.get("current_cash", raw.get("cash", 0)),
             "holdings": hlist,
             "initial_capital": raw.get("initial_capital", 100000),
+            "transactions": raw.get("transactions", [])[-20:],  # 最近20笔
         }
         _write_json("portfolio.json", portfolio)
     except Exception:
