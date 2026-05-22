@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-22 13:20:00",
+  "update_time": "2026-05-22 13:20:02",
   "stocks": [
     {
       "code": "600036",
@@ -42,8 +42,8 @@
     {
       "code": "600501",
       "name": "航天晨光",
-      "price": 20.65,
-      "change_pct": -2.502,
+      "price": 20.63,
+      "change_pct": -2.597,
       "pe": null,
       "pb": null,
       "roe": null,
@@ -57,8 +57,8 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 1294.07,
-      "change_pct": -1.291,
+      "price": 1294.02,
+      "change_pct": -1.295,
       "pe": 19.59,
       "pb": 9.5,
       "roe": 0.305,
@@ -133,9 +133,9 @@
     {
       "code": "601288",
       "name": "农业银行",
-      "price": 6.51,
-      "change_pct": 0.0,
-      "pe": 7.74,
+      "price": 6.52,
+      "change_pct": 0.154,
+      "pe": 7.75,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -190,9 +190,9 @@
     {
       "code": "601689",
       "name": "XD拓普集",
-      "price": 71.23,
-      "change_pct": -1.234,
-      "pe": 44.76,
+      "price": 71.24,
+      "change_pct": -1.22,
+      "pe": 44.77,
       "pb": 5.5,
       "roe": 0.131,
       "dividend_yield": 0.006,
@@ -209,9 +209,9 @@
     {
       "code": "601857",
       "name": "中国石油",
-      "price": 11.13,
-      "change_pct": -1.417,
-      "pe": 12.88,
+      "price": 11.14,
+      "change_pct": -1.329,
+      "pe": 12.89,
       "pb": 0.9,
       "roe": 0.1,
       "dividend_yield": 0.038,
@@ -314,8 +314,8 @@
     {
       "code": "000429",
       "name": "粤高速Ａ",
-      "price": 13.33,
-      "change_pct": 0.68,
+      "price": 13.34,
+      "change_pct": 0.755,
       "pe": 17.47,
       "pb": 2.28,
       "roe": 0.138,
@@ -332,8 +332,8 @@
     {
       "code": "000858",
       "name": "五 粮 液",
-      "price": 84.31,
-      "change_pct": -1.219,
+      "price": 84.3,
+      "change_pct": -1.23,
       "pe": 25.97,
       "pb": 5.2,
       "roe": 0.098,
@@ -351,8 +351,8 @@
     {
       "code": "002050",
       "name": "三花智控",
-      "price": 52.92,
-      "change_pct": 0.17,
+      "price": 52.91,
+      "change_pct": 0.151,
       "pe": 54.49,
       "pb": 6.8,
       "roe": 0.126,
@@ -370,8 +370,8 @@
     {
       "code": "002594",
       "name": "比亚迪",
-      "price": 93.84,
-      "change_pct": 0.353,
+      "price": 93.85,
+      "change_pct": 0.364,
       "pe": 31.06,
       "pb": 4.5,
       "roe": 0.16,
@@ -389,8 +389,8 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1028.91,
-      "change_pct": 3.581,
+      "price": 1028.98,
+      "change_pct": 3.588,
       "pe": 76.65,
       "pb": 8.2,
       "roe": 0.126,
