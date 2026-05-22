@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-22 14:35:01",
+  "update_time": "2026-05-22 14:35:06",
   "stocks": [
     {
       "code": "600036",
@@ -23,8 +23,8 @@
     {
       "code": "600406",
       "name": "国电南瑞",
-      "price": 25.85,
-      "change_pct": 0.74,
+      "price": 25.86,
+      "change_pct": 0.779,
       "pe": 24.96,
       "pb": 3.92,
       "roe": 0.156,
@@ -57,8 +57,8 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 1291.96,
-      "change_pct": -1.452,
+      "price": 1291.91,
+      "change_pct": -1.456,
       "pe": 19.56,
       "pb": 9.5,
       "roe": 0.305,
@@ -95,8 +95,8 @@
     {
       "code": "600941",
       "name": "中国移动",
-      "price": 95.9,
-      "change_pct": -0.879,
+      "price": 95.92,
+      "change_pct": -0.858,
       "pe": 15.31,
       "pb": 1.5,
       "roe": 0.108,
@@ -114,8 +114,8 @@
     {
       "code": "601088",
       "name": "中国神华",
-      "price": 45.23,
-      "change_pct": -0.066,
+      "price": 45.22,
+      "change_pct": -0.088,
       "pe": 19.02,
       "pb": 1.97,
       "roe": 0.107,
@@ -133,9 +133,9 @@
     {
       "code": "601288",
       "name": "农业银行",
-      "price": 6.46,
-      "change_pct": -0.768,
-      "pe": 7.68,
+      "price": 6.47,
+      "change_pct": -0.614,
+      "pe": 7.69,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -152,8 +152,8 @@
     {
       "code": "601318",
       "name": "中国平安",
-      "price": 53.8,
-      "change_pct": 0.074,
+      "price": 53.81,
+      "change_pct": 0.093,
       "pe": 7.34,
       "pb": 0.8,
       "roe": 0.1,
@@ -265,9 +265,9 @@
     {
       "code": "688041",
       "name": "海光信息",
-      "price": 311.8,
-      "change_pct": 1.564,
-      "pe": 265.77,
+      "price": 311.83,
+      "change_pct": 1.573,
+      "pe": 265.85,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -389,9 +389,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1041.98,
-      "change_pct": 4.897,
-      "pe": 77.62,
+      "price": 1041.55,
+      "change_pct": 4.853,
+      "pe": 77.59,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
