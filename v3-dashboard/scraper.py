@@ -25,6 +25,7 @@ WATCHLIST = [
     ("600584", "长电科技"), # 先进封装 CoWoS
     ("002837", "英维克"),   # 液冷散热
     ("003816", "中国广核"), # 核电补充
+    ("603986", "兆易创新"), # 存储/MCU芯片龙头
     # ── 蓝筹观察池 ──
     ("002594", "比亚迪"),   ("300750", "宁德时代"),
     ("601318", "中国平安"), ("600036", "招商银行"),
@@ -232,7 +233,7 @@ def collect_portfolio(conn):
     total = cash + mv
     profit = total - 100000
 
-    cat_mv = {"现金牛": 0, "成长股": 0, "拓荒型": 0}
+    cat_mv = {"现金牛": 0, "成长股": 0, "拓荒型": 0, "进攻赛道": 0}
     for h in hlist:
         cat = h.get("category", "")
         cat_mv[cat] = cat_mv.get(cat, 0) + (h.get("current_price") or h.get("avg_cost") or 0) * (h.get("shares") or 0)

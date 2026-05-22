@@ -282,7 +282,7 @@ function render_portfolio() {
   </div>`;
 
   // Allocation chart (small) + holdings table
-  const cats = {'现金牛':0,'成长股':0,'拓荒型':0};
+  const cats = {'现金牛':0,'成长股':0,'拓荒型':0,'进攻赛道':0};
   hl.forEach(h => cats[h.category] = (cats[h.category]||0) + (h.current_price||0)*(h.shares||0));
   h += `<div class="chart-row portfolio-layout">
     <div class="chart-card"><h3>💰 配置</h3><canvas id="alloc-chart" style="max-width:240px;max-height:240px"></canvas></div>

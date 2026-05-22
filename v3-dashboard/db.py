@@ -118,8 +118,10 @@ def export_all_json():
             if r["name"] not in price_map:
                 price_map[r["name"]] = r["price"]
         for h in hlist:
-            if h["name"] in price_map:
+            if h["name"] in price_map and price_map[h["name"]] > 0:
                 h["current_price"] = price_map[h["name"]]
+            elif h["current_price"] == 0:
+                h["current_price"] = h.get("cost_price", 0)  # 兜底用成本价
         portfolio = {
             "cash": raw.get("current_cash", raw.get("cash", 0)),
             "holdings": hlist,
