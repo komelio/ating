@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-22 15:25:02",
+  "update_time": "2026-05-22 15:29:16",
   "stocks": [
     {
       "code": "600036",
@@ -261,6 +261,21 @@
       ],
       "type": "top10",
       "status": "关注"
+    },
+    {
+      "code": "603986",
+      "name": "兆易创新",
+      "price": 468.74,
+      "change_pct": 8.53,
+      "pe": 114.32,
+      "pb": null,
+      "roe": null,
+      "dividend_yield": null,
+      "score": null,
+      "logic": null,
+      "tags": [],
+      "type": "growth",
+      "status": "--"
     },
     {
       "code": "688041",
