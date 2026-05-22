@@ -272,7 +272,7 @@ function render_portfolio() {
   const pcls = profit>=0?'up':'down';
 
   // Summary cards
-  const txs = CACHE.transactions?.data || [];
+  const txs = CACHE.portfolio?.data?.transactions || [];
   const totalFee = txs.reduce((s,tx)=>s+(tx.fee||0),0);
   let h = `<div class="cards">
     <div class="card"><div class="card-title">总资产</div><div class="card-value">¥${fmt.num(total)}</div></div>
@@ -303,10 +303,10 @@ function render_portfolio() {
     h += `<div class="chart-card" style="margin-top:16px"><h3>📜 操盘明细（按时间倒序）</h3><div class="table-wrap">`;
     h += `<table><thead><tr><th>时间</th><th class="center">操作</th><th>名称</th><th class="center">股数</th><th class="right">价格</th><th class="right">金额</th><th class="right">手续费</th></tr></thead><tbody>`;
     txs.forEach(tx => {
-      const actCls = tx.action==='BUY'?'up':'down';
-      const actLabel = tx.action==='BUY'?'买入':'卖出';
+      const actCls = tx.type==='BUY'?'up':'down';
+      const actLabel = tx.type==='BUY'?'买入':'卖出';
       h += `<tr>
-        <td>${tx.time}</td>
+        <td>${tx.date}</td>
         <td class="center ${actCls}" style="font-weight:600">${actLabel}</td>
         <td>${tx.name}</td>
         <td class="center">${tx.shares}</td>
@@ -324,7 +324,7 @@ function render_portfolio() {
   if (charts.alloc) charts.alloc.destroy();
   const ac = document.getElementById('alloc-chart');
   if (ac) charts.alloc = new Chart(ac, {type:'doughnut',
-    data:{labels:['现金','现金牛','成长股','拓荒型'], datasets:[{data:[cash,cats['现金牛']||0,cats['成长股']||0,cats['拓荒型']||0], backgroundColor:['#1f6feb','#d2991d','#3fb950','#f85149']}]},
+    data:{labels:['现金','现金牛','成长股','拓荒型','进攻'], datasets:[{data:[cash,cats['现金牛']||0,cats['成长股']||0,cats['拓荒型']||0,cats['进攻赛道']||0], backgroundColor:['#1f6feb','#d2991d','#3fb950','#f85149','#bc8cff']}]},
     options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{color:'#8b949e',boxWidth:12,font:{size:11}}}}}});
 }
 

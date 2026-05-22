@@ -22,7 +22,7 @@ python3 gen_data.py >> "$LOG" 2>&1
 
 # ── 3. Commit & Push ──
 log "📤 Git commit"
-git add v3-dashboard/data/ gen_data.py
+git add v3-dashboard/data/ v3-dashboard/index.html gen_data.py
 if git diff --cached --quiet; then
     log "✅ 无数据变更，跳过推送"
 else
