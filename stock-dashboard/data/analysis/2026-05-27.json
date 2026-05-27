@@ -1,0 +1,29 @@
+{
+  "date": "2026-05-27",
+  "analysis_time": "15:00",
+  "market_state": {
+    "mode": "Neutral",
+    "volume": "--",
+    "up_down_ratio": "--",
+    "reason": "指数震荡"
+  },
+  "pelt_warnings": [
+    {
+      "code": "sh688256",
+      "stock": "寒武纪",
+      "warning": "单日跌-5.1%，触发关注"
+    },
+    {
+      "code": "sh688041",
+      "stock": "海光信息",
+      "warning": "单日跌-7.2%，触发关注"
+    }
+  ],
+  "decisions": [
+    {
+      "action": "持仓不动",
+      "detail": "所有标的在安全区间"
+    }
+  ],
+  "thoughts": "【市场】Neutral: 指数震荡 | 成交额:-- | 涨跌比:--\n【持仓】4只, 市值¥128074\n【预警】2个PELT信号, 0个止损信号"
+}
