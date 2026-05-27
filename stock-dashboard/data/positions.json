@@ -1,12 +1,12 @@
 {
-  "update_time": "2026-05-27 09:55:00",
+  "update_time": "2026-05-27 09:55:05",
   "summary": {
     "total_assets": 114936.61,
     "cash": 794.61,
     "cash_pct": 0.7,
-    "market_value": 132816.0,
-    "total_pnl": 18674.0,
-    "total_pnl_pct": 16.360323106306176,
+    "market_value": 132986.0,
+    "total_pnl": 18844.0,
+    "total_pnl_pct": 16.509260394946644,
     "holding_count": 4,
     "peak_assets": 100000,
     "drawdown_pct": 0.0021,
@@ -33,10 +33,10 @@
       "shares": 400,
       "avg_cost": 27.1,
       "cost": 10840.0,
-      "current_price": 27.23,
-      "market_value": 10892.0,
-      "pnl": 52.0,
-      "pnl_pct": 0.4797047970479751,
+      "current_price": 27.22,
+      "market_value": 10888.0,
+      "pnl": 48.0,
+      "pnl_pct": 0.44280442804427445,
       "type": "cashcow",
       "sector": "公用事业"
     },
@@ -46,10 +46,10 @@
       "shares": 200,
       "avg_cost": 45.59,
       "cost": 9118.0,
-      "current_price": 44.33,
-      "market_value": 8866.0,
-      "pnl": -252.0,
-      "pnl_pct": -2.7637639833296923,
+      "current_price": 44.32,
+      "market_value": 8864.0,
+      "pnl": -254.0,
+      "pnl_pct": -2.7856986181180154,
       "type": "cashcow",
       "sector": "能源"
     },
@@ -59,10 +59,10 @@
       "shares": 200,
       "avg_cost": 445.02,
       "cost": 89004.0,
-      "current_price": 540.14,
-      "market_value": 108028.0,
-      "pnl": 19024.0,
-      "pnl_pct": 21.374320255269417,
+      "current_price": 541.02,
+      "market_value": 108204.0,
+      "pnl": 19200.0,
+      "pnl_pct": 21.572064176890926,
       "type": "growth",
       "sector": "半导体"
     }
@@ -132,7 +132,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "94.0%",
+      "value": "94.1%",
       "limit": "10%",
       "status": "ok"
     },
