@@ -1,11 +1,11 @@
 {
-  "update_time": "2026-05-27 12:55:03",
+  "update_time": "2026-05-27 13:00:02",
   "stocks": [
     {
       "code": "600036",
       "name": "招商银行",
-      "price": 36.82,
-      "change_pct": -0.486,
+      "price": 36.81,
+      "change_pct": -0.514,
       "pe": 6.16,
       "pb": 0.9,
       "roe": 0.135,
@@ -310,9 +310,9 @@
     {
       "code": "000400",
       "name": "许继电气",
-      "price": 26.24,
-      "change_pct": 0.729,
-      "pe": 24.96,
+      "price": 26.27,
+      "change_pct": 0.845,
+      "pe": 24.99,
       "pb": 2.17,
       "roe": 0.087,
       "dividend_yield": 0.015,
@@ -347,9 +347,9 @@
     {
       "code": "000858",
       "name": "五 粮 液",
-      "price": 82.22,
-      "change_pct": -1.368,
-      "pe": 25.33,
+      "price": 82.3,
+      "change_pct": -1.272,
+      "pe": 25.35,
       "pb": 5.2,
       "roe": 0.098,
       "dividend_yield": 0.025,
