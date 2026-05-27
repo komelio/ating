@@ -1,40 +1,40 @@
 {
-  "update_time": "2026-05-27 14:45:00",
+  "update_time": "2026-05-27 14:50:00",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4096.1547,
-      "change": -49.2183,
-      "change_pct": -1.19
+      "price": 4091.153,
+      "change": -54.22,
+      "change_pct": -1.31
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "price": 15752.89,
-      "change": -123.272,
-      "change_pct": -0.78
+      "price": 15713.71,
+      "change": -162.449,
+      "change_pct": -1.02
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "price": 4055.43,
-      "change": 12.365,
-      "change_pct": 0.31
+      "price": 4039.63,
+      "change": -3.432,
+      "change_pct": -0.08
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1819.3712,
-      "change": -48.3376,
-      "change_pct": -2.59
+      "price": 1814.9624,
+      "change": -52.7464,
+      "change_pct": -2.82
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4913.3995,
-      "change": -34.4498,
-      "change_pct": -0.7
+      "price": 4905.4834,
+      "change": -42.3659,
+      "change_pct": -0.86
     }
   ],
   "sectors": [
