@@ -1,0 +1,24 @@
+{
+  "date": "2026-05-28",
+  "analysis_time": "15:00",
+  "market_state": {
+    "mode": "Neutral",
+    "volume": "--",
+    "up_down_ratio": "--",
+    "reason": "指数横盘"
+  },
+  "pelt_warnings": [
+    {
+      "code": "sh603986",
+      "stock": "兆易创新",
+      "warning": "单日跌-6.1%，触发关注"
+    }
+  ],
+  "decisions": [
+    {
+      "action": "持仓不动",
+      "detail": "所有标的在安全区间"
+    }
+  ],
+  "thoughts": "【市场】Neutral: 指数横盘 | 成交额:-- | 涨跌比:--\n【持仓】3只, 市值¥25102\n【预警】1个PELT信号, 0个止损信号"
+}
