@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-28 14:15:01",
+  "update_time": "2026-05-28 14:15:04",
   "stocks": [
     {
       "code": "600036",
@@ -190,8 +190,8 @@
     {
       "code": "601689",
       "name": "拓普集团",
-      "price": 65.86,
-      "change_pct": -2.357,
+      "price": 65.87,
+      "change_pct": -2.342,
       "pe": 41.39,
       "pb": 5.5,
       "roe": 0.131,
@@ -280,9 +280,9 @@
     {
       "code": "688041",
       "name": "海光信息",
-      "price": 314.0,
-      "change_pct": -0.881,
-      "pe": 267.72,
+      "price": 313.88,
+      "change_pct": -0.919,
+      "pe": 267.62,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -310,8 +310,8 @@
     {
       "code": "000400",
       "name": "许继电气",
-      "price": 26.56,
-      "change_pct": 0.682,
+      "price": 26.57,
+      "change_pct": 0.72,
       "pe": 25.27,
       "pb": 2.17,
       "roe": 0.087,
@@ -385,8 +385,8 @@
     {
       "code": "002594",
       "name": "比亚迪",
-      "price": 95.71,
-      "change_pct": 0.515,
+      "price": 95.72,
+      "change_pct": 0.525,
       "pe": 31.68,
       "pb": 4.5,
       "roe": 0.16,
@@ -404,9 +404,9 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1183.24,
-      "change_pct": 6.467,
-      "pe": 88.14,
+      "price": 1182.9,
+      "change_pct": 6.436,
+      "pe": 88.12,
       "pb": 8.2,
       "roe": 0.126,
       "dividend_yield": 0.003,
@@ -423,9 +423,9 @@
     {
       "code": "300750",
       "name": "宁德时代",
-      "price": 412.43,
-      "change_pct": -0.571,
-      "pe": 24.16,
+      "price": 412.55,
+      "change_pct": -0.542,
+      "pe": 24.17,
       "pb": 4.0,
       "roe": 0.18,
       "dividend_yield": 0.012,
