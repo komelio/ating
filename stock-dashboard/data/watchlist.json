@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-28 15:00:05",
+  "update_time": "2026-05-28 15:05:02",
   "stocks": [
     {
       "code": "600036",
@@ -114,9 +114,9 @@
     {
       "code": "601088",
       "name": "中国神华",
-      "price": 46.02,
-      "change_pct": -0.174,
-      "pe": 19.36,
+      "price": 46.15,
+      "change_pct": 0.108,
+      "pe": 19.41,
       "pb": 1.97,
       "roe": 0.107,
       "dividend_yield": 0.045,
@@ -209,9 +209,9 @@
     {
       "code": "601857",
       "name": "中国石油",
-      "price": 10.77,
-      "change_pct": -0.278,
-      "pe": 12.46,
+      "price": 10.8,
+      "change_pct": 0.0,
+      "pe": 12.5,
       "pb": 0.9,
       "roe": 0.1,
       "dividend_yield": 0.038,
@@ -295,9 +295,9 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1391.0,
-      "change_pct": 3.806,
-      "pe": 321.66,
+      "price": 1391.5,
+      "change_pct": 3.843,
+      "pe": 321.78,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
