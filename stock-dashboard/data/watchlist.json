@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-28 13:00:01",
+  "update_time": "2026-05-28 13:00:03",
   "stocks": [
     {
       "code": "600036",
@@ -133,9 +133,9 @@
     {
       "code": "601288",
       "name": "农业银行",
-      "price": 6.2,
-      "change_pct": -1.743,
-      "pe": 7.37,
+      "price": 6.21,
+      "change_pct": -1.585,
+      "pe": 7.39,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -228,9 +228,9 @@
     {
       "code": "601939",
       "name": "建设银行",
-      "price": 10.1,
-      "change_pct": -1.174,
-      "pe": 7.73,
+      "price": 10.11,
+      "change_pct": -1.076,
+      "pe": 7.74,
       "pb": 0.55,
       "roe": 0.1,
       "dividend_yield": 0.058,
@@ -295,8 +295,8 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1379.68,
-      "change_pct": 2.961,
+      "price": 1378.7,
+      "change_pct": 2.888,
       "pe": 319.05,
       "pb": null,
       "roe": null,

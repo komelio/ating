@@ -1,12 +1,19 @@
 {
-  "update_time": "2026-05-28 11:35:00",
+  "update_time": "2026-05-28 13:00:02",
   "indices": [
     {
-      "code": "sh000300",
-      "name": "沪深300",
-      "price": 4881.1735,
-      "change": -26.9979,
-      "change_pct": -0.55
+      "code": "sz399001",
+      "name": "深证成指",
+      "price": 15696.58,
+      "change": -39.887,
+      "change_pct": -0.25
+    },
+    {
+      "code": "sz399006",
+      "name": "创业板指",
+      "price": 4054.62,
+      "change": 8.843,
+      "change_pct": 0.22
     }
   ],
   "sectors": [
