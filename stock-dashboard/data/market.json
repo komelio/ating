@@ -1,40 +1,40 @@
 {
-  "update_time": "2026-05-29 10:55:05",
+  "update_time": "2026-05-29 11:00:00",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "price": 4095.2825,
-      "change": -3.3533,
-      "change_pct": -0.08
+      "price": 4089.7718,
+      "change": -8.864,
+      "change_pct": -0.22
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "price": 15786.65,
-      "change": -75.237,
-      "change_pct": -0.47
+      "price": 15748.88,
+      "change": -113.014,
+      "change_pct": -0.71
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "price": 4109.2,
-      "change": -15.878,
-      "change_pct": -0.38
+      "price": 4096.49,
+      "change": -28.586,
+      "change_pct": -0.69
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "price": 1795.4362,
-      "change": -48.8131,
-      "change_pct": -2.65
+      "price": 1788.6667,
+      "change": -55.5826,
+      "change_pct": -3.01
     },
     {
       "code": "sh000300",
       "name": "沪深300",
-      "price": 4930.8964,
-      "change": 16.6831,
-      "change_pct": 0.34
+      "price": 4922.4276,
+      "change": 8.2143,
+      "change_pct": 0.17
     }
   ],
   "sectors": [
@@ -108,6 +108,6 @@
     "volume": "--",
     "up_down_ratio": "--",
     "north_flow": "待获取",
-    "reason": "指数横盘"
+    "reason": "指数震荡"
   }
 }
