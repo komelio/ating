@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-29 14:20:01",
+  "update_time": "2026-05-29 14:20:03",
   "stocks": [
     {
       "code": "600036",
@@ -57,8 +57,8 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 1324.49,
-      "change_pct": 3.802,
+      "price": 1324.51,
+      "change_pct": 3.803,
       "pe": 20.02,
       "pb": 9.5,
       "roe": 0.305,
@@ -76,8 +76,8 @@
     {
       "code": "600900",
       "name": "长江电力",
-      "price": 27.69,
-      "change_pct": 1.727,
+      "price": 27.7,
+      "change_pct": 1.763,
       "pe": 18.78,
       "pb": 2.9,
       "roe": 0.158,
@@ -133,9 +133,9 @@
     {
       "code": "601288",
       "name": "农业银行",
-      "price": 6.33,
-      "change_pct": 1.932,
-      "pe": 7.53,
+      "price": 6.32,
+      "change_pct": 1.771,
+      "pe": 7.52,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -190,8 +190,8 @@
     {
       "code": "601689",
       "name": "拓普集团",
-      "price": 62.26,
-      "change_pct": -5.409,
+      "price": 62.31,
+      "change_pct": -5.333,
       "pe": 39.13,
       "pb": 5.5,
       "roe": 0.131,
@@ -265,8 +265,8 @@
     {
       "code": "603986",
       "name": "兆易创新",
-      "price": 467.51,
-      "change_pct": -3.207,
+      "price": 467.88,
+      "change_pct": -3.13,
       "pe": 114.02,
       "pb": null,
       "roe": null,
@@ -295,9 +295,9 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1296.08,
-      "change_pct": -6.857,
-      "pe": 299.71,
+      "price": 1298.0,
+      "change_pct": -6.719,
+      "pe": 300.16,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -310,9 +310,9 @@
     {
       "code": "000400",
       "name": "许继电气",
-      "price": 26.65,
-      "change_pct": -0.187,
-      "pe": 25.35,
+      "price": 26.64,
+      "change_pct": -0.225,
+      "pe": 25.34,
       "pb": 2.17,
       "roe": 0.087,
       "dividend_yield": 0.015,
@@ -366,9 +366,9 @@
     {
       "code": "002050",
       "name": "三花智控",
-      "price": 45.96,
-      "change_pct": -5.452,
-      "pe": 47.32,
+      "price": 45.97,
+      "change_pct": -5.431,
+      "pe": 47.33,
       "pb": 6.8,
       "roe": 0.126,
       "dividend_yield": 0.008,
@@ -404,8 +404,8 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1159.3,
-      "change_pct": -3.23,
+      "price": 1160.21,
+      "change_pct": -3.154,
       "pe": 86.36,
       "pb": 8.2,
       "roe": 0.126,
