@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-29 14:50:00",
+  "update_time": "2026-05-29 14:50:02",
   "stocks": [
     {
       "code": "600036",
@@ -42,8 +42,8 @@
     {
       "code": "600501",
       "name": "航天晨光",
-      "price": 18.21,
-      "change_pct": -6.52,
+      "price": 18.2,
+      "change_pct": -6.571,
       "pe": null,
       "pb": null,
       "roe": null,
@@ -57,8 +57,8 @@
     {
       "code": "600519",
       "name": "贵州茅台",
-      "price": 1326.34,
-      "change_pct": 3.947,
+      "price": 1326.27,
+      "change_pct": 3.941,
       "pe": 20.05,
       "pb": 9.5,
       "roe": 0.305,
@@ -76,8 +76,8 @@
     {
       "code": "600900",
       "name": "长江电力",
-      "price": 27.72,
-      "change_pct": 1.837,
+      "price": 27.73,
+      "change_pct": 1.874,
       "pe": 18.8,
       "pb": 2.9,
       "roe": 0.158,
@@ -95,8 +95,8 @@
     {
       "code": "600941",
       "name": "中国移动",
-      "price": 98.95,
-      "change_pct": 0.784,
+      "price": 98.93,
+      "change_pct": 0.764,
       "pe": 15.79,
       "pb": 1.5,
       "roe": 0.108,
@@ -114,8 +114,8 @@
     {
       "code": "601088",
       "name": "中国神华",
-      "price": 47.79,
-      "change_pct": 3.554,
+      "price": 47.76,
+      "change_pct": 3.489,
       "pe": 20.1,
       "pb": 1.97,
       "roe": 0.107,
@@ -190,8 +190,8 @@
     {
       "code": "601689",
       "name": "拓普集团",
-      "price": 62.06,
-      "change_pct": -5.713,
+      "price": 62.08,
+      "change_pct": -5.682,
       "pe": 39.0,
       "pb": 5.5,
       "roe": 0.131,
@@ -247,8 +247,8 @@
     {
       "code": "601988",
       "name": "中国银行",
-      "price": 5.88,
-      "change_pct": 1.205,
+      "price": 5.87,
+      "change_pct": 1.033,
       "pe": 7.72,
       "pb": 0.5,
       "roe": 0.092,
@@ -295,8 +295,8 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1298.21,
-      "change_pct": -6.704,
+      "price": 1298.87,
+      "change_pct": -6.657,
       "pe": 300.21,
       "pb": null,
       "roe": null,
@@ -347,8 +347,8 @@
     {
       "code": "000858",
       "name": "五 粮 液",
-      "price": 84.61,
-      "change_pct": 3.829,
+      "price": 84.6,
+      "change_pct": 3.816,
       "pe": 26.06,
       "pb": 5.2,
       "roe": 0.098,
@@ -366,9 +366,9 @@
     {
       "code": "002050",
       "name": "三花智控",
-      "price": 45.87,
-      "change_pct": -5.637,
-      "pe": 47.23,
+      "price": 45.86,
+      "change_pct": -5.657,
+      "pe": 47.22,
       "pb": 6.8,
       "roe": 0.126,
       "dividend_yield": 0.008,
@@ -385,9 +385,9 @@
     {
       "code": "002594",
       "name": "比亚迪",
-      "price": 96.16,
-      "change_pct": 0.292,
-      "pe": 31.82,
+      "price": 96.17,
+      "change_pct": 0.302,
+      "pe": 31.83,
       "pb": 4.5,
       "roe": 0.16,
       "dividend_yield": 0.008,
@@ -404,8 +404,8 @@
     {
       "code": "300308",
       "name": "中际旭创",
-      "price": 1156.7,
-      "change_pct": -3.447,
+      "price": 1157.03,
+      "change_pct": -3.419,
       "pe": 86.17,
       "pb": 8.2,
       "roe": 0.126,
