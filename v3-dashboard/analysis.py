@@ -95,7 +95,7 @@ def _base_analysis(session_type):
     total_mv = 0
     cat_mv = {"现金牛": 0, "成长股": 0, "拓荒型": 0, "进攻赛道": 0}
     for h in holdings:
-        code = _find_code(h["name"])
+        code = _find_code(h["name"], conn)
         s = price_map.get(code, {})
         cur_p = s.get("price") or 0
         mv = cur_p * (h.get("shares") or 0)
@@ -103,14 +103,15 @@ def _base_analysis(session_type):
         cat = h.get("category", "")
         cat_mv[cat] = cat_mv.get(cat, 0) + mv
     total = cash + total_mv
-    profit = total - 100000
+    total_contributed = port.get("initial_capital", 100000) + port.get("dca_contributed", 0)
+    profit = total - total_contributed
 
     # 个股信号
     signals = []
     winners = []
     losers = []
     for h in holdings:
-        code = _find_code(h["name"])
+        code = _find_code(h["name"], conn)
         s = price_map.get(code, {})
         cur_price = s.get("price")
         chg_pct = s.get("change_pct") or 0
@@ -132,7 +133,7 @@ def _base_analysis(session_type):
             losers.append(f"{h['name']}({chg_pct:+.1f}%)")
 
     # 生成决策分析
-    decisions = _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type)
+    decisions = _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type, total_contributed)
 
     conn.close()
 
@@ -143,7 +144,7 @@ def _base_analysis(session_type):
         "holdings_review": json.dumps({
             "total_asset": round(total, 2),
             "profit": round(profit, 2),
-            "profit_pct": round(profit/100000*100, 2),
+            "profit_pct": round(profit/total_contributed*100, 2) if total_contributed else 0,
             "positions": len(holdings),
             "cash_cow_pct": round(cat_mv.get("现金牛",0)/total*100, 1) if total else 0,
             "growth_pct": round(cat_mv.get("成长股",0)/total*100, 1) if total else 0,
@@ -155,7 +156,7 @@ def _base_analysis(session_type):
     }
 
 
-def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type):
+def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type, total_contributed=100000):
     """根据市场状态、持仓、信号生成结构化的决策分析。"""
     lines = []
 
@@ -167,7 +168,7 @@ def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, w
 
     # 2. 组合概况
     profit_str = f"{profit:+.0f}" if profit else "0"
-    pct = profit / 100000 * 100 if profit else 0
+    pct = profit / total_contributed * 100 if profit and total_contributed else 0
     lines.append(f"**总资产：¥{total:,.0f}  |  累计盈亏：{profit_str} ({pct:+.2f}%)**")
     cow_pct = cat_mv.get("现金牛", 0) / total * 100 if total else 0
     grow_pct = cat_mv.get("成长股", 0) / total * 100 if total else 0
@@ -246,7 +247,21 @@ def _latest_stocks(conn):
     return [dict(r) for r in cur.fetchall()]
 
 
-def _find_code(name):
+def _find_code(name, conn=None):
+    """Query stock code from DB, with fallback to hardcoded mapping."""
+    # Try DB first
+    if conn is not None:
+        try:
+            cur = conn.execute(
+                "SELECT code FROM stock_price WHERE name = ? AND code IS NOT NULL AND code != '' ORDER BY fetched_at DESC LIMIT 1",
+                (name,)
+            )
+            row = cur.fetchone()
+            if row and row["code"]:
+                return row["code"]
+        except Exception:
+            pass
+    # Fallback for when DB is not available or stock not yet in DB
     mapping = {
         "五粮液":"0.000858","中国神华":"1.601088","粤高速A":"0.000429",
         "中国移动":"1.600941","工商银行":"1.601398","拓普集团":"1.601689",
