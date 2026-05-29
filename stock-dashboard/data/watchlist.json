@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-05-29 15:00:04",
+  "update_time": "2026-05-29 15:05:01",
   "stocks": [
     {
       "code": "600036",
@@ -23,9 +23,9 @@
     {
       "code": "600406",
       "name": "国电南瑞",
-      "price": 24.93,
-      "change_pct": -0.677,
-      "pe": 24.07,
+      "price": 24.9,
+      "change_pct": -0.797,
+      "pe": 24.04,
       "pb": 3.92,
       "roe": 0.156,
       "dividend_yield": 0.024,
@@ -42,8 +42,8 @@
     {
       "code": "600501",
       "name": "航天晨光",
-      "price": 18.31,
-      "change_pct": -6.006,
+      "price": 18.3,
+      "change_pct": -6.057,
       "pe": null,
       "pb": null,
       "roe": null,
@@ -133,9 +133,9 @@
     {
       "code": "601288",
       "name": "农业银行",
-      "price": 6.34,
-      "change_pct": 2.093,
-      "pe": 7.54,
+      "price": 6.32,
+      "change_pct": 1.771,
+      "pe": 7.52,
       "pb": 0.5,
       "roe": 0.095,
       "dividend_yield": 0.06,
@@ -190,9 +190,9 @@
     {
       "code": "601689",
       "name": "拓普集团",
-      "price": 62.43,
-      "change_pct": -5.15,
-      "pe": 39.23,
+      "price": 62.4,
+      "change_pct": -5.196,
+      "pe": 39.21,
       "pb": 5.5,
       "roe": 0.131,
       "dividend_yield": 0.006,
@@ -265,9 +265,9 @@
     {
       "code": "603986",
       "name": "兆易创新",
-      "price": 469.96,
-      "change_pct": -2.7,
-      "pe": 114.62,
+      "price": 467.01,
+      "change_pct": -3.311,
+      "pe": 113.9,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
@@ -295,9 +295,9 @@
     {
       "code": "688256",
       "name": "寒武纪",
-      "price": 1312.0,
-      "change_pct": -5.713,
-      "pe": 303.4,
+      "price": 1310.0,
+      "change_pct": -5.857,
+      "pe": 302.93,
       "pb": null,
       "roe": null,
       "dividend_yield": null,
