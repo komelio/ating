@@ -1,12 +1,12 @@
 {
-  "update_time": "2026-05-29 10:50:00",
+  "update_time": "2026-05-29 10:50:05",
   "summary": {
     "total_assets": 122569.66,
     "cash": 97431.66,
     "cash_pct": 79.5,
-    "market_value": 25488.0,
-    "total_pnl": 350.0,
-    "total_pnl_pct": 1.3923144243774388,
+    "market_value": 25482.0,
+    "total_pnl": 344.0,
+    "total_pnl_pct": 1.3684461771023892,
     "holding_count": 3,
     "peak_assets": 100000,
     "drawdown_pct": 0,
@@ -46,10 +46,10 @@
       "shares": 200,
       "avg_cost": 45.59,
       "cost": 9118.0,
-      "current_price": 47.04,
-      "market_value": 9408.0,
-      "pnl": 290.0,
-      "pnl_pct": 3.180522044307943,
+      "current_price": 47.01,
+      "market_value": 9402.0,
+      "pnl": 284.0,
+      "pnl_pct": 3.1147181399429513,
       "type": "cashcow",
       "sector": "能源"
     }
