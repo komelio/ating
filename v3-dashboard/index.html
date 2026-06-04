@@ -268,7 +268,9 @@ function render_portfolio() {
   const hl = port.holdings || [];
   const cash = Number(port.cash||0);
   let mv = 0; hl.forEach(h => mv += (h.current_price||0)*(h.shares||0));
-  const total = cash + mv, profit = total - 100000, pp = profit/100000*100;
+  const total = cash + mv;
+  const costBasis = (port.initial_capital || 100000) + (port.dca_contributed || 0);
+  const profit = total - costBasis, pp = profit/costBasis*100;
   const pcls = profit>=0?'up':'down';
 
   // Summary cards

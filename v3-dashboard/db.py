@@ -126,11 +126,12 @@ def export_all_json():
             "cash": raw.get("current_cash", raw.get("cash", 0)),
             "holdings": hlist,
             "initial_capital": raw.get("initial_capital", 100000),
+            "dca_contributed": raw.get("dca_contributed", 0),
             "transactions": raw.get("transactions", [])[-20:],  # 最近20笔
         }
         _write_json("portfolio.json", portfolio)
     except Exception:
-        _write_json("portfolio.json", {"cash": 0, "holdings": [], "initial_capital": 100000})
+        _write_json("portfolio.json", {"cash": 0, "holdings": [], "initial_capital": 100000, "dca_contributed": 0})
 
     # ── 资讯 ──
     cur = conn.execute("SELECT * FROM ai_news ORDER BY fetched_at DESC LIMIT 30")
