@@ -1,42 +1,29 @@
 {
-  "update_time": "2026-05-29 15:05:00",
+  "update_time": "2026-06-11 09:38:47",
   "summary": {
-    "total_assets": 122569.66,
-    "cash": 97431.66,
-    "cash_pct": 79.5,
-    "market_value": 25464.0,
-    "total_pnl": 326.0,
-    "total_pnl_pct": 1.2968414352772628,
-    "holding_count": 3,
+    "total_assets": 122831.97,
+    "cash": 102111.97,
+    "cash_pct": 83.1,
+    "market_value": 20686.0,
+    "total_pnl": 728.0,
+    "total_pnl_pct": 3.6476600861809816,
+    "holding_count": 2,
     "peak_assets": 100000,
-    "drawdown_pct": 0,
+    "drawdown_pct": 0.0031,
     "total_injected": 15000.0,
-    "total_commission": 35.0
+    "total_commission": 40.0
   },
   "holdings": [
-    {
-      "code": "600406",
-      "name": "国电南瑞",
-      "shares": 200,
-      "avg_cost": 25.9,
-      "cost": 5180.0,
-      "current_price": 24.9,
-      "market_value": 4980.0,
-      "pnl": -200.0,
-      "pnl_pct": -3.8610038610038644,
-      "type": "growth",
-      "sector": "电力设备"
-    },
     {
       "code": "600900",
       "name": "长江电力",
       "shares": 400,
       "avg_cost": 27.1,
       "cost": 10840.0,
-      "current_price": 27.75,
-      "market_value": 11100.0,
-      "pnl": 260.0,
-      "pnl_pct": 2.398523985239853,
+      "current_price": 27.77,
+      "market_value": 11108.0,
+      "pnl": 268.0,
+      "pnl_pct": 2.4723247232472323,
       "type": "cashcow",
       "sector": "公用事业"
     },
@@ -46,15 +33,25 @@
       "shares": 200,
       "avg_cost": 45.59,
       "cost": 9118.0,
-      "current_price": 46.92,
-      "market_value": 9384.0,
-      "pnl": 266.0,
-      "pnl_pct": 2.9173064268479987,
+      "current_price": 47.89,
+      "market_value": 9578.0,
+      "pnl": 460.0,
+      "pnl_pct": 5.044966001316076,
       "type": "cashcow",
       "sector": "能源"
     }
   ],
   "trades": [
+    {
+      "date": "2026-06-05",
+      "action": "SELL",
+      "code": "600406",
+      "name": "国电南瑞",
+      "shares": 200,
+      "price": 23.45,
+      "amount": 4690.0,
+      "commission": 5.0
+    },
     {
       "date": "2026-05-28",
       "action": "SELL",
@@ -129,7 +126,7 @@
   "redlines": [
     {
       "name": "单票≤10%",
-      "value": "9.1%",
+      "value": "9.0%",
       "limit": "10%",
       "status": "ok"
     },
@@ -141,7 +138,7 @@
     },
     {
       "name": "现金≥10%",
-      "value": "79.5%",
+      "value": "83.1%",
       "limit": "10%",
       "status": "ok"
     },
