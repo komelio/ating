@@ -1,1 +1,144 @@
-{"cash": -7923.59, "initial_principal": 100000.0, "total_invested": 15000.0, "cost_basis": 115000.0, "market_value": 109846.84, "total_cost_basis": 122828.36, "total_assets": 101923.25, "pnl": -20905.11, "pnl_pct": -17.01977458626005, "monthly": 15000.0, "total_fees": 95.23, "holdings": {"五粮液": {"code": "sz000858", "shares": 1042, "avg_cost": 86.068, "cost_basis": 89683.34, "pool": "糖果池", "first_buy": "2026-05-12", "max_shares": 334, "max_shares_note": "25%糖果池上限÷现价≈334股，当前800股超标2.4倍。Plan A:反弹至成本线¥87减仓至≤334股。Plan B(2026-05-28新增):若跌破¥80(-8%从现价¥81.49)，暂停一切五粮液操作(不买不卖)，主动评估基本面是否恶化(季度营收-20%+或ROE<10%或分红削减)→恶化则逻辑破坏清仓，未恶化则继续持有等反弹回¥80以上再恢复Plan A。Plan C(2026-06-01新增):若反弹至¥85以上(不等¥87成本线)，强制减仓200股至600股，将仓位从59%降至约45%。理由：降风险敞口优先于回本，不应执着于精确成本线", "current_price": 74.52, "market_value": 77649.84, "pnl": -12033.016000000001}, "工商银行": {"code": "sh601398", "shares": 1000, "avg_cost": 7.252, "cost_basis": 7252.02, "pool": "糖果池", "first_buy": "2026-05-12", "max_shares": 3900, "max_shares_note": "25%糖果池上限÷现价≈3900股，当前1000股安全", "current_price": 7.06, "market_value": 7060.0, "pnl": -192.00000000000017}, "招商银行": {"code": "sh600036", "shares": 700, "avg_cost": 36.99, "cost_basis": 25893.0, "pool": "糖果池", "first_buy": "2026-05-22", "max_shares": 760, "max_shares_note": "25%糖果池上限÷现价≈760股，当前900股超标118%，禁止继续补仓，反弹至¥37减仓200股", "current_price": 35.91, "market_value": 25136.999999999996, "pnl": -756.0000000000038}}, "transactions": [{"date": "2026-05-12", "type": "contribution", "amount": 15000.0, "note": "每月定投 #1 (2026年5月) - 建仓期首月"}, {"date": "2026-05-12", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 100, "price": 91.81, "amount": 9181.0, "fee": 5.09, "pool": "糖果池", "signal": "补仓(RSI=7.1,Price<250MA)"}, {"date": "2026-05-12", "type": "buy", "stock": "长江电力", "code": "sh600900", "shares": 100, "price": 27.01, "amount": 2701.0, "fee": 5.03, "pool": "糖果池", "signal": "定投建仓(score=9)"}, {"date": "2026-05-12", "type": "buy", "stock": "工商银行", "code": "sh601398", "shares": 400, "price": 7.47, "amount": 2988.0, "fee": 5.03, "pool": "糖果池", "signal": "定投建仓(PE=7.17)"}, {"date": "2026-05-14", "type": "buy", "stock": "工商银行", "code": "sh601398", "shares": 100, "price": 7.21, "amount": 721.0, "fee": 5.01, "pool": "糖果池", "signal": "逢低补仓(Price≤MA60,跌3.5%)"}, {"date": "2026-05-14", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 100, "price": 88.15, "amount": 8815.0, "fee": 5.09, "pool": "糖果池", "signal": "底仓未满(PE=10.61,跌1.12%)"}, {"date": "2026-05-19", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 200, "price": 86.29, "amount": 17258.0, "fee": 5.17, "pool": "糖果池", "signal": "补仓(RSI=2.6,Price<<MA250,ROE稳定)"}, {"date": "2026-05-19", "type": "sell", "stock": "长江电力", "code": "sh600900", "shares": 100, "price": 27.26, "amount": 2726.0, "fee": 6.39, "pool": "糖果池", "signal": "糖果池减仓(股息率3.12%<国债1.76%+1.5%=3.26%)"}, {"date": "2026-05-19", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 200, "price": 85.79, "amount": 17158.0, "fee": 5.17, "pool": "糖果池", "signal": "RSI3.4_PriceBelowMA250_补仓"}, {"date": "2026-05-21", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 200, "price": 85.9, "amount": 17180.0, "fee": 5.17, "pool": "糖果池", "signal": "补仓:Price<MA250(114.86)&RSI<30(3.3)"}, {"date": "2026-05-22", "type": "buy", "stock": "工商银行", "code": "sh601398", "shares": 1500, "price": 7.19, "amount": 10785.0, "fee": 5.11, "pool": "糖果池", "signal": "补仓(RSI=29.8,Price<MA250=7.54,ROE稳定)"}, {"date": "2026-05-22", "type": "buy", "stock": "招商银行", "code": "sh600036", "shares": 300, "price": 37.03, "amount": 11109.0, "fee": 5.11, "pool": "糖果池", "signal": "补仓(RSI=9.96,Price<MA250=41.99,ROE稳定)"}, {"date": "2026-05-25", "type": "buy", "stock": "招商银行", "code": "sh600036", "shares": 300, "price": 37.0, "amount": 11100.0, "fee": 5.11, "pool": "糖果池", "signal": "补仓(RSI=9.96,Price<MA250=41.99,ROE稳定)"}, {"date": "2026-05-25", "type": "sell", "stock": "工商银行", "code": "sh601398", "shares": 1000, "price": 7.19, "amount": 7190.0, "fee": 8.67, "pool": "糖果池", "signal": "糖果池"}, {"date": "2026-05-25", "type": "buy", "stock": "招商银行", "code": "sh600036", "shares": 300, "price": 36.94, "amount": 11082.0, "fee": 5.11, "pool": "糖果池", "signal": "买入"}, {"date": "2026-05-27", "type": "sell", "stock": "招商银行", "code": "sh600036", "shares": 200, "price": 37.0, "amount": 7400.0, "fee": 8.77, "pool": "糖果池", "signal": "仓位超标减仓:反弹至¥37减200股→700股达标"}, {"date": "2026-06-02", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 121, "price": 82.98, "amount": 10040.58, "fee": 5.1, "pool": "糖果池", "signal": "补仓:价格低于MA250且RSI<30"}, {"date": "2026-06-02", "type": "buy", "stock": "五粮液", "code": "sz000858", "shares": 121, "price": 82.98, "amount": 10040.58, "fee": 5.1, "pool": "糖果池", "signal": "补仓:价格低于MA250且RSI<30"}], "nav_history": [{"date": "2026-05-12", "total_assets": 112094.85, "cash": 100114.85, "market_value": 11980.0, "pnl": -10733.51, "pnl_pct": -8.74}, {"date": "2026-05-13", "total_assets": 111921.85, "cash": 100114.85, "market_value": 11807.0, "pnl": -10906.51, "pnl_pct": -8.88}, {"date": "2026-05-14", "total_assets": 112016.75, "cash": 90568.75, "market_value": 21448.0, "pnl": -10811.61, "pnl_pct": -8.8}, {"date": "2026-05-15", "total_assets": 111562.75, "cash": 90568.75, "market_value": 20994.0, "pnl": -11265.61, "pnl_pct": -9.17}, {"date": "2026-05-18", "total_assets": 111277.75, "cash": 90568.75, "market_value": 20709.0, "pnl": -11550.61, "pnl_pct": -9.4}, {"date": "2026-05-19", "total_assets": 113960.02, "cash": 58862.02, "market_value": 55098.0, "pnl": -8868.34, "pnl_pct": -7.22}, {"date": "2026-05-20", "total_assets": 113709.02, "cash": 58862.02, "market_value": 54847.0, "pnl": -9119.34, "pnl_pct": -7.42}, {"date": "2026-05-21", "total_assets": 113531.85, "cash": 41676.85, "market_value": 71855.0, "pnl": -9296.51, "pnl_pct": -7.57}, {"date": "2026-05-22", "total_assets": 112462.63, "cash": 19772.63, "market_value": 92690.0, "pnl": -10365.73, "pnl_pct": -8.44}, {"date": "2026-05-25", "total_assets": 112489.74, "cash": 4761.74, "market_value": 107728.0, "pnl": -10338.62, "pnl_pct": -8.42}, {"date": "2026-05-26", "total_assets": 111929.74, "cash": 4761.74, "market_value": 107168.0, "pnl": -10898.62, "pnl_pct": -8.87}, {"date": "2026-05-27", "total_assets": 112284.97, "cash": 12152.97, "market_value": 100132.0, "pnl": -10543.39, "pnl_pct": -8.58}, {"date": "2026-05-28", "total_assets": 110368.97, "cash": 12152.97, "market_value": 98216.0, "pnl": -12459.39, "pnl_pct": -10.14}, {"date": "2026-05-29", "total_assets": 113891.97, "cash": 12152.97, "market_value": 101739.0, "pnl": -8936.39, "pnl_pct": -7.28}, {"date": "2026-06-01", "total_assets": 112920.97, "cash": 12152.97, "market_value": 100768.0, "pnl": -9907.39, "pnl_pct": -8.07}, {"date": "2026-06-02", "total_assets": 112745.43, "cash": -7938.39, "market_value": 120683.82, "pnl": -10082.93, "pnl_pct": -8.21}, {"date": "2026-06-03", "total_assets": 112100.31, "cash": -7938.39, "market_value": 120038.7, "pnl": -10728.05, "pnl_pct": -8.73}, {"date": "2026-06-04", "total_assets": 110467.81, "cash": -7938.39, "market_value": 118406.2, "pnl": -12360.55, "pnl_pct": -10.06}, {"date": "2026-06-05", "total_assets": 110892.97, "cash": -7938.39, "market_value": 118831.36, "pnl": -11935.39, "pnl_pct": -9.72}, {"date": "2026-06-08", "total_assets": 109829.93, "cash": -7938.39, "market_value": 117768.32, "pnl": -12998.43, "pnl_pct": -10.58}, {"date": "2026-06-09", "total_assets": 108977.23, "cash": -7938.39, "market_value": 116915.62, "pnl": -13851.13, "pnl_pct": -11.28}, {"date": "2026-06-10", "total_assets": 109445.49, "cash": -7938.39, "market_value": 117383.88, "pnl": -13382.87, "pnl_pct": -10.9}, {"date": "2026-06-11", "total_assets": 109973.79, "cash": -7938.39, "market_value": 117912.18, "pnl": -12854.57, "pnl_pct": -10.47}, {"date": "2026-06-12", "total_assets": 110656.25, "cash": -7938.39, "market_value": 118594.64, "pnl": -12172.11, "pnl_pct": -9.91}, {"date": "2026-06-15", "total_assets": 109871.07, "cash": -7938.39, "market_value": 117809.46, "pnl": -12957.29, "pnl_pct": -10.55}, {"date": "2026-06-16", "total_assets": 108100.47, "cash": -7938.39, "market_value": 116038.86, "pnl": -14727.89, "pnl_pct": -11.99}, {"date": "2026-06-17", "total_assets": 106927.19, "cash": -7938.39, "market_value": 114865.58, "pnl": -15901.17, "pnl_pct": -12.95}, {"date": "2026-06-18", "total_assets": 104339.31, "cash": -7938.39, "market_value": 112277.7, "pnl": -18489.05, "pnl_pct": -15.05}, {"date": "2026-06-22", "total_assets": 105381.71, "cash": -7938.39, "market_value": 113320.1, "pnl": -17446.65, "pnl_pct": -14.2}, {"date": "2026-06-23", "total_assets": 103521.53, "cash": -7938.39, "market_value": 111459.92, "pnl": -19306.83, "pnl_pct": -15.72}, {"date": "2026-06-24", "total_assets": 101392.21, "cash": -7938.39, "market_value": 109330.6, "pnl": -21436.15, "pnl_pct": -17.45}, {"date": "2026-06-25", "total_assets": 102762.61, "cash": -7938.39, "market_value": 110701.0, "pnl": -20065.75, "pnl_pct": -16.34}, {"date": "2026-06-26", "total_assets": 100654.75, "cash": -7938.39, "market_value": 108593.14, "pnl": -22173.61, "pnl_pct": -18.05}, {"date": "2026-06-29", "total_assets": 101883.61, "cash": -7938.39, "market_value": 109822.0, "pnl": -20944.75, "pnl_pct": -17.05}, {"date": "2026-06-30", "total_assets": 101089.61, "cash": -7938.39, "market_value": 109028.0, "pnl": -21738.75, "pnl_pct": -17.7}, {"date": "2026-07-01", "total_assets": 101908.45, "cash": -7938.39, "market_value": 109846.84, "pnl": -20919.91, "pnl_pct": -17.03}], "up_count": 6, "down_count": 14, "total_count": 21}
+{
+  "cash": 103328.327,
+  "initial_principal": 200000.0,
+  "total_invested": 0,
+  "cost_basis": 0,
+  "market_value": 96647.0,
+  "total_cost_basis": 96671.673,
+  "total_assets": 199975.327,
+  "pnl": -24.67300000000978,
+  "pnl_pct": -0.012336500000009742,
+  "monthly": 15000.0,
+  "total_fees": 24.67,
+  "holdings": {
+    "金山办公": {
+      "code": "688111",
+      "shares": 100,
+      "avg_cost": 221.6,
+      "cost_basis": 22165.54,
+      "pool": "种子池",
+      "first_buy": "2026-07-01",
+      "current_price": 221.6,
+      "market_value": 22160.0,
+      "pnl": 0,
+      "score": 117
+    },
+    "中航沈飞": {
+      "code": "600760",
+      "shares": 700,
+      "avg_cost": 41.28,
+      "cost_basis": 28903.224,
+      "pool": "火箭池",
+      "first_buy": "2026-07-01",
+      "current_price": 41.28,
+      "market_value": 28896.0,
+      "pnl": 0,
+      "score": 58
+    },
+    "中国神华": {
+      "code": "601088",
+      "shares": 700,
+      "avg_cost": 39.48,
+      "cost_basis": 27642.908999999996,
+      "pool": "糖果池",
+      "first_buy": "2026-07-01",
+      "current_price": 39.48,
+      "market_value": 27635.999999999996,
+      "pnl": 0,
+      "score": 50
+    },
+    "招商银行": {
+      "code": "600036",
+      "shares": 500,
+      "avg_cost": 35.91,
+      "cost_basis": 17960.0,
+      "pool": "糖果池",
+      "first_buy": "2026-07-01",
+      "current_price": 35.91,
+      "market_value": 17955.0,
+      "pnl": 0,
+      "score": 50
+    }
+  },
+  "transactions": [
+    {
+      "date": "2026-07-01",
+      "type": "reset",
+      "amount": 0,
+      "note": "操盘系统v2.0启动 | 初始资金¥200,000 | 模拟盘 | 融合KHunter+EOD Hunter+宏观过滤"
+    },
+    {
+      "date": "2026-07-01",
+      "type": "buy",
+      "stock": "金山办公",
+      "code": "688111",
+      "shares": 100,
+      "price": 221.6,
+      "amount": 22160.0,
+      "fee": 5.54,
+      "pool": "种子池",
+      "signal": "尾盘猎手|2560战法|多金叉|底部拐点|趋势加速|阻力突破",
+      "score": 117
+    },
+    {
+      "date": "2026-07-01",
+      "type": "buy",
+      "stock": "中航沈飞",
+      "code": "600760",
+      "shares": 700,
+      "price": 41.28,
+      "amount": 28896.0,
+      "fee": 7.22,
+      "pool": "火箭池",
+      "signal": "2560战法|多金叉|趋势加速",
+      "score": 58
+    },
+    {
+      "date": "2026-07-01",
+      "type": "buy",
+      "stock": "中国神华",
+      "code": "601088",
+      "shares": 700,
+      "price": 39.48,
+      "amount": 27635.999999999996,
+      "fee": 6.91,
+      "pool": "糖果池",
+      "signal": "2560战法|多金叉|阻力突破",
+      "score": 50
+    },
+    {
+      "date": "2026-07-01",
+      "type": "buy",
+      "stock": "招商银行",
+      "code": "600036",
+      "shares": 500,
+      "price": 35.91,
+      "amount": 17955.0,
+      "fee": 5,
+      "pool": "糖果池",
+      "signal": "2560战法|多金叉|阻力突破",
+      "score": 50
+    }
+  ],
+  "nav_history": [
+    {
+      "date": "2026-07-01",
+      "total_assets": 200000.0,
+      "cash": 200000.0,
+      "market_value": 0,
+      "pnl": 0,
+      "pnl_pct": 0
+    },
+    {
+      "date": "2026-07-01",
+      "total_assets": 199975.33,
+      "cash": 103328.33,
+      "market_value": 96647.0,
+      "pnl": -24.67,
+      "pnl_pct": -0.01
+    }
+  ],
+  "up_count": 0,
+  "down_count": 0,
+  "total_count": 0
+}
