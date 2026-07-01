@@ -93,7 +93,7 @@ def _base_analysis(session_type):
 
     # 计算总市值 + 分类统计
     total_mv = 0
-    cat_mv = {"现金牛": 0, "成长股": 0, "拓荒型": 0, "进攻赛道": 0}
+    cat_mv = {"核心仓": 0, "机动仓": 0}
     for h in holdings:
         code = _find_code(h["name"], conn)
         s = price_map.get(code, {})
@@ -103,10 +103,10 @@ def _base_analysis(session_type):
         cat = h.get("category", "")
         cat_mv[cat] = cat_mv.get(cat, 0) + mv
     total = cash + total_mv
-    total_contributed = port.get("initial_capital", 100000) + port.get("dca_contributed", 0)
+    total_contributed = port.get("initial_capital", 500000) + port.get("dca_contributed", 0)
     profit = total - total_contributed
 
-    # 个股信号
+    # 个股信号 (V3.2 严格止盈止损)
     signals = []
     winners = []
     losers = []
@@ -118,10 +118,14 @@ def _base_analysis(session_type):
         cost = h.get("cost_price") or h.get("avg_cost") or 0
         if cur_price and cost:
             pnl_pct = (cur_price - cost) / cost * 100
-            if pnl_pct <= -15:
-                signals.append(f"🔴 {h['name']} 回撤{abs(pnl_pct):.1f}%，触发15%硬止损")
-            elif pnl_pct <= -8:
-                signals.append(f"🟡 {h['name']} 回撤{abs(pnl_pct):.1f}%，接近警戒线")
+            if pnl_pct <= -5:
+                signals.append(f"🔴 {h['name']} 亏损{abs(pnl_pct):.1f}%，触发5%铁律止损")
+            elif pnl_pct <= -3:
+                signals.append(f"🟡 {h['name']} 亏损{abs(pnl_pct):.1f}%，接近止损线")
+            elif pnl_pct >= 20:
+                signals.append(f"🎯 {h['name']} 盈利{pnl_pct:.1f}%，触发二次止盈")
+            elif pnl_pct >= 10:
+                signals.append(f"🎯 {h['name']} 盈利{pnl_pct:.1f}%，触发首次止盈")
             elif chg_pct <= -5:
                 signals.append(f"⚠️ {h['name']} 单日跌{abs(chg_pct):.1f}%")
             elif chg_pct >= 5:
@@ -156,8 +160,8 @@ def _base_analysis(session_type):
     }
 
 
-def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type, total_contributed=100000):
-    """根据市场状态、持仓、信号生成结构化的决策分析。"""
+def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, winners, losers, session_type, total_contributed=500000):
+    """根据市场状态、持仓、信号生成结构化的决策分析 (V3.2)。"""
     lines = []
 
     # 1. 市场概况
@@ -170,10 +174,10 @@ def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, w
     profit_str = f"{profit:+.0f}" if profit else "0"
     pct = profit / total_contributed * 100 if profit and total_contributed else 0
     lines.append(f"**总资产：¥{total:,.0f}  |  累计盈亏：{profit_str} ({pct:+.2f}%)**")
-    cow_pct = cat_mv.get("现金牛", 0) / total * 100 if total else 0
-    grow_pct = cat_mv.get("成长股", 0) / total * 100 if total else 0
+    core_pct = cat_mv.get("核心仓", 0) / total * 100 if total else 0
+    tact_pct = cat_mv.get("机动仓", 0) / total * 100 if total else 0
     cash_pct = cash / total * 100 if total else 0
-    lines.append(f"配置：现金牛{cow_pct:.0f}%(目标60%) | 成长股{grow_pct:.0f}%(目标30%) | 现金{cash_pct:.0f}%(底线10%)")
+    lines.append(f"配置：核心仓{core_pct:.0f}%(目标50%) | 机动仓{tact_pct:.0f}%(目标30%) | 现金{cash_pct:.0f}%(底线20%)")
 
     # 3. 持仓涨跌
     if winners:
@@ -189,16 +193,13 @@ def _make_decision(state, idx, holdings, total, profit, cat_mv, cash, signals, w
     else:
         lines.append("✅ 无异常信号触发")
 
-    # 5. 操作建议
+    # 5. 操作建议 (V3.2 趋势策略)
     if state == "bear":
-        if session_type == "morning_watch":
-            lines.append("**早盘建议：** 三大指数全线下跌，市场处于🐻熊市。暂停成长股加仓，关注现金牛股息率>5%的标的，现金占比偏高可适度补仓高股息现金牛。持股观望，不追涨杀跌。")
-        else:
-            lines.append("**午盘建议：** 尾盘继续维持防守姿态。如有现金牛标的触及250日线+RSI<40，可小仓位捡漏（≤总资产2%）。成长股暂不加仓，等明天走势明朗。")
+        lines.append("**建议：** 🐻 大盘偏弱，暂停买入。检查持仓是否触及5%止损线。等待大盘企稳再考虑建仓。")
     elif state == "bull":
-        lines.append("**建议：** 市场强势，持仓待涨。关注高估值标的（PE>90%分位）可考虑减持10-20%。现金占比高于15%可适度加仓成长股龙头。")
+        lines.append("**建议：** 🐂 大盘强势，可积极建仓。优先选择放量上涨/平台突破标的。已盈利标的按10%/20%分批止盈。")
     else:
-        lines.append("**建议：** 震荡市保持哑铃配置不动。关注成交量变化判断方向。若三花智控继续下跌接近50元止损线，考虑减持10%。")
+        lines.append("**建议：** 📊 震荡市精选个股。只买通过三重过滤的标的。关注成交量变化判断方向。")
 
     return {"reasoning": "\n\n".join(lines)}
 
@@ -263,15 +264,12 @@ def _find_code(name, conn=None):
             pass
     # Fallback for when DB is not available or stock not yet in DB
     mapping = {
-        "五粮液":"0.000858","中国神华":"1.601088","粤高速A":"0.000429",
-        "中国移动":"1.600941","工商银行":"1.601398","拓普集团":"1.601689",
-        "三花智控":"0.002050","贵州茅台":"1.600519","长江电力":"1.600900",
-        "片仔癀":"1.600436","寒武纪":"1.688256","中际旭创":"0.300308",
-        "海光信息":"1.688041","国电南瑞":"1.600406","许继电气":"0.000400",
-        "航天晨光":"1.600501","江顺科技":"0.003031","比亚迪":"0.002594",
-        "宁德时代":"0.300750","中国平安":"1.601318",
-        "招商银行":"1.600036","美的集团":"0.000333",
-        "恒瑞医药":"1.600276","兆易创新":"1.603986",
+        "寒武纪":"1.688256","海光信息":"1.688041","北方华创":"0.002371","中微公司":"1.688012",
+        "兆易创新":"1.603986","长电科技":"1.600584","比亚迪":"0.002594","宁德时代":"0.300750",
+        "拓普集团":"1.601689","三花智控":"0.002050","贵州茅台":"1.600519","五粮液":"0.000858",
+        "恒瑞医药":"1.600276","美的集团":"0.000333","中国平安":"1.601318","招商银行":"1.600036",
+        "中国移动":"1.600941","中国神华":"1.601088","长江电力":"1.600900","中国核电":"1.601985",
+        "中国广核":"0.003816","国电南瑞":"1.600406","许继电气":"0.000400","英维克":"0.002837",
     }
     return mapping.get(name, "")
 

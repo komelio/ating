@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V3.1 投资仪表盘 - Mac-Hermes</title>
+<title>V3.2 投资仪表盘 - Mac-Hermes</title>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--dim:#8b949e;--red:#f85149;--green:#3fb950;--blue:#58a6ff;--gold:#d2991d}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -73,7 +73,7 @@ tr[data-stock]{cursor:pointer}
 <body>
 
 <div class="header">
-  <div><h1>📊 V3.1 投资仪表盘</h1></div>
+  <div><h1>📊 V3.2 投资仪表盘</h1></div>
   <div class="info">🔄 <span id="countdown">30</span>s · <span id="update-time">--</span></div>
 </div>
 
@@ -97,7 +97,7 @@ tr[data-stock]{cursor:pointer}
     <div class="kl-body"><div class="kl-loading">加载中...</div></div>
   </div>
 </div>
-<div class="note">V3.1 Compound Portfolio · 数据来源: 东方财富 · <span id="footer-time">--</span></div>
+<div class="note">V3.2 趋势跟踪策略 · 三重过滤+6大信号 · 数据来源: 东方财富 · <span id="footer-time">--</span></div>
 </div>
 
 <script src="js/chart.umd.min.js"></script>
@@ -302,7 +302,7 @@ function render_portfolio() {
   </div>`;
 
   // Allocation chart (small) + holdings table
-  const cats = {'现金牛':0,'成长股':0,'拓荒型':0,'进攻赛道':0};
+  const cats = {'核心仓':0,'机动仓':0};
   hl.forEach(h => cats[h.category] = (cats[h.category]||0) + (h.current_price||0)*(h.shares||0));
   h += `<div class="chart-row portfolio-layout">
     <div class="chart-card"><h3>💰 配置</h3><canvas id="alloc-chart" style="max-width:240px;max-height:240px"></canvas></div>
@@ -344,7 +344,7 @@ function render_portfolio() {
   if (charts.alloc) charts.alloc.destroy();
   const ac = document.getElementById('alloc-chart');
   if (ac) charts.alloc = new Chart(ac, {type:'doughnut',
-    data:{labels:['现金','现金牛','成长股','拓荒型','进攻'], datasets:[{data:[cash,cats['现金牛']||0,cats['成长股']||0,cats['拓荒型']||0,cats['进攻赛道']||0], backgroundColor:['#1f6feb','#d2991d','#3fb950','#f85149','#bc8cff']}]},
+    data:{labels:['现金','核心仓','机动仓'], datasets:[{data:[cash,cats['核心仓']||0,cats['机动仓']||0], backgroundColor:['#1f6feb','#d2991d','#3fb950']}]},
     options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{color:'#8b949e',boxWidth:12,font:{size:11}}}}}});
 }
 

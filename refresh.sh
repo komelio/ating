@@ -1,5 +1,5 @@
 #!/bin/bash
-# V3.1 Dashboard — 完整刷新管道: 采集 → SQLite → JSON → Git Push
+# V3.2 Dashboard — 完整刷新管道: 采集 → SQLite → JSON → 策略扫描 → Git Push
 # 用法: bash refresh.sh
 set -e
 
@@ -22,7 +22,7 @@ python3 gen_data.py >> "$LOG" 2>&1
 
 # ── 3. Commit & Push ──
 log "📤 Git commit"
-git add v3-dashboard/data/ v3-dashboard/index.html gen_data.py
+git add v3-dashboard/data/ v3-dashboard/index.html v3-dashboard/strategy.py v3-dashboard/trader.py gen_data.py
 if git diff --cached --quiet; then
     log "✅ 无数据变更，跳过推送"
 else

@@ -23,19 +23,23 @@ def run(script, cwd=V3):
 
 if __name__ == "__main__":
     print("=" * 50)
-    print("  V3.1 Dashboard — Data Refresh")
+    print("  V3.2 Dashboard — Data Refresh")
     print("=" * 50)
 
     # Step 1: Scrape → SQLite (增量写入)
-    print("\n📥 Step 1/2: Scraping → SQLite")
+    print("\n📥 Step 1/3: Scraping → SQLite")
     run("scraper.py")
 
     # Step 2: SQLite → JSON (导出给前端)
-    print("\n📤 Step 2/2: SQLite → JSON")
+    print("\n📤 Step 2/3: SQLite → JSON")
     # Import and call db.py's export function
     sys.path.insert(0, V3)
     from db import init_db, export_all_json
     init_db()
     export_all_json()
+
+    # Step 3: Run strategy engine
+    print("\n🧠 Step 3/3: Strategy Engine")
+    run("strategy.py")
 
     print("\n✅ All done. JSON files ready in v3-dashboard/data/")
