@@ -431,13 +431,13 @@ async function showKline(code, name) {
     const prefix = code.startsWith('1.') ? 'sh' : 'sz';
     const symbol = prefix + pure;
     
-    const url = 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=' + symbol + ',day,,,120,qfq';
+    const url = 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=' + symbol + ',day,,,500,qfq';
     const resp = await fetch(url);
     const json = await resp.json();
     const klines = json.data?.[symbol]?.qfqday || [];
     if (!klines.length) { box.innerHTML = '<div class="kl-loading">暂无K线数据</div>'; return; }
 
-    box.innerHTML = '<div style="position:relative;height:420px"><canvas id="klCanvas"></canvas></div>';
+    box.innerHTML = '<div style="position:relative;height:500px"><canvas id="klCanvas"></canvas></div>';
     const canvas = document.getElementById('klCanvas');
 
     // Tencent API format: [date, open, close, high, low, volume]
@@ -474,8 +474,8 @@ async function showKline(code, name) {
         scales: {
           x: {
             type: 'time',
-            time: { unit: 'day', displayFormats: { day: 'MM/dd' } },
-            ticks: { color: '#8b949e', maxTicksLimit: 10 },
+            time: { unit: 'month', displayFormats: { month: 'yyyy/MM' } },
+            ticks: { color: '#8b949e', maxTicksLimit: 24 },
             grid: { color: 'rgba(48,54,61,0.5)' }
           },
           y: {
