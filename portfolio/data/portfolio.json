@@ -1,15 +1,15 @@
 {
-  "cash": 103328.327,
+  "cash": 87191.327,
   "initial_principal": 200000.0,
   "total_invested": 0,
   "cost_basis": 0,
-  "market_value": 96647.0,
-  "total_cost_basis": 96671.673,
-  "total_assets": 199975.327,
-  "pnl": -24.67300000000978,
-  "pnl_pct": -0.012336500000009742,
+  "market_value": 112779.0,
+  "total_cost_basis": 112808.673,
+  "total_assets": 199970.327,
+  "pnl": -29.67300000000978,
+  "pnl_pct": -0.014836500000003916,
   "monthly": 15000.0,
-  "total_fees": 24.67,
+  "total_fees": 29.67,
   "holdings": {
     "金山办公": {
       "code": "688111",
@@ -20,7 +20,7 @@
       "first_buy": "2026-07-01",
       "current_price": 221.6,
       "market_value": 22160.0,
-      "pnl": 0,
+      "pnl": 0.0,
       "score": 117
     },
     "中航沈飞": {
@@ -32,7 +32,7 @@
       "first_buy": "2026-07-01",
       "current_price": 41.28,
       "market_value": 28896.0,
-      "pnl": 0,
+      "pnl": 0.0,
       "score": 58
     },
     "中国神华": {
@@ -44,7 +44,7 @@
       "first_buy": "2026-07-01",
       "current_price": 39.48,
       "market_value": 27635.999999999996,
-      "pnl": 0,
+      "pnl": 0.0,
       "score": 50
     },
     "招商银行": {
@@ -56,8 +56,20 @@
       "first_buy": "2026-07-01",
       "current_price": 35.91,
       "market_value": 17955.0,
-      "pnl": 0,
+      "pnl": 0.0,
       "score": 50
+    },
+    "比亚迪": {
+      "code": "002594",
+      "shares": 200,
+      "avg_cost": 80.66,
+      "cost_basis": 16137.0,
+      "pool": "种子池",
+      "first_buy": "2026-07-01",
+      "current_price": 80.66,
+      "market_value": 16132.0,
+      "pnl": 0.0,
+      "score": 51
     }
   },
   "transactions": [
@@ -118,6 +130,19 @@
       "pool": "糖果池",
       "signal": "2560战法|多金叉|阻力突破",
       "score": 50
+    },
+    {
+      "date": "2026-07-01",
+      "type": "buy",
+      "stock": "比亚迪",
+      "code": "002594",
+      "shares": 200,
+      "price": 80.66,
+      "amount": 16132.0,
+      "fee": 5,
+      "pool": "种子池",
+      "signal": "2560战法|多金叉|阻力突破",
+      "score": 51
     }
   ],
   "nav_history": [
@@ -135,6 +160,14 @@
       "cash": 103328.33,
       "market_value": 96647.0,
       "pnl": -24.67,
+      "pnl_pct": -0.01
+    },
+    {
+      "date": "2026-07-01",
+      "total_assets": 199970.33,
+      "cash": 87191.33,
+      "market_value": 112779.0,
+      "pnl": -29.67,
       "pnl_pct": -0.01
     }
   ],
