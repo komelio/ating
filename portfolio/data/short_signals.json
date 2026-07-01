@@ -1,15 +1,15 @@
 {
-  "updated": "2026-07-01T18:25:42.491497",
+  "updated": "2026-07-01T18:27:10.615497",
   "mode": "eod",
-  "temp": 50,
-  "cap": 0.7,
+  "temp": 59,
+  "cap": 0.85,
   "candidates": [
     {
       "code": "000333",
       "name": "美的集团",
       "price": 77.4,
       "chg": 2.48,
-      "pe": null,
+      "pe": 13.33,
       "pool": "糖果池",
       "sector": "消费",
       "sector_score": 0.25,
@@ -32,7 +32,7 @@
       "price": 221.6,
       "chg": 4.01,
       "pe": 28.34,
-      "pool": "种子池",
+      "pool": "火箭池",
       "sector": "半导体",
       "sector_score": 0.8,
       "signals": [
@@ -53,7 +53,7 @@
       "price": 68.2,
       "chg": 2.82,
       "pe": 38.95,
-      "pool": "种子池",
+      "pool": "火箭池",
       "sector": "消费",
       "sector_score": 0.25,
       "signals": [
@@ -73,7 +73,7 @@
       "price": 41.28,
       "chg": 0.44,
       "pe": 35.98,
-      "pool": "火箭池",
+      "pool": "糖果池",
       "sector": "军工",
       "sector_score": 0.6,
       "signals": [
@@ -92,7 +92,7 @@
       "name": "五粮液",
       "price": 74.52,
       "chg": 0.7,
-      "pe": null,
+      "pe": 22.96,
       "pool": "糖果池",
       "sector": "消费",
       "sector_score": 0.25,
@@ -113,7 +113,7 @@
       "price": 41.03,
       "chg": 0.47,
       "pe": 114.21,
-      "pool": "种子池",
+      "pool": "糖果池",
       "sector": "消费",
       "sector_score": 0.25,
       "signals": [
@@ -128,32 +128,12 @@
       "ma20": 42.47
     },
     {
-      "code": "601012",
-      "name": "隆基绿能",
-      "price": 13.19,
-      "chg": 0.53,
-      "pe": null,
-      "pool": "火箭池",
-      "sector": "消费",
-      "sector_score": 0.25,
-      "signals": [
-        "尾盘突击(站上MA5,阳线,振幅5.95%)",
-        "突破回踩(回踩MA10,曾突破MA20)"
-      ],
-      "score": 53,
-      "trend": "弱势",
-      "vol_ratio": 1.28,
-      "rsi": 35.9,
-      "ma5": 12.88,
-      "ma20": 13.09
-    },
-    {
       "code": "002594",
       "name": "比亚迪",
       "price": 80.66,
       "chg": 1.2,
       "pe": 26.69,
-      "pool": "火箭池",
+      "pool": "糖果池",
       "sector": "新能源",
       "sector_score": 0.5,
       "signals": [
@@ -172,7 +152,7 @@
       "price": 26.64,
       "chg": 0.64,
       "pe": 18.06,
-      "pool": "糖果池",
+      "pool": "种子池",
       "sector": "红利",
       "sector_score": 0.45,
       "signals": [
@@ -191,7 +171,7 @@
       "price": 1193.01,
       "chg": 0.63,
       "pe": 18.03,
-      "pool": "糖果池",
+      "pool": "种子池",
       "sector": "红利",
       "sector_score": 0.45,
       "signals": [
@@ -203,6 +183,25 @@
       "rsi": 33.0,
       "ma5": 1190.84,
       "ma20": 1239.8
+    },
+    {
+      "code": "601398",
+      "name": "工商银行",
+      "price": 7.06,
+      "chg": -0.14,
+      "pe": 6.78,
+      "pool": "种子池",
+      "sector": "红利",
+      "sector_score": 0.45,
+      "signals": [
+        "突破回踩(回踩MA10,曾突破MA20)"
+      ],
+      "score": 44,
+      "trend": "空头排列",
+      "vol_ratio": 0.84,
+      "rsi": 28.3,
+      "ma5": 7.14,
+      "ma20": 7.35
     }
   ]
 }
