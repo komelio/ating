@@ -85,12 +85,13 @@ function chgT(n){return n>=0?'<span class="up">+'+fmt(n)+'%</span>':'<span class
 
 let charts={};
 const DATA={};
+const DATA_BASE='https://raw.githubusercontent.com/komelio/ating/main/portfolio/data/';
 
 async function loadAll(){
   var files=['updated','indices','stocks','portfolio','index_history','analysis_log','news','commentary'];
   await Promise.all(files.map(async function(f){
     try{
-      var r=await fetch('./data/'+f+'.json?v='+Date.now());
+      var r=await fetch(DATA_BASE+f+'.json');
       DATA[f]=await r.json();
     }catch(e){console.warn('load '+f+' fail:',e);DATA[f]=f==='stocks'?{pools:[],flat:[]}:f==='portfolio'?{}:f==='analysis_log'?[]:[]}
   }));
@@ -279,7 +280,7 @@ function showKLine(code,name){
   $('klineModal').classList.add('show');
   $('klineDaily').classList.add('active');$('klineWeekly').classList.remove('active');
   if(klineCache[code]){_deferRender(function(){renderKLine(klineCache[code])});return}
-  fetch('./data/history/'+code+'.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+  fetch(DATA_BASE+'history/'+code+'.json').then(function(r){return r.json()}).then(function(d){
     klineCache[code]=d;_deferRender(function(){renderKLine(d)});
   }).catch(function(e){alert('加载K线失败: '+e)});
 }
