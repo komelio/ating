@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>V3.1 投资仪表盘 - Mac-Hermes</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.2.1/dist/chartjs-chart-financial.min.js"></script>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--dim:#8b949e;--red:#f85149;--green:#3fb950;--blue:#58a6ff;--gold:#d2991d}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -59,6 +61,16 @@ tr:hover{background:rgba(88,166,255,.05)}
 .note{font-size:11px;color:var(--dim);text-align:center;margin-top:20px;padding:10px}
 .loading{text-align:center;padding:40px;color:var(--dim)}
 @media(max-width:768px){.chart-row,.stat-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
+.kl-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center}
+.kl-modal.show{display:flex}
+.kl-box{background:var(--card);border:1px solid var(--border);border-radius:12px;width:92vw;max-width:920px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
+.kl-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border)}
+.kl-head h3{font-size:16px;color:#fff}
+.kl-close{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer;padding:4px 8px;border-radius:4px}
+.kl-close:hover{color:#fff;background:rgba(255,255,255,.1)}
+.kl-body{padding:16px;flex:1;overflow-y:auto}
+.kl-loading{text-align:center;padding:40px;color:var(--dim)}
+tr[data-stock]{cursor:pointer}
 </style>
 </head>
 <body>
@@ -82,7 +94,13 @@ tr:hover{background:rgba(88,166,255,.05)}
   <div id="page-portfolio" class="page"></div>
   <div id="page-analysis" class="page"></div>
   <div id="page-news" class="page"></div>
-  <div class="note">V3.1 Compound Portfolio · 数据来源: 东方财富 · <span id="footer-time">--</span></div>
+  <div class="kl-modal" id="klModal" onclick="if(event.target===this)closeKline()">
+  <div class="kl-box">
+    <div class="kl-head"><h3 id="klTitle">K线图</h3><button class="kl-close" onclick="closeKline()">✕</button></div>
+    <div class="kl-body"><div class="kl-loading">加载中...</div></div>
+  </div>
+</div>
+<div class="note">V3.1 Compound Portfolio · 数据来源: 东方财富 · <span id="footer-time">--</span></div>
 </div>
 
 <script>
@@ -235,13 +253,13 @@ function render_watchlist() {
 
   let h = '<table><thead><tr>';
   WS_COLS.forEach(c => {
-    const arrow = wsSort.col===c.col ? (wsSort.dir==='asc' ? ' ▴' : ' ▾') : '';
-    h += `<th class="${c.cls}" data-col="${c.col}">${c.label}${arrow}</th>`;
+    const arrow = wsSort.col===c.key ? (wsSort.dir==='asc' ? ' ▴' : ' ▾') : '';
+    h += `<th class="${c.cls}" data-col="${c.key}">${c.label}${arrow}</th>`;
   });
   h += '</tr></thead><tbody>';
   sorted.forEach(s => {
     const cls = (s.change_pct||0) >= 0 ? 'up' : 'down';
-    h += `<tr><td>${s.code}</td><td>${s.name}</td>
+    h += `<tr data-stock="${s.code}" onclick="showKline('${s.code}','${s.name}')"><td>${s.code}</td><td>${s.name}</td>
       <td class="right ${cls}" style="font-weight:600">${fmt.price(s.price)}</td>
       <td class="right ${cls}">${fmt.pct(s.change_pct)}</td>
       <td class="right ${cls}">${s.change_amt!=null ? (s.change_amt>0?'+':'')+s.change_amt.toFixed(2) : '--'}</td>
@@ -390,6 +408,95 @@ function render_news() {
   });
   document.getElementById('page-news').innerHTML = h || '<div class="loading">暂无资讯，运行 scraper.py 后更新</div>';
 }
+
+// ── K线图 ──
+function codeToSecid(code) {
+  const pure = code.replace(/^(\d{6})\..*$/, '$1');
+  return (pure.startsWith('6') ? '1.' : '0.') + pure;
+}
+
+async function showKline(code, name) {
+  const modal = document.getElementById('klModal');
+  const title = document.getElementById('klTitle');
+  title.textContent = name + ' (' + code + ') — K线';
+  modal.classList.add('show');
+
+  const box = modal.querySelector('.kl-body');
+  box.innerHTML = '<div class="kl-loading">加载中...</div>';
+
+  try {
+    // Convert code format: 1.600519 -> sh600519, 0.000333 -> sz000333
+    const parts = code.split('.');
+    const pure = parts[1] || parts[0]; // Extract 6-digit code after the dot
+    const prefix = code.startsWith('1.') ? 'sh' : 'sz';
+    const symbol = prefix + pure;
+    
+    const url = 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=' + symbol + ',day,,,120,qfq';
+    const resp = await fetch(url);
+    const json = await resp.json();
+    const klines = json.data?.[symbol]?.qfqday || [];
+    if (!klines.length) { box.innerHTML = '<div class="kl-loading">暂无K线数据</div>'; return; }
+
+    box.innerHTML = '<div style="position:relative;height:420px"><canvas id="klCanvas"></canvas></div>';
+    const canvas = document.getElementById('klCanvas');
+
+    // Tencent API format: [date, open, close, high, low, volume]
+    const data = klines.map(k => ({
+      x: new Date(k[0]).getTime(),
+      o: +k[1], h: +k[3], l: +k[4], c: +k[2]
+    }));
+
+    const upColor = '#f85149', downColor = '#3fb950';
+    if (window._klChart) window._klChart.destroy();
+    window._klChart = new Chart(canvas, {
+      type: 'candlestick',
+      data: {
+        datasets: [{
+          label: name,
+          data: data,
+          color: { up: upColor, down: downColor, unchanged: upColor },
+          borderColor: { up: upColor, down: downColor, unchanged: upColor },
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                const d = ctx.raw;
+                return ['开:'+d.o, '高:'+d.h, '低:'+d.l, '收:'+d.c];
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'time',
+            time: { unit: 'day', displayFormats: { day: 'MM/dd' } },
+            ticks: { color: '#8b949e', maxTicksLimit: 10 },
+            grid: { color: 'rgba(48,54,61,0.5)' }
+          },
+          y: {
+            position: 'right',
+            ticks: { color: '#8b949e' },
+            grid: { color: 'rgba(48,54,61,0.5)' }
+          }
+        }
+      }
+    });
+  } catch(e) {
+    box.innerHTML = '<div class="kl-loading">K线数据加载失败: ' + e.message + '</div>';
+  }
+}
+
+function closeKline() {
+  document.getElementById('klModal').classList.remove('show');
+  if (window._klChart) { window._klChart.destroy(); window._klChart = null; }
+}
+
+document.addEventListener('keydown', function(e) { if(e.key==='Escape') closeKline(); });
 </script>
 </body>
 </html>
