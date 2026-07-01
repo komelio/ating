@@ -16,18 +16,20 @@ STRATEGY = {
     "cash_reserve": 0.20,     # 现金储备 20%
     "core_count": 3,          # 核心仓最多3只
     "tactical_count": 2,      # 机动仓最多2只
-    "stop_loss_pct": 5.0,     # 跌破买入价5%无条件止损
+    "stop_loss_pct": 8.0,     # 跌破买入价8%无条件止损（回测优化）
     "ma20_stop_days": 3,      # 跌破MA20且3日未收回止损
     "single_loss_limit": 0.02, # 单只最大亏损=总资金2%
     "daily_loss_limit": 0.03,  # 日最大亏损3%
     "weekly_loss_limit": 0.05, # 周最大亏损5%
     "profit_take_1": 10,      # +10% 卖1/3
     "profit_take_2": 20,      # +20% 再卖1/3
-    "trailing_stop": 5,       # 剩余跟踪止盈(从最高点回落5%)
-    "min_change_pct": 2.0,    # 买入最低涨幅
-    "max_change_pct": 7.0,    # 买入最高涨幅(不追涨停)
+    "trailing_stop": 8,       # 剩余跟踪止盈(从最高点回落8%)
+    "min_change_pct": -2.0,   # 买入允许回调2%（回测优化）
+    "max_change_pct": 3.0,    # 买入最高涨幅3%（不追高）
     "min_turnover": 2e8,      # 最低成交额2亿
     "max_pe": 50,             # PE上限
+    "require_ma20": True,     # 趋势过滤：收盘价>MA20
+    "require_volume": True,   # 成交量过滤：>5日均量
 }
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -69,6 +71,7 @@ def run_strategy():
         "profit_take_alerts": [],
         "buy_candidates": [],
         "position_advice": "",
+        "focus_alerts": [],
     }
     
     # 1. 检查持仓止损/止盈
@@ -82,6 +85,9 @@ def run_strategy():
     
     # 3. 仓位建议
     result["position_advice"] = _calc_position_advice(portfolio)
+    
+    # 4. 重点关注股票检查
+    result["focus_alerts"] = _check_focus_stocks(conn, portfolio)
     
     conn.close()
     
@@ -383,6 +389,116 @@ def _calc_position_advice(portfolio):
         lines.append(f"\n💡 现金充裕({cash_pct:.0f}%)，可积极建仓")
     
     return "\n".join(lines)
+
+
+def _check_focus_stocks(conn, portfolio):
+    """检查重点关注股票的买入/卖出信号"""
+    focus_path = os.path.expanduser("~/.hermes/portfolio/watchlist_focus.json")
+    if not os.path.exists(focus_path):
+        return []
+    
+    try:
+        with open(focus_path) as f:
+            focus_data = json.load(f)
+    except Exception:
+        return []
+    
+    alerts = []
+    focus_stocks = focus_data.get("focus_stocks", [])
+    
+    # 获取持仓信息
+    holdings_map = {}
+    if portfolio:
+        raw = portfolio.get("holdings", {})
+        if isinstance(raw, dict):
+            holdings_map = {h.get("name"): h for h in raw.values()}
+        elif isinstance(raw, list):
+            holdings_map = {h.get("name"): h for h in raw}
+    
+    for stock in focus_stocks:
+        code = stock.get("code")
+        name = stock.get("name")
+        alert_rules = stock.get("alert_rules", {})
+        
+        # 查询最新行情
+        em_code = ("1." if code.startswith(("6",)) else "0.") + code
+        cur = conn.execute(
+            "SELECT * FROM stock_price WHERE code=? ORDER BY fetched_at DESC LIMIT 1",
+            (em_code,)
+        )
+        row = cur.fetchone()
+        if not row:
+            continue
+        
+        stock_data = dict(row)
+        price = stock_data.get("price") or 0
+        change_pct = stock_data.get("change_pct") or 0
+        
+        if price <= 0:
+            continue
+        
+        # 检查是否持仓
+        holding = holdings_map.get(name)
+        is_held = holding and holding.get("shares", 0) > 0
+        cost = holding.get("avg_cost", 0) if holding else 0
+        
+        # 检查价格提醒
+        buy_below = alert_rules.get("buy_below", 0)
+        sell_above = alert_rules.get("sell_above", 0)
+        stop_loss = alert_rules.get("stop_loss", 0)
+        
+        # 买入信号
+        if buy_below > 0 and price <= buy_below and not is_held:
+            alerts.append({
+                "type": "FOCUS_BUY",
+                "name": name,
+                "code": code,
+                "price": price,
+                "change_pct": round(change_pct, 2),
+                "reason": f"价格¥{price:.2f}≤买入线¥{buy_below:.2f}",
+                "action": "可考虑买入",
+            })
+        
+        # 卖出信号
+        if sell_above > 0 and price >= sell_above and is_held:
+            shares = holding.get("shares", 0)
+            alerts.append({
+                "type": "FOCUS_SELL",
+                "name": name,
+                "code": code,
+                "price": price,
+                "change_pct": round(change_pct, 2),
+                "reason": f"价格¥{price:.2f}≥卖出线¥{sell_above:.2f}",
+                "action": f"可考虑卖出{shares}股",
+            })
+        
+        # 止损信号
+        if stop_loss > 0 and price <= stop_loss and is_held:
+            shares = holding.get("shares", 0)
+            alerts.append({
+                "type": "FOCUS_STOP_LOSS",
+                "name": name,
+                "code": code,
+                "price": price,
+                "change_pct": round(change_pct, 2),
+                "reason": f"价格¥{price:.2f}≤止损线¥{stop_loss:.2f}",
+                "action": f"⚠️ 立即止损{shares}股",
+            })
+        
+        # 大幅波动提醒
+        if abs(change_pct) >= 5:
+            direction = "大涨" if change_pct > 0 else "大跌"
+            alerts.append({
+                "type": "FOCUS_VOLATILE",
+                "name": name,
+                "code": code,
+                "price": price,
+                "change_pct": round(change_pct, 2),
+                "reason": f"今日{direction}{abs(change_pct):.1f}%",
+                "action": "关注异动原因",
+            })
+    
+    return alerts
 
 
 def _save_strategy_result(result):

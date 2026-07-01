@@ -118,9 +118,9 @@ def _base_analysis(session_type):
         cost = h.get("cost_price") or h.get("avg_cost") or 0
         if cur_price and cost:
             pnl_pct = (cur_price - cost) / cost * 100
-            if pnl_pct <= -5:
-                signals.append(f"🔴 {h['name']} 亏损{abs(pnl_pct):.1f}%，触发5%铁律止损")
-            elif pnl_pct <= -3:
+            if pnl_pct <= -8:
+                signals.append(f"🔴 {h['name']} 亏损{abs(pnl_pct):.1f}%，触发8%铁律止损")
+            elif pnl_pct <= -5:
                 signals.append(f"🟡 {h['name']} 亏损{abs(pnl_pct):.1f}%，接近止损线")
             elif pnl_pct >= 20:
                 signals.append(f"🎯 {h['name']} 盈利{pnl_pct:.1f}%，触发二次止盈")
