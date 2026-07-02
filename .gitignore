@@ -4,3 +4,4 @@ v3-dashboard/market.db
 refresh.log
 *.db-shm
 *.db-wal
+v3-dashboard/portfolio.db
