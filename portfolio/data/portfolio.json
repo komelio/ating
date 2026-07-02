@@ -12,7 +12,7 @@
   "total_fees": 29.67,
   "holdings": {
     "金山办公": {
-      "code": "688111",
+      "code": "sh688111",
       "shares": 100,
       "avg_cost": 221.6,
       "cost_basis": 22165.54,
@@ -24,7 +24,7 @@
       "score": 117
     },
     "中航沈飞": {
-      "code": "600760",
+      "code": "sh600760",
       "shares": 700,
       "avg_cost": 41.28,
       "cost_basis": 28903.224,
@@ -36,7 +36,7 @@
       "score": 58
     },
     "中国神华": {
-      "code": "601088",
+      "code": "sh601088",
       "shares": 700,
       "avg_cost": 39.48,
       "cost_basis": 27642.908999999996,
@@ -48,7 +48,7 @@
       "score": 50
     },
     "招商银行": {
-      "code": "600036",
+      "code": "sh600036",
       "shares": 500,
       "avg_cost": 35.91,
       "cost_basis": 17960.0,
@@ -60,7 +60,7 @@
       "score": 50
     },
     "比亚迪": {
-      "code": "002594",
+      "code": "sz002594",
       "shares": 200,
       "avg_cost": 80.66,
       "cost_basis": 16137.0,
@@ -83,7 +83,7 @@
       "date": "2026-07-01",
       "type": "buy",
       "stock": "金山办公",
-      "code": "688111",
+      "code": "sh688111",
       "shares": 100,
       "price": 221.6,
       "amount": 22160.0,
@@ -96,7 +96,7 @@
       "date": "2026-07-01",
       "type": "buy",
       "stock": "中航沈飞",
-      "code": "600760",
+      "code": "sh600760",
       "shares": 700,
       "price": 41.28,
       "amount": 28896.0,
@@ -109,7 +109,7 @@
       "date": "2026-07-01",
       "type": "buy",
       "stock": "中国神华",
-      "code": "601088",
+      "code": "sh601088",
       "shares": 700,
       "price": 39.48,
       "amount": 27635.999999999996,
@@ -122,7 +122,7 @@
       "date": "2026-07-01",
       "type": "buy",
       "stock": "招商银行",
-      "code": "600036",
+      "code": "sh600036",
       "shares": 500,
       "price": 35.91,
       "amount": 17955.0,
@@ -135,7 +135,7 @@
       "date": "2026-07-01",
       "type": "buy",
       "stock": "比亚迪",
-      "code": "002594",
+      "code": "sz002594",
       "shares": 200,
       "price": 80.66,
       "amount": 16132.0,
