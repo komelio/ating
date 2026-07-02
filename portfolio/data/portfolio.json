@@ -1,15 +1,15 @@
 {
-  "cash": 87191.327,
+  "cash": 43740.467000000004,
   "initial_principal": 200000.0,
   "total_invested": 0,
   "cost_basis": 0,
-  "market_value": 114125.0,
-  "total_cost_basis": 112808.67,
-  "total_assets": 201316.33,
-  "pnl": 1316.33,
-  "pnl_pct": 0.66,
+  "market_value": 157867.0,
+  "total_cost_basis": 156259.53,
+  "total_assets": 201607.47,
+  "pnl": 1607.47,
+  "pnl_pct": 0.8,
   "monthly": 15000.0,
-  "total_fees": 29.67,
+  "total_fees": 40.53,
   "holdings": {
     "金山办公": {
       "code": "sh688111",
@@ -66,10 +66,24 @@
       "cost_basis": 16137.0,
       "pool": "糖果池",
       "first_buy": "2026-07-01",
-      "current_price": 82.99,
-      "market_value": 16598.0,
-      "pnl": 2.89,
+      "current_price": 84.5,
+      "market_value": 16900.0,
+      "pnl": 4.76,
       "score": 51
+    },
+    "中国移动": {
+      "code": "sh600941",
+      "shares": 500,
+      "avg_cost": 86.88,
+      "cost_basis": 43450.86,
+      "pool": "种子池",
+      "first_buy": "2026-07-02",
+      "current_price": 86.88,
+      "market_value": 43440.0,
+      "pnl": 0,
+      "score": 0,
+      "adds": 0,
+      "sold_half": false
     }
   },
   "transactions": [
@@ -143,6 +157,19 @@
       "pool": "种子池",
       "signal": "2560战法|多金叉|阻力突破",
       "score": 51
+    },
+    {
+      "date": "2026-07-02",
+      "type": "buy",
+      "stock": "中国移动",
+      "code": "sh600941",
+      "shares": 500,
+      "price": 86.88,
+      "amount": 43440.0,
+      "fee": 10.86,
+      "pool": "种子池",
+      "signal": "波段建仓(区间3%)",
+      "score": 0
     }
   ],
   "nav_history": [
@@ -177,6 +204,14 @@
       "market_value": 114125.0,
       "pnl": 1316.33,
       "pnl_pct": 0.66
+    },
+    {
+      "date": "2026-07-02",
+      "total_assets": 201607.47,
+      "cash": 43740.467000000004,
+      "market_value": 157867.0,
+      "pnl": 1607.47,
+      "pnl_pct": 0.8
     }
   ],
   "up_count": 0,
