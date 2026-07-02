@@ -92,7 +92,7 @@ async function loadAll(){
   var files=['updated','indices','stocks','portfolio','index_history','analysis_log','news','commentary'];
   await Promise.all(files.map(async function(f){
     try{
-      var r=await fetch(DATA_BASE+f+'.json');
+      var r=await fetch(DATA_BASE+f+'.json?_='+Date.now());
       DATA[f]=await r.json();
     }catch(e){console.warn('load '+f+' fail:',e);DATA[f]=f==='stocks'?{pools:[],flat:[]}:f==='portfolio'?{}:f==='analysis_log'?[]:[]}
   }));
