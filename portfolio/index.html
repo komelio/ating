@@ -207,7 +207,7 @@ function renderPortfolio(){
   '</div>';
   var hld=P.holdings||{};
   if(Object.keys(hld).length>0){
-    var snaps={};S.flat&&S.flat.forEach(function(s){snaps[s.code]=s});
+    var snaps={};S.flat&&S.flat.forEach(function(s){snaps[s.code]=s;var u=s.code.replace(/^sh|^sz/,'');snaps[u]=s});
     h+='<div class="chart-box"><h4>📋 持仓明细</h4><table><thead><tr><th>标的</th><th>池</th><th>股数</th><th>均价</th><th>成本</th><th>现价</th><th>市值</th><th>盈亏</th></tr></thead><tbody>';
     for(var n in hld){
       var hd=hld[n],sn=snaps[hd.code]||{},ac=hd.avg_cost||0,cb=hd.cost_basis||0,pr=sn.price||ac,mv=hd.shares*pr,pnl=(pr-ac)*hd.shares,pnlp=ac?(pr-ac)/ac*100:0;
