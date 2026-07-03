@@ -261,7 +261,7 @@ function renderJournal(){
   var logs=DATA.analysis_log||[];
   if(!Array.isArray(logs)||logs.length===0){$('journal').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2)"><p style="font-size:48px">📝</p><p>暂无复盘记录</p><p style="font-size:12px;margin-top:8px">盯盘 cron 运行后自动写入</p></div>';return}
   var h='';
-  logs.forEach(function(l){h+='<div class="alog"><span class="al-sess al-'+(l.session||'未知')+'">'+(l.session||'--')+'</span><span class="al-ts">'+(l.ts||'')+'</span>';if(l.market_summary)h+='<div class="al-body"><b>📊 盘面:</b> '+l.market_summary+'</div>';if(l.signals)h+='<div class="al-body"><b>🚨 信号:</b> '+l.signals+'</div>';if(l.decisions)h+='<div class="al-body"><b>📋 决策:</b> '+l.decisions+'</div>';if(l.reasoning)h+='<div class="al-body"><b>💡 逻辑:</b> '+l.reasoning+'</div>';h+='</div>'});
+  logs.forEach(function(l){h+='<div class="alog"><span class="al-sess al-'+(l.session||'未知')+'">'+(l.session||'--')+'</span><span class="al-ts">'+(l.ts||'')+'</span>';if(l.market_summary)h+='<div class="al-body"><b>📊 盘面:</b> '+l.market_summary.replace(/\n/g,'<br>')+'</div>';if(l.signals)h+='<div class="al-body"><b>🚨 信号:</b> '+l.signals.replace(/\n/g,'<br>')+'</div>';if(l.decisions)h+='<div class="al-body"><b>📋 决策:</b> '+l.decisions.replace(/\n/g,'<br>')+'</div>';if(l.reasoning)h+='<div class="al-body"><b>💡 逻辑:</b> '+l.reasoning.replace(/\n/g,'<br>')+'</div>';h+='</div>'});
   $('journal').innerHTML=h;
 }
 
