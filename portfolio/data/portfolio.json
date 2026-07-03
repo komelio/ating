@@ -1,15 +1,15 @@
 {
-  "cash": 43740.467000000004,
+  "cash": 52581.831000000006,
   "initial_principal": 200000.0,
   "total_invested": 0,
   "cost_basis": 0,
-  "market_value": 158586.0,
-  "total_cost_basis": 156259.53,
-  "total_assets": 202326.47,
-  "pnl": 2326.47,
+  "market_value": 149732.0,
+  "total_cost_basis": 148188.53,
+  "total_assets": 202313.83,
+  "pnl": 2313.83,
   "pnl_pct": 1.16,
   "monthly": 15000.0,
-  "total_fees": 40.53,
+  "total_fees": 47.17,
   "holdings": {
     "金山办公": {
       "code": "sh688111",
@@ -57,24 +57,25 @@
       "cost_basis": 17960.0,
       "pool": "种子池",
       "first_buy": "2026-07-01",
-      "current_price": 36.8,
-      "market_value": 18400.0,
-      "pnl": 440.0,
+      "current_price": 36.78,
+      "market_value": 18390.0,
+      "pnl": 2.42,
       "score": 50,
       "pnl_pct": 2.45
     },
     "比亚迪": {
       "code": "sz002594",
-      "shares": 200,
+      "shares": 100,
       "avg_cost": 80.66,
-      "cost_basis": 16137.0,
+      "cost_basis": 8066.0,
       "pool": "糖果池",
       "first_buy": "2026-07-01",
-      "current_price": 88.46,
-      "market_value": 17692.0,
-      "pnl": 1555.0,
+      "current_price": 88.48,
+      "market_value": 8848.0,
+      "pnl": 9.7,
       "score": 51,
-      "pnl_pct": 9.64
+      "pnl_pct": 9.64,
+      "sold_half": true
     },
     "中国移动": {
       "code": "sh600941",
@@ -85,7 +86,7 @@
       "first_buy": "2026-07-02",
       "current_price": 87.44,
       "market_value": 43720.0,
-      "pnl": 269.14,
+      "pnl": 0.64,
       "score": 0,
       "adds": 0,
       "sold_half": false,
@@ -176,6 +177,19 @@
       "pool": "种子池",
       "signal": "波段建仓(区间3%)",
       "score": 0
+    },
+    {
+      "date": "2026-07-03",
+      "type": "sell",
+      "stock": "比亚迪",
+      "code": "sz002594",
+      "shares": 100,
+      "price": 88.48,
+      "amount": 8848.0,
+      "fee": 6.64,
+      "pool": "糖果池",
+      "signal": "波段止盈半仓+9.7%",
+      "score": 0
     }
   ],
   "nav_history": [
@@ -226,6 +240,14 @@
       "market_value": 158360.0,
       "pnl": 2100.47,
       "pnl_pct": 1.05
+    },
+    {
+      "date": "2026-07-03",
+      "total_assets": 202313.83,
+      "cash": 52581.831000000006,
+      "market_value": 149732.0,
+      "pnl": 2313.83,
+      "pnl_pct": 1.16
     }
   ],
   "up_count": 0,
