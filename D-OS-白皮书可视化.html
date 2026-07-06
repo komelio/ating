@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D-OS | 广联数科新能源门店数治化数据闭环白皮书</title>
+<style>
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg-0:#060a14; --bg-1:#0a1124; --bg-2:#0f1a35; --bg-3:#142247;
+  --blue-1:#00d4ff; --blue-2:#0099ff; --blue-3:#0066ff; --blue-deep:#003399;
+  --cyan:#00fff0; --purple:#7c3aed; --pink:#ec4899;
+  --red:#ff3b5c; --yellow:#ffb800; --green:#00d97e;
+  --text-0:#e8f0ff; --text-1:#a0b4d8; --text-2:#6b7fa0;
+  --border:rgba(0,153,255,0.15); --border-hi:rgba(0,212,255,0.4);
+  --glow:0 0 20px rgba(0,212,255,0.3);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif;
+  background:var(--bg-0);color:var(--text-0);line-height:1.7;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.container{max-width:1280px;margin:0 auto;padding:0 40px}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-1)}
+::-webkit-scrollbar-thumb{background:var(--blue-3);border-radius:3px}
+
+/* ========== NAV ========== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(6,10,20,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);height:60px;
+  display:flex;align-items:center;
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1280px;margin:0 auto;padding:0 40px}
+.nav-logo{font-size:20px;font-weight:700;letter-spacing:2px;background:linear-gradient(90deg,var(--cyan),var(--blue-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13px;color:var(--text-1);transition:color .3s}
+.nav-links a:hover{color:var(--blue-1)}
+
+/* ========== HERO ========== */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;position:relative;overflow:hidden;padding:80px 40px 40px;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg canvas{width:100%;height:100%}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,153,255,0.1);border:1px solid var(--border-hi);
+  padding:6px 18px;border-radius:30px;font-size:13px;color:var(--blue-1);
+  margin-bottom:30px;letter-spacing:1px;
+}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+.hero h1{
+  font-size:52px;font-weight:800;line-height:1.3;margin-bottom:20px;
+  background:linear-gradient(135deg,#fff 0%,var(--blue-1) 50%,var(--blue-2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{font-size:20px;color:var(--text-1);margin-bottom:16px;font-weight:300;letter-spacing:1px}
+.hero-desc{font-size:15px;color:var(--text-2);max-width:700px;margin:0 auto 40px;line-height:1.8}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.hero-stat{
+  background:rgba(15,26,53,0.6);border:1px solid var(--border);
+  padding:20px 32px;border-radius:12px;min-width:140px;backdrop-filter:blur(10px);
+  transition:all .4s;
+}
+.hero-stat:hover{border-color:var(--border-hi);transform:translateY(-4px);box-shadow:var(--glow)}
+.hero-stat .num{font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--cyan),var(--blue-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stat .label{font-size:13px;color:var(--text-2);margin-top:4px}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--text-2);font-size:12px;animation:bounce 2s infinite}
+
+/* ========== SECTION COMMON ========== */
+.section{padding:100px 0;position:relative}
+.section-head{text-align:center;margin-bottom:60px}
+.section-num{font-size:13px;color:var(--blue-2);letter-spacing:3px;font-weight:600;margin-bottom:10px}
+.section-title{font-size:36px;font-weight:700;margin-bottom:12px}
+.section-sub{font-size:16px;color:var(--text-2);max-width:700px;margin:0 auto}
+
+/* ========== SECTION 1: BUSINESS model ========== */
+.biz-flow{
+  display:flex;align-items:stretch;gap:0;flex-wrap:wrap;justify-content:center;
+  margin-top:20px;
+}
+.biz-step{
+  flex:1;min-width:160px;max-width:200px;
+  background:var(--bg-2);border:1px solid var(--border);border-radius:12px;
+  padding:24px 16px;text-align:center;position:relative;
+  transition:all .4s;
+}
+.biz-step:hover{border-color:var(--border-hi);background:var(--bg-3);transform:translateY(-4px)}
+.biz-step .icon{font-size:32px;margin-bottom:12px}
+.biz-step .step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--blue-1)}
+.biz-step .step-desc{font-size:12px;color:var(--text-2);line-height:1.5}
+.biz-arrow{
+  display:flex;align-items:center;justify-content:center;
+  width:40px;color:var(--blue-2);font-size:20px;flex-shrink:0;
+}
+.biz-roles{display:flex;gap:16px;margin-top:50px;flex-wrap:wrap;justify-content:center}
+.biz-role{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:10px;
+  padding:16px 24px;text-align:center;flex:1;min-width:180px;transition:all .3s;
+}
+.biz-role:hover{border-color:var(--border-hi);box-shadow:var(--glow)}
+.biz-role .r-icon{font-size:28px;margin-bottom:8px}
+.biz-role .r-name{font-size:14px;font-weight:600;color:var(--text-0)}
+.biz-role .r-desc{font-size:11px;color:var(--text-2);margin-top:4px}
+
+/* ========== SECTION 2: 3 STRATEGIC LAYERS ========== */
+.strategy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px}
+.strategy-card{
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));
+  border:1px solid var(--border);border-radius:16px;padding:32px;
+  position:relative;overflow:hidden;transition:all .4s;
+}
+.strategy-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-2),var(--cyan));
+}
+.strategy-card:nth-child(2)::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.strategy-card:nth-child(3)::before{background:linear-gradient(90deg,var(--green),var(--cyan))}
+.strategy-card:hover{border-color:var(--border-hi);transform:translateY(-6px)}
+.strategy-card .s-num{font-size:48px;font-weight:800;color:rgba(0,153,255,0.1);position:absolute;top:16px;right:24px}
+.strategy-card .s-label{font-size:13px;color:var(--blue-1);letter-spacing:2px;margin-bottom:8px}
+.strategy-card .s-title{font-size:22px;font-weight:700;margin-bottom:20px}
+.strategy-card .s-item{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.strategy-card .s-item .s-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-2);margin-top:6px;flex-shrink:0}
+.strategy-card .s-item .s-text{font-size:13px;color:var(--text-1)}
+.strategy-card .s-item .s-text strong{color:var(--text-0);font-weight:600}
+.strategy-card:nth-child(2) .s-dot{background:var(--purple)}
+.strategy-card:nth-child(3) .s-dot{background:var(--green)}
+
+/* Monitor lines */
+.monitor-lines{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.monitor-line{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:12px;
+  padding:24px;transition:all .3s;
+}
+.monitor-line:hover{border-color:var(--border-hi)}
+.monitor-line .ml-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.monitor-line .ml-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.monitor-line:nth-child(1) .ml-icon{background:rgba(0,153,255,0.15);color:var(--blue-1)}
+.monitor-line:nth-child(2) .ml-icon{background:rgba(124,58,237,0.15);color:var(--purple)}
+.monitor-line:nth-child(3) .ml-icon{background:rgba(0,217,126,0.15);color:var(--green)}
+.monitor-line .ml-title{font-size:15px;font-weight:600}
+.monitor-line .ml-tag{font-size:11px;color:var(--text-2)}
+.monitor-line .ml-items{display:flex;flex-direction:column;gap:8px}
+.monitor-line .ml-item{font-size:12px;color:var(--text-1);padding:6px 0;border-bottom:1px solid rgba(0,153,255,0.06)}
+.monitor-line .ml-item:last-child{border-bottom:none}
+
+/* ========== SECTION 3: 4 AGENTS ========== */
+.agents-container{position:relative;margin-top:20px}
+.agents-svg{width:100%;height:auto;display:block}
+.agent-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.agent-card{
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));
+  border:1px solid var(--border);border-radius:16px;padding:28px 24px;
+  position:relative;overflow:hidden;transition:all .4s;cursor:pointer;
+}
+.agent-card:hover{border-color:var(--border-hi);transform:translateY(-6px);box-shadow:var(--glow)}
+.agent-card .a-badge{
+  position:absolute;top:0;right:0;background:var(--blue-3);
+  color:#fff;font-size:11px;padding:4px 12px;border-radius:0 16px 0 12px;
+  font-weight:600;letter-spacing:1px;
+}
+.agent-card:nth-child(1) .a-badge{background:var(--red)}
+.agent-card:nth-child(2) .a-badge{background:var(--yellow)}
+.agent-card:nth-child(3) .a-badge{background:var(--purple)}
+.agent-card:nth-child(4) .a-badge{background:var(--green)}
+.agent-card .a-icon{font-size:36px;margin-bottom:12px}
+.agent-card .a-name{font-size:18px;font-weight:700;margin-bottom:4px}
+.agent-card .a-role{font-size:12px;color:var(--blue-1);margin-bottom:14px;letter-spacing:1px}
+.agent-card .a-desc{font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:14px}
+.agent-card .a-mech{font-size:12px;color:var(--text-1);line-height:1.7}
+.agent-card .a-mech li{list-style:none;padding-left:16px;position:relative;margin-bottom:4px}
+.agent-card .a-mech li::before{content:'▸';position:absolute;left:0;color:var(--blue-2)}
+.agent-card .a-output{
+  margin-top:14px;padding:10px 12px;background:rgba(0,153,255,0.08);
+  border-radius:8px;font-size:11px;color:var(--text-1);border-left:2px solid var(--blue-2);
+}
+
+/* ========== PDCA LOOP ========== */
+.pdca-section{display:flex;align-items:center;justify-content:center;margin-top:20px}
+.pdca-svg{max-width:700px;width:100%}
+
+/* ========== SECTION 4: 4 LAYERS ========== */
+.layers-container{display:flex;flex-direction:column;gap:24px;margin-top:20px}
+.layer-block{
+  display:grid;grid-template-columns:80px 1fr;gap:0;
+  background:var(--bg-2);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;transition:all .4s;
+}
+.layer-block:hover{border-color:var(--border-hi)}
+.layer-block .lb-left{
+  background:linear-gradient(180deg,var(--bg-3),var(--bg-2));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 0;position:relative;
+}
+.layer-block .lb-left .lb-num{font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--cyan),var(--blue-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.layer-block .lb-left .lb-lvl{font-size:11px;color:var(--text-2);writing-mode:vertical-rl;margin-top:8px;letter-spacing:2px}
+.layer-block .lb-right{padding:28px 32px}
+.layer-block .lb-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.layer-block .lb-title{font-size:20px;font-weight:700}
+.layer-block .lb-agent{
+  font-size:11px;padding:3px 10px;border-radius:20px;
+  background:rgba(0,153,255,0.12);color:var(--blue-1);border:1px solid var(--border-hi);
+}
+.layer-block:nth-child(1) .lb-agent{background:rgba(255,59,92,0.12);color:var(--red);border-color:rgba(255,59,92,0.3)}
+.layer-block:nth-child(2) .lb-agent{background:rgba(255,184,0,0.12);color:var(--yellow);border-color:rgba(255,184,0,0.3)}
+.layer-block:nth-child(3) .lb-agent{background:rgba(124,58,237,0.12);color:var(--purple);border-color:rgba(124,58,237,0.3)}
+.layer-block:nth-child(4) .lb-agent{background:rgba(0,217,126,0.12);color:var(--green);border-color:rgba(0,217,126,0.3)}
+.layer-block .lb-mech{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.layer-block .lb-item{background:var(--bg-1);border-radius:10px;padding:16px;border:1px solid rgba(0,153,255,0.06)}
+.layer-block .lb-item .li-title{font-size:13px;font-weight:600;color:var(--blue-1);margin-bottom:6px}
+.layer-block .lb-item .li-desc{font-size:12px;color:var(--text-2);line-height:1.6}
+
+/* ========== RED/YELLOW/GREEN ========== */
+.ryg-section{margin-top:20px}
+.ryg-five{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:30px}
+.ryg-five-item{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:10px;
+  padding:20px 14px;text-align:center;transition:all .3s;
+}
+.ryg-five-item:hover{border-color:var(--border-hi);transform:translateY(-3px)}
+.ryg-five-item .rf-icon{font-size:24px;margin-bottom:8px}
+.ryg-five-item .rf-name{font-size:13px;font-weight:600;color:var(--text-0);margin-bottom:4px}
+.ryg-five-item .rf-desc{font-size:11px;color:var(--text-2)}
+.ryg-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ryg-card{
+  border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;
+  transition:all .4s;
+}
+.ryg-card:hover{transform:translateY(-6px)}
+.ryg-card.green{background:linear-gradient(135deg,rgba(0,217,126,0.12),rgba(0,153,255,0.08));border:1px solid rgba(0,217,126,0.3)}
+.ryg-card.yellow{background:linear-gradient(135deg,rgba(255,184,0,0.12),rgba(255,153,0,0.08));border:1px solid rgba(255,184,0,0.3)}
+.ryg-card.red{background:linear-gradient(135deg,rgba(255,59,92,0.12),rgba(255,0,80,0.08));border:1px solid rgba(255,59,92,0.3)}
+.ryg-card .ryg-light{font-size:48px;margin-bottom:12px}
+.ryg-card .ryg-name{font-size:20px;font-weight:700;margin-bottom:8px}
+.ryg-card .ryg-desc{font-size:13px;color:var(--text-1);line-height:1.6}
+.ryg-card .ryg-action{margin-top:12px;font-size:12px;color:var(--text-2);padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
+.ryg-card.green .ryg-name{color:var(--green)}
+.ryg-card.yellow .ryg-name{color:var(--yellow)}
+.ryg-card.red .ryg-name{color:var(--red)}
+
+/* ========== ROADMAP ========== */
+.roadmap{margin-top:30px;position:relative}
+.roadmap-track{position:relative;padding-left:64px}
+.roadmap-track::before{
+  content:'';position:absolute;left:19px;top:24px;bottom:24px;width:2px;
+  background:linear-gradient(180deg,var(--red) 0%,var(--yellow) 50%,var(--green) 100%);
+  border-radius:1px;
+}
+.roadmap-phase{position:relative;margin-bottom:28px}
+.roadmap-phase:last-child{margin-bottom:0}
+.roadmap-phase .rp-marker{
+  position:absolute;left:-64px;top:0;width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;z-index:2;
+  border:3px solid var(--bg-1);background:var(--bg-0);
+}
+.roadmap-phase:nth-child(1) .rp-marker{border-color:var(--red);color:var(--red);box-shadow:0 0 16px rgba(255,59,92,0.35)}
+.roadmap-phase:nth-child(2) .rp-marker{border-color:var(--yellow);color:var(--yellow);box-shadow:0 0 16px rgba(255,184,0,0.35)}
+.roadmap-phase:nth-child(3) .rp-marker{border-color:var(--green);color:var(--green);box-shadow:0 0 16px rgba(0,217,126,0.35)}
+.roadmap-phase .rp-card{
+  background:linear-gradient(135deg,var(--bg-2),var(--bg-1));
+  border:1px solid var(--border);border-radius:14px;
+  padding:26px 30px;transition:all .4s;position:relative;overflow:hidden;
+}
+.roadmap-phase:nth-child(1) .rp-card{border-left:3px solid var(--red)}
+.roadmap-phase:nth-child(2) .rp-card{border-left:3px solid var(--yellow)}
+.roadmap-phase:nth-child(3) .rp-card{border-left:3px solid var(--green)}
+.roadmap-phase .rp-card:hover{border-color:var(--border-hi);transform:translateX(6px)}
+.rp-card .rp-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.rp-card .rp-phase{font-size:12px;letter-spacing:2px;font-weight:700}
+.roadmap-phase:nth-child(1) .rp-phase{color:var(--red)}
+.roadmap-phase:nth-child(2) .rp-phase{color:var(--yellow)}
+.roadmap-phase:nth-child(3) .rp-phase{color:var(--green)}
+.rp-card .rp-stage{font-size:12px;color:var(--text-2);padding:2px 10px;border-radius:20px;background:rgba(255,255,255,0.05)}
+.rp-card .rp-title{font-size:19px;font-weight:700;margin-bottom:8px}
+.rp-card .rp-desc{font-size:13px;color:var(--text-1);line-height:1.7;margin-bottom:14px}
+.rp-card .rp-tags{display:flex;gap:8px;flex-wrap:wrap}
+.rp-card .rp-tag{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(0,153,255,0.1);color:var(--text-1);border:1px solid rgba(0,153,255,0.08)}
+
+/* ========== ORG OPTIMIZE ========== */
+.org-section{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.org-card{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:16px;
+  padding:28px;transition:all .3s;
+}
+.org-card:hover{border-color:var(--border-hi)}
+.org-card .oc-title{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.org-card .oc-title .oc-icon{font-size:24px}
+.org-card .oc-list{display:flex;flex-direction:column;gap:12px}
+.org-card .oc-item{font-size:13px;color:var(--text-1);padding:12px;background:var(--bg-1);border-radius:8px;line-height:1.6}
+.org-card .oc-item strong{color:var(--blue-1)}
+
+/* ========== FOOTER ========== */
+.footer{
+  padding:60px 40px;text-align:center;
+  border-top:1px solid var(--border);background:var(--bg-1);
+}
+.footer .ft-logo{font-size:24px;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--blue-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.footer p{font-size:13px;color:var(--text-2);margin-bottom:4px}
+
+/* ========== ANIMATIONS ========== */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dash{to{stroke-dashoffset:-20}}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:1024px){
+  .strategy-grid,.monitor-lines,.agent-cards,.ryg-cards{grid-template-columns:repeat(2,1fr)}
+  .ryg-five{grid-template-columns:repeat(3,1fr)}
+  .org-section{grid-template-columns:1fr}
+  .roadmap-track{padding-left:56px}
+  .roadmap-track::before{left:15px}
+  .roadmap-phase .rp-marker{left:-56px;width:32px;height:32px;font-size:12px}
+}
+@media(max-width:768px){
+  .container{padding:0 20px}
+  .hero h1{font-size:32px}
+  .hero-sub{font-size:16px}
+  .section{padding:60px 0}
+  .section-title{font-size:26px}
+  .strategy-grid,.monitor-lines,.agent-cards,.ryg-cards,.layer-block .lb-mech{grid-template-columns:1fr}
+  .ryg-five{grid-template-columns:repeat(2,1fr)}
+  .layer-block{grid-template-columns:60px 1fr}
+  .biz-flow{flex-direction:column}
+  .biz-arrow{transform:rotate(90deg);width:100%;height:30px}
+  .roadmap-track{padding-left:48px}
+  .roadmap-track::before{left:13px}
+  .roadmap-phase .rp-marker{left:-48px;width:28px;height:28px;font-size:11px}
+  .roadmap-phase .rp-card{padding:20px}
+  .roadmap-phase .rp-card:hover{transform:none}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">D-OS</div>
+    <div class="nav-links">
+      <a href="#biz">业务全景</a>
+      <a href="#strategy">战略盯防</a>
+      <a href="#agents">智能体协作</a>
+      <a href="#layers">四层闭环</a>
+      <a href="#ryg">红黄绿店</a>
+      <a href="#roadmap">演进路线</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"><canvas id="heroCanvas"></canvas></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="dot"></span> AI-AGENT 驱动 · 数治化数据闭环系统</div>
+    <h1>广联数科新能源门店<br>"数治化"数据闭环白皮书</h1>
+    <p class="hero-sub">D-OS — Digital Operating System</p>
+    <p class="hero-desc">基于多智能体协作网络，构建"看数-定标-下策略-派任务-看效果"的数字化 PDCA 闭环，逐步接替人工自动决策，达成减员增效的组织数治目标</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">4</div><div class="label">AI 智能体协作</div></div>
+      <div class="hero-stat"><div class="num">5</div><div class="label">核心管理角色</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="label">盯防线 × 数仓线</div></div>
+      <div class="hero-stat"><div class="num">90→70</div><div class="label">人效优化目标</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">向下滚动探索 ▼</div>
+</section>
+
+<!-- ===== SECTION 1: BUSINESS ===== -->
+<section class="section" id="biz">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">01 / BUSINESS PANORAMA</div>
+      <h2 class="section-title">业务全景与核心痛点</h2>
+      <p class="section-sub">广联数科与新能源 4S 店签订业务兜底协议，通过驻店销售在交付环节切入，转化延保及安心包等高利润服务产品</p>
+    </div>
+
+    <div class="biz-flow reveal">
+      <div class="biz-step">
+        <div class="icon">🚗</div>
+        <div class="step-title">新能源 4S 店</div>
+        <div class="step-desc">签订业务兜底协议</div>
+      </div>
+      <div class="biz-arrow">→</div>
+      <div class="biz-step">
+        <div class="icon">👤</div>
+        <div class="step-title">驻店销售</div>
+        <div class="step-desc">派驻现场，新车交付切入</div>
+      </div>
+      <div class="biz-arrow">→</div>
+      <div class="biz-step">
+        <div class="icon">📋</div>
+        <div class="step-title">新车讲解</div>
+        <div class="step-desc">车主交付环节切入服务</div>
+      </div>
+      <div class="biz-arrow">→</div>
+      <div class="biz-step">
+        <div class="icon">📦</div>
+        <div class="step-title">产品转化</div>
+        <div class="step-desc">延保 / 安心包 / 电池延保</div>
+      </div>
+      <div class="biz-arrow">→</div>
+      <div class="biz-step">
+        <div class="icon">💰</div>
+        <div class="step-title">订单分成</div>
+        <div class="step-desc">实现业务盈利闭环</div>
+      </div>
+    </div>
+
+    <div class="biz-roles reveal" style="margin-top:50px">
+      <div class="biz-role"><div class="r-icon">🎯</div><div class="r-name">驻店销售</div><div class="r-desc">一线执行层</div></div>
+      <div class="biz-role"><div class="r-icon">👷</div><div class="r-name">区域主管</div><div class="r-desc">中端带教层</div></div>
+      <div class="biz-role"><div class="r-icon">📊</div><div class="r-name">区域经理</div><div class="r-desc">区域经营层</div></div>
+      <div class="biz-role"><div class="r-icon">🖥️</div><div class="r-name">线上运营</div><div class="r-desc">策略大脑层</div></div>
+      <div class="biz-role"><div class="r-icon">⚖️</div><div class="r-name">HRBP</div><div class="r-desc">组织风控层</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: STRATEGY ===== -->
+<section class="section" id="strategy" style="background:var(--bg-1)">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">02 / STRATEGIC FRAMEWORK</div>
+      <h2 class="section-title">战略全景：盯谁 · 盯什么 · 怎么盯</h2>
+      <p class="section-sub">打破层级"传声筒"弊端，建立三层递进的标准化盯防体系</p>
+    </div>
+
+    <div class="strategy-grid reveal">
+      <div class="strategy-card">
+        <div class="s-num">01</div>
+        <div class="s-label">LAYER 01</div>
+        <div class="s-title">盯 谁</div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>驻店销售</strong>：监控日常行为、合规性及单兵产值</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>区域主管</strong>：短板门店带教转化率、工单执行质量</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>区域经理</strong>：门店毛利率、兜底线对冲风险</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>线上运营</strong>：大盘数据，一键采纳策略建议</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>HRBP</strong>：接收人效数据，支撑汰换调岗决策</div></div>
+      </div>
+      <div class="strategy-card">
+        <div class="s-num">02</div>
+        <div class="s-label">LAYER 02</div>
+        <div class="s-title">盯 什 么</div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>零售行为盯防（盯人）</strong>：考勤打卡、Pad 活跃度、录音合规、不在岗异常</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>2B 策略盯防（盯店）</strong>：交车数、流量异动、客单价、动态毛利率、兜底安全距离</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>2C 策略盯防（盯客）</strong>：触客数、整车延保渗透率、安心包渗透率、电池延保渗透率</div></div>
+      </div>
+      <div class="strategy-card">
+        <div class="s-num">03</div>
+        <div class="s-label">LAYER 03</div>
+        <div class="s-title">怎 么 盯</div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>多智能体协作网络</strong>：四大 Agent 跨岗位协同</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text">自动化跑批诊断 → 多维下钻归因</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text">→ 任务工单执行 → 效果采集与采纳</div></div>
+        <div class="s-item"><div class="s-dot"></div><div class="s-text"><strong>核心逻辑链</strong>：看数 → 做策略建议 → 看反馈 → 再看效果</div></div>
+      </div>
+    </div>
+
+    <div class="monitor-lines reveal">
+      <div class="monitor-line">
+        <div class="ml-head">
+          <div class="ml-icon">🔍</div>
+          <div><div class="ml-title">零售行为盯防</div><div class="ml-tag">盯人 · 一线执行层</div></div>
+        </div>
+        <div class="ml-items">
+          <div class="ml-item">考勤打卡数据（上下班打卡）</div>
+          <div class="ml-item">Pad 数字化系统活跃度</div>
+          <div class="ml-item">现场谈客录音合规性</div>
+          <div class="ml-item">打卡不在岗等异常行为</div>
+        </div>
+      </div>
+      <div class="monitor-line">
+        <div class="ml-head">
+          <div class="ml-icon">🏪</div>
+          <div><div class="ml-title">2B 策略盯防</div><div class="ml-tag">盯店 · 区域经营层</div></div>
+        </div>
+        <div class="ml-items">
+          <div class="ml-item">门店新车交车数</div>
+          <div class="ml-item">流量异动（5 交车仅 1 触客）</div>
+          <div class="ml-item">综合客单价 & 动态毛利率</div>
+          <div class="ml-item">门店与兜底红线安全距离</div>
+        </div>
+      </div>
+      <div class="monitor-line">
+        <div class="ml-head">
+          <div class="ml-icon">🤝</div>
+          <div><div class="ml-title">2C 策略盯防</div><div class="ml-tag">盯客 · 产品渗透层</div></div>
+        </div>
+        <div class="ml-items">
+          <div class="ml-item">实际触客数</div>
+          <div class="ml-item">整车延保渗透率</div>
+          <div class="ml-item">安心包延保渗透率</div>
+          <div class="ml-item">新能源电池延保渗透率</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: 4 AGENTS ===== -->
+<section class="section" id="agents">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">03 / MULTI-AGENT NETWORK</div>
+      <h2 class="section-title">四大 AI-Agent 协作网络</h2>
+      <p class="section-sub">通过四大智能体跨岗位协同，完成从发现异常到自动执行、最终复盘的完整数据闭环</p>
+    </div>
+
+    <!-- Agent Collaboration SVG -->
+    <div class="agents-container reveal">
+      <svg class="agents-svg" viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gradA" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff3b5c;stop-opacity:0.2"/>
+            <stop offset="100%" style="stop-color:#ff3b5c;stop-opacity:0.05"/>
+          </linearGradient>
+          <linearGradient id="gradB" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffb800;stop-opacity:0.2"/>
+            <stop offset="100%" style="stop-color:#ffb800;stop-opacity:0.05"/>
+          </linearGradient>
+          <linearGradient id="gradC" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:0.2"/>
+            <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.05"/>
+          </linearGradient>
+          <linearGradient id="gradD" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00d97e;stop-opacity:0.2"/>
+            <stop offset="100%" style="stop-color:#00d97e;stop-opacity:0.05"/>
+          </linearGradient>
+          <filter id="glow1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- Connecting arrows -->
+        <path d="M 290 210 Q 360 210 430 210" stroke="#0099ff" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrow)" opacity="0.6">
+          <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 590 210 Q 660 210 730 210" stroke="#0099ff" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrow)" opacity="0.6">
+          <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 890 210 Q 960 210 1030 210" stroke="#0099ff" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrow)" opacity="0.6">
+          <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1s" repeatCount="indefinite"/>
+        </path>
+        
+        <!-- Feedback loop -->
+        <path d="M 1090 150 Q 1090 60 600 60 Q 110 60 110 150" stroke="#00d97e" stroke-width="1.5" fill="none" stroke-dasharray="4,4" opacity="0.4" marker-end="url(#arrowG)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <text x="600" y="42" text-anchor="middle" fill="#00d97e" font-size="12" opacity="0.7">效果反馈 · 反哺强化 AI 模型</text>
+
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3" fill="#0099ff" opacity="0.8"/>
+          </marker>
+          <marker id="arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3" fill="#00d97e" opacity="0.6"/>
+          </marker>
+        </defs>
+
+        <!-- Agent A -->
+        <g transform="translate(30, 100)">
+          <rect width="240" height="220" rx="16" fill="url(#gradA)" stroke="#ff3b5c" stroke-width="1" opacity="0.9"/>
+          <circle cx="120" cy="50" r="28" fill="rgba(255,59,92,0.15)" stroke="#ff3b5c" stroke-width="1.5"/>
+          <text x="120" y="58" text-anchor="middle" fill="#ff3b5c" font-size="24" font-weight="bold">A</text>
+          <text x="120" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">门店诊断智能体</text>
+          <text x="120" y="128" text-anchor="middle" fill="#a0b4d8" font-size="11">Agent A · 数据诊断层</text>
+          <line x1="40" y1="145" x2="200" y2="145" stroke="rgba(255,59,92,0.2)" stroke-width="1"/>
+          <text x="120" y="168" text-anchor="middle" fill="#6b7fa0" font-size="11">五比分析跑批</text>
+          <text x="120" y="188" text-anchor="middle" fill="#6b7fa0" font-size="11">红黄绿店动态分类</text>
+          <text x="120" y="208" text-anchor="middle" fill="#ff3b5c" font-size="11" font-weight="bold">→ 看数据</text>
+        </g>
+
+        <!-- Agent B -->
+        <g transform="translate(330, 100)">
+          <rect width="240" height="220" rx="16" fill="url(#gradB)" stroke="#ffb800" stroke-width="1" opacity="0.9"/>
+          <circle cx="120" cy="50" r="28" fill="rgba(255,184,0,0.15)" stroke="#ffb800" stroke-width="1.5"/>
+          <text x="120" y="58" text-anchor="middle" fill="#ffb800" font-size="24" font-weight="bold">B</text>
+          <text x="120" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">决策归因智能体</text>
+          <text x="120" y="128" text-anchor="middle" fill="#a0b4d8" font-size="11">Agent B · 短板归因层</text>
+          <line x1="40" y1="145" x2="200" y2="145" stroke="rgba(255,184,0,0.2)" stroke-width="1"/>
+          <text x="120" y="168" text-anchor="middle" fill="#6b7fa0" font-size="11">多维指标下钻</text>
+          <text x="120" y="188" text-anchor="middle" fill="#6b7fa0" font-size="11">匹配历史决策库</text>
+          <text x="120" y="208" text-anchor="middle" fill="#ffb800" font-size="11" font-weight="bold">→ 做策略建议</text>
+        </g>
+
+        <!-- Agent C -->
+        <g transform="translate(630, 100)">
+          <rect width="240" height="220" rx="16" fill="url(#gradC)" stroke="#7c3aed" stroke-width="1" opacity="0.9"/>
+          <circle cx="120" cy="50" r="28" fill="rgba(124,58,237,0.15)" stroke="#7c3aed" stroke-width="1.5"/>
+          <text x="120" y="58" text-anchor="middle" fill="#7c3aed" font-size="24" font-weight="bold">C</text>
+          <text x="120" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">策略执行智能体</text>
+          <text x="120" y="128" text-anchor="middle" fill="#a0b4d8" font-size="11">Agent C · 任务派发层</text>
+          <line x1="40" y1="145" x2="200" y2="145" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
+          <text x="120" y="168" text-anchor="middle" fill="#6b7fa0" font-size="11">工单自动推送</text>
+          <text x="120" y="188" text-anchor="middle" fill="#6b7fa0" font-size="11">线下强留痕审计</text>
+          <text x="120" y="208" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="bold">→ 看反馈</text>
+        </g>
+
+        <!-- Agent D -->
+        <g transform="translate(930, 100)">
+          <rect width="240" height="220" rx="16" fill="url(#gradD)" stroke="#00d97e" stroke-width="1" opacity="0.9"/>
+          <circle cx="120" cy="50" r="28" fill="rgba(0,217,126,0.15)" stroke="#00d97e" stroke-width="1.5"/>
+          <text x="120" y="58" text-anchor="middle" fill="#00d97e" font-size="24" font-weight="bold">D</text>
+          <text x="120" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">效果追踪智能体</text>
+          <text x="120" y="128" text-anchor="middle" fill="#a0b4d8" font-size="11">Agent D · 效果采集层</text>
+          <line x1="40" y1="145" x2="200" y2="145" stroke="rgba(0,217,126,0.2)" stroke-width="1"/>
+          <text x="120" y="168" text-anchor="middle" fill="#6b7fa0" font-size="11">短长期效果追踪</text>
+          <text x="120" y="188" text-anchor="middle" fill="#6b7fa0" font-size="11">人效看板反哺</text>
+          <text x="120" y="208" text-anchor="middle" fill="#00d97e" font-size="11" font-weight="bold">→ 再看效果</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Agent Detail Cards -->
+    <div class="agent-cards reveal">
+      <div class="agent-card">
+        <div class="a-badge">AGENT A</div>
+        <div class="a-icon">🔬</div>
+        <div class="a-name">门店诊断智能体</div>
+        <div class="a-role">数据诊断 · 看数据</div>
+        <div class="a-desc">解决"哪些门店存在异常"的敏锐感知问题，打破人工导表周度出数的滞后模式</div>
+        <ul class="a-mech">
+          <li>比历史：对比单店历史各周期曲线</li>
+          <li>比兜底线：计算兜底风险对冲倒计时</li>
+          <li>比行业：同等规模同业态均值对比</li>
+          <li>比领先者：Top 5 销冠店天花板差距</li>
+          <li>比区域/同城/同车型细分对比</li>
+        </ul>
+        <div class="a-output">输出：红黄绿门店报表 + 兜底风险预警报表</div>
+      </div>
+      <div class="agent-card">
+        <div class="a-badge">AGENT B</div>
+        <div class="a-icon">🧠</div>
+        <div class="a-name">决策归因智能体</div>
+        <div class="a-role">短板归因 · 做策略建议</div>
+        <div class="a-desc">对红黄店进行"多维钻取"，厘清业绩下滑底层真因，匹配策略模板输出建议</div>
+        <ul class="a-mech">
+          <li>业务维度下钻：延保/安心包/电池延保拆解</li>
+          <li>车型维度下钻：特定车型话术普及分析</li>
+          <li>人员行为交叉校验：ASR + LLM 智能质检</li>
+          <li>考勤/提单/Pad 活跃度交叉比对</li>
+          <li>区分"能力短板"vs"态度问题"</li>
+        </ul>
+        <div class="a-output">输出：自动化策略报告 + 历史决策库匹配建议</div>
+      </div>
+      <div class="agent-card">
+        <div class="a-badge">AGENT C</div>
+        <div class="a-icon">📦</div>
+        <div class="a-name">策略执行智能体</div>
+        <div class="a-role">任务派发 · 看反馈</div>
+        <div class="a-desc">将管理策略自动转化为系统内"策略分发与执行闭环链"，消除信息传声筒问题</div>
+        <ul class="a-mech">
+          <li>智能工单自动推送至 App 端</li>
+          <li>支持一键采纳或自动派发</li>
+          <li>带教强留痕：门店定位 + 录音上传</li>
+          <li>AI 智能质检带教录音内容</li>
+          <li>结果关联绑定：订单号/通关考试</li>
+        </ul>
+        <div class="a-output">输出：闭环工单 + 数字化留痕审计记录</div>
+      </div>
+      <div class="agent-card">
+        <div class="a-badge">AGENT D</div>
+        <div class="a-icon">📈</div>
+        <div class="a-name">效果追踪智能体</div>
+        <div class="a-role">效果采集 · 再看效果</div>
+        <div class="a-desc">工单执行后长周期采集反馈数据，评估策略真实有效性，反哺组织决策</div>
+        <ul class="a-mech">
+          <li>3天/1周/1月短长期效果追踪</li>
+          <li>红黄店摘帽变绿监测</li>
+          <li>AI vs 人工决策吻合度比对</li>
+          <li>人员效能红黑榜</li>
+          <li>带教任务转化率评估</li>
+        </ul>
+        <div class="a-output">输出：人效看板 + 汰换调岗依据链</div>
+      </div>
+    </div>
+
+    <!-- PDCA Loop -->
+    <div class="pdca-section reveal" style="margin-top:60px">
+      <svg class="pdca-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pdcaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+            <stop offset="100%" style="stop-color:#0066ff;stop-opacity:0.1"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- Outer circle -->
+        <circle cx="300" cy="300" r="220" fill="none" stroke="rgba(0,153,255,0.1)" stroke-width="1"/>
+        <circle cx="300" cy="300" r="160" fill="none" stroke="rgba(0,153,255,0.06)" stroke-width="1" stroke-dasharray="4,4"/>
+        
+        <!-- Rotating arrows -->
+        <g transform="translate(300,300)">
+          <path d="M -180 0 A 180 180 0 0 1 0 -180" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.4" marker-end="url(#pdcaArrow)"/>
+          <path d="M 0 -180 A 180 180 0 0 1 180 0" fill="none" stroke="#0099ff" stroke-width="2" opacity="0.4" marker-end="url(#pdcaArrow)"/>
+          <path d="M 180 0 A 180 180 0 0 1 0 180" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.4" marker-end="url(#pdcaArrow)"/>
+          <path d="M 0 180 A 180 180 0 0 1 -180 0" fill="none" stroke="#00d97e" stroke-width="2" opacity="0.4" marker-end="url(#pdcaArrow)"/>
+        </g>
+        <defs>
+          <marker id="pdcaArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3" fill="#0099ff" opacity="0.6"/>
+          </marker>
+        </defs>
+        
+        <!-- Center -->
+        <circle cx="300" cy="300" r="70" fill="url(#pdcaGrad)" stroke="#00d4ff" stroke-width="1.5"/>
+        <text x="300" y="294" text-anchor="middle" fill="#00d4ff" font-size="18" font-weight="bold">PDCA</text>
+        <text x="300" y="316" text-anchor="middle" fill="#a0b4d8" font-size="11">数字化闭环</text>
+
+        <!-- Four phases -->
+        <!-- Top: 看数 -->
+        <g transform="translate(300, 120)">
+          <circle r="45" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1.5"/>
+          <text y="-8" text-anchor="middle" fill="#00d4ff" font-size="20">📊</text>
+          <text y="14" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">看 数</text>
+          <text y="32" text-anchor="middle" fill="#a0b4d8" font-size="10">Agent A 跑批诊断</text>
+        </g>
+        <!-- Right: 定标 -->
+        <g transform="translate(480, 300)">
+          <circle r="45" fill="rgba(0,153,255,0.1)" stroke="#0099ff" stroke-width="1.5"/>
+          <text y="-8" text-anchor="middle" fill="#0099ff" font-size="20">🎯</text>
+          <text y="14" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">定 标</text>
+          <text y="32" text-anchor="middle" fill="#a0b4d8" font-size="10">Agent B 归因策略</text>
+        </g>
+        <!-- Bottom: 派任务 -->
+        <g transform="translate(300, 480)">
+          <circle r="45" fill="rgba(124,58,237,0.1)" stroke="#7c3aed" stroke-width="1.5"/>
+          <text y="-8" text-anchor="middle" fill="#7c3aed" font-size="20">📋</text>
+          <text y="14" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">派任务</text>
+          <text y="32" text-anchor="middle" fill="#a0b4d8" font-size="10">Agent C 工单执行</text>
+        </g>
+        <!-- Left: 看效果 -->
+        <g transform="translate(120, 300)">
+          <circle r="45" fill="rgba(0,217,126,0.1)" stroke="#00d97e" stroke-width="1.5"/>
+          <text y="-8" text-anchor="middle" fill="#00d97e" font-size="20">📈</text>
+          <text y="14" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">看效果</text>
+          <text y="32" text-anchor="middle" fill="#a0b4d8" font-size="10">Agent D 效果追踪</text>
+        </g>
+        
+        <!-- Labels between -->
+        <text x="400" y="190" fill="#6b7fa0" font-size="10" text-anchor="middle">下策略</text>
+        <text x="400" y="420" fill="#6b7fa0" font-size="10" text-anchor="middle">看反馈</text>
+        <text x="200" y="420" fill="#6b7fa0" font-size="10" text-anchor="middle">效果采集</text>
+        <text x="200" y="190" fill="#6b7fa0" font-size="10" text-anchor="middle">再看数</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: 4 LAYERS ===== -->
+<section class="section" id="layers" style="background:var(--bg-1)">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">04 / FOUR-LAYER ANALYSIS</div>
+      <h2 class="section-title">纵深拆解：四层递进式智能分析闭环</h2>
+      <p class="section-sub">从数据诊断到组织决策，层层深入完成"发现异常 → 自动执行 → 最终复盘"的完整闭环</p>
+    </div>
+
+    <div class="layers-container">
+      <!-- Layer 1 -->
+      <div class="layer-block reveal">
+        <div class="lb-left">
+          <div class="lb-num">01</div>
+          <div class="lb-lvl">第一层</div>
+        </div>
+        <div class="lb-right">
+          <div class="lb-head">
+            <div class="lb-title">自动化数据诊断与"红黄绿店"动态跑批</div>
+            <span class="lb-agent">Agent A · 看数据</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-2)">系统每日/周自动调取底层数仓数据，对所有合作新能源门店执行全方位动态跑批模型，打破依赖人工导表、周度出数的滞后模式</p>
+          <div class="lb-mech">
+            <div class="lb-item">
+              <div class="li-title">🔍 五比分析跑批法</div>
+              <div class="li-desc">比历史 · 比兜底线 · 比行业 · 比领先者 · 比区域/同城/同车型，全方位动态扫描</div>
+            </div>
+            <div class="lb-item">
+              <div class="li-title">🚦 红黄绿动态分类</div>
+              <div class="li-desc">🟢 绿店指标健康 · 🟡 黄店趋势下滑逼近红线 · 🔴 红店触发严重信号激活归因</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 2 -->
+      <div class="layer-block reveal">
+        <div class="lb-left">
+          <div class="lb-num">02</div>
+          <div class="lb-lvl">第二层</div>
+        </div>
+        <div class="lb-right">
+          <div class="lb-head">
+            <div class="lb-title">短板多维归因与决策模板套用</div>
+            <span class="lb-agent">Agent B · 做策略建议</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-2)">Agent A 筛选出红黄店后，Agent B 随即介入进行"多维钻取"，厘清业绩下滑底层真因，给出针对性策略建议</p>
+          <div class="lb-mech">
+            <div class="lb-item">
+              <div class="li-title">🔎 多维下钻分析</div>
+              <div class="li-desc">业务维度（延保/安心包/电池延保拆解）+ 车型维度（新车型话术普及）+ 人员行为交叉校验（ASR + LLM 智能质检）</div>
+            </div>
+            <div class="lb-item">
+              <div class="li-title">📚 决策知识库套用</div>
+              <div class="li-desc">遍历历史决策记录知识库，匹配最佳策略模板。区分"能力短板"（话术带教）vs"态度问题"（风控稽查）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 3 -->
+      <div class="layer-block reveal">
+        <div class="lb-left">
+          <div class="lb-num">03</div>
+          <div class="lb-lvl">第三层</div>
+        </div>
+        <div class="lb-right">
+          <div class="lb-head">
+            <div class="lb-title">"策略任务化"全流程 PDCA 工单执行</div>
+            <span class="lb-agent">Agent C · 看反馈</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-2)">将口头化、纸面化的管理策略自动转化为系统内"策略分发与执行闭环链"，彻底消除信息传递的传声筒问题</p>
+          <div class="lb-mech">
+            <div class="lb-item">
+              <div class="li-title">📱 智能工单自动推送</div>
+              <div class="li-desc">线上运营一键采纳或自动派发，将策略瞬间转化为"帮带工单"或"风控稽查任务"，直达区域主管/HRBP App 端</div>
+            </div>
+            <div class="lb-item">
+              <div class="li-title">🔒 过程管理黑盒破解</div>
+              <div class="li-desc">带教强留痕（定位+录音上传）→ AI 智能质检（识别实质指导动作）→ 结果关联绑定（订单号/通关考试），未达标不予结单</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 4 -->
+      <div class="layer-block reveal">
+        <div class="lb-left">
+          <div class="lb-num">04</div>
+          <div class="lb-lvl">第四层</div>
+        </div>
+        <div class="lb-right">
+          <div class="lb-head">
+            <div class="lb-title">短长期效果追踪与组织决策辅助</div>
+            <span class="lb-agent">Agent D · 再看效果</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-2)">工单执行完毕后，长周期不间断采集反馈数据，评估策略方案真实有效性，直接反哺 HRBP 团队支撑减员增效</p>
+          <div class="lb-mech">
+            <div class="lb-item">
+              <div class="li-title">📊 全周期效果采集</div>
+              <div class="li-desc">3天/1周/1月关键业绩指标追踪 · 红黄店摘帽变绿监测 · AI vs 人工决策吻合度比对 · 一键采纳反哺模型</div>
+            </div>
+            <div class="lb-item">
+              <div class="li-title">🏢 组织优化决策辅助</div>
+              <div class="li-desc">人员效能红黑榜 · 带教任务转化率评估 · 汰换调岗依据链一键输出 · 支撑 90→70 人效优化目标</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: RED/YELLOW/GREEN ===== -->
+<section class="section" id="ryg">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">05 / DYNAMIC BATCH DIAGNOSIS</div>
+      <h2 class="section-title">红黄绿店动态跑批引擎</h2>
+      <p class="section-sub">五比分析法 × 门店动态分类，实现每日/周自动跑批诊断</p>
+    </div>
+
+    <div class="ryg-section reveal">
+      <h3 style="font-size:16px;color:var(--blue-1);margin-bottom:16px;text-align:center">五比分析跑批法</h3>
+      <div class="ryg-five">
+        <div class="ryg-five-item">
+          <div class="rf-icon">📅</div>
+          <div class="rf-name">比历史</div>
+          <div class="rf-desc">单店历史各周期曲线对比</div>
+        </div>
+        <div class="ryg-five-item">
+          <div class="rf-icon">🛡️</div>
+          <div class="rf-name">比兜底线</div>
+          <div class="rf-desc">真实数据 vs 兜底协议差距</div>
+        </div>
+        <div class="ryg-five-item">
+          <div class="rf-icon">🏭</div>
+          <div class="rf-name">比行业</div>
+          <div class="rf-desc">同等规模同业态均值</div>
+        </div>
+        <div class="ryg-five-item">
+          <div class="rf-icon">🏆</div>
+          <div class="rf-name">比领先者</div>
+          <div class="rf-desc">Top 5 销冠店天花板</div>
+        </div>
+        <div class="ryg-five-item">
+          <div class="rf-icon">📍</div>
+          <div class="rf-name">比区域</div>
+          <div class="rf-desc">同城/同车型细分渗透率</div>
+        </div>
+      </div>
+
+      <div class="ryg-cards">
+        <div class="ryg-card green">
+          <div class="ryg-light">🟢</div>
+          <div class="ryg-name">绿 店</div>
+          <div class="ryg-desc">各项指标健康，处于行业平均或领先线以上</div>
+          <div class="ryg-action">策略：持续监控，标杆推广</div>
+        </div>
+        <div class="ryg-card yellow">
+          <div class="ryg-light">🟡</div>
+          <div class="ryg-name">黄 店</div>
+          <div class="ryg-desc">指标出现下滑趋势，或逼近兜底红线</div>
+          <div class="ryg-action">策略：系统自动提示线上运营予以关注</div>
+        </div>
+        <div class="ryg-card red">
+          <div class="ryg-light">🔴</div>
+          <div class="ryg-name">红 店</div>
+          <div class="ryg-desc">触发严重流量浪费信号（如5中1现象）或已跌破兜底协议线</div>
+          <div class="ryg-action">策略：直接激活 Agent B 智能归因</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Org Optimize -->
+    <div class="org-section reveal">
+      <div class="org-card">
+        <div class="oc-title"><span class="oc-icon">👥</span> 人员效能红黑榜</div>
+        <div class="oc-list">
+          <div class="oc-item">综合分析驻店销售业绩与合规行为数据，生成客观人效排名</div>
+          <div class="oc-item">推出区域主管<strong>"带教任务转化率"</strong>——经带教后红黄店是否在两周内顺利变绿</div>
+          <div class="oc-item">区分"能力短板"与"态度问题"，精准定位人员优化方向</div>
+        </div>
+      </div>
+      <div class="org-card">
+        <div class="oc-title"><span class="oc-icon">📎</span> 汰换与调岗依据链</div>
+        <div class="oc-list">
+          <div class="oc-item">HRBP 执行汰换/优化/调岗时，系统<strong>一键输出</strong>完整证据链</div>
+          <div class="oc-item">包含"持续低效带教记录"与"行为不合规审计证据"</div>
+          <div class="oc-item">极大降低团队沟通成本与潜在劳动纠纷风险</div>
+          <div class="oc-item">支撑组织由 <strong>90 人优化至 70 人</strong> 的核心减员增效目标</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: ROADMAP ===== -->
+<section class="section" id="roadmap" style="background:var(--bg-1)">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">06 / IMPLEMENTATION ROADMAP</div>
+      <h2 class="section-title">落地与推进演进路线</h2>
+      <p class="section-sub">三步走演进路线，从数仓硬化到全面自动化数治</p>
+    </div>
+
+    <div class="roadmap reveal">
+      <div class="roadmap-track">
+
+        <div class="roadmap-phase">
+          <div class="rp-marker">01</div>
+          <div class="rp-card">
+            <div class="rp-head">
+              <span class="rp-phase">PHASE 01</span>
+              <span class="rp-stage">第一阶段 · 数仓硬化</span>
+            </div>
+            <h3 class="rp-title">数据大盘与指标跑批</h3>
+            <p class="rp-desc">打破人工导表，上线"红黄绿店"动态跑批引擎，实现多维指标看板实时出数与流量异动自动预警</p>
+            <div class="rp-tags">
+              <span class="rp-tag">数仓硬化</span>
+              <span class="rp-tag">动态跑批</span>
+              <span class="rp-tag">实时看板</span>
+              <span class="rp-tag">自动预警</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-phase">
+          <div class="rp-marker">02</div>
+          <div class="rp-card">
+            <div class="rp-head">
+              <span class="rp-phase">PHASE 02</span>
+              <span class="rp-stage">第二阶段 · 人机协同</span>
+            </div>
+            <h3 class="rp-title">多 Agent 灰度内测</h3>
+            <p class="rp-desc">部署四大 Agent 核心协作流。系统自动输出分析报告和策略建议，暂不自动指派，由线上运营人工比对并"一键采纳"，以此训练 AI 模型</p>
+            <div class="rp-tags">
+              <span class="rp-tag">Agent 部署</span>
+              <span class="rp-tag">人机协同</span>
+              <span class="rp-tag">一键采纳</span>
+              <span class="rp-tag">模型训练</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-phase">
+          <div class="rp-marker">03</div>
+          <div class="rp-card">
+            <div class="rp-head">
+              <span class="rp-phase">PHASE 03</span>
+              <span class="rp-stage">第三阶段 · 全自动决策</span>
+            </div>
+            <h3 class="rp-title">全面自动化数治</h3>
+            <p class="rp-desc">放开系统限制，由 Agent 协作网在监测到数据红线时，全自动完成"诊断-归因-派单-质检-追踪-淘汰"的数字化闭环，真正达成无人化智能数治目标</p>
+            <div class="rp-tags">
+              <span class="rp-tag">全自动决策</span>
+              <span class="rp-tag">无人化数治</span>
+              <span class="rp-tag">闭环运营</span>
+              <span class="rp-tag">减员增效</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="ft-logo">D-OS</div>
+  <p>广联数科新能源门店"数治化"数据闭环白皮书</p>
+  <p>AI-Agent 驱动 · 多智能体协作 · PDCA 数字化闭环 · 减员增效</p>
+  <p style="margin-top:12px;opacity:0.5">© 2026 Digital Operating System Whitepaper</p>
+</footer>
+
+<script>
+// ===== Hero Canvas - Particle Network =====
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width = rect.width;
+    H = canvas.height = rect.height;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const PCOUNT = 60;
+  for(let i=0; i<PCOUNT; i++){
+    particles.push({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+      r: Math.random()*1.5+0.5
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    
+    // Draw connections
+    for(let i=0; i<particles.length; i++){
+      for(let j=i+1; j<particles.length; j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 130){
+          ctx.strokeStyle = 'rgba(0,153,255,' + (0.15 * (1 - dist/130)) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw particles
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x < 0 || p.x > W) p.vx *= -1;
+      if(p.y < 0 || p.y > H) p.vy *= -1;
+      
+      ctx.fillStyle = 'rgba(0,212,255,0.6)';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== Scroll Reveal =====
+(function(){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
+
+// ===== Smooth Nav Active Highlight =====
+(function(){
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if(window.scrollY >= sectionTop){
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current ? 'var(--blue-1)' : '';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
